@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.Web", "helloserve.Web\helloserve.Web.csproj", "{D8159E8A-F02D-491C-A08E-49F9F00BEEBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.Common", "helloserve.Common\helloserve.Common.csproj", "{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8159E8A-F02D-491C-A08E-49F9F00BEEBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8159E8A-F02D-491C-A08E-49F9F00BEEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8159E8A-F02D-491C-A08E-49F9F00BEEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8159E8A-F02D-491C-A08E-49F9F00BEEBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
