@@ -4,15 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace helloserve.Web.Controllers
+namespace helloserve.Web
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
-        {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
-
-            return View();
+        {           
+            return View(new HomeModel());
         }
 
         public ActionResult About()

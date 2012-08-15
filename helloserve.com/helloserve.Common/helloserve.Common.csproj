@@ -45,11 +45,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context.cs" />
+    <Compile Include="Db\helloserveContext.cs" />
+    <Compile Include="Db\ContextFactory.cs" />
+    <Compile Include="Db\IEntity.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\Downloadable.cs" />
     <Compile Include="Models\Feature.cs" />
+    <Compile Include="Models\FeatureRequirement.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\News.cs" />
+    <Compile Include="Models\Requirement.cs" />
+    <Compile Include="Models\SellingPoint.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repo\BaseRepo.cs" />
+    <Compile Include="Repo\FeatureRepo.cs" />
+    <Compile Include="Repo\NewsRepo.cs" />
+    <Compile Include="Repo\UserRepo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using helloserve.Common;
 
 namespace helloserve.Web
 {
@@ -35,6 +36,9 @@ namespace helloserve.Web
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            ContextFactory<helloserveContext>.GetContextHandler = () => Settings.DB;
+            UserRepo.CheckDefaultUser();
         }
     }
 }

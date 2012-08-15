@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace helloserve.Web.Models
+namespace helloserve.Web
 {
 
     public class ChangePasswordModel

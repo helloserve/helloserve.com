@@ -1,0 +1,61 @@
+﻿@model AdminFeatureModel
+           
+@using (Html.BeginForm("SaveFeature", "Admin", FormMethod.Post, new { id = "adminFeatureForm" }))
+{
+    if (Model.Feature.FeatureID == 0)
+    {
+        <h2>
+            Add Feature</h2>
+    }
+    else
+    {
+    <h2>
+        Edit Feature</h2>
+    }
+    <div id="mainFeatureEdit">
+        <fieldset>
+            <legend>Feature Details</legend>
+            <div id="featureDetails">
+                <div>
+                    <div>ID</div>
+                    <div>@Html.DisplayFor(model=>model.Feature.FeatureID)</div>
+                    @Html.HiddenFor(model=>model.Feature.FeatureID)
+                </div>
+                <div>
+                    <div>Name</div>
+                    <div>@Html.TextBoxFor(model => model.Feature.Name)</div>
+                </div>
+                <div>
+                    <div>Description</div>
+                    <div>@Html.TextAreaFor(model => model.Feature.Description)</div>
+                </div>
+                <div>
+                    <div>Extended Description</div>
+                    <div>@Html.TextAreaFor(model => model.Feature.ExtendedDescription)</div>
+                </div>
+                <div>
+                    <div>Subdomain</div>
+                    <div>@Html.TextBoxFor(model=>model.Feature.Subdomain)</div>
+                </div>
+                <div>
+                    <div>CustomPage</div>
+                    <div>@Html.TextBoxFor(model=>model.Feature.CustomPage)</div>
+                </div>
+                <div>
+                    <div>Created Date</div>
+                    <div>@Html.DatePicker("Feature.CreatedDate", Model.Feature.CreatedDate.ToDisplayString())</div>
+                </div>
+                <div>
+                    <div>Modified Date</div>
+                    <div>@Html.DatePicker("Feature.ModifiedDate", DateTime.Now.ToDisplayString())</div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div>
+        <div class="controlDiv">
+            <input type="submit" id="SaveFeature" value="Save"/>
+            <a href="" onclick="Admin.CancelAction()">Cancel</a>
+        </div>
+    </div>
+}

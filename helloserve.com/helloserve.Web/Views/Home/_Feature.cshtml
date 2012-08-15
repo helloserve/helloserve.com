@@ -1,0 +1,16 @@
+﻿@model Feature
+<div id="Feature@(Model.FeatureID)" style="width:300px; display:inline-block; padding:10px; margin:5px; border:solid 1px;">
+    <div>
+        <div style="width: 29%; float: left">
+            <div>
+                <h2>@Model.Name</h2>
+            </div>
+            <div>@Model.CreatedDate.ToShortDateString()</div>
+        </div>
+        <div style="width: 70%; float: right; text-align: right; background-color: #aaa">
+            <img src="http://images.lazygamer.net/2012/08/20100615metalgearsolidrising.jpg" style="width: inherit;
+                height: auto" />
+        </div>
+    </div>
+    <div style="float: left; width: 50%">@Model.Description</div>
+</div>

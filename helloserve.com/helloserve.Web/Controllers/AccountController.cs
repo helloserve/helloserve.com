@@ -5,11 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using helloserve.Web.Models;
+using helloserve.Web;
+using helloserve.Common;
 
-namespace helloserve.Web.Controllers
+namespace helloserve.Web
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
 
         //
@@ -20,6 +21,18 @@ namespace helloserve.Web.Controllers
             return View();
         }
 
+        public ActionResult LogOnPartial()
+        {
+            AuthenticationModel model = new AuthenticationModel();
+            if (Request.IsAuthenticated)
+            {
+                model.Authenticated = true;
+                Settings.Current.User = UserRepo.ValidateUser(User.Identity.Name);
+            }
+
+            return PartialView("_LogOnPartial", model);
+        }
+
         //
         // POST: /Account/LogOn
 
@@ -28,9 +41,12 @@ namespace helloserve.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                User user = UserRepo.ValidateUser(model.UserName, model.Password);
+                if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    Settings.Current.User = user;
+
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -57,6 +73,7 @@ namespace helloserve.Web.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
+            Settings.Current.User = null;
 
             return RedirectToAction("Index", "Home");
         }
@@ -78,17 +95,18 @@ namespace helloserve.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
 
-                if (createStatus == MembershipCreateStatus.Success)
+                User user = UserRepo.RegisterUser(model.UserName, model.Password, model.Email);
+
+                if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                    Settings.Current.User = user;
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(createStatus));
+                    ModelState.AddModelError("", "Could not register user");
                 }
             }
 
@@ -117,11 +135,15 @@ namespace helloserve.Web.Controllers
 
                 // ChangePassword will throw an exception rather
                 // than return false in certain failure scenarios.
-                bool changePasswordSucceeded;
+                bool changePasswordSucceeded = false;
                 try
                 {
-                    MembershipUser currentUser = Membership.GetUser(User.Identity.Name, true /* userIsOnline */);
-                    changePasswordSucceeded = currentUser.ChangePassword(model.OldPassword, model.NewPassword);
+                    User user = Settings.Current.User;
+
+                    if (user == null)
+                        throw new Exception("Invalid User!");
+
+                    changePasswordSucceeded = UserRepo.ChangePassword(user.UserID, model.NewPassword);
                 }
                 catch (Exception)
                 {

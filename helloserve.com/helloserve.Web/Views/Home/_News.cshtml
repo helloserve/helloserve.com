@@ -1,0 +1,8 @@
+﻿@model News
+<div id="News@(Model.NewsID)">
+    <div>
+        <h2>@Model.Title</h2>
+    </div>
+    <div>@Model.CreatedDate.ToShortDateString()</div>
+    <div>@Model.Cut</div>
+</div>

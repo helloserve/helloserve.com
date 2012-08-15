@@ -5,3 +5,5 @@ C:\Projects\helloserve\helloserve.com\helloserve.Web\bin\EntityFramework.xml
 C:\Projects\helloserve\helloserve.com\helloserve.Web\obj\Debug\ResolveAssemblyReference.cache
 C:\Projects\helloserve\helloserve.com\helloserve.Web\obj\Debug\helloserve.Web.dll
 C:\Projects\helloserve\helloserve.com\helloserve.Web\obj\Debug\helloserve.Web.pdb
+C:\Projects\helloserve\helloserve.com\helloserve.Web\bin\helloserve.Common.dll
+C:\Projects\helloserve\helloserve.com\helloserve.Web\bin\helloserve.Common.pdb

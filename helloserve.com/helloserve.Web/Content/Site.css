@@ -233,6 +233,13 @@ table th {
 
 /* MISC  
 ----------------------------------------------------------*/
+table a, .controlDiv a
+{
+	color: #333333 !important;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 .clear {
     clear: both;
 }
