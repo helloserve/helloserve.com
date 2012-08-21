@@ -186,10 +186,6 @@ legend {
     font-weight: bold;
 }
 
-textarea {
-    min-height: 75px;
-}
-
 input[type="text"], 
 input[type="password"] {
     border: 1px solid #ccc;
@@ -251,6 +247,30 @@ table a, .controlDiv a
 nav, 
 #menucontainer {
     margin-top: 40px;
+}
+
+div.hover 
+{
+    border: solid 1px;
+    background-color: #DDD;
+}
+
+div.normal 
+{
+    border: solid 1px;
+    background-color: transparent;
+}
+
+textarea.cut
+{
+    min-height:150px;
+    min-width:500px;
+}
+
+textarea.post
+{
+    min-height:300px;
+    min-width:500px;
 }
 
 div#title {

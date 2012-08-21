@@ -16,8 +16,33 @@ namespace helloserve.Common
         public string ExtendedDescription { get; set; }
         public string Subdomain { get; set; }
         public string CustomPage { get; set; }
+        public string IndieDBLink { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
+
+        [NotMapped]
+        public string Link
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Subdomain))
+                    return FeatureID.ToString();
+                else
+                    return "http://" + Subdomain;
+            }
+        }
+
+        [NotMapped]
+        public string JSLink
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Subdomain))
+                    return FeatureID.ToString();
+                else
+                    return "'http://" + Subdomain + "'";
+            }
+        }
 
         #region IENTITY
 

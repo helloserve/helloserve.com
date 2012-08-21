@@ -1,5 +1,5 @@
 ﻿@model Feature
-<div id="Feature@(Model.FeatureID)" style="width:300px; display:inline-block; padding:10px; margin:5px; border:solid 1px;">
+<div id="Feature@(Model.FeatureID)" class="normal" style="width:300px; display:inline-block; padding:10px; margin:5px;" onclick="Home.FeatureClick(@(Model.JSLink))" onmouseover="Home.DivHover(this)" onmouseout="Home.DivNormal(this)">
     <div>
         <div style="width: 29%; float: left">
             <div>

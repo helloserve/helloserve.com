@@ -1,0 +1,55 @@
+﻿@model AdminRequirementModel
+<h2>
+    Maintain Requirements</h2>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Description
+            </th>
+            <th>
+                Link
+            </th>
+            <th>
+                Icon
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var req in Model.Requirements)
+        {
+            <tr class="requirementRow" id="requirement_@(req.RequirementID)">
+                <td>
+                    @Html.TextBox("Requirement_Description", req.Description, new { id = "req_" + req.RequirementID.ToString() + "_description" })
+                </td>
+                <td>
+                    @Html.TextBox("Requirement_Link", req.Link, new { id = "req_" + req.RequirementID.ToString() + "_link" })
+                </td>
+                <td>
+                </td>
+                <td>
+                    <a onclick="Admin.RemoveRequirement(@(req.RequirementID))">Remove</a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>@Html.TextBox("Requirement_Description_Add", "", new { id = "req_add_description" })
+            </td>
+            <td>@Html.TextBox("Requirement_Link_Add", "", new { id = "req_add_link" })
+            </td>
+            <td>
+            </td>
+            <td>
+                <input type="button" value="Add" onclick="Admin.AddRequirement()" />
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div>
+    <div class="controlDiv">
+        <input type="button" id="SaveRequirements" value="Save" onclick="Admin.SaveRequirements()" />
+        <a href="" onclick="Admin.CancelAction()">Cancel</a>
+    </div>
+</div>

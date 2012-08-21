@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using helloserve.Common;
+using helloserve.Web.Code;
 
 namespace helloserve.Web
 {
@@ -22,22 +23,30 @@ namespace helloserve.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.Add("Subdomains", new SubdomainRoutes());
+
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
+            //routes.MapRoute(
+            //    "Stingray",
+            //    "stingray.helloserve.com",
+            //    new { controller = "Feature", action = "Feature", id = 3 }
+            //);
         }
-
+        
         protected void Application_Start()
         {
+            ContextFactory<helloserveContext>.GetContextHandler = () => Settings.DB;
+
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            ContextFactory<helloserveContext>.GetContextHandler = () => Settings.DB;
             UserRepo.CheckDefaultUser();
         }
     }

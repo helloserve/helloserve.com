@@ -1,12 +1,26 @@
 ﻿@model AdminMenuModel
-
 <div id="adminFunctions" class="controlDiv">
     <div>
         <a onclick="Admin.AddFeature()">Add Feature</a>
     </div>
     <div>
-        Edit Feature @Html.DropDownList("EditFeatureList", null, new { id = "AdminEditFeatureSelection" })
-        <a onclick="Admin.EditFeature()">Go</a> 
-        <a onclick="Admin.DeleteFeature()">Delete</a>
+        Edit Feature @Html.DropDownList("EditFeatureList", null, new { id = "AdminEditFeatureSelection", onchange = "Admin.LoadFeatureStuff()" })
+        <a onclick="Admin.EditFeature()">Edit</a> | 
+        <a onclick="Admin.DeleteFeature()">Delete</a> | 
+        <a onclick="Admin.AddBlogPost()">Add Blog Post</a>
+        <div id="adminFunctionsFeatureBlogs">
+        </div>
+    </div>
+    <div>
+        <a onclick="Admin.AddNews()">Add News</a>
+    </div>
+    <div>
+        Edit News @Html.DropDownList("EditNewsList", null, new { id = "AdminEditNewsSelection", onchange = "Admin.LoadNewsStuff()" })
+        <a onclick="Admin.EditNews()">Edit</a> | 
+        <a onclick="Admin.DeleteNews()">Delete</a>
+    </div>
+    <div>
+        <br />
+        <a onclick="Admin.EditRequirements()">Maintain Requirements</a>
     </div>
 </div>

@@ -1,0 +1,20 @@
+﻿@model FeaturesModel
+<h2>
+    Features</h2>
+<div>
+    @foreach (var feature in Model.Features)
+    {
+        <div style="border:solid 1px; padding:10px">
+            @if (string.IsNullOrEmpty(feature.Subdomain))
+            {
+                <h2>@Html.ActionLink(feature.Name, "Feature", "Feature", new { id = feature.FeatureID }, null)</h2>
+            }
+            else
+            {
+                <h2><a href="@feature.Subdomain">@feature.Name</a></h2>
+            }
+            <div>@feature.ModifiedDate.ToShortDateString()</div>
+            <div>@feature.Description</div>
+        </div>
+    }
+</div>

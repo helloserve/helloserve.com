@@ -1,5 +1,5 @@
 ﻿@model News
-<div id="News@(Model.NewsID)">
+<div id="News@(Model.NewsID)" class="normal" style="margin:5px;padding:10px" onclick="Home.NewsClick(@(Model.NewsID))" onmouseover="Home.DivHover(this)" onmouseout="Home.DivNormal(this)">
     <div>
         <h2>@Model.Title</h2>
     </div>

@@ -3,23 +3,23 @@
 }
 @model HomeModel
 <h2>@ViewBag.Message</h2>
-<div style="border: 1px solid">
-    <div style="border: 1px solid; width: 49%; float:left;">
+<div>
+    <div style="width: 49%; float:left;">
     @foreach (var feature in Model.LatestFeatures)
     {
         Html.RenderPartial("_Feature", feature);
     }
     </div>
-    <div style="border: 1px solid; width: 49%; float:right">
+    <div style="width: 49%; float:right">
     @foreach (var blog in Model.LatestBlogPosts)
     {
         Html.RenderPartial("_Blog", blog);
     }
-    </div>
-    <div style="border:1px solid; clear:both">
     @foreach (var news in Model.LatestNews)
     {
         Html.RenderPartial("_News", news);
     }
+    </div>
+    <div style="clear:both">
     </div>
 </div>

@@ -32,5 +32,9 @@ namespace helloserve.Common
 
         #endregion
 
+        public void Delete()
+        {
+            base.Delete(this);
+        }
     }
 }

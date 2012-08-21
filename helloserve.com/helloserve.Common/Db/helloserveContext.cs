@@ -15,6 +15,8 @@ namespace helloserve.Common
         public DbSet<SellingPoint> SellingPoints { get; set; }
         public DbSet<Requirement> Requirements { get; set; }
         public DbSet<FeatureRequirement> FeatureRequirements { get; set; }
+        public DbSet<FeatureMedia> FeatureMediaItems { get; set; }
+        public DbSet<RelatedLink> RealtedLinks { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace helloserve.Common
     {
         [Key, Required, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
         public int FeatureRequirementID { get; internal set; }
-        public int Requirement { get; set; }
+        public int RequirementID { get; set; }
         public int FeatureID { get; set; }
 
         #region IENTITY
@@ -27,5 +27,10 @@ namespace helloserve.Common
         }
 
         #endregion
+
+        public void Delete()
+        {
+            base.Delete(this);
+        }
     }
 }

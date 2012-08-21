@@ -1,8 +1,10 @@
 ﻿@model News
-<div id="Blog@(Model.NewsID)">
+<div id="Blog@(Model.NewsID)" class="normal" style="width:300px; display:inline-block; padding:10px; margin:5px; border:solid 1px;" onclick="Home.NewsClick(@(Model.NewsID))" onmouseover="Home.DivHover(this)" onmouseout="Home.DivNormal(this)">
     <div>
-        <h2>@Model.Title</h2>
+        <span>
+            <h2>@Model.Title</h2>
+        </span>
+        <span>@Model.CreatedDate.ToShortDateString()</span>
     </div>
-    <div>@Model.CreatedDate.ToShortDateString()</div>
     <div>@Model.Cut</div>
 </div>

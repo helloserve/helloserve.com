@@ -45,7 +45,11 @@
                 "Built-In/jquery.validate.min.js",
                 "Built-In/jquery.validate.unobtrusive.min.js",
                 "Built-In/jquery.numeric.js",
-                "Built-In/json2.js")
+                "Built-In/json2.js",
+                "General.js")
+
+    @RenderSection("headScript", false)
+
     <script type="text/javascript" language="javascript">
         window.GetUrl = function (url) {
             return '@Url.Content("~/")' + url;
@@ -66,6 +70,7 @@
             <div id="menucontainer">
                 <ul id="menu">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Features", "Index", "Feature")</li>
                     @if (helloserve.Web.Settings.Current.User != null)
                     {
                         if (helloserve.Web.Settings.Current.User.Administrator)
