@@ -14,6 +14,8 @@ namespace helloserve.Common
         public string Name { get; set; }
         public string Description { get; set; }
         public string ExtendedDescription { get; set; }
+        public string MediaFolder { get; set; }
+        public int? HeaderImageID { get; set; }
         public string Subdomain { get; set; }
         public string CustomPage { get; set; }
         public string IndieDBLink { get; set; }
@@ -26,7 +28,7 @@ namespace helloserve.Common
             get
             {
                 if (string.IsNullOrEmpty(Subdomain))
-                    return FeatureID.ToString();
+                    return "/Feature/Feature/" + FeatureID.ToString();
                 else
                     return "http://" + Subdomain;
             }
@@ -41,6 +43,15 @@ namespace helloserve.Common
                     return FeatureID.ToString();
                 else
                     return "'http://" + Subdomain + "'";
+            }
+        }
+
+        [NotMapped]
+        public List<Downloadable> Downloadables
+        {
+            get
+            {
+                return DownloadableRepo.GetForFeature(FeatureID).ToList();
             }
         }
 

@@ -23,6 +23,7 @@ namespace helloserve.Web
         public List<News> BlogPosts { get; internal set; }
         public List<Media> Media { get; internal set; }
         public List<RelatedLink> RelatedLinks { get; internal set; }
+        public List<Downloadable> Downloadables { get; internal set; }
 
         public FeatureModel()
         {
@@ -35,6 +36,7 @@ namespace helloserve.Web
             BlogPosts = NewsRepo.GetBlogPosts(featureID).OrderByDescending(p=>p.CreatedDate).ToList();
             Media = MediaRepo.GetMediaForFeature(featureID).OrderByDescending(m => m.MediaID).ToList();
             RelatedLinks = RelatedLinkRepo.GetFeatureLinks(featureID).ToList();
+            Downloadables = DownloadableRepo.GetForFeature(featureID).ToList();
         }
 
         public static FeatureModel FromSubdomain(string domain)
@@ -46,6 +48,7 @@ namespace helloserve.Web
             model.BlogPosts = NewsRepo.GetBlogPosts(model.Feature.FeatureID).OrderByDescending(p => p.CreatedDate).ToList();
             model.Media = MediaRepo.GetMediaForFeature(model.Feature.FeatureID).OrderByDescending(m => m.MediaID).ToList();
             model.RelatedLinks = RelatedLinkRepo.GetFeatureLinks(model.Feature.FeatureID).ToList();
+            model.Downloadables = DownloadableRepo.GetForFeature(model.Feature.FeatureID).ToList();
 
             return model;
         }

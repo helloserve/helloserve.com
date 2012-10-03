@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 
 namespace helloserve.Common
 {
@@ -17,6 +18,35 @@ namespace helloserve.Common
         public string EmailAddress { get; set; }
         public bool ReceiveUpdates { get; set; }
         public bool Administrator { get; set; }
+        public Guid ActivationToken { get; set; }
+        public bool Activated { get; set; }
+
+        [NotMapped]
+        public string EmailMd5Hash
+        {
+            get
+            {
+                MD5 md5 = MD5.Create();
+                byte[] bytes = Encoding.Default.GetBytes(EmailAddress.Trim().ToLower());
+                bytes = md5.ComputeHash(bytes);
+
+                StringBuilder sBuilder = new StringBuilder();
+
+                // Loop through each byte of the hashed data 
+                // and format each one as a hexadecimal string.
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    sBuilder.Append(bytes[i].ToString("x2"));
+                }
+
+                return sBuilder.ToString();  // Return the hexadecimal string.
+            }
+        }
+
+        public string ResetPassword()
+        {
+            return UserRepo.ResetPassword(this);
+        }
 
         #region IENTITY
 
@@ -31,5 +61,10 @@ namespace helloserve.Common
         }
 
         #endregion
+
+        public void Delete()
+        {
+            base.Delete(this);
+        }
     }
 }

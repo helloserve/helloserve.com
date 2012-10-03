@@ -2,7 +2,7 @@
 
 @if(Request.IsAuthenticated) {
     <text>Welcome <strong>@helloserve.Web.Settings.Current.User.Username</strong>!
-    [ @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
+    [ @Html.ActionLink("Profile", "Profile", "Account") | @Html.ActionLink("Log Off", "LogOff", "Account") ]</text>
 }
 else {
     @:[ @Html.ActionLink("Log On", "LogOn", "Account") ]

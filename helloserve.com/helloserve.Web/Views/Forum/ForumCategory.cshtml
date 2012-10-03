@@ -1,0 +1,66 @@
+﻿@model ForumCategoryModel
+<h2>@Model.Forum.Name</h2>
+<h3>@Model.Category.Name</h3>
+<p>@Model.Category.Description</p>
+<br />
+<div>
+    <div>@Html.ActionLink(Model.Forum.Name, "Forum", "Forum", new { forum = Model.Forum.Name }, null) > @Model.Category.Name</div>
+    <h3>Topics</h3>
+    <div>
+        @if (Settings.Current.User == null)
+        {
+            <span>We need to know who you are before you can post</span>
+        }
+        else
+        {
+            <span>@Html.ActionLink("Create new Topic", "CreateForumTopic", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name }, null)</span>
+        }
+    </div>
+    @foreach (var topic in Model.Topics.OrderByDescending(t=>t.Topic.Sticky).ThenByDescending(t=>t.Topic.Date))
+    {
+            <br />
+            <div>
+                <div>
+                    <div style="float:left">
+                        <span style="font-weight:bolder; font-size:larger;">@Html.ActionLink(topic.Topic.Name, "ForumTopic", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = topic.Topic.ForumTopicID, page = "0" }, null)</span>
+                        @if (topic.Topic.Locked)
+                        {
+                            <span style="color:#ff5a00">■</span>
+                        }
+                        @if (topic.Topic.Sticky)
+                        {
+                            <span style="color:#00a2ff">■</span>
+                        }                        
+                        <span> - [@topic.PostCount.GetValueOrDefault() post(s)]</span>
+                    </div>
+                    @if (Settings.Current.IsAdminUser)
+                    {
+                        <div class="forumModerateLinks" style="float:left; margin:0px 0px 0px 5px;">
+                            <span class="forumModerateLinks">@Html.ActionLink("Delete", "DeleteForumTopic", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = topic.Topic.ForumTopicID }, null)
+                            @if (topic.Topic.Sticky)
+                            {
+                                <text> | </text>@Html.ActionLink("Un-stick", "StickyForumTopic", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = topic.Topic.ForumTopicID }, new { style = "color:#00a2ff" })
+                            }
+                            else
+                            {
+                                <text> | </text>@Html.ActionLink("Stick", "StickyForumTopic", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = topic.Topic.ForumTopicID }, new { style = "color:#00a2ff" })
+                            }
+                            @if (topic.Topic.Locked)
+                            {
+                                <text> | </text>@Html.ActionLink("Unlock", "LockForumTopic", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = topic.Topic.ForumTopicID }, new { style = "color:#ff5a00" })
+                            }
+                            else
+                            {
+                                <text> | </text>@Html.ActionLink("Lock", "LockForumTopic", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = topic.Topic.ForumTopicID }, new { style = "color:#ff5a00" })
+                            }
+                            </span>
+                        </div>
+                    }
+                </div>
+             @if (topic.LatestPost != null)
+             {
+                <div style="clear:both"><span>@Html.ActionLink("Latest Post", "ForumPost", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = topic.Topic.ForumTopicID, postID = topic.LatestPost.ForumPostID }, null) by @topic.LatestPost.User.Username</span></div>
+             }
+             </div>        
+    }
+</div>

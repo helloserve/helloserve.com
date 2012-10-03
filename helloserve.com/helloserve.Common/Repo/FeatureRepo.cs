@@ -51,5 +51,25 @@ namespace helloserve.Common
 
             return data;
         }
+
+        internal static Dictionary<string, int> GetMediaFolders()
+        {
+            var features = (from f in DB.Features
+                           where !string.IsNullOrEmpty(f.MediaFolder)
+                           select new
+                           {
+                               f.MediaFolder,
+                               f.FeatureID
+                           });
+
+            Dictionary<string, int> data = new Dictionary<string, int>();
+
+            foreach (var item in features)
+            {
+                data.Add(item.MediaFolder, item.FeatureID);
+            }
+
+            return data;
+        }
     }
 }

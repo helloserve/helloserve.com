@@ -2,11 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace helloserve.Common
 {
     public class UserRepo : BaseRepo<User>
     {
+        public static string GetMD5Hash(string str)
+        {
+            MD5 md5 = MD5.Create();
+            byte[] bytes = Encoding.Default.GetBytes(str);
+            bytes = md5.ComputeHash(bytes);
+            string res = Encoding.Default.GetString(bytes);
+            return res;
+        }
+
+        public static string ResetPassword(User user)
+        {
+            byte[] bytes = new byte[10];
+            Random rnd = new Random();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                bytes[i] = (byte)((int)rnd.Next(93) + 33);
+            }
+
+            string s = ASCIIEncoding.ASCII.GetString(bytes);
+            user.Password = UserRepo.GetMD5Hash(s);
+            user.Save();
+
+            return s;
+        }
+
+        public static User GetByID(int id)
+        {
+            User user = DB.Users.Where(u => u.UserID == id).SingleOrDefault();
+            return user;
+        }
+
         public static void CheckDefaultUser()
         {
             var defaultUser = (from u in DB.Users
@@ -18,10 +50,12 @@ namespace helloserve.Common
                 defaultUser = new User()
                 {
                     Username = "helloserve",
-                    Password = "win32api",
+                    Password = GetMD5Hash("win32api"),
                     EmailAddress = "helloserve@gmail.com",
                     ReceiveUpdates = false,
-                    Administrator = true
+                    Administrator = true,
+                    ActivationToken = Guid.NewGuid(),
+                    Activated = true
                 };
 
                 defaultUser.Save();
@@ -31,34 +65,51 @@ namespace helloserve.Common
 
         public static User ValidateUser(string username, string password)
         {
+            string pwd = GetMD5Hash(password);
+
             var user = (from u in DB.Users
-                        where u.Username == username && u.Password == password
+                        where u.Username == username && u.Password == pwd && u.Activated == true
                         select u).SingleOrDefault();
 
             return user;
         }
 
-        public static User ValidateUser(string username)
+        public static User ValidateUser(string username, bool activated)
         {
             var user = (from u in DB.Users
-                        where u.Username == username
+                        where u.Username == username && ((activated && u.Activated == true) || !activated)
                         select u).SingleOrDefault();
 
             return user;
         }
 
-        public static User RegisterUser(string username, string password, string email)
+        public static User RegisterUser(string username, string password, string email, bool recieveUpdates)
         {
-            User user = new User()
+            User user = UserRepo.ValidateUser(username, false);
+            if (user != null)
+                return null;
+
+            user = new User()
             {
                 Username = username,
-                Password = password,
+                Password = GetMD5Hash(password),
                 EmailAddress = email,
-                ReceiveUpdates = false,
-                Administrator = false
+                ReceiveUpdates = recieveUpdates,
+                Administrator = false,
+                ActivationToken = Guid.NewGuid(),
+                Activated = false
             };
 
             user.Save();
+
+            return user;
+        }
+
+        public static User ActivateUser(Guid guid)
+        {
+            var user = (from u in DB.Users
+                        where u.Activated == false && u.ActivationToken == guid
+                        select u).SingleOrDefault();
 
             return user;
         }
@@ -72,7 +123,7 @@ namespace helloserve.Common
             if (user == null)
                 return false;
 
-            user.Password = newPassword;
+            user.Password = GetMD5Hash(newPassword);
             user.Save();
 
             return true;

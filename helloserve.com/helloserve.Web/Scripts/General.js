@@ -8,7 +8,7 @@ var General = {
         DatePicker.toDatePickerForDateRange($("#StartDate"), $("#EndDate"), {}, {});
         DatePicker.toDatePickerForDateRange($("#DateFrom"), $("#DateTo"), {}, {});
 
-        CKEditorSetup.loadFCK(1);
+        //CKEditorSetup.loadFCK(1);
     }
 };
 
@@ -101,7 +101,8 @@ var DatePicker = {
 
 
 
-/* ------ Rish Text Editor ------- */
+/* ------ Rich Text Editor ------- */
+/*
 window.editors = new Array();
 
 var CKEditorSetup = {
@@ -247,3 +248,100 @@ var CKEditorSetup = {
     }
 
 };
+
+var slideShow = new function () {
+    this.containerID = '',
+    this.fullSource = '',
+    this.thumbSource = '',
+    this.items = [],
+    this.thumbCount = 0,
+    this.currentIndex = 0,
+    this.height = 'auto',
+    this.width = 500,
+    this.PictureSource = function (item) {
+        return this.fullSource + item;
+    },
+    this.ThumbSource = function (item) {
+        return this.thumbSource + item;
+    },
+    this.GetHtml = function () {
+        if (this.items.length < this.thumbCount)
+            this.thumbCount = this.items.length;
+
+        var bigPictureSize = '';
+        if (this.items[this.currentIndex].Width > this.items[this.currentIndex].Height) {
+            var targetWidth = 0;
+
+            if (this.items[this.currentIndex].Width > this.width) {
+                targetWidth = this.width;
+            }
+            else {
+                targetWidth = this.items[this.currentIndex].Width;
+            }
+
+            var ratio = targetWidth / this.items[this.currentIndex].Width;
+            var targetHeight = Math.round(this.items[this.currentIndex].Height * ratio);
+
+            if (targetHeight > this.height) {
+                ratio = this.height / targetHeight;
+                targetWidth = Math.round(targetWidth * ratio);
+            }
+
+            bigPictureSize = 'width="' + targetWidth + 'px" height="auto"';
+        }
+        else {
+            bigPictureSize = 'width="auto" height="' + this.height + 'px"';
+        }
+
+        var bigPicture = '<div id="mainFrame" style="position:relative; width="' + this.width + '"; height="' + this.height + '""><a onclick="slideShow.Prev()"><div style="border:solid 1px; width:20px; height:' + this.height + 'px; position:absolute"/></a><img src="' + this.PictureSource(this.items[this.currentIndex].FileName) + '" alt="' + this.items[this.currentIndex].FileName + '" ' + bigPictureSize + '><a onclick="slideShow.Next()"><div style="border:solid 1px; width:20px; height:' + this.height + 'px; left:' + (this.width - 20) + 'px; top:0px; position:absolute;"/></a></div>';
+
+        var left = '<span id="scrollLeft" style="width:15px" onclick="slideShow.Prev()">L E F T</span>';
+        var right = '<span id="scrollRight" style="width:15px" onclick="slideShow.Next()">R I G H T</span>';
+
+        var thumbs = '';
+        var index = Math.round(this.currentIndex - (this.thumbCount / 2));
+        var i = index;
+        if (i < 0)
+            i += this.items.length;
+        while (index <= Math.round(this.currentIndex + (this.thumbCount / 2))) {
+            thumbs += '<span style="padding:2px"><a onclick="slideShow.Item(' + i + ')"><img src="' + this.ThumbSource(this.items[i].FileName) + '" alt="' + this.items[i].FileName + '" height="70" width="auto" style="border:solid 1px"></a></span>';
+            index++;
+            i++;
+            if (i >= this.items.length)
+                i -= this.items.length
+        }
+        var scroller = '<div id="scroller">' + left + thumbs + right + '</div>';
+
+        var structure = '<div id="slideShow" style="width:' + this.width + 'px; height:' + this.height + 'px">' + bigPicture + scroller + '</div>';
+
+        $(this.containerID).html(structure);
+    },
+    this.Next = function () {
+        this.currentIndex++;
+        if (this.currentIndex >= this.items.length)
+            this.currentIndex -= this.items.length;
+        this.GetHtml();
+    },
+    this.Prev = function () {
+        this.currentIndex--;
+        if (this.currentIndex < 0)
+            this.currentIndex += this.items.length;
+        this.GetHtml();
+    },
+    this.Item = function (index) {
+        this.currentIndex = index;
+        this.GetHtml();
+    },
+    this.init = function (items, thumbnailCount, containerID, fullSource, thumbSource, startIndex, width, height) {
+        this.items = items;
+        this.thumbCount = thumbnailCount;
+        this.containerID = containerID;
+        this.fullSource = fullSource;
+        this.thumbSource = thumbSource;
+        this.currentIndex = startIndex;
+        this.width = width;
+        this.height = height;
+        $(containerID).html(this.GetHtml());
+    }
+};
+*/

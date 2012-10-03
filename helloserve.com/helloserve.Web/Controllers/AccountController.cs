@@ -27,7 +27,7 @@ namespace helloserve.Web
             if (Request.IsAuthenticated)
             {
                 model.Authenticated = true;
-                Settings.Current.User = UserRepo.ValidateUser(User.Identity.Name);
+                Settings.Current.User = UserRepo.ValidateUser(User.Identity.Name, true);
             }
 
             return PartialView("_LogOnPartial", model);
@@ -44,6 +44,8 @@ namespace helloserve.Web
                 User user = UserRepo.ValidateUser(model.UserName, model.Password);
                 if (user != null)
                 {
+                    LogRepo.LogForUser(user.UserID, "Logon", "Account.LogOn");
+
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     Settings.Current.User = user;
 
@@ -59,7 +61,7 @@ namespace helloserve.Web
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    ModelState.AddModelError("", "The Username or Password provided is incorrect.");
                 }
             }
 
@@ -67,15 +69,58 @@ namespace helloserve.Web
             return View(model);
         }
 
+        public ActionResult ForgotPassword(string username)
+        {
+            if (string.IsNullOrEmpty(username))
+            {
+                ModelState.AddModelError("UserName", "Please provide a UserName");
+                return PartialView("_LogOn");
+            }
+
+            User user = UserRepo.ValidateUser(username, true);
+
+            try
+            {
+                if (user != null)
+                {
+                    string newPassword = user.ResetPassword();
+                    Email.SendResetConfirmation(user, newPassword);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorRepo.LogException(ex);
+                ModelState.AddModelError("ResetEmail", "We got a problem sending you your reset password email. Please try again in a while.");
+            }
+                       
+            return PartialView("ResetPassword", user);
+        }
+
         //
         // GET: /Account/LogOff
 
         public ActionResult LogOff()
         {
+            int? userID = Settings.Current.GetUserID();
+            if (userID.HasValue)
+                LogRepo.LogForUser(userID.Value, "Logoff", "Account.LogOff");
+            else
+                ErrorRepo.LogUnknownError("Could not log off user??");
+
             FormsAuthentication.SignOut();
             Settings.Current.User = null;
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult CheckUsername(string username)
+        {
+            User user = UserRepo.ValidateUser(username, false);
+
+            if (user == null)
+                return ReturnJsonResult(false, "Valid");
+            else
+                return ReturnJsonResult(true, "Invalid");
         }
 
         //
@@ -96,22 +141,90 @@ namespace helloserve.Web
             {
                 // Attempt to register the user
 
-                User user = UserRepo.RegisterUser(model.UserName, model.Password, model.Email);
-
-                if (user != null)
+                User user = UserRepo.RegisterUser(model.UserName, model.Password, model.Email, model.ReceiveUpdates);
+                try
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    Settings.Current.User = user;
-                    return RedirectToAction("Index", "Home");
+                    if (user != null)
+                    {
+                        LogRepo.LogForUser(user.UserID, "Registered", "Account.Register");
+                        //let's send an email
+                        Email.SendActivation(user);
+                        return View("ConfirmRegister");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Could not register user");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "Could not register user");
+                    while (ex.InnerException != null)
+                        ex = ex.InnerException;
+
+                    ErrorRepo.LogException(ex);
+
+                    ModelState.AddModelError("", "My bad... something gone wrong...");
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("Register", model);
+        }
+
+        [HttpGet]
+        public ActionResult Activate(string id)
+        {
+            try
+            {
+                Guid guid = Guid.Parse(id);
+
+                User user = UserRepo.ActivateUser(guid);
+
+                if (user != null)
+                {
+                    LogRepo.LogForUser(user.UserID, "Activated", "Account.Activate");
+
+                    user.Activated = true;
+                    user.Save();
+
+                    FormsAuthentication.SetAuthCookie(user.Username, false);
+                    Settings.Current.User = user;
+
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ErrorRepo.LogControllerError(string.Format("ID {0} does not match any account", id), "Account.Activate");
+                    throw new Exception("No account found to activate.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorRepo.LogException(ex);
+                return View("ActivationError", ex);
+            }
+        }
+
+        public ActionResult Profile()
+        {
+            return View("Profile", new ProfileModel());
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult UpdateProfile(FormCollection form)
+        {
+            ProfileModel model = new ProfileModel();
+            string email = form["User.EmailAddress"];
+            model.User.EmailAddress = email;
+            bool updates = bool.Parse(form["User.ReceiveUpdates"]);
+            model.User.ReceiveUpdates = updates;
+
+            model.User.Save();
+
+            LogRepo.LogForUser(model.User.UserID, "Updated", "Account.UpdateProfile");
+
+            return Profile();
         }
 
         //
@@ -142,6 +255,8 @@ namespace helloserve.Web
 
                     if (user == null)
                         throw new Exception("Invalid User!");
+
+                    LogRepo.LogForUser(user.UserID, "Updated", "Account.ChangePassword");
 
                     changePasswordSucceeded = UserRepo.ChangePassword(user.UserID, model.NewPassword);
                 }

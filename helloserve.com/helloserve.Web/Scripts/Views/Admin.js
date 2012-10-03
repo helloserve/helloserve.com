@@ -25,27 +25,6 @@ var Admin = {
             General.init();
         });
     },
-    SaveFeature: function () {
-        var isValid = $('#adminFeatureForm').valid();
-        if (!isValid)
-            return false;
-
-        $.ajax({
-            url: $('#adminFeatureForm').attr('action'),
-            data: $('#adminFeatureForm').serialize(),
-            type: 'POST',
-            success: function (data) {
-                if (data.IsError) {
-                    $('#adminAction').html(data.Description);
-                }
-                else {
-                    $('#adminAction').hide();
-                    $('#adminFunctions').show();
-                    $('#adminFunctions').load('/Admin/AdminFunctions');
-                }
-            }
-        });
-    },
     DeleteFeature: function () {
         var featureID = $('#AdminEditFeatureSelection').val();
         if (typeof (featureID) != "string")
@@ -147,8 +126,8 @@ var Admin = {
         var requirements = [];
         $($.find('.requirementRow')).each(function () {
             var requirementID = $(this).attr('id').replace('requirement_', '');
-            var descr = $('#req_' + requirementID + '_description').val();
-            var link = $('#req_' + requirementID + '_link').val();
+            var descr = $('.req_description', this).val();
+            var link = $('.req_link', this).val();
             var req = {
                 RequirementID: parseInt(requirementID),
                 Description: descr,
@@ -168,6 +147,13 @@ var Admin = {
         });
         return false;
     },
+    EditDownloads: function () {
+        $('#adminAction').load('/Admin/EditDownloads', function () {
+            $('#adminFunctions').hide();
+            $('#adminAction').show();
+        });
+    },
+
     AddRelated: function (featureID) {
         var descr = $('#related_add_description').val();
         var link = $('#related_add_link').val();
@@ -196,9 +182,9 @@ var Admin = {
         var relateds = [];
         $($.find('.relatedRow')).each(function () {
             var relatedID = $(this).attr('id').replace('related_', '');
-            var descr = $('#related_' + relatedID + '_description').val();
-            var link = $('#related_' + relatedID + '_link').val();
-            var icon = $('#related_' + relatedID + '_icon').val();
+            var descr = $('.related_description', this).val();
+            var link = $('.related_link', this).val();
+            var icon = $('.related_icon', this).val();
             var rel = { RelatedLinkID: parseInt(relatedID),
                 FeatureID: featureID,
                 Description: descr,
@@ -217,5 +203,188 @@ var Admin = {
                 $('#featureRelated').html(result);
             }
         });
+    },
+    ScanMedia: function () {
+        var $dialog = $('<div style="background-colour:#FFF; border:solid 1px; text-align:center;vertial-align:middle"></div>').html("Scanning Media...").dialog({ autoOpen: false });
+        $dialog.dialog('open');
+        $.ajax({
+            url: "/Admin/ScanMedia",
+            type: "GET",
+            success: function (result) {
+                $dialog.dialog('close');
+                $dialog.html(result.Description);
+                $dialog.dialog('open');
+            }
+        });
+    },
+    MaintainMedia: function (elemID, folder) {
+        $(elemID).load('/Admin/MaintainMedia', { folder: folder }, function () {
+            $('#adminFunctions').hide();
+            $('#adminAction').show();
+        });
+    },
+    RefreshMedia: function (elemID, folder) {
+        $(elemID).load('/Admin/RefreshMedia', { folder: folder });
+    },
+    RemoveMedia: function (id, path) {
+        $('#adminAction').load('/Admin/RemoveMedia', { id: id, path: path });
+    },
+    AddForum: function () {
+        $('#adminAction').load('/Admin/AddForum', function () {
+            $('#adminFunctions').hide();
+            $('#adminAction').show();
+        });
+    },
+    EditForum: function () {
+        var forumID = $('#AdminEditForumSelection').val();
+        if (typeof (forumID) != "string")
+            return false;
+
+        $('#adminAction').load('/Admin/EditForum', { id: forumID }, function () {
+            $('#adminFunctions').hide();
+            $('#adminAction').show();
+        });
+    },
+    SaveForum: function () {
+        var isValid = $('#adminForumForm').valid();
+        if (!isValid)
+            return false;
+
+        $.ajax({
+            url: $('#adminForumForm').attr('action'),
+            data: $('#adminForumForm').serialize(),
+            type: 'POST',
+            success: function (data) {
+                if (data.IsError) {
+                    $('#adminAction').html(data.Description);
+                }
+                else {
+                    $('#adminAction').html(data.Description);
+                }
+            }
+        });
+
+        return false;
+    },
+    DeleteForum: function () {
+        var forumID = $('#AdminEditForumSelection').val();
+        if (typeof (forumID) != "string")
+            return false;
+
+        $('#adminAction').load('/Admin/DeleteForum', { id: forumID }, function () {
+            $('#adminAction').hide();
+            $('#adminFunctions').load('/Admin/AdminFunctions');
+        });
+    },
+    AddForumCategory: function () {
+        var forumID = $('#Forum_ForumID').val();
+
+        $('#forumCategoryAction').load('/Admin/AddForumCategory/', { forum: forumID }, function () {
+            $('#forumCategoryFunctions').hide();
+            $('#forumCategoryAction').show();
+        });
+    },
+    EditForumCategory: function () {
+        var forumID = $('#Forum_ForumID').val();
+        var categoryID = $('#AdminForumCategorySelection').val();
+        if (typeof (categoryID) != "string")
+            return false;
+
+        $('#forumCategoryAction').load('/Admin/EditForumCategory/', { forum: forumID, id: categoryID }, function () {
+            $('#forumCategoryFunctions').hide();
+            $('#forumCategoryAction').show();
+        });
+    },
+    SaveForumCategory: function () {
+        var isValid = $('#adminForumCategoryForm').valid();
+        if (!isValid)
+            return false;
+
+        var forumID = $('#Forum_ForumID').val();
+
+        $.ajax({
+            url: $('#adminForumCategoryForm').attr('action'),
+            data: $('#adminForumCategoryForm').serialize(),
+            type: 'POST',
+            success: function (data) {
+                if (data.IsError) {
+                    $('#forumCategoryAction').html(data.Description);
+                }
+                else {
+                    $('#adminAction').load('/Admin/EditForum', { id: forumID });
+                }
+            }
+        });
+
+        return false;
+    },
+    DeleteForumCategory: function () {
+        var forumID = $('#Forum_ForumID').val();
+        var categoryID = $('#AdminForumCategorySelection').val();
+        if (typeof (categoryID) != "string")
+            return false;
+
+        $('#forumCategoryFunctions').load('/Admin/DeleteForumCategory/', { forum: forumID, id: categoryID }, function () {
+            $('#adminAction').load('/Admin/EditForum', { id: forumID });
+        });
+    },
+    CancelForumCategory: function () {
+        $('#forumCategoryAction').hide();
+        $('#forumCategoryFunctions').show();
+
+        return false;
+    },
+    Users: function () {
+        $('#adminAction').load('/Admin/Users/', function () {
+            $('#adminFunctions').hide();
+            $('#adminAction').show();
+        });
+    },
+    DeleteUser: function (userid) {
+        $('#adminAction').load('/Admin/DeleteUser/', { id: userid });
+        return false;
+    },
+    SendActivation: function (userid) {
+        $('#adminAction').load('/Admin/SendActivation/', { id: userid });
+        return false;
+    },
+    ErrorLog: function () {
+        $('#adminAction').load('/Admin/ErrorLog/', function () {
+            $('#adminFunctions').hide();
+            $('#adminAction').show();
+        });
+    },
+    SystemLog: function () {
+        $.post('/Admin/SystemLog/', null, function (result) {
+            $('#adminFunctions').hide();
+            $('#adminAction').html(result);
+            $('#adminAction').show();
+            General.init();
+        });
+    },
+    FilterSystemLog: function () {
+        var filterDate = $('#Log_FilterDate').val();
+        var filterUser = $('#Log_FilterUser').val();
+        var filterMsg = $('#Log_FilterMessage').val();
+        var filterSrc = $('#Log_FilterSource').val();
+
+        var data = { Date: filterDate, UserID: filterUser, Message: filterMsg, Source: filterSrc};
+
+        $.post('/Admin/SystemLog/', data, function (result) {
+            $('#adminAction').html(result);
+            General.init();
+        });
+    },
+    LinkDownloadable: function (featureID) {
+        var dlID = $('#featureAvailableDownloadables').val();
+
+        $('#featureDownloadables').load('/Admin/LinkDownloadable', { id: dlID, featureID: featureID });
+
+        return false;
+    },
+    UnlinkDownloadable: function (id, featureID) {
+        $('#featureDownloadables').load('/Admin/UnlinkDownloadable', { id: id, featureID: featureID });
+
+        return false;
     }
 }

@@ -1,0 +1,65 @@
+﻿@model AdminForumModel
+@using (Html.BeginForm("SaveForum", "Admin", FormMethod.Post, new { id = "adminForumForm" }))
+{
+    <div>
+        @if (Model.Forum.IsNew())
+        {
+            <h2>
+                Add Forum</h2>
+        }
+        else
+        {
+            <h2>
+                Edit Forum</h2>
+        }
+        <div id="mainForumEdit">
+            <fieldset>
+                <legend>Forum Details</legend>
+                <div id="forumDetails">
+                    <div>
+                        <div>
+                            ID</div>
+                        <div>@Html.DisplayFor(model => model.Forum.ForumID)</div>
+                        @Html.HiddenFor(model => model.Forum.ForumID)
+                    </div>
+                    <div>
+                        <div>
+                            Name</div>
+                        <div>@Html.TextBoxFor(model => model.Forum.Name)</div>
+                    </div>
+                    <div>
+                        <div>
+                            Description</div>
+                        <div>@Html.TextAreaFor(model => model.Forum.Description)</div>
+                    </div>
+                    <div>
+                        <div>
+                            Is Internal</div>
+                        <div>@Html.CheckBoxFor(model => model.Forum.Internal)</div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div style="clear: both">
+            <div class="controlDiv">
+                <input type="submit" id="SaveForum" value="Save" onclick="return Admin.SaveForum()" />
+                <a href="" onclick="Admin.CancelAction()">Cancel</a>
+            </div>
+        </div>
+    </div>
+}
+@if (!Model.Forum.IsNew())
+{
+    <hr />
+    <div id="forumCategoryFunctions" class="controlDiv">
+        <div>
+            <a onclick="Admin.AddForumCategory()">Add Category</a></div>
+        <div>
+            Edit Category @Html.DropDownList("ForumCategoryList", null, new { id = "AdminForumCategorySelection" })
+            <a onclick="Admin.EditForumCategory()">Edit</a> <a onclick="Admin.DeleteForumCategory()">
+                Delete</a>
+        </div>
+    </div>
+    <div id="forumCategoryAction">
+    </div>
+}

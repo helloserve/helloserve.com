@@ -15,6 +15,7 @@ namespace helloserve.Common
         public string Title { get; set; }
         public string Cut { get; set; }
         public string Post { get; set; }
+        public int? HeaderImageID { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
 

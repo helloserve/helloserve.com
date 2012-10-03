@@ -12,7 +12,11 @@ namespace helloserve.Common
         [Required, Key, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
         public int MediaID { get; internal set; }
         public int MediaType { get; set; }
+        public string FileName { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
         public string Location { get; set; }
+        public DateTime DateAdded { get; set; }
 
         #region IENTITY
 
@@ -28,5 +32,9 @@ namespace helloserve.Common
 
         #endregion
 
+        public void Delete()
+        {
+            base.Delete(this);
+        }
     }
 }

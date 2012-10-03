@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using helloserve.Web;
 using helloserve.Common;
+using System.IO;
+using System.Configuration;
 
 namespace helloserve.Web
 {
@@ -311,6 +313,15 @@ namespace helloserve.Web
             return null;
         }
 
+        public ActionResult EditDownloads()
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.EditDownloads - What?");
+
+            AdminDownloadsModel model = new AdminDownloadsModel();
+            return PartialView("_Downloads", model);
+        }
+
         public ActionResult AddRelated(RelatedLink related)
         {
             if (!Settings.Current.IsAdminUser)
@@ -360,6 +371,299 @@ namespace helloserve.Web
             }
 
             return PartialView("_FeatureRelated", model);
+        }
+
+        public ActionResult MediaPage()
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.MediaPage - What?");
+
+            return View(new AdminMediaModel(string.Empty));
+        }
+
+        public ActionResult ScanMedia()
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.ScanMedia - What?");
+
+            //perform a scan
+            string path = ConfigurationManager.AppSettings["MediaPath"];
+            int newCount = MediaRepo.Scan(path);
+
+            return ReturnJsonResult(false, string.Format("Media Scan complete - found {0} new media items", newCount));
+        }
+
+        public ActionResult AddMedia(FormCollection form)
+        {
+            return View("Admin", new AdminMenuModel());
+        }
+
+        public ActionResult MaintainMedia(string folder)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.MaintainMedia - What?");
+
+            AdminMediaModel model = new AdminMediaModel(folder);
+            return PartialView("_MediaMaintain", model);
+        }
+
+        public ActionResult RefreshMedia(string folder)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.RefreshMedia - What?");
+
+            AdminMediaModel model = new AdminMediaModel(folder);
+            return PartialView("_MediaMaintainItems", model);
+        }
+
+        public ActionResult RemoveMedia(string id, string path)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.RemoveMedia - What?");
+
+            int mediaID = 0;
+            if (int.TryParse(id, out mediaID))
+            {
+                AdminMediaModel model = new AdminMediaModel(path);
+                model.RemoveMedia(mediaID);
+
+                return PartialView("_MediaMaintain", model);
+            }
+
+            ErrorRepo.LogControllerError("Could not parse media ID", "Admin.RemoveMedia");
+            return null;
+        }
+
+        public ActionResult AddForum()
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.AddForum - What?");
+
+            return PartialView("_Forum", new AdminForumModel());
+        }
+
+        public ActionResult EditForum(string id)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.EditForum - What?");
+
+            int forumID = 0;
+            if (int.TryParse(id, out forumID))
+            {
+                return PartialView("_Forum", new AdminForumModel(forumID));
+            }
+
+            ErrorRepo.LogControllerError("Could not parse forum ID", "Admin.EditForum");
+            return null;
+        }
+
+        public ActionResult SaveForum(FormCollection form)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.SaveForum - What?");
+
+            int forumID = 0;
+            AdminForumModel model;
+            int.TryParse(form["Forum.ForumID"], out forumID);
+
+            if (forumID == 0)
+                model = new AdminForumModel();
+            else
+                model = new AdminForumModel(forumID);
+
+            TryUpdateModel<Forum>(model.Forum, "Forum");
+            try
+            {
+                model.Forum.Save();
+                return ReturnJsonResult(false, this.RenderPartialView("_Forum", model));
+            }
+            catch (Exception ex)
+            {
+                ErrorRepo.LogException(ex);
+                return ReturnJsonException(ex, ex.Message);
+            }
+        }
+
+        public ActionResult DeleteForum(string id)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.DeleteForum - What?");
+
+            int forumID = 0;
+            if (int.TryParse(id, out forumID))
+            {
+                AdminForumModel model = new AdminForumModel(forumID);
+                model.Forum.Delete();
+            }
+
+            ErrorRepo.LogControllerError("Could not parse forum ID", "Admin.DeleteForum");
+
+            return null;
+        }
+
+        public ActionResult AddForumCategory(string forum)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.AddForumCategory - What?");
+
+            int forumID = 0;
+            if (int.TryParse(forum, out forumID))
+            {
+                return PartialView("_ForumCategory", new AdminForumCategoryModel(forumID));
+            }
+
+            ErrorRepo.LogControllerError("Could not parse forum ID", "Admin.AddForumCategory");
+
+            return null;
+        }
+
+        public ActionResult EditForumCategory(string forum, string id)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.EditForumCategory - What?");
+
+            int forumID = 0;
+            int forumCategoryID = 0;
+
+            if (int.TryParse(forum, out forumID))
+            {
+                if (int.TryParse(id, out forumCategoryID))
+                {
+                    return PartialView("_ForumCategory", new AdminForumCategoryModel(forumID, forumCategoryID));
+                }
+            }
+
+            ErrorRepo.LogControllerError("Could not parse forum ID or forum Category ID", "Admin.EditForumCategory");
+
+            return null;
+        }
+
+        public ActionResult SaveForumCategory(FormCollection form)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.SaveForumCategory - What?");
+
+            int forumID = int.Parse(form["Category.ForumID"]);
+            int forumCategoryID = int.Parse(form["Category.ForumCategoryID"]);
+
+            AdminForumCategoryModel model;
+
+            if (forumCategoryID == 0)
+                model = new AdminForumCategoryModel(forumID);
+            else
+                model = new AdminForumCategoryModel(forumID, forumCategoryID);
+
+            TryUpdateModel<ForumCategory>(model.Category, "Category");
+
+            try
+            {
+                model.Category.Save();
+                return ReturnJsonResult(false, "");
+            }
+            catch (Exception ex)
+            {
+                ErrorRepo.LogException(ex);
+                return ReturnJsonException(ex, ex.Message);
+            }
+        }
+
+        public ActionResult DeleteForumCategory(string forum, string id)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.EditForumCategory - What?");
+
+            int forumID = 0;
+            int forumCategoryID = 0;
+
+            if (int.TryParse(forum, out forumID))
+            {
+                if (int.TryParse(id, out forumCategoryID))
+                {
+                    AdminForumCategoryModel model = new AdminForumCategoryModel(forumID, forumCategoryID);
+                    model.Category.Delete();
+                }
+            }
+
+            ErrorRepo.LogControllerError("Could not parse forum ID or forum Category ID", "Admin.DeleteForumCategory");
+            return null;
+        }
+
+        public ActionResult Users()
+        {
+            AdminUsersModel model = new AdminUsersModel();
+
+            return PartialView("_Users", model);
+        }
+
+        public ActionResult DeleteUser(int id)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.DeleteUser - What?");
+
+            User user = UserRepo.GetByID(id);
+            user.Delete();
+
+            return Users();
+        }
+
+        public ActionResult SendActivation(int id)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.SendActication - What?");
+
+            User user = UserRepo.GetByID(id);
+            try
+            {
+                Email.SendActivation(user);
+            }
+            catch (Exception ex)
+            {
+                while (ex.InnerException != null)
+                    ex = ex.InnerException;
+
+                ErrorRepo.LogException(ex);
+            }
+
+            return Users();
+        }
+
+        public ActionResult ErrorLog()
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.SendActication - What?");
+
+            AdminErrorModel model = new AdminErrorModel();
+            return PartialView("_ErrorLog", model);
+        }
+
+        [HttpPost]
+        public ActionResult SystemLog(AdminLogFilterModel filter)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.SytemLog - What?");
+
+            AdminLogModel model = new AdminLogModel(filter);
+            return PartialView("_SystemLog", model);
+        }
+
+        public ActionResult LinkDownloadable(int id, int featureID)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.LinkDownloadable - What?");
+
+            AdminFeatureDownloadableModel model = new AdminFeatureDownloadableModel(featureID);
+            model.LinkDownloadable(id);
+            return PartialView("_FeatureDownloads", model);
+        }
+
+        public ActionResult UnlinkDownloadable(int id, int featureID)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.UnlinkDownloadable - What?");
+
+            AdminFeatureDownloadableModel model = new AdminFeatureDownloadableModel(featureID);
+            model.UnlinkDownloabable(id);
+            return PartialView("_FeatureDownloads", model);
         }
     }
 }

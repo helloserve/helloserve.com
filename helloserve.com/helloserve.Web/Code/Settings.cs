@@ -75,6 +75,34 @@ namespace helloserve.Web
             }
         }
 
+        public static List<Forum> Forums
+        {
+            get
+            {
+                return ForumRepo.GetAll().ToList();
+            }
+        }
+
+        public int ForumPages
+        {
+            get
+            {
+                if (helloserve.Web.ThreadScope.Current != null)
+                {
+                    return int.Parse(helloserve.Web.ThreadScope.Current["ForumPages"] as string);
+                }
+                else
+                    return int.Parse((string)G("ForumPages"));
+            }
+            set
+            {
+                if (helloserve.Web.ThreadScope.Current != null)
+                    helloserve.Web.ThreadScope.Current["ForumPages"] = value.ToString();
+                else
+                    S("ForumPages", value.ToString());
+            }
+        }
+
         public static Settings Current
         {
             get
@@ -88,8 +116,12 @@ namespace helloserve.Web
                 else
                 {
                     Settings.Init();
-
-                    return HttpContext.Current.Session["Settings"] as Settings;
+                    
+                    Settings current = HttpContext.Current.Session["Settings"] as Settings;
+                    
+                    current.ForumPages = int.Parse(ConfigurationManager.AppSettings["ForumPages"]);
+                    
+                    return current;
                 }
             }
         }
@@ -134,6 +166,13 @@ namespace helloserve.Web
         //    }
         //}
 
+        public int? GetUserID()
+        {
+            if (Current.User != null)
+                return Current.User.UserID;
+            else
+                return null;
+        }
 
         public User User
         {

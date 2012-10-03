@@ -3,71 +3,81 @@ The base color for this template is #5c87b2. If you'd like
 to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
-body {
+body
+{
     background-color: #5c87b2;
     font-size: .85em;
-    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
     color: #696969;
 }
 
-a:link {
-    color: #034af3;
+a:link
+{
+    color: #555555;
     text-decoration: underline;
 }
 
-a:visited {
-    color: #505abc;
+a:visited
+{
+    color: #000000;
 }
 
-a:hover {
-    color: #1d60ff;
+a:hover
+{
+    color: #333333;
     text-decoration: none;
 }
 
-a:active {
-    color: #12eb87;
+a:active
+{
+    color: #000000;
 }
 
-p, ul {
+p, ul
+{
     margin-bottom: 20px;
     line-height: 1.6em;
 }
 
-header,
-footer,
-nav,
-section {
+header, footer, nav, section
+{
     display: block;
 }
 
 /* HEADINGS   
 ----------------------------------------------------------*/
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6
+{
     font-size: 1.5em;
     color: #000;
 }
 
-h1 {
+h1
+{
     font-size: 2em;
     padding-bottom: 0;
     margin-bottom: 0;
 }
 
-h2 {
+h2
+{
     padding: 0 0 10px 0;
 }
 
-h3 {
+h3
+{
     font-size: 1.2em;
 }
 
-h4 {
+h4
+{
     font-size: 1.1em;
 }
 
-h5, h6 {
+h5, h6
+{
     font-size: 1em;
 }
 
@@ -76,20 +86,24 @@ h5, h6 {
 
 /* you can specify a greater or lesser percentage for the 
 page width. Or, you can specify an exact pixel width. */
-.page {
+.page
+{
     width: 90%;
     margin-left: auto;
     margin-right: auto;
 }
 
-header, #header {
+header, #header
+{
     position: relative;
     margin-bottom: 0px;
     color: #000;
     padding: 0;
+    height: 50px;
 }
 
-header h1, #header h1 {
+header h1, #header h1
+{
     font-weight: bold;
     padding: 5px 0;
     margin: 0;
@@ -100,18 +114,19 @@ header h1, #header h1 {
     text-shadow: 1px 1px 2px #111;
 }
 
-#main {
+#main
+{
     padding: 30px 30px 15px 30px;
     background-color: #fff;
-    border-radius: 4px 0 0 0;
-    -webkit-border-radius: 4px 0 0 0;
-    -moz-border-radius: 4px 0 0 0;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
 }
 
-footer, 
-#footer {
+footer, #footer
+{
     background-color: #fff;
-    color: #999;
+    color: #555;
     padding: 10px 0;
     text-align: center;
     line-height: normal;
@@ -124,70 +139,151 @@ footer,
 
 /* TAB MENU   
 ----------------------------------------------------------*/
-ul#menu {
-    border-bottom: 1px #5C87B2 solid;
-    padding: 0 0 2px;
-    position: relative;
-    margin: 0;
-    text-align: right;
-}
-
-ul#menu li {
-    display: inline;
-    list-style: none;
-}
-
-ul#menu li#greeting {
+div.menu
+{
+    text-align: center;
     padding: 10px 20px;
+    margin: 0px 2px;
     font-weight: bold;
     text-decoration: none;
     line-height: 2.8em;
-    color: #fff;
-}
-
-ul#menu li a {
-    padding: 10px 20px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
+    background-color: White;
     border-radius: 4px 4px 0 0;
+    border: 1px solid black;
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
+    float: right;
+    width: 50px;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+    z-index: 1500;
 }
 
-ul#menu li a:hover {
-    background-color: #fff;
+div.menu a
+{
     text-decoration: none;
 }
 
-ul#menu li a:active {
-    background-color: #a6e2a6;
-    text-decoration: none;
+div.menu:hover
+{
+    border-style: solid solid none;
 }
 
-ul#menu li.selected a {
-    background-color: #fff;
-    color: #000;
+div.dropButton
+{
+    display: none;
+    background-color: White;
+    border: 1px solid black;
+    padding: 10px 0px 0px 11px;
+    margin: 0px 0px 0px -21px;
+    z-index: 500;
+    width: 150px;
+    top: 19px;
+    text-align: left;
 }
 
+div.dropButton ul
+{
+    list-style: none outside none;
+    line-height: 1.6em;
+    margin: 0px 0px 10px -20px;
+}
+
+div.dropButton li
+{
+}
+
+
+div.menu:hover .dropButton
+{
+    display: block;
+}
+
+div.forumPager
+{
+    width: 5em;
+    float: right;
+    padding: 2px 2px 2px 2px;
+    margin:0px 2px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+}
+      
+div.forumPagerEmpty
+{
+    width: 5em;
+    float: right;
+    padding: 2px 2px 2px 2px;
+    margin:0px 2px;
+    text-align: center;
+    border:1px solid white;
+}
+
+div.forumPager a
+{
+    text-decoration:none;
+    cursor: pointer;
+}
+
+div.forumModerateLinks
+{
+    padding:2px 4px; 
+    margin: -4px 0px 0px 0px; 
+    border:1px solid black; 
+    border-radius: 4px 4px 4px 4px; 
+    -webkit-border-radius: 4px 4px 4px 4px; 
+    -moz-border-radius: 4px 4px 4px 4px;    
+}
+
+.forumModerateLinks a
+{
+    text-decoration:none;
+    cursor: pointer;
+}
+
+span.forumUser
+{
+    color:#55AAFF;
+    font-size:larger;
+}
+
+span.forumPostDetails
+{
+    font-size:smaller;
+    padding:0px 15px;
+}
+
+span.invalid
+{
+    color:Red;
+}
+
+span.valid
+{
+    color:Green;
+}
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
-fieldset {
+fieldset
+{
     border: 1px solid #ddd;
     padding: 0 1.4em 1.4em 1.4em;
     margin: 0 0 1.5em 0;
 }
 
-legend {
+legend
+{
     font-size: 1.2em;
     font-weight: bold;
 }
 
-input[type="text"], 
-input[type="password"] {
+input[type="text"], input[type="password"]
+{
     border: 1px solid #ccc;
     padding: 2px;
     font-size: 1.2em;
@@ -195,14 +291,16 @@ input[type="password"] {
     width: 200px;
 }
 
-select {
+select
+{
     border: 1px solid #ccc;
     padding: 2px;
     font-size: 1.2em;
     color: #444;
 }
 
-input[type="submit"] {
+input[type="submit"]
+{
     font-size: 1.2em;
     padding: 5px;
 }
@@ -210,17 +308,20 @@ input[type="submit"] {
 /* TABLE
 ----------------------------------------------------------*/
 
-table {
+table
+{
     border: solid 1px #e8eef4;
     border-collapse: collapse;
 }
 
-table td {
+table td
+{
     padding: 5px;
     border: solid 1px #e8eef4;
 }
 
-table th {
+table th
+{
     padding: 6px 5px;
     text-align: left;
     background-color: #e8eef4;
@@ -231,121 +332,168 @@ table th {
 ----------------------------------------------------------*/
 table a, .controlDiv a
 {
-	color: #333333 !important;
-	text-decoration: underline;
-	cursor: pointer;
+    color: #333333 !important;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
-.clear {
+.clear
+{
     clear: both;
 }
 
-.error {
+.error
+{
     color: Red;
 }
 
-nav, 
-#menucontainer {
+nav, #menucontainer
+{
     margin-top: 40px;
+    text-align: right;
 }
 
-div.hover 
+div.contentBlock
 {
+    display: inline-block;
+    padding: 0px 0px 0px 0px;
+    margin: 2px 2px 2px 5px;
+    min-width: 300px;
+    max-width: 600px;
+    background-color: transparent;
+}
+
+div.contentBlock:hover
+{
+    display: inline-block;
+    padding: 9px;
+    margin: 5px;
+    min-width: 300px;
+    max-width: 600px;
     border: solid 1px;
     background-color: #DDD;
 }
 
-div.normal 
+div.featureBlock
 {
-    border: solid 1px;
+    display: inline-block;
+    padding: 10px;
+    margin: 5px;
+    min-width: 300px;
+    max-width: 600px;
     background-color: transparent;
+}
+
+div.featureBlock:hover
+{
+    display: inline-block;
+    padding: 9px;
+    margin: 5px;
+    min-width: 300px;
+    max-width: 600px;
+    border: solid 1px;
+    background-color: #DDD;
 }
 
 textarea.cut
 {
-    min-height:150px;
-    min-width:500px;
+    min-height: 150px;
+    min-width: 500px;
 }
 
 textarea.post
 {
-    min-height:300px;
-    min-width:500px;
+    min-height: 300px;
+    min-width: 500px;
 }
 
-div#title {
+div#title
+{
     display: block;
     float: left;
     text-align: left;
 }
 
-#logindisplay {
+#logindisplay
+{
+    float: right;
+    width: 200px;
     font-size: 1.1em;
-    display: block;
     text-align: right;
     margin: 10px;
     color: White;
 }
 
-#logindisplay a:link {
+#logindisplay a:link
+{
     color: white;
     text-decoration: underline;
 }
 
-#logindisplay a:visited {
+#logindisplay a:visited
+{
     color: white;
     text-decoration: underline;
 }
 
-#logindisplay a:hover {
+#logindisplay a:hover
+{
     color: white;
     text-decoration: none;
 }
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error {
+.field-validation-error
+{
     color: #ff0000;
 }
 
-.field-validation-valid {
+.field-validation-valid
+{
     display: none;
 }
 
-.input-validation-error {
+.input-validation-error
+{
     border: 1px solid #ff0000;
     background-color: #ffeeee;
 }
 
-.validation-summary-errors {
+.validation-summary-errors
+{
     font-weight: bold;
     color: #ff0000;
 }
 
-.validation-summary-valid {
+.validation-summary-valid
+{
     display: none;
 }
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
-.display-label, 
-.editor-label {
+.display-label, .editor-label
+{
     margin: 1em 0 0 0;
 }
 
-.display-field, 
-.editor-field {
+.display-field, .editor-field
+{
     margin: 0.5em 0 0 0;
 }
 
-.text-box {
+.text-box
+{
     width: 30em;
 }
 
-.text-box.multi-line {
+.text-box.multi-line
+{
     height: 6.5em;
 }
 
-.tri-state {
+.tri-state
+{
     width: 6em;
 }

@@ -1,4 +1,13 @@
 ﻿@model FeatureModel
+
+@section headScript{
+    <script type="text/javascript" language="javascript">
+        $(function() { 
+            slideShow.init(@(Html.Raw(Json.Encode(Model.Media.Select(m => new { m.FileName, m.Width, m.Height }).ToArray()))), 6, '#featureSlideShow', '/Media/', '/Thumb/', 0, 1500, 750 );
+        });        
+    </script>
+}
+
 <h2>@Model.Feature.Name</h2>
 <div style="width: 70%; float: left">
     <div>@Model.Feature.CreatedDate.ToDisplayString()</div>
@@ -19,6 +28,21 @@
     </div>
 </div>
 <div style="width: 29%; float: right">
+    <h2>
+        Downloads
+    </h2>
+    <div>
+        @foreach (var dl in Model.Downloadables)
+        {
+            <div class="downloadDiv">
+                <div>
+                    <span><a href="/Download/@(dl.DownloadableID)">@dl.Name</a></span>
+                    <span style="padding:0px 15px; font-size:smaller">@dl.ModifiedDate.ToShortDateString()</span>
+                </div>
+                <div>@dl.Description</div>
+            </div>            
+        }
+    </div>
     <h2>
         Links and Related</h2>
     <div>
@@ -48,11 +72,22 @@
                     }
                     else
                     {
+                        if (string.IsNullOrEmpty(link.Link) && !string.IsNullOrEmpty(link.Icon))
+                        {
+                        <td>@link.Description
+                        </td>
+                        <td>
+                            @Html.Raw(link.Icon)
+                        </td>
+                        }
+                        else
+                        {
                         <td>@link.Description
                         </td>
                         <td>
                             <a href="@(link.Link)"><img src="@(link.Icon)" /></a>
                         </td>
+                        }
                     }
                 </tr>
             }
@@ -69,7 +104,7 @@
         </div>
     }
 </div>
-<div style="clear: both">
+<div style="clear: both; text-align:center;">
     @if (Model.Media.Count == 0)
     {
         <div style="text-align: center; vertical-align: middle">
@@ -78,13 +113,20 @@
     }
     else
     {
-        <div>
+        <div id="featureSlideShow" style="border:solid 1px;">
+        </div>
+@*        <div>
+            <div><img src="/Media/@(Model.Media[0].FileName)" alt="@(Model.Media[0].FileName)" width="1000px" height="auto"/></div>
+            <div>
             @foreach (var media in Model.Media)
             {
-                <div>
-                    Media Item: @media.Location
-                </div>             
+                
+                <span>
+                    <img src="/Thumb/@(media.FileName)" alt="@(media.FileName)" width="150px" height="auto"/>
+                </span>             
             }
+            </div>
         </div>
+*@
     }
 </div>

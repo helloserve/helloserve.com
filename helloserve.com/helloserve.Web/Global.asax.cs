@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using helloserve.Common;
 using helloserve.Web.Code;
+using System.Configuration;
 
 namespace helloserve.Web
 {
@@ -26,16 +27,28 @@ namespace helloserve.Web
             routes.Add("Subdomains", new SubdomainRoutes());
 
             routes.MapRoute(
+                "Media", // Route name
+                "Media/{id}", // URL with parameters
+                new { controller = "Media", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "Thumb", // Route name
+                "Thumb/{id}", // URL with parameters
+                new { controller = "Media", action = "Thumb", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "Download", // Route name
+                "Download/{id}", // URL with parameters
+                new { controller = "Download", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-
-            //routes.MapRoute(
-            //    "Stingray",
-            //    "stingray.helloserve.com",
-            //    new { controller = "Feature", action = "Feature", id = 3 }
-            //);
         }
         
         protected void Application_Start()

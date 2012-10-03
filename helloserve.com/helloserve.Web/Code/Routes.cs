@@ -12,24 +12,31 @@ namespace helloserve.Web.Code
     {
         public override RouteData GetRouteData(HttpContextBase httpContext)
         {
-            List<Feature> features = Settings.DB.Features.Where(f => !string.IsNullOrEmpty(f.Subdomain)).ToList();
-
-            var url = httpContext.Request.Headers["HOST"];
-            var index = url.IndexOf(".");
-
-            if (index < 0)
-                return null;
-
-            var subDomain = url.Substring(0, index);
-
-            if (subDomain.Length > 0 && subDomain != "www" && subDomain != "helloserve" && httpContext.Request.RawUrl.Length <= 1 && features.Where(f=>f.Subdomain.Contains(subDomain)).Count() > 0)
+            try
             {
-                var routeData = new RouteData(this, new MvcRouteHandler());
-                routeData.Values.Add("controller", "Feature"); //Goes to the Feature class
-                routeData.Values.Add("action", "Feature"); //Goes to the Index action on the User1Controller
-                routeData.Values.Add("id", subDomain);
+                List<Feature> features = Settings.DB.Features.Where(f => !string.IsNullOrEmpty(f.Subdomain)).ToList();
 
-                return routeData;
+                var url = httpContext.Request.Headers["HOST"];
+                var index = url.IndexOf(".");
+
+                if (index < 0)
+                    return null;
+
+                var subDomain = url.Substring(0, index);
+
+                if (subDomain.Length > 0 && subDomain != "www" && subDomain != "helloserve" && httpContext.Request.RawUrl.Length <= 1 && features.Where(f => f.Subdomain.Contains(subDomain)).Count() > 0)
+                {
+                    var routeData = new RouteData(this, new MvcRouteHandler());
+                    routeData.Values.Add("controller", "Feature"); //Goes to the Feature class
+                    routeData.Values.Add("action", "Feature"); //Goes to the Index action on the User1Controller
+                    routeData.Values.Add("id", subDomain);
+
+                    return routeData;
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
 
             return null;

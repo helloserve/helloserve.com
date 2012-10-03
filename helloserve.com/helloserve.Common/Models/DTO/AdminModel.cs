@@ -10,4 +10,17 @@ namespace helloserve.Common
         public Requirement Requirement { get; set; }
         public FeatureRequirement FeatureRequirement { get; set; }
     }
+
+    public class SubmittedMediaItem
+    {
+        public string filename;
+        public string type;
+        public byte[] data;
+
+        public void SaveData(string ContentPath)
+        {
+            if (data == null || data.Length == 0)
+                return;
+        }
+    }
 }

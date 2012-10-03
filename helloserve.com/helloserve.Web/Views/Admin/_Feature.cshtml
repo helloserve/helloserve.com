@@ -2,7 +2,7 @@
 @using (Html.BeginForm("SaveFeature", "Admin", FormMethod.Post, new { id = "adminFeatureForm" }))
 {
     <div>
-        @if (Model.Feature.FeatureID == 0)
+        @if (Model.Feature.IsNew())
         {
             <h2>
                 Add Feature</h2>
@@ -12,7 +12,7 @@
             <h2>
                 Edit Feature</h2>
         }
-        <div id="mainFeatureEdit" style="width: 50%; float: left; border: solid 1px">
+        <div id="mainFeatureEdit" style="width: 50%; float: left;">
             <fieldset>
                 <legend>Feature Details</legend>
                 <div id="featureDetails">
@@ -25,7 +25,7 @@
                     <div>
                         <div>
                             Name</div>
-                        <div>@Html.TextBoxFor(model => model.Feature.Name)</div>
+                        <div>@Html.TextBoxFor(model => model.Feature.Name, new { style = "width:500px" })</div>
                     </div>
                     <div>
                         <div>
@@ -39,18 +39,28 @@
                     </div>
                     <div>
                         <div>
-                            Subdomain (e.g. http:///stringray.helloserve.com)</div>
-                        <div>@Html.TextBoxFor(model => model.Feature.Subdomain)</div>
+                            Media Folder</div>
+                        <div>@Html.TextBoxFor(model => model.Feature.MediaFolder, new { style = "width:500px" })</div>
                     </div>
                     <div>
                         <div>
-                            CustomPage</div>
-                        <div>@Html.TextBoxFor(model => model.Feature.CustomPage)</div>
+                            Header Image ID (200x100)</div>
+                        <div>@Html.TextBoxFor(model => model.Feature.HeaderImageID, new { style = "width:500px" })</div>
+                    </div>
+                    <div>
+                        <div>
+                            Subdomain (e.g. http://stringray.helloserve.com)</div>
+                        <div>@Html.TextBoxFor(model => model.Feature.Subdomain, new { style = "width:500px" })</div>
+                    </div>
+                    <div>
+                        <div>
+                            Custom Page</div>
+                        <div>@Html.TextBoxFor(model => model.Feature.CustomPage, new { style = "width:500px" })</div>
                     </div>
                     <div>
                         <div>
                             Indie DB Link</div>
-                        <div>@Html.TextBoxFor(model => model.Feature.IndieDBLink)</div>
+                        <div>@Html.TextBoxFor(model => model.Feature.IndieDBLink, new { style = "width:500px" })</div>
                     </div>
                     <div>
                         <div>
@@ -67,6 +77,9 @@
         </div>
         @if (!Model.Feature.IsNew())
         {
+            <div style="width: 49%; float: right" id="featureDownloadables">
+                @Html.Partial("_FeatureDownloads", Model.DownloadableModel)
+            </div>
             <div style="width: 49%; float: right" id="featureRequirements">
                 @Html.Partial("_FeatureRequirements", Model.RequirementModel)
             </div>
@@ -76,6 +89,11 @@
             <div style="width: 49%; float: right">
                 <fieldset>
                     <legend>Media</legend>
+                    <div id="featureMedia">
+                        @Html.Partial("_MediaMaintainItems", AdminMediaModel.ForFeature(Model.Feature.FeatureID))
+                    </div>
+                    <div>
+                        Add Media</div>
                 </fieldset>
             </div>
         }

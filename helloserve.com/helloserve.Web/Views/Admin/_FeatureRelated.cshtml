@@ -22,13 +22,13 @@
             {                                   
                 <tr class="relatedRow" id="related_@(req.RelatedLinkID)">
                     <td>
-                        @Html.TextBox("RelatedDescription", req.Description, new { id = "related_" + req.RelatedLinkID.ToString() + "_description" })
+                        @Html.TextBox("RelatedDescription", req.Description, new { @class = "related_description" })
                     </td>
                     <td>
-                        @Html.TextBox("RelatedLink", req.Link, new { id = "related_" + req.RelatedLinkID.ToString() + "_link" })
+                        @Html.TextBox("RelatedLink", req.Link, new { @class = "related_link" })
                     </td>
                     <td>
-                        @Html.TextBox("RelatedIcon", req.Icon, new { id = "related_" + req.RelatedLinkID.ToString() + "_icon" })
+                        @Html.TextBox("RelatedIcon", req.Icon, new { @class = "related_icon" })
                     </td>
                     <td>
                         <a onclick="Admin.RemoveRelated(@(Model.FeatureID), @(req.RelatedLinkID))">Remove</a>

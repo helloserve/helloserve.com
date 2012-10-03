@@ -9,8 +9,9 @@
         <a onclick="Admin.DeleteFeature()">Delete</a> | 
         <a onclick="Admin.AddBlogPost()">Add Blog Post</a>
         <div id="adminFunctionsFeatureBlogs">
-        </div>
+        </div>      
     </div>
+    <hr />
     <div>
         <a onclick="Admin.AddNews()">Add News</a>
     </div>
@@ -19,8 +20,41 @@
         <a onclick="Admin.EditNews()">Edit</a> | 
         <a onclick="Admin.DeleteNews()">Delete</a>
     </div>
+    <hr />
+    <div>
+        <a onclick="Admin.EditRequirements()">Maintain Requirements</a>
+    </div>
+    <hr />
+    <div>
+        <a onclick="Admin.EditDownloads()">Maintain Downloads</a>
+    </div>
+    <hr />
+    <div>
+        <a onclick="Admin.ScanMedia()">Scan Media</a> | <a onclick="Admin.MaintainMedia('#adminAction', '')">Maintain</a>&nbsp;<a href="/Admin/MediaPage/">(on Page)</a>
+    </div>
     <div>
         <br />
-        <a onclick="Admin.EditRequirements()">Maintain Requirements</a>
+        <a onclick="Admin.AddMedia()">Create (non physical) Media</a>
+    </div>
+    <hr />
+    <div>
+        <a onclick="Admin.AddForum()">Add Forum</a>
+    </div>
+    <div>
+        Manage Forum @Html.DropDownList("EditForumList", null, new { id = "AdminEditForumSelection" })
+        <a onclick="Admin.EditForum()">Edit</a>
+        <a onclick="Admin.DeleteForum()">Delete</a>
+    </div>
+    <br />
+    <div>
+        <a onclick="Admin.Users()">Maintain Users</a>
+    </div>
+    <br />
+    <div>
+        <a onclick="Admin.SystemLog()">Check System Log</a>
+    </div>
+    <br />
+    <div>
+        <a onclick="Admin.ErrorLog()">Check Error Log</a>
     </div>
 </div>

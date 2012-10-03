@@ -15,8 +15,8 @@ namespace helloserve.Web
 
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (!Request.IsAuthenticated && IsAJAX())
-                filterContext.Result = Json(new { IsError = true, Description = "Your session has come to an end. Please log in again." }, JsonRequestBehavior.AllowGet);
+            //if (!Request.IsAuthenticated && IsAJAX())
+            //    filterContext.Result = Json(new { IsError = true, Description = "Your session has come to an end. Please log in again." }, JsonRequestBehavior.AllowGet);
 
             base.OnAuthorization(filterContext);
         }

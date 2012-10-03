@@ -22,10 +22,10 @@
         {
             <tr class="requirementRow" id="requirement_@(req.RequirementID)">
                 <td>
-                    @Html.TextBox("Requirement_Description", req.Description, new { id = "req_" + req.RequirementID.ToString() + "_description" })
+                    @Html.TextBox("Requirement_Description", req.Description, new { @class = "req_description" })
                 </td>
                 <td>
-                    @Html.TextBox("Requirement_Link", req.Link, new { id = "req_" + req.RequirementID.ToString() + "_link" })
+                    @Html.TextBox("Requirement_Link", req.Link, new { @class = "req_link" })
                 </td>
                 <td>
                 </td>
@@ -49,7 +49,7 @@
 </table>
 <div>
     <div class="controlDiv">
-        <input type="button" id="SaveRequirements" value="Save" onclick="Admin.SaveRequirements()" />
+        <input type="submit" id="SaveRequirements" value="Save" onclick="return Admin.SaveRequirements()" />
         <a href="" onclick="Admin.CancelAction()">Cancel</a>
     </div>
 </div>

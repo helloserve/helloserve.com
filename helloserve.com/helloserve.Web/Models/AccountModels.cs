@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
+using helloserve.Common;
 
 namespace helloserve.Web
 {
@@ -63,5 +64,19 @@ namespace helloserve.Web
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        
+        [Display(Name = "Receive Updates via Email")]
+        public bool ReceiveUpdates { get; set; }
+        
+    }
+
+    public class ProfileModel
+    {
+        public User User;
+
+        public ProfileModel()
+        {
+            User = Settings.Current.User;
+        }
     }
 }

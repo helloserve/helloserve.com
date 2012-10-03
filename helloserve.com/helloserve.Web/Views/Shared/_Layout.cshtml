@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
+    <link href="@Url.Content("/Content/themes/jquery-ui-1.8.23.custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-
     <style type="text/css">
         @@font-face {
          font-family: 'ProximaNovaSemibold';
@@ -39,7 +39,6 @@
         }
 
     </style>
-
     @IncludeJS("Built-In/jquery-1.7.2.min.js",
                 "Built-In/jquery-ui-1.8.21.custom.min.js",
                 "Built-In/jquery.validate.min.js",
@@ -47,9 +46,7 @@
                 "Built-In/jquery.numeric.js",
                 "Built-In/json2.js",
                 "General.js")
-
     @RenderSection("headScript", false)
-
     <script type="text/javascript" language="javascript">
         window.GetUrl = function (url) {
             return '@Url.Content("~/")' + url;
@@ -60,36 +57,49 @@
 <body>
     <div class="page">
         <div id="header">
-            <div id="title">
-                <h1>
-                    My MVC Application</h1>
-            </div>
             <div id="logindisplay">
                 @Html.Action("LogOnPartial", "Account")
             </div>
-            <div id="menucontainer">
-                <ul id="menu">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Features", "Index", "Feature")</li>
-                    @if (helloserve.Web.Settings.Current.User != null)
+            <div id="menucontainer" style="line-height: 50px">
+                <div class="menu">@Html.ActionLink("About", "About", "Home")</div>
+                <div class="menu">
+                    <div class="menu_heading">
+                        <span>Forum</span>
+                    </div>
+                    @if (Settings.Forums.Count > 0)
                     {
-                        if (helloserve.Web.Settings.Current.User.Administrator)
-                        {
-                        <li>@Html.ActionLink("Admin", "Admin", "Admin")</li>
-                        }
-                        else
-                        {
-                        <li>@Html.ActionLink("Store", "Store", "Store")</li>   
-                        }
+                        <div class="dropButton">
+                            <ul >
+                                @foreach (var f in Settings.Forums)
+                                {
+                                    <li>@Html.ActionLink(f.Name, "Forum", "Forum", new { forum = f.Name }, null)</li>
+                                }
+                            </ul>
+                        </div>
                     }
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                </ul>
+                </div>
+                @if (helloserve.Web.Settings.Current.User != null)
+                {
+                    if (helloserve.Web.Settings.Current.User.Administrator)
+                    {
+                        <div class="menu">@Html.ActionLink("Admin", "Admin", "Admin")</div>
+                    }
+                    else
+                    {
+                        <div class="menu">@Html.ActionLink("Store", "Store", "Store")</div>   
+                    }
+                }
+                <div class="menu">@Html.ActionLink("Features", "Index", "Feature")</div>
+                <div class="menu">@Html.ActionLink("Home", "Index", "Home")</div>
             </div>
         </div>
         <div id="main">
             @RenderBody()
         </div>
         <div id="footer">
+            <div style="clear:both; font-size:smaller; text-align:center">
+                <p>helloserve Productions name and logo, and all content unless otherwise stated © 2011 - 2013 helloserve Productions Pty Ltd</p>
+            </div>
         </div>
     </div>
 </body>

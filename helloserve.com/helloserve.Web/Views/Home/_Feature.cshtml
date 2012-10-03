@@ -1,16 +1,28 @@
 ﻿@model Feature
-<div id="Feature@(Model.FeatureID)" class="normal" style="width:300px; display:inline-block; padding:10px; margin:5px;" onclick="Home.FeatureClick(@(Model.JSLink))" onmouseover="Home.DivHover(this)" onmouseout="Home.DivNormal(this)">
+<a href="@(Model.Link)" style="text-decoration:none">
+<div id="Feature@(Model.FeatureID)" class="featureBlock" style="width:320px; display:inline-block;">
     <div>
-        <div style="width: 29%; float: left">
+        <div style="width: 100px; display:inline-block;">
             <div>
                 <h2>@Model.Name</h2>
             </div>
             <div>@Model.CreatedDate.ToShortDateString()</div>
         </div>
-        <div style="width: 70%; float: right; text-align: right; background-color: #aaa">
-            <img src="http://images.lazygamer.net/2012/08/20100615metalgearsolidrising.jpg" style="width: inherit;
-                height: auto" />
-        </div>
+            @if (Model.HeaderImageID.HasValue)
+            {
+                <div style="width: 200px; height:100px; display:inline-block; text-align: right; border:1px solid black;">
+                    <img src="/Thumb/@(Model.HeaderImageID.Value)" style="width: 200px;
+                        height: 100px" />
+                </div>
+            }
+            else
+            {
+                <div style="width: 200px; height:100px; display:inline-block; text-align: right;">
+                    <img src="/Content/Img/Feature_Image_Placeholder.png" style="width: 200px;
+                    height: 100px" />
+                </div>
+            }
     </div>
-    <div style="float: left; width: 50%">@Model.Description</div>
+    <div style="clear:both">@Model.Description</div>
 </div>
+</a>

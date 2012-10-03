@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.IO;
 using System.Web.Routing;
+using System.Text.RegularExpressions;
 
 namespace helloserve.Web
 {
@@ -67,7 +68,7 @@ namespace helloserve.Web
 
                 return sw.ToString();
             }
-        } 
+        }
 
         #endregion
 
@@ -95,5 +96,54 @@ namespace helloserve.Web
                 htmlAttr["style"] += extraStyle;
             }
         }
+
+        #region FORUM POST
+        public static string ForumPost(this HtmlHelper helper, string post)
+        {
+            string markupPost = post;
+            //try for bold
+            Regex regex = new Regex(@"\s?(_(.*)_)\s?");
+            Match match = regex.Match(markupPost);
+            while (match.Success)
+            {
+                markupPost = markupPost.Replace(match.Groups[0].Value, " <i>" + match.Groups[2].Value + "</i> ");
+                //markupPost.Remove(match.Index, match.Length);
+                //markupPost = markupPost.Insert(match.Index, " <i>" + match.Groups[2].Value + "</i> ");
+
+                match = match.NextMatch();
+            }
+
+            //try for italic
+            regex = new Regex(@"\s?(\*(.*)\*)\s?");
+            match = regex.Match(markupPost);
+            while (match.Success)
+            {
+                markupPost = markupPost.Replace(match.Groups[0].Value, " <strong>" + match.Groups[2].Value + "</strong> ");
+                //markupPost = markupPost.Remove(match.Index, match.Length);
+                //markupPost = markupPost.Insert(match.Index, " <strong>" + match.Groups[2].Value + "</strong> ");
+
+                match = match.NextMatch();
+            }
+
+            //try for link 
+            string postPart = markupPost;
+            regex = new Regex(@"http://\S+\s?");
+            match = regex.Match(markupPost);
+            while (match.Success)
+            {
+                markupPost = markupPost.Replace(match.Groups[0].Value, string.Format(" <a href=\"{0}\">{0}</a> ", match.Groups[0].Value.Replace("\r\n", "").Replace("\r", "").Replace("\r\n", "")));
+                //markupPost = markupPost.Remove(match.Index, match.Length);
+                //markupPost = markupPost.Insert(match.Index, string.Format(" <a href=\"{0}\">{0}</a> ", match.Groups[0].Value.Replace("\r\n", "").Replace("\r", "").Replace("\r\n", "")));
+
+                match = match.NextMatch();
+            }
+
+            markupPost = "<p>" + markupPost;
+            markupPost = markupPost.Replace("\r\n\r\n", "</p><p>").Replace("\r\n", "<br />").Replace("\r", "<br />").Replace("\n", "<br />");
+            markupPost += "</p>";
+
+            return markupPost;
+        }
+        #endregion
     }
 }

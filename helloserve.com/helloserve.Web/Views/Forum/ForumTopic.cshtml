@@ -1,0 +1,53 @@
+﻿@model ForumTopicModel           
+<h2>@Model.Topic.Name</h2>
+@if(Model.Topic.Locked)
+{
+    <div style="color:#ff5a00">This topic has been locked by the administrators</div>   
+}
+<div>@Html.ActionLink(Model.Forum.Name, "Forum", "Forum", new { forum = Model.Forum.Name }, null)
+    > @Html.ActionLink(Model.Category.Name, "ForumCategory", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name }, null)
+    > @Model.Topic.Name</div>
+<br />
+@Html.Hidden("TopicForumName", Model.Forum.Name)
+@Html.Hidden("TopicCategoryName", Model.Category.Name)
+@Html.Hidden("TopicTopicID", Model.Topic.ForumTopicID)
+@Html.Hidden("TopicCurrentPage", Model.CurrentPage)
+@Html.Hidden("TopicTotalPages", Model.Pages)
+
+@{ Html.RenderPartial("_TopicPager", Model); }
+<div style="width:800px">
+    @foreach (var post in Model.Topic.Posts(Model.CurrentPage, Settings.Current.ForumPages))
+    {       
+        <div id="Post_@(post.ForumPostID)">
+            <div style="width:300px; height:50px">
+                <div style="float:left; height:50px; width:50px; border:1px solid black; margin:0px 5px 0px 0px;"><img src="http://www.gravatar.com/avatar/@(post.User.EmailMd5Hash)?s=50" /></div>
+                <div style="float:left; padding:10px 0px;"><span class="forumUser">@post.User.Username</span>&nbsp;<span class="forumPostDetails">@post.Date.ToShortDateString() @post.Date.ToShortTimeString()</span></div>
+                @if (Settings.Current.IsAdminUser)
+                {
+                    <div class="forumModerateLinks" style="float:left">
+                    @Html.ActionLink("Delete", "DeleteForumPost", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = Model.Topic.ForumTopicID, postID = post.ForumPostID }, null) 
+                    | 
+                    <a onclick="Forum.MaintainForumPost('@(Model.Forum.Name)', '@(Model.Category.Name)', @(Model.Topic.ForumTopicID), @(post.ForumPostID))">Edit</a>
+                    </div>
+                }
+            </div>
+            <div style="padding:5px 0px;">@Html.Raw(Html.ForumPost(post.Post))</div>
+        </div>
+        <hr />
+    }
+    <br />
+    @if(!Model.Topic.Locked || Settings.Current.IsAdminUser)
+    {
+        <div class="controlDiv">
+            @if (Settings.Current.User == null)
+            {
+                <span>We need to know who you are before you can post</span>
+            }
+            else
+            {
+                <span><a onclick="Forum.MaintainForumPost('@(Model.Forum.Name)', '@(Model.Category.Name)', @(Model.Topic.ForumTopicID))">Create new Post</a></span>
+            }
+        </div>
+    }
+</div>
+@{ Html.RenderPartial("_TopicPager", Model); } 

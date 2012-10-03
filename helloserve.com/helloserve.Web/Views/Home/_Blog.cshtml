@@ -1,10 +1,21 @@
 ﻿@model News
-<div id="Blog@(Model.NewsID)" class="normal" style="width:300px; display:inline-block; padding:10px; margin:5px; border:solid 1px;" onclick="Home.NewsClick(@(Model.NewsID))" onmouseover="Home.DivHover(this)" onmouseout="Home.DivNormal(this)">
+<div id="Blog@(Model.NewsID)" class="contentBlock">
     <div>
-        <span>
-            <h2>@Model.Title</h2>
-        </span>
-        <span>@Model.CreatedDate.ToShortDateString()</span>
+        <h3>@Model.Title</h3>
     </div>
+    @if (Model.HeaderImageID.HasValue)
+    {
+        <div style="text-align:center; width: 250px; height:50px; border:1px solid black">
+                <img src="/Thumb/@(Model.HeaderImageID.Value)" style="width:250px; height:50px"/>
+        </div>
+    }
+    else
+    {
+        <div style="text-align:center; width: 250px; height:50px;">
+                <img src="/Content/Img/News_Image_Placeholder.png" style="width:250px; height:50px"/>
+        </div>
+    }
+    <div>@Model.CreatedDate.ToShortDateString()</div>
     <div>@Model.Cut</div>
+
 </div>
