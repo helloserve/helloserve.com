@@ -94,6 +94,7 @@
     <Content Include="Content\fonts\ProximaNova-Light-webfont.svg" />
     <Content Include="Content\fonts\ProximaNova-Reg-webfont.svg" />
     <Content Include="Content\fonts\ProximaNova-Sbold-webfont.svg" />
+    <Content Include="Content\Img\cell.png" />
     <Content Include="Content\Img\Feature_Image_Placeholder.png" />
     <Content Include="Content\Img\g-plus-icon-32x32.png" />
     <Content Include="Content\Img\News_Image_Placeholder.png" />

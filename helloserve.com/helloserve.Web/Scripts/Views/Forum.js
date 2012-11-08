@@ -1,28 +1,25 @@
 ﻿var Forum = {
     MaintainForumPost: function (forum, category, topicID, postID) {
         if (typeof (postID) == "number") {
-            Forum.postDialog = $('<div></div>').dialog({ autoOpen: false, minWidth: 1000, minHeight: 500, resizable: true, closeText: "" });
             Forum.postDialog.dialog('open');
             $.ajax({
                 url: "/Forum/EditForumPost",
                 type: "GET",
                 data: { forum: forum, category: category, topicID: topicID, postID: postID },
                 success: function (result) {
-                    Forum.postDialog.html(result);
-                    Forum.postDialog.dialog('open');
+                    $('#dlgcontent').html(result);
+                    $('#dlg').dialog({ width: 1000, height: 510, closeText: "", resizable: false });
                 }
             });
         }
         else {
-            Forum.postDialog = $('<div></div>').dialog({ autoOpen: false, minWidth: 1000, minHeight: 500, resizable: true, closeText: "" });
-            Forum.postDialog.dialog('open');
             $.ajax({
                 url: "/Forum/CreateForumPost",
                 type: "GET",
                 data: { forum: forum, category: category, topicID: topicID },
                 success: function (result) {
-                    Forum.postDialog.html(result);
-                    Forum.postDialog.dialog('open');
+                    $('#dlgcontent').html(result);
+                    $('#dlg').dialog({ width: 1000, height: 510, closeText: "", resizable: false });
                 }
             });
         }
@@ -37,7 +34,7 @@
                 Forum.postDialog.html(result.Description);
             }
             else {
-                Forum.postDialog.dialog('close');
+                $('#dlg').dialog('close');
 
                 var forum = $('#TopicForumName').val();
                 var category = $('#TopicCategoryName').val();
@@ -52,6 +49,6 @@
         return false;
     },
     CancelForumPost: function () {
-        Forum.postDialog.dialog('close');
+        $('#dlg').dialog('close');
     }
 }

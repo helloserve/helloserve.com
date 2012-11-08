@@ -58,10 +58,10 @@
     <div class="page">
         <div id="header">
             <div id="logindisplay">
-                @Html.Action("LogOnPartial", "Account")
             </div>
             <div id="menucontainer" style="line-height: 50px">
-                <div class="menu">@Html.ActionLink("About", "About", "Home")</div>
+                @Html.Action("LogOnPartial", "Account")
+                <a href="/Home/About" title="About"><div class="menu">About</div></a>                
                 <div class="menu">
                     <div class="menu_heading">
                         <span>Forum</span>
@@ -82,19 +82,21 @@
                 {
                     if (helloserve.Web.Settings.Current.User.Administrator)
                     {
-                        <div class="menu">@Html.ActionLink("Admin", "Admin", "Admin")</div>
+                        <a href="/Admin/Admin" title="Admin"><div class="menu">Admin</div></a>
                     }
                     else
                     {
-                        <div class="menu">@Html.ActionLink("Store", "Store", "Store")</div>   
+                        <a href="/Store/Store" title="Store"><div class="menu">Store</div></a>
                     }
                 }
-                <div class="menu">@Html.ActionLink("Features", "Index", "Feature")</div>
-                <div class="menu">@Html.ActionLink("Home", "Index", "Home")</div>
+                <a href="/Feature/Index" title="Features"><div class="menu">Features</div></a>
+                <a href="/Home/Index" tile="Home"><div class="menu">Home</div></a>
             </div>
         </div>
         <div id="main">
-            @RenderBody()
+            <div style="display:inline-block">
+                @RenderBody()
+            </div>
         </div>
         <div id="footer">
             <div style="clear:both; font-size:smaller; text-align:center">
@@ -102,5 +104,6 @@
             </div>
         </div>
     </div>
+    <div id="dlg"><div id="dlgcontent"></div></div>
 </body>
 </html>

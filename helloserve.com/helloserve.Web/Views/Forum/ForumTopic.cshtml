@@ -14,11 +14,13 @@
 @Html.Hidden("TopicCurrentPage", Model.CurrentPage)
 @Html.Hidden("TopicTotalPages", Model.Pages)
 
+<div style="display:inline-block;">
 @{ Html.RenderPartial("_TopicPager", Model); }
+</div>
 <div style="width:800px">
     @foreach (var post in Model.Topic.Posts(Model.CurrentPage, Settings.Current.ForumPages))
     {       
-        <div id="Post_@(post.ForumPostID)">
+        <div class="forumTopicPost" id="Post_@(post.ForumPostID)">
             <div style="width:300px; height:50px">
                 <div style="float:left; height:50px; width:50px; border:1px solid black; margin:0px 5px 0px 0px;"><img src="http://www.gravatar.com/avatar/@(post.User.EmailMd5Hash)?s=50" /></div>
                 <div style="float:left; padding:10px 0px;"><span class="forumUser">@post.User.Username</span>&nbsp;<span class="forumPostDetails">@post.Date.ToShortDateString() @post.Date.ToShortTimeString()</span></div>
@@ -33,7 +35,7 @@
             </div>
             <div style="padding:5px 0px;">@Html.Raw(Html.ForumPost(post.Post))</div>
         </div>
-        <hr />
+        <br />
     }
     <br />
     @if(!Model.Topic.Locked || Settings.Current.IsAdminUser)

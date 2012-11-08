@@ -1,7 +1,7 @@
 ﻿@model ForumPostModel
 @using (Html.BeginForm("PostForumPost", "Forum", FormMethod.Post, new { id = "ForumMaintainForm" }))
 {
-    <div style="background-color: White; border:1px solid black; padding:10px 20px 10px 20px; width:1000px; height:500px; text-align:left">
+    <div style="background-color: White; border:1px solid black; padding:10px 20px 10px 20px; width:940px; height:440px; text-align:left">
         @Html.HiddenFor(model => model.Forum.Name)
         @Html.HiddenFor(model => model.Category.Name)
         @Html.HiddenFor(model => model.Topic.ForumTopicID)
@@ -22,7 +22,7 @@
             <div>Italic: Put your word or phrase between _s, e.g. "This is an _italic_ word"</div>
         </div>
         <div>
-            @Html.TextAreaFor(model => model.Post.Post, new { style = "width:990px; height:350px;", @class = "required" })
+            @Html.TextAreaFor(model => model.Post.Post, new { style = "width:930px; height:240px;", @class = "required" })
         </div>
         <br />
         <div class="controlDiv">

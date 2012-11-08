@@ -5,18 +5,36 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body
 {
-    background-color: #5c87b2;
-    font-size: .85em;
-    font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Opera */ 
+    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);
+    
+    font-size: 1em;
+    font-family: Calibri , Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
-    color: #696969;
+    color: #000;
 }
 
 a:link
 {
-    color: #555555;
+    color: #000000;
     text-decoration: underline;
+    z-index:0;
 }
 
 a:visited
@@ -26,8 +44,9 @@ a:visited
 
 a:hover
 {
-    color: #333333;
+    color: #FF6500;
     text-decoration: none;
+    z-index:-1;
 }
 
 a:active
@@ -116,25 +135,62 @@ header h1, #header h1
 
 #main
 {
-    padding: 30px 30px 15px 30px;
-    background-color: #fff;
+    padding: 30px 30px 15px 30px;    
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
+    border:1px solid black;
+    
+    /* IE10 Consumer Preview */ 
+    background-image: url(/Content/img/cell.png), -ms-radial-gradient(center bottom, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: url(/Content/img/cell.png), -moz-radial-gradient(center bottom, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
+
+    /* Opera */ 
+    background-image: url(/Content/img/cell.png), -o-radial-gradient(center bottom, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: url(/Content/img/cell.png), -webkit-gradient(radial, center bottom, 0, center top, 561, color-stop(0, #98B4D4), color-stop(1, #E6E6E6));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: url(/Content/img/cell.png), -webkit-radial-gradient(center bottom, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: url(/Content/img/cell.png), radial-gradient(ellipse farthest-corner at center bottom, #98B4D4 0%, #E6E6E6 100%);
 }
 
 footer, #footer
 {
-    background-color: #fff;
-    color: #555;
+    color: #000;
     padding: 10px 0;
     text-align: center;
     line-height: normal;
     margin: 0 0 30px 0;
     font-size: .9em;
+    border:1px solid Black;
+    border-top:none;
     border-radius: 0 0 4px 4px;
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius: 0 0 4px 4px;
+    
+    /* IE10 Consumer Preview */ 
+    background-image: url(/Content/img/cell.png), -ms-radial-gradient(center top, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: url(/Content/img/cell.png), -moz-radial-gradient(center top, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
+
+    /* Opera */ 
+    background-image: url(/Content/img/cell.png), -o-radial-gradient(center top, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: url(/Content/img/cell.png), -webkit-gradient(radial, center top, 0, center top, 561, color-stop(0, #98B4D4), color-stop(1, #E6E6E6));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: url(/Content/img/cell.png), -webkit-radial-gradient(center top, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: url(/Content/img/cell.png), radial-gradient(ellipse farthest-corner at center top, #98B4D4 0%, #E6E6E6 100%);
 }
 
 /* TAB MENU   
@@ -142,32 +198,86 @@ footer, #footer
 div.menu
 {
     text-align: center;
-    padding: 10px 20px;
+    padding: 0px 20px;
     margin: 0px 2px;
     font-weight: bold;
     text-decoration: none;
     line-height: 2.8em;
     background-color: White;
-    border-radius: 4px 4px 0 0;
-    border: 1px solid black;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 4px 4px;
+    border: 1px solid #444466;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
     float: right;
     width: 50px;
-    height: 20px;
-    line-height: 20px;
-    vertical-align: middle;
-    z-index: 1500;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle; 
+    color: #444466;
+    font-weight:900;
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
+
+    /* Opera */ 
+    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #D6D6D6), color-stop(1, #DBDBDB));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: radial-gradient(ellipse farthest-corner at center bottom, #D6D6D6 0%, #DBDBDB 100%);
 }
 
-div.menu a
+div.menu.profile
+{
+    border-radius: 4px 0px 0px 4px;
+    -webkit-border-radius: 4px 0px 0px 4px;
+    -moz-border-radius: 4px 0px 0px 4px;
+    padding: 0px 0px;    
+    margin: 0px -1px 0px 2px;
+    width:150px;
+}
+
+div.menu.logoff
+{
+    border-radius: 0px 4px 4px 0px;
+    -webkit-border-radius: 0px 4px 4px 0px;
+    -moz-border-radius: 0px 4px 4px 0px;    
+    margin:0px 2px 0px 0px;
+}
+
+a div.menu:hover
 {
     text-decoration: none;
 }
 
 div.menu:hover
 {
-    border-style: solid solid none;
+    border: 1px solid #FF6500;    
+    color: #FF6500;   
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Opera */ 
+    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);
 }
 
 div.dropButton
@@ -220,7 +330,7 @@ div.forumPagerEmpty
     padding: 2px 2px 2px 2px;
     margin:0px 2px;
     text-align: center;
-    border:1px solid white;
+    
 }
 
 div.forumPager a
@@ -255,6 +365,16 @@ span.forumPostDetails
 {
     font-size:smaller;
     padding:0px 15px;
+}
+
+.forumTopicPost
+{
+    background-color:#EFEFEF;
+    padding:15px;
+    border:1px solid black; 
+    border-radius: 4px 4px 4px 4px; 
+    -webkit-border-radius: 4px 4px 4px 4px; 
+    -moz-border-radius: 4px 4px 4px 4px;        
 }
 
 span.invalid
@@ -310,29 +430,24 @@ input[type="submit"]
 
 table
 {
-    border: solid 1px #e8eef4;
-    border-collapse: collapse;
 }
 
 table td
 {
     padding: 5px;
-    border: solid 1px #e8eef4;
 }
 
 table th
 {
     padding: 6px 5px;
     text-align: left;
-    background-color: #e8eef4;
-    border: solid 1px #e8eef4;
 }
 
 /* MISC  
 ----------------------------------------------------------*/
 table a, .controlDiv a
 {
-    color: #333333 !important;
+    color: #000000 !important;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -356,7 +471,7 @@ nav, #menucontainer
 div.contentBlock
 {
     display: inline-block;
-    padding: 0px 0px 0px 0px;
+    padding: 5px 5px 5px 5px;
     margin: 2px 2px 2px 5px;
     min-width: 300px;
     max-width: 600px;
@@ -366,12 +481,31 @@ div.contentBlock
 div.contentBlock:hover
 {
     display: inline-block;
-    padding: 9px;
-    margin: 5px;
+    padding: 4px 4px 4px 4px;
     min-width: 300px;
     max-width: 600px;
     border: solid 1px;
-    background-color: #DDD;
+    border-radius: 4px 4px 4px 4px; 
+    -webkit-border-radius: 4px 4px 4px 4px; 
+    -moz-border-radius: 4px 4px 4px 4px;        
+    
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Opera */ 
+    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);
 }
 
 div.featureBlock
@@ -393,6 +527,27 @@ div.featureBlock:hover
     max-width: 600px;
     border: solid 1px;
     background-color: #DDD;
+    border-radius: 4px 4px 4px 4px; 
+    -webkit-border-radius: 4px 4px 4px 4px; 
+    -moz-border-radius: 4px 4px 4px 4px;    
+
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Opera */ 
+    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);
 }
 
 textarea.cut

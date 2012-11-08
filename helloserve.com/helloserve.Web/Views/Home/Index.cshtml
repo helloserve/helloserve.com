@@ -1,7 +1,4 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-@model HomeModel
+﻿@model HomeModel
 @section headScript {
     <script>
         (function (d, s, id) {
@@ -12,8 +9,6 @@
             fjs.parentNode.insertBefore(js, fjs);
         } (document, 'script', 'facebook-jssdk'));</script>
 }
-<h2>@ViewBag.Message</h2>
-<div>
     <div style="width: 49%; float: left;">
         <div>
             @foreach (var feature in Model.LatestFeatures)
@@ -21,11 +16,11 @@
                 Html.RenderPartial("_Feature", feature);
             }
         </div>
-        <div style="width: 600px">
+        <div style="width: 600px; color:Black">
             <h2>
                 Other Links</h2>
-            <div style="display: table-cell; vertical-align: middle; float: left; width: 599px">
-                <div style="height: 45px; float: left">
+            <div style="display: table-cell; vertical-align: middle; float: left; width: 100%">
+                <div style="height: 45px; float: left; width:420px">
                     Get this on your social</div>
                 <div style="float: right; height: 45px;">
                     <a href="https://twitter.com/#!/helloserve" title="@@helloserve" style="text-decoration: none;
@@ -37,18 +32,18 @@
                         show_faces="false" font="arial"></fb:like>
                 </div>
             </div>
-            <div style="display: table-cell; vertical-align: middle; float: left; width: 599px">
-                <div style="height: 45px; float: left">Hook-up on Indie DB (I would also like to read about your game, let me know about it)</div>
+            <div style="display: table-cell; vertical-align: middle; float: left; width: 100%">
+                <div style="height: 45px; float: left; width:420px">Hook-up on Indie DB (I would also like to read about your game, let me know about it)</div>
                 <div style="float: right; height: 45px;">
                     <a href="http://www.indiedb.com/company/helloserve-productions" title="DB all the things" target="_blank" style="text-decoration: none; padding: 22px; background: url(http://media.indiedb.com/images/global/indiedb.png) no-repeat 0 50%">
                         &nbsp;
                     </a>
                 </div>
             </div>
-            <div style="display: table-cell; vertical-align: middle; float: left; width: 599px">
-                <div style="height: 45px; float: left">The official game development association of South Africa</div>
+            <div style="display: table-cell; vertical-align: middle; float: left; width: 100%">
+                <div style="height: 45px; float: left; width:420px;">The official game development association of South Africa</div>
                 <div style="height: 45px; float: right">
-                    <a href="http://www.makegamessa.com" title="Discussions that would rack your brains">
+                    <a href="http://www.makegamessa.com" title="Discussions that will rack your brains">
                         Make Games South Africa
                     </a>
                 </div>
@@ -81,4 +76,4 @@
             }
         </div>
     </div>
-</div>
+
