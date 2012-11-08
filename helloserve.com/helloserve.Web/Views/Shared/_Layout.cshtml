@@ -4,41 +4,6 @@
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("/Content/themes/jquery-ui-1.8.23.custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        @@font-face {
-         font-family: 'ProximaNovaSemibold';
-         src: url('@Url.Content("~/Content/fonts/ProximaNova-Sbold-webfont.eot")');
-         src: url('@Url.Content("~/Content/fonts/ProximaNova-Sbold-webfont.eot")') format('eot'),
-         url('@Url.Content("~/Content/fonts/ProximaNova-Sbold-webfont.woff")') format('woff'),
-         url('@Url.Content("~/Content/fonts/ProximaNova-Sbold-webfont.ttf")') format('truetype'),
-         url('@Url.Content("~/Content/fonts/ProximaNova-Sbold-webfont.svg")') format('svg');
-         font-weight: normal;
-         font-style: normal;
-        }
-
-        @@font-face {
-         font-family: 'ProximaNovaRegular';
-         src: url('@Url.Content("~/Content/fonts/ProximaNova-Reg-webfont.eot")');
-         src: url('@Url.Content("~/Content/fonts/ProximaNova-Reg-webfont.eot")') format('eot'),
-         url('@Url.Content("~/Content/fonts/ProximaNova-Reg-webfont.woff")') format('woff'),
-         url('@Url.Content("~/Content/fonts/ProximaNova-Reg-webfont.ttf")') format('truetype'),
-         url('@Url.Content("~/Content/fonts/ProximaNova-Reg-webfont.svg")') format('svg');
-         font-weight: normal;
-         font-style: normal;
-        } 
-
-        @@font-face {
-         font-family: 'ProximaNovaLight';
-         src: url('@Url.Content("~/Content/fonts/ProximaNova-Light-webfont.eot")');
-         src: url('@Url.Content("~/Content/fonts/ProximaNova-Light-webfont.eot")') format('eot'),
-         url('@Url.Content("~/Content/fonts/ProximaNova-Light-webfont.woff")') format('woff'),
-         url('@Url.Content("~/Content/fonts/ProximaNova-Light-webfont.ttf")') format('truetype'),
-         url('@Url.Content("~/Content/fonts/ProximaNova-Light-webfont.svg")') format('svg');
-         font-weight: normal;
-         font-style: normal;
-        }
-
-    </style>
     @IncludeJS("Built-In/jquery-1.7.2.min.js",
                 "Built-In/jquery-ui-1.8.21.custom.min.js",
                 "Built-In/jquery.validate.min.js",
@@ -61,7 +26,10 @@
             </div>
             <div id="menucontainer" style="line-height: 50px">
                 @Html.Action("LogOnPartial", "Account")
-                <a href="/Home/About" title="About"><div class="menu">About</div></a>                
+                <a href="/Home/About" title="About">
+                    <div class="menu">
+                        About</div>
+                </a>
                 <div class="menu">
                     <div class="menu_heading">
                         <span>Forum</span>
@@ -69,10 +37,10 @@
                     @if (Settings.Forums.Count > 0)
                     {
                         <div class="dropButton">
-                            <ul >
+                            <ul>
                                 @foreach (var f in Settings.Forums)
                                 {
-                                    <li>@Html.ActionLink(f.Name, "Forum", "Forum", new { forum = f.Name }, null)</li>
+                                    <li>@Html.ActionLink(f.Name, "Forum", "Forum", new { forum = f.Name }, new { @class="adropButton" })</li>
                                 }
                             </ul>
                         </div>
@@ -82,28 +50,44 @@
                 {
                     if (helloserve.Web.Settings.Current.User.Administrator)
                     {
-                        <a href="/Admin/Admin" title="Admin"><div class="menu">Admin</div></a>
+                    <a href="/Admin/Admin" title="Admin">
+                        <div class="menu">
+                            Admin</div>
+                    </a>
                     }
                     else
                     {
-                        <a href="/Store/Store" title="Store"><div class="menu">Store</div></a>
+                    <a href="/Store/Store" title="Store">
+                        <div class="menu">
+                            Store</div>
+                    </a>
                     }
                 }
-                <a href="/Feature/Index" title="Features"><div class="menu">Features</div></a>
-                <a href="/Home/Index" tile="Home"><div class="menu">Home</div></a>
+                <a href="/Feature/Index" title="Features">
+                    <div class="menu">
+                        Features</div>
+                </a><a href="/Home/Index" tile="Home">
+                    <div class="menu">
+                        Home</div>
+                </a>
             </div>
         </div>
         <div id="main">
-            <div style="display:inline-block">
+            <div style="display: inline-block">
                 @RenderBody()
             </div>
         </div>
         <div id="footer">
-            <div style="clear:both; font-size:smaller; text-align:center">
-                <p>helloserve Productions name and logo, and all content unless otherwise stated © 2011 - 2013 helloserve Productions Pty Ltd</p>
+            <div style="clear: both; font-size: smaller; text-align: center">
+                <p>
+                    helloserve Productions name and logo, and all content unless otherwise stated, is ©
+                    2011 - @DateTime.Now.Year.ToString() helloserve Productions Pty. Ltd.</p>
             </div>
         </div>
     </div>
-    <div id="dlg"><div id="dlgcontent"></div></div>
+    <div id="dlg">
+        <div id="dlgcontent">
+        </div>
+    </div>
 </body>
 </html>

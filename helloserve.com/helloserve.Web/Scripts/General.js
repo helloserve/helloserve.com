@@ -248,7 +248,7 @@ var CKEditorSetup = {
     }
 
 };
-
+*/
 var slideShow = new function () {
     this.containerID = '',
     this.fullSource = '',
@@ -268,9 +268,11 @@ var slideShow = new function () {
         if (this.items.length < this.thumbCount)
             this.thumbCount = this.items.length;
 
+        var targetWidth = 0;
+        var targetHeight = 0;
+
         var bigPictureSize = '';
         if (this.items[this.currentIndex].Width > this.items[this.currentIndex].Height) {
-            var targetWidth = 0;
 
             if (this.items[this.currentIndex].Width > this.width) {
                 targetWidth = this.width;
@@ -280,7 +282,7 @@ var slideShow = new function () {
             }
 
             var ratio = targetWidth / this.items[this.currentIndex].Width;
-            var targetHeight = Math.round(this.items[this.currentIndex].Height * ratio);
+            targetHeight = Math.round(this.items[this.currentIndex].Height * ratio);
 
             if (targetHeight > this.height) {
                 ratio = this.height / targetHeight;
@@ -291,12 +293,17 @@ var slideShow = new function () {
         }
         else {
             bigPictureSize = 'width="auto" height="' + this.height + 'px"';
+            targetHeight = this.height;
+            var ratio = targetHeight / this.items[this.currentIndex].Height;
+            targetWidth = this.items[this.currentIndex].Width * ratio;
         }
 
-        var bigPicture = '<div id="mainFrame" style="position:relative; width="' + this.width + '"; height="' + this.height + '""><a onclick="slideShow.Prev()"><div style="border:solid 1px; width:20px; height:' + this.height + 'px; position:absolute"/></a><img src="' + this.PictureSource(this.items[this.currentIndex].FileName) + '" alt="' + this.items[this.currentIndex].FileName + '" ' + bigPictureSize + '><a onclick="slideShow.Next()"><div style="border:solid 1px; width:20px; height:' + this.height + 'px; left:' + (this.width - 20) + 'px; top:0px; position:absolute;"/></a></div>';
+        //width="' + this.width + '"; 
+        //var bigPicture = '<div id="mainFrame" style="position:relative; height=' + this.height + 'px"><a onclick="slideShow.Prev()"><div style="float:left; border:solid 1px; width:20px; height:' + this.height + 'px; position:absolute"/></a><img src="' + this.PictureSource(this.items[this.currentIndex].FileName) + '" alt="' + this.items[this.currentIndex].FileName + '" ' + bigPictureSize + '/><a onclick="slideShow.Next()"><div style="float:right; border:solid 1px; width:20px; height:' + this.height + 'px; left:' + (this.width - 20) + 'px; top:0px; position:absolute;"/></a></div>';
+        var bigPicture = '<div id="mainFrame" style="position:relative; height=' + this.height + 'px"><a href="" style="text-decoration:none;" onclick="slideShow.Prev(); return false;"><div style="border:solid 1px; width:60px; height:' + targetHeight + 'px; top:0px; left:' + ((this.width / 2) - (targetWidth / 2) - 30) + 'px; position:absolute"/></a><img src="' + this.PictureSource(this.items[this.currentIndex].FileName) + '" alt="' + this.items[this.currentIndex].FileName + '" ' + bigPictureSize + '/><a href="" style="text-decoration:none;" onclick="slideShow.Next(); return false;"><div style="border:solid 1px; width:60px; height:' + targetHeight + 'px; left:' + (this.width - (this.width / 2) + (targetWidth / 2) - 30) + 'px; top:0px; position:absolute;"/></a></div>';
 
-        var left = '<span id="scrollLeft" style="width:15px" onclick="slideShow.Prev()">L E F T</span>';
-        var right = '<span id="scrollRight" style="width:15px" onclick="slideShow.Next()">R I G H T</span>';
+        var left = '<a href="" style="text-decoration:none;" onclick="slideShow.Prev(); return false;"><span id="scrollLeft" style="width:15px">L E F T</span></a>';
+        var right = '<a href="" style="text-decoration:none;" onclick="slideShow.Next(); return false;"><span id="scrollRight" style="width:15px">R I G H T</span></a>';
 
         var thumbs = '';
         var index = Math.round(this.currentIndex - (this.thumbCount / 2));
@@ -312,7 +319,9 @@ var slideShow = new function () {
         }
         var scroller = '<div id="scroller">' + left + thumbs + right + '</div>';
 
-        var structure = '<div id="slideShow" style="width:' + this.width + 'px; height:' + this.height + 'px">' + bigPicture + scroller + '</div>';
+        var debug = '<div id="debug">width:' + this.width + ' height:' + this.height + ' targetwidth:' + targetWidth + ' targetheight:' + targetHeight + '</div>';
+
+        var structure = '<div id="slideShow">' + bigPicture + scroller + debug + '</div>';
 
         $(this.containerID).html(structure);
     },
@@ -332,16 +341,15 @@ var slideShow = new function () {
         this.currentIndex = index;
         this.GetHtml();
     },
-    this.init = function (items, thumbnailCount, containerID, fullSource, thumbSource, startIndex, width, height) {
+    this.init = function (items, thumbnailCount, containerID, fullSource, thumbSource, startIndex) {
         this.items = items;
         this.thumbCount = thumbnailCount;
         this.containerID = containerID;
         this.fullSource = fullSource;
         this.thumbSource = thumbSource;
         this.currentIndex = startIndex;
-        this.width = width;
-        this.height = height;
+        this.width = $(containerID).width();
+        this.height = $(containerID).height();
         $(containerID).html(this.GetHtml());
     }
 };
-*/

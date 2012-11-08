@@ -32,26 +32,26 @@ body
 
 a:link
 {
-    color: #000000;
+    color: #444466;
     text-decoration: underline;
-    z-index:0;
 }
 
 a:visited
 {
-    color: #000000;
+    color: #444466;
+    text-decoration: underline;
 }
 
 a:hover
 {
     color: #FF6500;
     text-decoration: none;
-    z-index:-1;
 }
 
 a:active
 {
-    color: #000000;
+    color: #444466;
+    text-decoration: underline;
 }
 
 p, ul
@@ -285,12 +285,33 @@ div.dropButton
     display: none;
     background-color: White;
     border: 1px solid black;
+    border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
     padding: 10px 0px 0px 11px;
-    margin: 0px 0px 0px -21px;
+    margin: -5px 0px 0px -15px;
     z-index: 500;
     width: 150px;
     top: 19px;
     text-align: left;
+    color: #444466;
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
+
+    /* Opera */ 
+    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #D6D6D6), color-stop(1, #DBDBDB));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: radial-gradient(ellipse farthest-corner at center bottom, #D6D6D6 0%, #DBDBDB 100%);
 }
 
 div.dropButton ul
@@ -300,14 +321,41 @@ div.dropButton ul
     margin: 0px 0px 10px -20px;
 }
 
-div.dropButton li
+a.adropButton:link
 {
+    color: #444466;
+    text-decoration:none;
+}
+
+a.adropButton:hover
+{
+    color: #FF6500;   
+    text-decoration:none;
 }
 
 
 div.menu:hover .dropButton
 {
     display: block;
+    border: 1px solid #FF6500;    
+    color: #FF6500;   
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Opera */ 
+    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);
 }
 
 div.forumPager
@@ -466,6 +514,36 @@ nav, #menucontainer
 {
     margin-top: 40px;
     text-align: right;
+}
+
+div.tweet
+{
+    display: inline-block;
+    padding: 4px 4px 4px 4px;
+    margin:5px 0px;
+    border: solid 1px Black;
+    min-width:600px;
+    border-radius: 4px 4px 4px 4px; 
+    -webkit-border-radius: 4px 4px 4px 4px; 
+    -moz-border-radius: 4px 4px 4px 4px;        
+    
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Opera */ 
+    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);    
 }
 
 div.contentBlock

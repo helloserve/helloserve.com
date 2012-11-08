@@ -77,7 +77,7 @@
                     <td>
                         @if (log.UserID.HasValue)
                         {
-                            @log.UserID.Value.ToString() <text>:</text> @log.User.Username
+                            @log.UserID.Value.ToString() <text>:</text> @((log.User == null) ? "~" : log.User.Username)
                         }
                         else
                         {

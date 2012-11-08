@@ -3,7 +3,7 @@
 @section headScript{
     <script type="text/javascript" language="javascript">
         $(function() { 
-            slideShow.init(@(Html.Raw(Json.Encode(Model.Media.Select(m => new { m.FileName, m.Width, m.Height }).ToArray()))), 6, '#featureSlideShow', '/Media/', '/Thumb/', 0, 1500, 750 );
+            slideShow.init(@(Html.Raw(Json.Encode(Model.Media.Select(m => new { m.FileName, m.Width, m.Height }).ToArray()))), 6, '#featureSlideShow', '/Media/', '/Thumb/', 0);
         });        
     </script>
 }
@@ -113,20 +113,7 @@
     }
     else
     {
-        <div id="featureSlideShow" style="border:solid 1px;">
+        <div id="featureSlideShow" style="border:solid 1px; min-height:1080px;">
         </div>
-@*        <div>
-            <div><img src="/Media/@(Model.Media[0].FileName)" alt="@(Model.Media[0].FileName)" width="1000px" height="auto"/></div>
-            <div>
-            @foreach (var media in Model.Media)
-            {
-                
-                <span>
-                    <img src="/Thumb/@(media.FileName)" alt="@(media.FileName)" width="150px" height="auto"/>
-                </span>             
-            }
-            </div>
-        </div>
-*@
     }
 </div>

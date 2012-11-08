@@ -62,5 +62,10 @@ namespace helloserve.Web
 
             UserRepo.CheckDefaultUser();
         }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            HttpContext.Current.Response.AddHeader("Access-Control-Allow-Origin", "*");
+        }
     }
 }

@@ -9,6 +9,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         } (document, 'script', 'facebook-jssdk'));</script>
 }
+    @Html.Hidden("tweetTags", Url.Encode("@helloserve"))
     <div style="width: 49%; float: left;">
         <div>
             @foreach (var feature in Model.LatestFeatures)
@@ -16,7 +17,7 @@
                 Html.RenderPartial("_Feature", feature);
             }
         </div>
-        <div style="width: 600px; color:Black">
+        <div id="otherLinks" style="width: 600px; color:Black">
             <h2>
                 Other Links</h2>
             <div style="display: table-cell; vertical-align: middle; float: left; width: 100%">
@@ -40,13 +41,17 @@
                     </a>
                 </div>
             </div>
-            <div style="display: table-cell; vertical-align: middle; float: left; width: 100%">
-                <div style="height: 45px; float: left; width:420px;">The official game development association of South Africa</div>
-                <div style="height: 45px; float: right">
-                    <a href="http://www.makegamessa.com" title="Discussions that will rack your brains">
-                        Make Games South Africa
-                    </a>
+            <div style="display: table-cell; vertical-align: middle; float: left; width: 100%; margin-top:15px">
+                <div style="height: 100px; float: left; width:420px;">The official game development association of South Africa</div>
+                <div style="height: 100px; float: right">
+                    <a href="http://www.makegamessa.com" title="Discussions that will rack your brains" style="padding:37px; text-decoration:none; background: url(/Content/Img/mgsa.png) no-repeat 0 50%">&nbsp;</a>
                 </div>
+            </div>
+        </div>
+        <div style="clear:both">
+            <h2>helloserve Tweets</h2>
+            <div id="twitterFeed" style="width:600px">
+            
             </div>
         </div>
     </div>

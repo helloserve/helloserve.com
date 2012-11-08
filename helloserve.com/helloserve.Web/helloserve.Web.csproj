@@ -97,6 +97,7 @@
     <Content Include="Content\Img\cell.png" />
     <Content Include="Content\Img\Feature_Image_Placeholder.png" />
     <Content Include="Content\Img\g-plus-icon-32x32.png" />
+    <Content Include="Content\Img\mgsa.png" />
     <Content Include="Content\Img\News_Image_Placeholder.png" />
     <Content Include="Content\Img\rss.png" />
     <Content Include="Content\Img\twitter_newbird_blue.png" />
