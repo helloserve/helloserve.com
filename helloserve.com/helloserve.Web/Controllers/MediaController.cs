@@ -44,5 +44,17 @@ namespace helloserve.Web
 
             return stream;
         }
+
+        public ActionResult Canvas(string id)
+        {
+            HomeCanvasModel model = new HomeCanvasModel(id);
+            return Content(model.AppDefaultPage, "text/html");
+        }
+
+        public ActionResult Script(string id, string script)
+        {
+            HomeScriptModel model = new HomeScriptModel(id, script);
+            return Content(model.Script, "text/javascript");
+        }
     }
 }

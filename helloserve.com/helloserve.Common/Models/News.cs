@@ -10,7 +10,7 @@ namespace helloserve.Common
     public class News : BaseEntity<News>, IEntity
     {
         [Required, Key, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int NewsID { get; internal set; }
+        public int NewsID { get; set; }
         public int? FeatureID { get; set; }
         public string Title { get; set; }
         public string Cut { get; set; }

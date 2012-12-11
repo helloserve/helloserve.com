@@ -10,7 +10,7 @@ namespace helloserve.Common
     public class Media : BaseEntity<Media>, IEntity
     {
         [Required, Key, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int MediaID { get; internal set; }
+        public int MediaID { get; set; }
         public int MediaType { get; set; }
         public string FileName { get; set; }
         public int Width { get; set; }

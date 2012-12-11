@@ -41,6 +41,10 @@ namespace helloserve.Web
 
         #endregion
 
+        #region STRING FUNCTIONS
+
+        #endregion
+
         #region HTML HELPER FUNCTIONS
 
         public static MvcHtmlString DatePicker(this HtmlHelper helper, string name, object value, object htmlAttributes = null)
@@ -48,6 +52,13 @@ namespace helloserve.Web
             var attributeList = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
             updateHtmlAttr(attributeList, "datePicker");
             return InputExtensions.TextBox(helper, name, value, attributeList);
+        }
+
+        public static MvcHtmlString Tweet(this HtmlHelper helper, string text, object htmlAttributes = null)
+        {
+            var attributeList = (htmlAttributes == null) ? new RouteValueDictionary() : new RouteValueDictionary(htmlAttributes);
+            updateHtmlAttr(attributeList, "tweet");
+            return new MvcHtmlString("<span>" + text.ParseLinks().ParseTwitterHashTags().ParseTwitterUsers() + "</span>");
         }
 
         #endregion
@@ -107,8 +118,6 @@ namespace helloserve.Web
             while (match.Success)
             {
                 markupPost = markupPost.Replace(match.Groups[0].Value, " <i>" + match.Groups[2].Value + "</i> ");
-                //markupPost.Remove(match.Index, match.Length);
-                //markupPost = markupPost.Insert(match.Index, " <i>" + match.Groups[2].Value + "</i> ");
 
                 match = match.NextMatch();
             }
@@ -119,21 +128,24 @@ namespace helloserve.Web
             while (match.Success)
             {
                 markupPost = markupPost.Replace(match.Groups[0].Value, " <strong>" + match.Groups[2].Value + "</strong> ");
-                //markupPost = markupPost.Remove(match.Index, match.Length);
-                //markupPost = markupPost.Insert(match.Index, " <strong>" + match.Groups[2].Value + "</strong> ");
 
                 match = match.NextMatch();
             }
 
             //try for link 
             string postPart = markupPost;
-            regex = new Regex(@"http://\S+\s?");
+            regex = new Regex(@"(?<link>http://\S+\s+)|(?<image>(\[img\])(http://\S+)(\[/img\]))");
             match = regex.Match(markupPost);
             while (match.Success)
             {
-                markupPost = markupPost.Replace(match.Groups[0].Value, string.Format(" <a href=\"{0}\">{0}</a> ", match.Groups[0].Value.Replace("\r\n", "").Replace("\r", "").Replace("\r\n", "")));
-                //markupPost = markupPost.Remove(match.Index, match.Length);
-                //markupPost = markupPost.Insert(match.Index, string.Format(" <a href=\"{0}\">{0}</a> ", match.Groups[0].Value.Replace("\r\n", "").Replace("\r", "").Replace("\r\n", "")));
+                if (match.Groups["link"].Success)
+                {
+                    markupPost = markupPost.Replace(match.Groups[0].Value, string.Format(" <a href=\"{0}\">{0}</a> ", match.Groups[0].Value.Replace("\r\n", "").Replace("\r", "").Replace("\r\n", "")));
+                }
+                else if (match.Groups["image"].Success)
+                {
+                    markupPost = markupPost.Replace(match.Groups[0].Value, string.Format(" <img src=\"{0}\">", match.Groups[2].Value.Replace("\r\n", "").Replace("\r", "").Replace("\r\n", "")));
+                }
 
                 match = match.NextMatch();
             }

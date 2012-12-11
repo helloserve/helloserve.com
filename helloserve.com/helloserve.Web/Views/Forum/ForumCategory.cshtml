@@ -22,7 +22,7 @@
             <div>
                 <div>
                     <div style="float:left">
-                        <span style="font-weight:bolder; font-size:larger;">@Html.ActionLink(topic.Topic.Name, "ForumTopic", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = topic.Topic.ForumTopicID, page = "0" }, null)</span>
+                        <span style="font-weight:bolder; font-size:larger;">@Html.ActionLink(topic.Topic.Name, "ForumTopic", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = topic.Topic.ForumTopicID, offset = "0" }, null)</span>
                         @if (topic.Topic.Locked)
                         {
                             <span style="color:#ff5a00">■</span>

@@ -10,7 +10,7 @@ namespace helloserve.Common
     public class Downloadable: BaseEntity<Downloadable>, IEntity
     {
         [Required, Key, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int DownloadableID { get; internal set; }
+        public int DownloadableID { get; set; }
         public int? FeatureID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

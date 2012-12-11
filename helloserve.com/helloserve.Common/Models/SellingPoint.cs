@@ -10,7 +10,7 @@ namespace helloserve.Common
     public class SellingPoint : BaseEntity<SellingPoint>, IEntity
     {
         [Key, Required, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int SellingPointID { get; internal set; }
+        public int SellingPointID { get; set; }
         public int? FeatureID { get; set; }
         public string Description { get; set; }
 

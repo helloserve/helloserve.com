@@ -10,7 +10,7 @@ namespace helloserve.Common
     public class ForumTopic : BaseEntity<ForumTopic>, IEntity
     {
         [Required, Key, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int ForumTopicID { get; internal set; }
+        public int ForumTopicID { get; set; }
         [Required]
         public int ForumCategoryID { get; set; }
         [Required]
@@ -34,7 +34,7 @@ namespace helloserve.Common
         {
             return ForumRepo.GetPostsFor(ForumTopicID);
         }
-        
+
         public IQueryable<ForumPost> Posts(int page, int pageTotal)
         {
             if (page == 0)
@@ -42,6 +42,11 @@ namespace helloserve.Common
 
             int offset = page * pageTotal;
             return Posts().OrderBy(p => p.Date).Skip(offset).Take(pageTotal);
+        }
+
+        public int PostCount()
+        {
+            return Posts().Count();
         }
 
         public void InitialPost(string post)

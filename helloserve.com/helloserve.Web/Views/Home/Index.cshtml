@@ -10,7 +10,7 @@
         } (document, 'script', 'facebook-jssdk'));</script>
 }
     @Html.Hidden("tweetTags", Url.Encode("@helloserve"))
-    <div style="width: 49%; float: left;">
+    <div style="width: 49%; min-width:600px; float: left; margin-right:20px">
         <div>
             @foreach (var feature in Model.LatestFeatures)
             {
@@ -51,11 +51,14 @@
         <div style="clear:both">
             <h2>helloserve Tweets</h2>
             <div id="twitterFeed" style="width:600px">
-            
+                @foreach (Tweet item in Model.Tweets.StoredTweets)
+                {
+                    <div class="tweet">@Html.Tweet(item.text)</div>
+                }
             </div>
         </div>
     </div>
-    <div style="width: 49%; float: right">
+    <div style="width: 49%; min-width:600px; float: left">
         <h2>
             Latest Blog Posts</h2>
         <div>

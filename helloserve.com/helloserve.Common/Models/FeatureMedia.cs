@@ -10,7 +10,7 @@ namespace helloserve.Common
     public class FeatureMedia : BaseEntity<FeatureMedia>, IEntity
     {
         [Required, Key, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int FeatureMediaID { get; internal set; }
+        public int FeatureMediaID { get; set; }
         [Required]
         public int FeatureID { get; set; }
         [Required]

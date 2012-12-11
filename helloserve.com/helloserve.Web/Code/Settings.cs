@@ -64,8 +64,16 @@ namespace helloserve.Web
             {
                 if (HttpContext.Current.Items["__DB__"] == null)
                 {
-                    Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0", ConfigurationManager.AppSettings["DataPath"], string.Empty);
-                    Database.SetInitializer(new DropCreateDatabaseIfModelChanges<helloserveContext>());
+                    if (ConfigurationManager.AppSettings["DataSource"] == "Compact")
+                    {
+                        Database.DefaultConnectionFactory = new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0", ConfigurationManager.AppSettings["DataPath"], string.Empty);
+                        Database.SetInitializer(new DropCreateDatabaseIfModelChanges<helloserveContext>());
+                    }
+                    else
+                    {
+                        Database.DefaultConnectionFactory = new SqlConnectionFactory(ConfigurationManager.ConnectionStrings["helloserve"].ConnectionString);
+                        Database.SetInitializer(new DropCreateDatabaseIfModelChanges<helloserveContext>());
+                    }
 
                     helloserveContext db = new helloserveContext();
 
@@ -80,6 +88,20 @@ namespace helloserve.Web
             get
             {
                 return ForumRepo.GetAll().ToList();
+            }
+        }
+
+        public static TweetModel Tweets
+        {
+            get
+            {
+                if (TweetModel.Tweets.ShouldPoll())
+                {
+                    Twitter.Poll();
+                    TweetModel.Tweets.LastPolled = DateTime.Now;
+                }
+
+                return TweetModel.Tweets;
             }
         }
 
@@ -116,11 +138,11 @@ namespace helloserve.Web
                 else
                 {
                     Settings.Init();
-                    
+
                     Settings current = HttpContext.Current.Session["Settings"] as Settings;
-                    
+
                     current.ForumPages = int.Parse(ConfigurationManager.AppSettings["ForumPages"]);
-                    
+
                     return current;
                 }
             }

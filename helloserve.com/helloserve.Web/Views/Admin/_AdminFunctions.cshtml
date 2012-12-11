@@ -57,4 +57,14 @@
     <div>
         <a onclick="Admin.ErrorLog()">Check Error Log</a>
     </div>
+    <br />
+    <div>
+        @Html.ActionLink("Export Database", "ExportDatabase", "Admin")
+    </div>
+    <br />
+    @using (Html.BeginForm("ImportDatabase", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "importDatabase" }))
+    {
+        <div><span style="width:400px">JSON file </span><input type="file" name="uploadedFile" size="100"/></div>
+        <div><input type="submit" name="import" value="Import"/></div>
+    }
 </div>

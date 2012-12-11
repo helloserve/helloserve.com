@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using helloserve.Common;
 using System.Configuration;
+using System.IO;
 
 namespace helloserve.Web
 {
@@ -13,6 +14,7 @@ namespace helloserve.Web
         public List<News> LatestNews { get; internal set; }
         public List<News> LatestBlogPosts { get; internal set; }
         public List<ForumPostModel> LatestForumPosts { get; internal set; }
+        public TweetModel Tweets { get; set; }
 
         public HomeModel()
         {
@@ -25,7 +27,9 @@ namespace helloserve.Web
             if (!Settings.Current.IsAdminUser)
                 forumPosts = forumPosts.Where(f => !f.Forum.Internal);
 
-            LatestForumPosts = forumPosts.Take(10).Select(f=>new ForumPostModel() { Forum = f.Forum, Category = f.Category, Topic = f.Topic, Post = f.Post }).ToList();
+            LatestForumPosts = forumPosts.Take(10).Select(f => new ForumPostModel() { Forum = f.Forum, Category = f.Category, Topic = f.Topic, Post = f.Post }).ToList();
+
+            Tweets = Settings.Tweets;
         }
     }
 
@@ -65,6 +69,54 @@ namespace helloserve.Web
                 Downloadable = DownloadableRepo.GetByID(downloadID);
             else
                 Downloadable = DownloadableRepo.GetByFilename(id);
+        }
+    }
+
+    public class HomeCanvasModel
+    {
+        public static readonly string[] DefaultPages = new string[] { "default.htm", "default.html", "index.htm", "index.html" };
+
+        public string AppFolder = "";
+        public string AppDefaultPage = "";
+
+        public HomeCanvasModel(string id)
+        {
+            string canvasFolder = ConfigurationManager.AppSettings["CanvasPath"];
+            AppFolder = Path.Combine(canvasFolder, id);
+            int i = 0;
+            while (!ReadDefaultPage(AppFolder, DefaultPages[i]))
+            {
+                i++;
+                if (i >= DefaultPages.Length)
+                    break;
+            }
+        }
+
+        private bool ReadDefaultPage(string folder, string page)
+        {
+            string path = Path.Combine(folder, page);
+            if (File.Exists(path))
+            {
+                AppDefaultPage = File.ReadAllText(path);
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    public class HomeScriptModel
+    {
+        public string ScriptFolder = "";
+        public string Script = "";
+
+        public HomeScriptModel(string id, string script)
+        {
+            string canvasFolder = ConfigurationManager.AppSettings["CanvasPath"];
+            ScriptFolder = Path.Combine(Path.Combine(canvasFolder, id), "scripts");
+            string scriptPath = Path.Combine(ScriptFolder, script);
+            if (File.Exists(scriptPath))
+                Script = File.ReadAllText(scriptPath);
         }
     }
 }

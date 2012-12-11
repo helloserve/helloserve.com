@@ -11,7 +11,7 @@ namespace helloserve.Common
     public class User : BaseEntity<User>, IEntity
     {
         [Key, Required, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int UserID { get; internal set; }
+        public int UserID { get; set; }
         public string Username { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; }
@@ -20,6 +20,11 @@ namespace helloserve.Common
         public bool Administrator { get; set; }
         public Guid ActivationToken { get; set; }
         public bool Activated { get; set; }
+
+        public override int GetID()
+        {
+            return UserID;
+        }
 
         [NotMapped]
         public string EmailMd5Hash

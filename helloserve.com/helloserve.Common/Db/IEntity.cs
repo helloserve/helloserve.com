@@ -7,6 +7,7 @@ namespace helloserve.Common
 {
     public interface IEntity
     {
+        int GetID();
         bool IsNew();
         void Save(bool skipValidation = false);
     }

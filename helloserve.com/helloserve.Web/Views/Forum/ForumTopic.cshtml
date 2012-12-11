@@ -17,30 +17,29 @@
 <div style="display:inline-block;">
 @{ Html.RenderPartial("_TopicPager", Model); }
 </div>
-<div style="width:800px">
-    @foreach (var post in Model.Topic.Posts(Model.CurrentPage, Settings.Current.ForumPages))
-    {       
-        <div class="forumTopicPost" id="Post_@(post.ForumPostID)">
-            <div style="width:300px; height:50px">
-                <div style="float:left; height:50px; width:50px; border:1px solid black; margin:0px 5px 0px 0px;"><img src="http://www.gravatar.com/avatar/@(post.User.EmailMd5Hash)?s=50" /></div>
-                <div style="float:left; padding:10px 0px;"><span class="forumUser">@post.User.Username</span>&nbsp;<span class="forumPostDetails">@post.Date.ToShortDateString() @post.Date.ToShortTimeString()</span></div>
-                @if (Settings.Current.IsAdminUser)
-                {
-                    <div class="forumModerateLinks" style="float:left">
-                    @Html.ActionLink("Delete", "DeleteForumPost", "Forum", new { forum = Model.Forum.Name, category = Model.Category.Name, topicID = Model.Topic.ForumTopicID, postID = post.ForumPostID }, null) 
-                    | 
-                    <a onclick="Forum.MaintainForumPost('@(Model.Forum.Name)', '@(Model.Category.Name)', @(Model.Topic.ForumTopicID), @(post.ForumPostID))">Edit</a>
-                    </div>
-                }
-            </div>
-            <div style="padding:5px 0px;">@Html.Raw(Html.ForumPost(post.Post))</div>
-        </div>
-        <br />
-    }
+<div style="min-width:1024px">
+    <div id="forumTopicPosts">
+        @foreach (var post in Model.Posts)
+        {       
+            if(post == Model.ViewPost)
+            {
+                <div class="forumTopicPost forumPostAnchor" id="Post_@(post.Post.ForumPostID)">
+                    @Html.Partial("_TopicPost", post)
+                </div>
+            }
+            else
+            {
+                <div class="forumTopicPost" id="Post_@(post.Post.ForumPostID)">
+                    @Html.Partial("_TopicPost", post)
+                </div>
+            }
+            <br />
+        }
+    </div>
     <br />
     @if(!Model.Topic.Locked || Settings.Current.IsAdminUser)
     {
-        <div class="controlDiv">
+        <div class="controlDiv" id="forumPostAccess">
             @if (Settings.Current.User == null)
             {
                 <span>We need to know who you are before you can post</span>
@@ -51,5 +50,6 @@
             }
         </div>
     }
+    <div id="forumPost"></div>
 </div>
 @{ Html.RenderPartial("_TopicPager", Model); } 

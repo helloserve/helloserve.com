@@ -35,6 +35,9 @@
       <HintPath>..\..\Dependencies\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Dependencies\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -51,7 +54,9 @@
     <Compile Include="Db\ContextFactory.cs" />
     <Compile Include="Db\IEntity.cs" />
     <Compile Include="Models\BaseEntity.cs" />
+    <Compile Include="Models\DTO\ExportModel.cs" />
     <Compile Include="Models\DTO\ForumModel.cs" />
+    <Compile Include="Models\DTO\TweetModel.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\ForumCategory.cs" />

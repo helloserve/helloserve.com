@@ -28,6 +28,7 @@ body
     margin: 0;
     padding: 0;
     color: #000;
+    min-width:1204px;
 }
 
 a:link
@@ -419,6 +420,7 @@ span.forumPostDetails
 {
     background-color:#EFEFEF;
     padding:15px;
+    margin-bottom:15px;
     border:1px solid black; 
     border-radius: 4px 4px 4px 4px; 
     -webkit-border-radius: 4px 4px 4px 4px; 

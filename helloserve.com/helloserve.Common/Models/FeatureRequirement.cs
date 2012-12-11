@@ -10,7 +10,7 @@ namespace helloserve.Common
     public class FeatureRequirement : BaseEntity<FeatureRequirement>, IEntity
     {
         [Key, Required, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int FeatureRequirementID { get; internal set; }
+        public int FeatureRequirementID { get; set; }
         public int RequirementID { get; set; }
         public int FeatureID { get; set; }
 

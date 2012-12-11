@@ -7,6 +7,7 @@ using helloserve.Web;
 using helloserve.Common;
 using System.IO;
 using System.Configuration;
+using System.Text;
 
 namespace helloserve.Web
 {
@@ -664,6 +665,32 @@ namespace helloserve.Web
             AdminFeatureDownloadableModel model = new AdminFeatureDownloadableModel(featureID);
             model.UnlinkDownloabable(id);
             return PartialView("_FeatureDownloads", model);
+        }
+
+        public FileResult ExportDatabase()
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.UnlinkDownloadable - What?");
+
+            string model = ExportImportModel.ExportToJSON(Settings.DB);
+            string filename = Path.GetTempFileName();
+            System.IO.File.WriteAllText(filename, model);
+
+            return File(filename, "application/json", "helloserve.json");
+        }
+
+        public ActionResult ImportDatabase(FormCollection form, HttpPostedFileBase uploadedFile)
+        {
+            if (!Settings.Current.IsAdminUser)
+                throw new Exception("Admin.UnlinkDownloadable - What?");
+
+            byte[] buffer = new byte[uploadedFile.InputStream.Length];
+            uploadedFile.InputStream.Read(buffer, 0, (int)uploadedFile.InputStream.Length);
+            string json = Encoding.Default.GetString(buffer);
+
+            ExportImportModel.ImportFromJSON(Settings.DB, json);
+
+            return RedirectToAction("Admin");
         }
     }
 }

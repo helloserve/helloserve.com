@@ -10,7 +10,7 @@ namespace helloserve.Common
     public class ForumCategory : BaseEntity<ForumCategory>, IEntity
     {
         [Required, Key, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int ForumCategoryID { get; internal set; }
+        public int ForumCategoryID { get; set; }
         [Required]
         public int ForumID { get; set; }
         [Required, MaxLength(150)]

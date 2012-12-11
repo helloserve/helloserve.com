@@ -37,6 +37,8 @@ namespace helloserve.Web
         public Forum Forum;
         public ForumCategory Category;
         public ForumTopic Topic;
+        public List<ForumPostModel> Posts;
+        public ForumPostModel ViewPost;
         public int Pages;
         public int CurrentPage;
 
@@ -52,16 +54,21 @@ namespace helloserve.Web
                 Name = "New Topic",
                 UserID = Settings.Current.User.UserID
             };
+            Posts = Topic.Posts().ToList().Select(p => new ForumPostModel() { Category = Category, Forum = Forum, Topic = Topic, Post = p }).ToList();
             Pages = 0;
             CurrentPage = 0;
         }
 
-        public ForumTopicModel(string forum, string category, int topicID, int page = 0)
+        public ForumTopicModel(string forum, string category, int topicID, int page = 0, int? postID = null)
         {
             Forum = ForumRepo.GetByName(forum);
             Category = Forum.Categories.Where(c => c.Name == category).Single();
             Topic = Category.Topics.Where(t => t.ForumTopicID == topicID).Single();
-            int count = Topic.Posts().Count();
+            Posts = Topic.Posts(page, Settings.Current.ForumPages).ToList().Select(p => new ForumPostModel() { Category = Category, Forum = Forum, Topic = Topic, Post = p }).ToList();
+            if (postID.HasValue)
+                ViewPost = Posts.Where(p => p.Post.ForumPostID == postID.Value).SingleOrDefault();
+
+            int count = Topic.PostCount();
             if (count % Settings.Current.ForumPages == 0)
                 Pages = count / Settings.Current.ForumPages;
             else Pages = (int)Math.Ceiling(count / (double)Settings.Current.ForumPages);

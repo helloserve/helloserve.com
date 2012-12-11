@@ -30,13 +30,13 @@ namespace helloserve.Web.Controllers
             return View(model);
         }
 
-        public ActionResult ForumTopic(string forum, string category, string topicID, string page)
+        public ActionResult ForumTopic(string forum, string category, string topicID, string offset, int? postID = null)
         {
             int pageNumber = int.MaxValue;
-            if (page != "Last" && !string.IsNullOrEmpty(page))
-                pageNumber = int.Parse(page);
+            if (offset != "Last" && !string.IsNullOrEmpty(offset))
+                pageNumber = int.Parse(offset);
 
-            ForumTopicModel model = new ForumTopicModel(forum, category, int.Parse(topicID), pageNumber);
+            ForumTopicModel model = new ForumTopicModel(forum, category, int.Parse(topicID), pageNumber, postID);
             if (model.Forum.Internal && !Settings.Current.IsAdminUser)
                 throw new Exception("Fake ID!");
 
@@ -146,6 +146,12 @@ namespace helloserve.Web.Controllers
             return PartialView("MaintainForumPost", model);
         }
 
+        public ActionResult LoadForumPost(string forum, string category, int topicID, int postID)
+        {
+            ForumPostModel model = new ForumPostModel(forum, category, topicID, postID);
+            return PartialView("_TopicPost", model);
+        }
+
         public ActionResult DeleteForumPost(string forum, string category, int topicID, int postID)
         {
             if (Settings.Current.User == null)
@@ -157,7 +163,7 @@ namespace helloserve.Web.Controllers
             ForumPostModel model = new ForumPostModel(forum, category, topicID, postID);
             model.Post.Delete();
 
-            return ForumTopic(forum, category, topicID.ToString(), "Last");
+            return ReturnJsonResult(false, model.Post.ForumPostID.ToString());
         }
 
         [HttpPost]
@@ -184,7 +190,7 @@ namespace helloserve.Web.Controllers
             try
             {
                 model.Post.Save();
-                return ForumTopic(forum, category, topicID.ToString(), "Last");
+                return PartialView("_TopicPost", model); //ForumTopic(forum, category, topicID.ToString(), "Last");
             }
             catch (Exception ex)
             {
@@ -192,6 +198,14 @@ namespace helloserve.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Used from the home page
+        /// </summary>
+        /// <param name="forum"></param>
+        /// <param name="category"></param>
+        /// <param name="topicID"></param>
+        /// <param name="postID"></param>
+        /// <returns></returns>
         public ActionResult ForumPost(string forum, string category, int topicID, int postID)
         {
             ForumPostModel model = new ForumPostModel(forum, category, topicID, postID);
@@ -203,7 +217,7 @@ namespace helloserve.Web.Controllers
 
             int pageNumber = (int)Math.Floor(indexof / (double)Settings.Current.ForumPages);
 
-            return ForumTopic(forum, category, topicID.ToString(), pageNumber.ToString());
+            return ForumTopic(forum, category, topicID.ToString(), pageNumber.ToString(), postID);
         }
 
     }

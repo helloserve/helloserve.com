@@ -10,7 +10,7 @@ namespace helloserve.Common
     public class Log : BaseEntity<Log>, IEntity
     {
         [Key, Required, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int LogID { get; internal set; }
+        public int LogID { get; set; }
         public int? UserID { get; set; }
         public int? FeatureID { get; set; }
         public int? NewsID { get; set; }

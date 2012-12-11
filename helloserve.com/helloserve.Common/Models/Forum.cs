@@ -10,7 +10,7 @@ namespace helloserve.Common
     public class Forum : BaseEntity<Forum>, IEntity
     {
         [Required, Key, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int ForumID { get; internal set; }
+        public int ForumID { get; set; }
         [Required, MaxLength(150)]
         public string Name { get; set; }
         [MaxLength(500)]

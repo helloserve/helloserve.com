@@ -29,6 +29,11 @@ namespace helloserve.Common
             BaseRepo<TEntity>.Delete(entity);
         }
 
+        public virtual int GetID()
+        {
+            return 0;
+        }
+
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> results = new List<ValidationResult>();

@@ -1,5 +1,5 @@
 ﻿@model ForumPostModel
-<a href="Forum/ForumPost?forum=@(Model.Forum.Name)&category=@(Model.Category.Name)&topicID=@(Model.Topic.ForumTopicID)&postID=@(Model.Post.ForumPostID)" style="text-decoration:none">
+<a href="/Forum/ForumPost?forum=@(Model.Forum.Name)&category=@(Model.Category.Name)&topicID=@(Model.Topic.ForumTopicID)&postID=@(Model.Post.ForumPostID)" style="text-decoration:none">
 <div id="ForumPost@(Model.Post.ForumPostID)" class="contentBlock">
     <div>
         <h3>@Model.Topic.Name</h3>
