@@ -431,7 +431,7 @@ namespace helloserve.Web
                 return PartialView("_MediaMaintain", model);
             }
 
-            ErrorRepo.LogControllerError("Could not parse media ID", "Admin.RemoveMedia");
+            Settings.EventLogger.Log(EventLogEntry.LogError("Could not parse media ID", "Admin.RemoveMedia"));
             return null;
         }
 
@@ -454,7 +454,7 @@ namespace helloserve.Web
                 return PartialView("_Forum", new AdminForumModel(forumID));
             }
 
-            ErrorRepo.LogControllerError("Could not parse forum ID", "Admin.EditForum");
+            Settings.EventLogger.Log(EventLogEntry.LogError("Could not parse forum ID", "Admin.EditForum"));
             return null;
         }
 
@@ -480,7 +480,7 @@ namespace helloserve.Web
             }
             catch (Exception ex)
             {
-                ErrorRepo.LogException(ex);
+               Settings.EventLogger.Log(EventLogEntry.LogException(ex, "Admin.SaveForum"));
                 return ReturnJsonException(ex, ex.Message);
             }
         }
@@ -497,7 +497,7 @@ namespace helloserve.Web
                 model.Forum.Delete();
             }
 
-            ErrorRepo.LogControllerError("Could not parse forum ID", "Admin.DeleteForum");
+            Settings.EventLogger.Log(EventLogEntry.LogError("Could not parse forum ID", "Admin.DeleteForum"));
 
             return null;
         }
@@ -513,7 +513,7 @@ namespace helloserve.Web
                 return PartialView("_ForumCategory", new AdminForumCategoryModel(forumID));
             }
 
-            ErrorRepo.LogControllerError("Could not parse forum ID", "Admin.AddForumCategory");
+            Settings.EventLogger.Log(EventLogEntry.LogError("Could not parse forum ID", "Admin.AddForumCategory"));
 
             return null;
         }
@@ -534,7 +534,7 @@ namespace helloserve.Web
                 }
             }
 
-            ErrorRepo.LogControllerError("Could not parse forum ID or forum Category ID", "Admin.EditForumCategory");
+            Settings.EventLogger.Log(EventLogEntry.LogError("Could not parse forum ID or forum Category ID", "Admin.EditForumCategory"));
 
             return null;
         }
@@ -563,7 +563,7 @@ namespace helloserve.Web
             }
             catch (Exception ex)
             {
-                ErrorRepo.LogException(ex);
+                Settings.EventLogger.Log(EventLogEntry.LogException(ex, "Admin.SaveForumCategory"));
                 return ReturnJsonException(ex, ex.Message);
             }
         }
@@ -585,7 +585,7 @@ namespace helloserve.Web
                 }
             }
 
-            ErrorRepo.LogControllerError("Could not parse forum ID or forum Category ID", "Admin.DeleteForumCategory");
+            Settings.EventLogger.Log(EventLogEntry.LogError("Could not parse forum ID or forum Category ID", "Admin.DeleteForumCategory"));
             return null;
         }
 
@@ -622,19 +622,10 @@ namespace helloserve.Web
                 while (ex.InnerException != null)
                     ex = ex.InnerException;
 
-                ErrorRepo.LogException(ex);
+                Settings.EventLogger.Log(EventLogEntry.LogException(ex, "Admin.SendActivation"));
             }
 
             return Users();
-        }
-
-        public ActionResult ErrorLog()
-        {
-            if (!Settings.Current.IsAdminUser)
-                throw new Exception("Admin.SendActication - What?");
-
-            AdminErrorModel model = new AdminErrorModel();
-            return PartialView("_ErrorLog", model);
         }
 
         [HttpPost]

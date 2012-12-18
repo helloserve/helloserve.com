@@ -14,7 +14,7 @@ namespace helloserve.Common
         public int UserID { get; set; }
         public string Username { get; set; }
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public byte[] Password { get; set; }
         public string EmailAddress { get; set; }
         public bool ReceiveUpdates { get; set; }
         public bool Administrator { get; set; }
@@ -31,6 +31,9 @@ namespace helloserve.Common
         {
             get
             {
+                if (string.IsNullOrEmpty(EmailAddress))
+                    return "";
+
                 MD5 md5 = MD5.Create();
                 byte[] bytes = Encoding.Default.GetBytes(EmailAddress.Trim().ToLower());
                 bytes = md5.ComputeHash(bytes);

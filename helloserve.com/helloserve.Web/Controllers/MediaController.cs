@@ -20,11 +20,16 @@ namespace helloserve.Web
                 throw new Exception("Invalid Media Selection - choose a different iDevice");
             }
 
+            int key = Settings.EventLogger.StartPerfLog(EventLogEntry.LogForElapsed(string.Format("serving media {0}", model.Media.MediaID), "Media.Index"));
+
             string extension = Path.GetExtension(model.Media.Location);
             FileStream image = new FileStream(model.Media.Location, FileMode.Open);
             FileStreamResult stream = new FileStreamResult(image, string.Format("image/{0}", extension));
 
-            LogRepo.LogForMedia(Settings.Current.GetUserID(), model.Media.MediaID, model.Media.FileName, "Media.Index");
+            Settings.EventLogger.LogPerfLog(key);
+
+            //LogRepo.LogForMedia(Settings.Current.GetUserID(), model.Media.MediaID, model.Media.FileName, "Media.Index");
+            Settings.EventLogger.Log(EventLogEntry.LogForMedia(Settings.Current.GetUserID(), model.Media.MediaID, model.Media.FileName, "Media.Index"));
 
             return stream;
         }
@@ -36,11 +41,16 @@ namespace helloserve.Web
             if (model == null)
                 throw new Exception("Invalid Media Selection - choose a different iDevice");
 
+            int key = Settings.EventLogger.StartPerfLog(EventLogEntry.LogForElapsed(string.Format("serving thumb {0}", model.Media.MediaID), "Media.Thumb"));
+
             string extension = Path.GetExtension(model.Media.Location);
             FileStream image = new FileStream(model.ThumbLocation, FileMode.Open);
             FileStreamResult stream = new FileStreamResult(image, string.Format("image/{0}", extension));
 
-            LogRepo.LogForMedia(Settings.Current.GetUserID(), model.Media.MediaID, model.Media.FileName, "Media.Thumb");
+            Settings.EventLogger.LogPerfLog(key);
+
+            //LogRepo.LogForMedia(Settings.Current.GetUserID(), model.Media.MediaID, model.Media.FileName, "Media.Thumb");
+            Settings.EventLogger.Log(EventLogEntry.LogForMedia(Settings.Current.GetUserID(), model.Media.MediaID, model.Media.FileName, "Media.Thumb"));
 
             return stream;
         }

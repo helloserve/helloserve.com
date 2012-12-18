@@ -57,6 +57,12 @@ namespace helloserve.Web
             );
 
             routes.MapRoute(
+                "Error",
+                "Error/",
+                new { controller = "Home", action = "Error" }
+            );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults

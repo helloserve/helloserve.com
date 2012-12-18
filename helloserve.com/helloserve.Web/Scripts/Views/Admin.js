@@ -348,12 +348,6 @@ var Admin = {
         $('#adminAction').load('/Admin/SendActivation/', { id: userid });
         return false;
     },
-    ErrorLog: function () {
-        $('#adminAction').load('/Admin/ErrorLog/', function () {
-            $('#adminFunctions').hide();
-            $('#adminAction').show();
-        });
-    },
     SystemLog: function () {
         $.post('/Admin/SystemLog/', null, function (result) {
             $('#adminFunctions').hide();
@@ -364,11 +358,12 @@ var Admin = {
     },
     FilterSystemLog: function () {
         var filterDate = $('#Log_FilterDate').val();
+        var filterCat = $('#Log_Category').val();
         var filterUser = $('#Log_FilterUser').val();
         var filterMsg = $('#Log_FilterMessage').val();
         var filterSrc = $('#Log_FilterSource').val();
 
-        var data = { Date: filterDate, UserID: filterUser, Message: filterMsg, Source: filterSrc};
+        var data = { Date: filterDate, Category: filterCat, UserID: filterUser, Message: filterMsg, Source: filterSrc };
 
         $.post('/Admin/SystemLog/', data, function (result) {
             $('#adminAction').html(result);

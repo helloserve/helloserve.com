@@ -12,7 +12,6 @@ namespace helloserve.Web
 {
     public class AccountController : BaseController
     {
-
         //
         // GET: /Account/LogOn
 
@@ -44,7 +43,8 @@ namespace helloserve.Web
                 User user = UserRepo.ValidateUser(model.UserName, model.Password);
                 if (user != null)
                 {
-                    LogRepo.LogForUser(user.UserID, "Logon", "Account.LogOn");
+                    //LogRepo.LogForUser(user.UserID, "Logon", "Account.LogOn");
+                    Settings.EventLogger.Log(EventLogEntry.LogForUser(user.UserID, "Logon", "Account.LogOn"));
 
                     FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
                     Settings.Current.User = user;
@@ -89,7 +89,7 @@ namespace helloserve.Web
             }
             catch (Exception ex)
             {
-                ErrorRepo.LogException(ex);
+                Settings.EventLogger.Log(EventLogEntry.LogException(ex, "Account.ForgotPassword"));
                 ModelState.AddModelError("ResetEmail", "We got a problem sending you your reset password email. Please try again in a while.");
             }
                        
@@ -103,9 +103,11 @@ namespace helloserve.Web
         {
             int? userID = Settings.Current.GetUserID();
             if (userID.HasValue)
-                LogRepo.LogForUser(userID.Value, "Logoff", "Account.LogOff");
+                //LogRepo.LogForUser(userID.Value, "Logoff", "Account.LogOff");
+                Settings.EventLogger.Log(EventLogEntry.LogForUser(userID.Value, "Logoff", "Account.LogOff"));
             else
-                ErrorRepo.LogUnknownError("Could not log off user??");
+                //ErrorRepo.LogUnknownError("Could not log off user??");
+                Settings.EventLogger.Log(EventLogEntry.LogError("Could not log off user??", "Account.LogOff"));
 
             FormsAuthentication.SignOut();
             Settings.Current.User = null;
@@ -146,7 +148,8 @@ namespace helloserve.Web
                 {
                     if (user != null)
                     {
-                        LogRepo.LogForUser(user.UserID, "Registered", "Account.Register");
+                        //LogRepo.LogForUser(user.UserID, "Registered", "Account.Register");
+                        Settings.EventLogger.Log(EventLogEntry.LogForUser(user.UserID, "Registered", "Account.Register"));
                         //let's send an email
                         Email.SendActivation(user);
                         return View("ConfirmRegister");
@@ -161,7 +164,7 @@ namespace helloserve.Web
                     while (ex.InnerException != null)
                         ex = ex.InnerException;
 
-                    ErrorRepo.LogException(ex);
+                    Settings.EventLogger.Log(EventLogEntry.LogException(ex, "Account.Register"));
 
                     ModelState.AddModelError("", "My bad... something gone wrong...");
                 }
@@ -182,7 +185,8 @@ namespace helloserve.Web
 
                 if (user != null)
                 {
-                    LogRepo.LogForUser(user.UserID, "Activated", "Account.Activate");
+                    //LogRepo.LogForUser(user.UserID, "Activated", "Account.Activate");
+                    Settings.EventLogger.Log(EventLogEntry.LogForUser(user.UserID, "Activated", "Account.Active"));
 
                     user.Activated = true;
                     user.Save();
@@ -194,13 +198,13 @@ namespace helloserve.Web
                 }
                 else
                 {
-                    ErrorRepo.LogControllerError(string.Format("ID {0} does not match any account", id), "Account.Activate");
+                    Settings.EventLogger.Log(EventLogEntry.LogError(string.Format("ID {0} does not match any account", id), "Account.Activate"));
                     throw new Exception("No account found to activate.");
                 }
             }
             catch (Exception ex)
             {
-                ErrorRepo.LogException(ex);
+                Settings.EventLogger.Log(EventLogEntry.LogException(ex, "Account.Activate"));
                 return View("ActivationError", ex);
             }
         }
@@ -222,7 +226,8 @@ namespace helloserve.Web
 
             model.User.Save();
 
-            LogRepo.LogForUser(model.User.UserID, "Updated", "Account.UpdateProfile");
+            //LogRepo.LogForUser(model.User.UserID, "Updated", "Account.UpdateProfile");
+            Settings.EventLogger.Log(EventLogEntry.LogForUser(model.User.UserID, "Updated", "Account.UpdateProfile"));
 
             return Profile();
         }
@@ -256,7 +261,8 @@ namespace helloserve.Web
                     if (user == null)
                         throw new Exception("Invalid User!");
 
-                    LogRepo.LogForUser(user.UserID, "Updated", "Account.ChangePassword");
+                    //LogRepo.LogForUser(user.UserID, "Updated", "Account.ChangePassword");
+                    Settings.EventLogger.Log(EventLogEntry.LogForUser(user.UserID, "Changed Password", "Account.ChangePassword"));
 
                     changePasswordSucceeded = UserRepo.ChangePassword(user.UserID, model.NewPassword);
                 }

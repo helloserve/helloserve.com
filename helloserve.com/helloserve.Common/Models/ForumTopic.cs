@@ -27,7 +27,11 @@ namespace helloserve.Common
         [NotMapped]
         public User User
         {
-            get { return UserRepo.GetAll().Where(u => u.UserID == UserID).Single(); }
+            get
+            {
+                User user = UserRepo.GetAll().Where(u => u.UserID == UserID).SingleOrDefault();
+                return (user == null) ? new User() { UserID = -1, Username = "Unknown" } : user;
+            }
         }
 
         public IQueryable<ForumPost> Posts()
@@ -38,7 +42,7 @@ namespace helloserve.Common
         public IQueryable<ForumPost> Posts(int page, int pageTotal)
         {
             if (page == 0)
-                return Posts().OrderBy(p=>p.Date).Take(pageTotal);
+                return Posts().OrderBy(p => p.Date).Take(pageTotal);
 
             int offset = page * pageTotal;
             return Posts().OrderBy(p => p.Date).Skip(offset).Take(pageTotal);

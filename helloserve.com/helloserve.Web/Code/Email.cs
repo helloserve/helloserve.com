@@ -39,7 +39,8 @@ namespace helloserve.Web
             }
             client.Send(message);
 
-            LogRepo.LogForUser(user.UserID, "Activation to " + user.EmailAddress, "Email.SendActivation");
+            //LogRepo.LogForUser(user.UserID, "Activation to " + user.EmailAddress, "Email.SendActivation");
+            Settings.EventLogger.Log(EventLogEntry.LogForUser(user.UserID, string.Format("Activation to {0}", user.EmailAddress), "Email.SendActivation"));
         }
 
         public static void SendResetConfirmation(User user, string newPassword)
@@ -71,7 +72,8 @@ namespace helloserve.Web
             }
             client.Send(message);
 
-            LogRepo.LogForUser(user.UserID, "Password Reset to " + user.EmailAddress, "Email.SendResetConfirmation");
+            //LogRepo.LogForUser(user.UserID, "Password Reset to " + user.EmailAddress, "Email.SendResetConfirmation");
+            Settings.EventLogger.Log(EventLogEntry.LogForUser(user.UserID, string.Format("Password Reset to {0}", user.EmailAddress), "Email.SendResetConfirmation"));
         }
     }
 }

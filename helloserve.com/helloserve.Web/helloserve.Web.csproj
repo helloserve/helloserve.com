@@ -221,6 +221,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\helloserve.com.logger\helloserve.com.Logger\helloserve.com.Logger.csproj">
+      <Project>{42CD6D02-C6D1-44A4-8FA1-6F3A6B4690D1}</Project>
+      <Name>helloserve.com.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\helloserve.Common\helloserve.Common.csproj">
       <Project>{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}</Project>
       <Name>helloserve.Common</Name>

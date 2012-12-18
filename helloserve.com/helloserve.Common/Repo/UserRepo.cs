@@ -8,13 +8,12 @@ namespace helloserve.Common
 {
     public class UserRepo : BaseRepo<User>
     {
-        public static string GetMD5Hash(string str)
+        public static byte[] GetMD5Hash(string str)
         {
             MD5 md5 = MD5.Create();
             byte[] bytes = Encoding.Default.GetBytes(str);
             bytes = md5.ComputeHash(bytes);
-            string res = Encoding.Default.GetString(bytes);
-            return res;
+            return bytes;
         }
 
         public static string ResetPassword(User user)
@@ -65,7 +64,7 @@ namespace helloserve.Common
 
         public static User ValidateUser(string username, string password)
         {
-            string pwd = GetMD5Hash(password);
+            byte[] pwd = GetMD5Hash(password);
 
             var user = (from u in DB.Users
                         where u.Username == username && u.Password == pwd && u.Activated == true

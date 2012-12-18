@@ -32,6 +32,8 @@ namespace helloserve.Web.Controllers
 
         public ActionResult ForumTopic(string forum, string category, string topicID, string offset, int? postID = null)
         {
+            int key = Settings.EventLogger.StartPerfLog(EventLogEntry.LogForElapsed("Serving Forum topic", "Forum.ForumTopic"));
+            
             int pageNumber = int.MaxValue;
             if (offset != "Last" && !string.IsNullOrEmpty(offset))
                 pageNumber = int.Parse(offset);
@@ -39,6 +41,8 @@ namespace helloserve.Web.Controllers
             ForumTopicModel model = new ForumTopicModel(forum, category, int.Parse(topicID), pageNumber, postID);
             if (model.Forum.Internal && !Settings.Current.IsAdminUser)
                 throw new Exception("Fake ID!");
+
+            Settings.EventLogger.LogPerfLog(key);
 
             return View("ForumTopic", model);
         }

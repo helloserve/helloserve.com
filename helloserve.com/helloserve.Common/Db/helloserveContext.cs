@@ -27,7 +27,6 @@ namespace helloserve.Common
         public DbSet<ForumCategory> ForumCategories { get; set; }
         public DbSet<ForumTopic> ForumTopics { get; set; }
         public DbSet<ForumPost> ForumPosts { get; set; }
-        public DbSet<Error> Errors { get; set; }
         public DbSet<Log> Logs { get; set; }
     }
 }

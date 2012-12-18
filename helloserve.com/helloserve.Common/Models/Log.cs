@@ -11,22 +11,22 @@ namespace helloserve.Common
     {
         [Key, Required, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
         public int LogID { get; set; }
+        [Required]
+        public DateTime Timestamp { get; set; }
+        public string Category { get; set; }
+        public string Message { get; set; }
+        public string Source { get; set; }
+
         public int? UserID { get; set; }
         public int? FeatureID { get; set; }
         public int? NewsID { get; set; }
         public int? MediaID { get; set; }
         public int? DownloadID { get; set; }
 
-        [Required]
-        public DateTime LogDate { get; set; }
-        public string Message { get; set; }
-        public string Source { get; set; }
+        public DateTime? Initiated { get; set; }
+        public decimal? ElapsedSeconds { get; set; }
 
-        public Log()
-        {
-            LogDate = DateTime.Now;
-        }
-
+        [NotMapped]
         public User User
         {
             get
@@ -38,9 +38,11 @@ namespace helloserve.Common
             }
         }
 
+        [NotMapped]
         public Feature Feature
         {
-            get {
+            get
+            {
                 if (FeatureID.HasValue)
                     return FeatureRepo.GetByID(FeatureID.Value);
 

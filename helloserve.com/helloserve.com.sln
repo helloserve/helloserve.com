@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.Web", "helloserv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.Common", "helloserve.Common\helloserve.Common.csproj", "{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Logger", "..\helloserve.com.logger\helloserve.com.Logger\helloserve.com.Logger.csproj", "{42CD6D02-C6D1-44A4-8FA1-6F3A6B4690D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42CD6D02-C6D1-44A4-8FA1-6F3A6B4690D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42CD6D02-C6D1-44A4-8FA1-6F3A6B4690D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42CD6D02-C6D1-44A4-8FA1-6F3A6B4690D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42CD6D02-C6D1-44A4-8FA1-6F3A6B4690D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

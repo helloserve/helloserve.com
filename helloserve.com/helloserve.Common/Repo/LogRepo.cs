@@ -5,6 +5,7 @@ using System.Text;
 
 namespace helloserve.Common
 {
+    
     public class LogRepo : BaseRepo<Log>
     {
         public static Log GetByID(int id)
@@ -12,6 +13,8 @@ namespace helloserve.Common
             return DB.Logs.Where(l=>l.LogID == id).Single();
         }
 
+        #region OLD CODE
+        /*
         public static void LogForFeature(int? userID, int featureID, string message, string source)
         {
             Log log = new Log()
@@ -70,6 +73,7 @@ namespace helloserve.Common
                 Source = source
             };
             log.Save();
-        }
-    }
+        }*/
+        #endregion
+    }    
 }

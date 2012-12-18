@@ -383,19 +383,10 @@ namespace helloserve.Web
         }
     }
 
-    public class AdminErrorModel
-    {
-        public List<Error> Errors;
-
-        public AdminErrorModel()
-        {
-            Errors = ErrorRepo.GetAll().OrderByDescending(e => e.ErrorDate).Take(1000).ToList();
-        }
-    }
-
     public class AdminLogFilterModel
     {
         public DateTime? Date { get; set; }
+        public string Category { get; set; }
         public string Message { get; set; }
         public string Source { get; set; }
         public int? UserID { get; set; }
@@ -407,30 +398,38 @@ namespace helloserve.Web
 
         public AdminLogFilterModel FilterModel;
         public List<SelectListItem> Users;
+        public List<SelectListItem> Categories;
 
         public AdminLogModel()
         {
             FilterModel = new AdminLogFilterModel();
-            Logs = LogRepo.GetAll().OrderByDescending(l => l.LogDate).Take(1000).ToList();
+            Logs = LogRepo.GetAll().OrderByDescending(l => l.Timestamp).Take(1000).ToList();
             FillLookups();
         }
 
         public AdminLogModel(AdminLogFilterModel filter)
         {
             FilterModel = filter;
-            Logs = LogRepo.GetAll().Where(l => ((filter.Date.HasValue && l.LogDate >= filter.Date.Value) || !filter.Date.HasValue) &&
+            Logs = LogRepo.GetAll().Where(l => ((filter.Date.HasValue && l.Timestamp >= filter.Date.Value) || !filter.Date.HasValue) &&
+                                              ((!string.IsNullOrEmpty(filter.Category) && l.Category == filter.Category) || string.IsNullOrEmpty(filter.Category)) &&
                                               ((filter.UserID.HasValue && l.UserID == filter.UserID.Value) || !filter.UserID.HasValue) &&
                                               ((!string.IsNullOrEmpty(filter.Message) && l.Message.Contains(filter.Message)) || string.IsNullOrEmpty(filter.Message)) &&
-                                              ((!string.IsNullOrEmpty(filter.Source) && l.Source.Contains(filter.Source)) || string.IsNullOrEmpty(filter.Source))).OrderByDescending(l => l.LogDate).ToList();
+                                              ((!string.IsNullOrEmpty(filter.Source) && l.Source.Contains(filter.Source)) || string.IsNullOrEmpty(filter.Source))).OrderByDescending(l => l.Timestamp).ToList();
             FillLookups();
         }
 
         public void FillLookups()
         {
             if (FilterModel == null)
+            {
                 Users = UserRepo.GetAll().Select(u => new SelectListItem() { Text = string.Format("{0}: {1}", u.UserID, u.Username), Value = u.UserID.ToString() }).ToList();
+                Categories = LogRepo.GetAll().Select(l => l.Category).Distinct().Select(c => new SelectListItem() { Text = c, Value = c }).ToList();
+            }
             else
+            {
                 Users = UserRepo.GetAll().Select(u => new SelectListItem() { Text = string.Format("{0}: {1}", u.UserID, u.Username), Value = u.UserID.ToString(), Selected = (FilterModel.UserID.HasValue && u.UserID == FilterModel.UserID.Value) }).ToList();
+                Categories = LogRepo.GetAll().Select(l => l.Category).Distinct().Select(c => new SelectListItem() { Text = c, Value = c, Selected = (FilterModel.Category == c) }).ToList();
+            }
         }
     }
 

@@ -23,7 +23,11 @@ namespace helloserve.Common
         [NotMapped]
         public User User
         {
-            get { return UserRepo.GetAll().Where(u => u.UserID == UserID).Single(); }
+            get
+            {
+                User user = UserRepo.GetAll().Where(u => u.UserID == UserID).SingleOrDefault();
+                return (user == null) ? new User() { UserID = -1, Username = "Unknown" } : user;
+            }
         }
 
         #region IENTITY

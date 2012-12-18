@@ -20,14 +20,27 @@ namespace helloserve.Web.Controllers
                 throw new Exception("Invalid Download Selection - choose a different iDevice");
             }
 
-            string extension = Path.GetExtension(model.Downloadable.Location);
-            FileStream image = new FileStream(model.Downloadable.Location, FileMode.Open);
-            FileStreamResult stream = new FileStreamResult(image, string.Format("application/{0}", extension));
-            stream.FileDownloadName = model.Downloadable.Name;
+            try
+            {
+                int key = Settings.EventLogger.StartPerfLog(EventLogEntry.LogForElapsed(string.Format("Downloading {0}", model.Downloadable.DownloadableID), "Download.Index"));
 
-            LogRepo.LogForDownload(Settings.Current.GetUserID(), model.Downloadable.DownloadableID, model.Downloadable.Name, "Download.Index");
+                string extension = Path.GetExtension(model.Downloadable.Location);
+                FileStream image = new FileStream(model.Downloadable.Location, FileMode.Open);
+                FileStreamResult stream = new FileStreamResult(image, string.Format("application/{0}", extension));
+                stream.FileDownloadName = model.Downloadable.Name;
 
-            return stream;
+                Settings.EventLogger.LogPerfLog(key);
+
+                //LogRepo.LogForDownload(Settings.Current.GetUserID(), model.Downloadable.DownloadableID, model.Downloadable.Name, "Download.Index");
+                Settings.EventLogger.Log(EventLogEntry.LogForDownload(Settings.Current.GetUserID(), model.Downloadable.DownloadableID, model.Downloadable.Name, "Download.Index"));
+
+                return stream;
+            }
+            catch (Exception ex)
+            {
+                Settings.EventLogger.Log(EventLogEntry.LogException(ex, "Download.Index"));
+                return View("Error");
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ using helloserve.Common;
 using System.Net;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using helloserve.com;
 
 namespace helloserve.Web
 {
@@ -58,6 +59,21 @@ namespace helloserve.Web
             HttpContext.Current.Session.Clear();
         }
 
+        public static Logger EventLogger
+        {
+            get
+            {
+                if (HttpContext.Current.Items["EventLogger"] == null)
+                {
+                    Logger logger = Logger.GetLogger("helloserve.Settings.EventLogger", ConfigurationManager.ConnectionStrings["EventLog"].ConnectionString, "Log");
+                    HttpContext.Current.Items["EventLogger"] = logger;
+                    logger.Stop();
+
+                }
+                return HttpContext.Current.Items["EventLogger"] as Logger;
+            }
+        }
+
         public static helloserveContext DB
         {
             get
@@ -72,7 +88,7 @@ namespace helloserve.Web
                     else
                     {
                         Database.DefaultConnectionFactory = new SqlConnectionFactory(ConfigurationManager.ConnectionStrings["helloserve"].ConnectionString);
-                        Database.SetInitializer(new DropCreateDatabaseIfModelChanges<helloserveContext>());
+                        Database.SetInitializer(new CreateDatabaseIfNotExists<helloserveContext>());
                     }
 
                     helloserveContext db = new helloserveContext();

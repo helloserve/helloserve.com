@@ -53,11 +53,11 @@
     <Compile Include="Db\helloserveContext.cs" />
     <Compile Include="Db\ContextFactory.cs" />
     <Compile Include="Db\IEntity.cs" />
+    <Compile Include="Log\EventLogEntry.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\DTO\ExportModel.cs" />
     <Compile Include="Models\DTO\ForumModel.cs" />
     <Compile Include="Models\DTO\TweetModel.cs" />
-    <Compile Include="Models\Error.cs" />
     <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\ForumCategory.cs" />
     <Compile Include="Models\ForumPost.cs" />
@@ -78,7 +78,6 @@
     <Compile Include="Repo\BaseRepo.cs" />
     <Compile Include="Repo\LogRepo.cs" />
     <Compile Include="Repo\DownloadableRepo.cs" />
-    <Compile Include="Repo\ErrorRepo.cs" />
     <Compile Include="Repo\FeatureMediaRepo.cs" />
     <Compile Include="Repo\FeatureRepo.cs" />
     <Compile Include="Repo\ForumRepo.cs" />
@@ -88,6 +87,12 @@
     <Compile Include="Repo\RequirementRepo.cs" />
     <Compile Include="Repo\UserRepo.cs" />
     <Compile Include="Types\Enums.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\helloserve.com.logger\helloserve.com.Logger\helloserve.com.Logger.csproj">
+      <Project>{42CD6D02-C6D1-44A4-8FA1-6F3A6B4690D1}</Project>
+      <Name>helloserve.com.Logger</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

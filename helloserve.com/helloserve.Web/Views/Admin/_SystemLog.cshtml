@@ -18,6 +18,9 @@
                     }
                 </th>
                 <th>
+                    @Html.DropDownList("Log.Category", Model.Categories, "None")
+                </th>
+                <th>
                     @Html.DropDownList("Log.FilterUser", Model.Users, "None")
                 </th>
                 <th>
@@ -41,6 +44,9 @@
                 </th>
                 <th>
                     Date
+                </th>
+                <th>
+                    Category
                 </th>
                 <th>
                     UserID
@@ -72,8 +78,9 @@
                         @Html.Hidden("logID", log.LogID)
                     </td>
                     <td>
-                        @log.LogDate.ToShortDateString() &nbsp; @log.LogDate.ToShortTimeString()
+                        @log.Timestamp.ToShortDateString() &nbsp; @log.Timestamp.ToShortTimeString()
                     </td>
+                    <td>@log.Category</td>
                     <td>
                         @if (log.UserID.HasValue)
                         {
