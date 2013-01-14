@@ -16,6 +16,6 @@
         </div>
     }
     <div>@Model.CreatedDate.ToShortDateString()</div>
-    <div>@Model.Cut</div>
+    <div>@Html.Raw(Model.GetCutBland())</div>
 
 </div>

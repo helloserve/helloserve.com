@@ -52,7 +52,14 @@ namespace helloserve.com
 
     internal class Cache
     {
+        private object _lockCache = new Object();
+
+        private Dictionary<string, PropertyInfo[]> _propertyCache;
+        private Dictionary<string, CategoryCache> _categoriesAlpha;
+        private Dictionary<string, CategoryCache> _categoriesBeta;
+
         private Dictionary<string, CategoryCache> _categories;
+
         private long _size;
 
         private DateTime _lastPush;
@@ -68,7 +75,12 @@ namespace helloserve.com
 
         internal Cache()
         {
-            _categories = new Dictionary<string, CategoryCache>();
+            _propertyCache = new Dictionary<string, PropertyInfo[]>();
+
+            _categoriesAlpha = new Dictionary<string, CategoryCache>();
+            _categoriesBeta = new Dictionary<string, CategoryCache>();
+            _categories = _categoriesAlpha;
+
             _lastPush = DateTime.Now;
         }
 
@@ -89,34 +101,37 @@ namespace helloserve.com
 
         internal void PushElement(LogElement element)
         {
-            string category = element.Category;
-            if (!_categories.ContainsKey(category))
-                _categories.Add(category, new CategoryCache());
-            else
-                _size -= _categories[category].SizeInBytes;
-
-            _categories[category].PushElement(element);
-            _size += _categories[category].SizeInBytes;
-
-            //work out the logs per minutes
-            _pushCount++;
-            TimeSpan elapsed = DateTime.Now - _lastPush;
-            _elapsedMinutes += elapsed.TotalMinutes;
-
-            if (_elapsedMinutes >= 1)
+            lock (_lockCache)
             {
-                double ratio = 1 / _elapsedMinutes;
-                double pushes = (double)_pushCount * ratio;
+                string category = element.Category;
+                if (!_categories.ContainsKey(category))
+                    _categories.Add(category, new CategoryCache());
+                else
+                    _size -= _categories[category].SizeInBytes;
 
-                _pushesPerMinute = pushes;
-                _pushCount -= (int)pushes;
-                _elapsedMinutes -= 1;
+                _categories[category].PushElement(element);
+                _size += _categories[category].SizeInBytes;
+
+                //work out the logs per minutes
+                _pushCount++;
+                TimeSpan elapsed = DateTime.Now - _lastPush;
+                _elapsedMinutes += elapsed.TotalMinutes;
+
+                if (_elapsedMinutes >= 1)
+                {
+                    double ratio = 1 / _elapsedMinutes;
+                    double pushes = (double)_pushCount * ratio;
+
+                    _pushesPerMinute = pushes;
+                    _pushCount -= (int)pushes;
+                    _elapsedMinutes -= 1;
+                }
+
+                _lastPush = DateTime.Now;
+
+                if (LogsPerMinutes < 30 && DumpNow != null)
+                    DumpNow(this, EventArgs.Empty);
             }
-
-            _lastPush = DateTime.Now;
-
-            if (LogsPerMinutes < 30 && DumpNow != null)
-                DumpNow(this, EventArgs.Empty);
         }
 
         internal void Dump(SqlConnection connection, string tableName, string category = null)
@@ -124,25 +139,43 @@ namespace helloserve.com
             if (_categories == null)
                 return;
 
-            //we would ideally want to save these in timestamp order
-            List<LogElement> _allItems = new List<LogElement>();
+            Dictionary<string, CategoryCache> cacheToDump = _categories;
 
-            foreach (string cat in _categories.Keys)
+            lock (_lockCache)
             {
-                if (cat == category || string.IsNullOrEmpty(category))
-                    _allItems.AddRange(_categories[cat].Items);
+                //first we need to switch over to the other cache
+                if (_categories == _categoriesAlpha)
+                    _categories = _categoriesBeta;
+                else
+                    _categories = _categoriesAlpha;
             }
 
-            _allItems.Sort(new ALogElementComparer());
+            List<LogElement> _allItems = new List<LogElement>();
+
+            foreach (string cat in cacheToDump.Keys)
+            {
+                if (cat == category || string.IsNullOrEmpty(category))
+                    _allItems.AddRange(cacheToDump[cat].Items);
+            }
 
             foreach (LogElement item in _allItems)
             {
-                //we need to now build up the list of parameters
-                Dictionary<string, object> parameters = new Dictionary<string, object>();
                 Type itemType = item.GetType();
 
-                PropertyInfo[] props = itemType.GetProperties();
-                foreach (PropertyInfo prop in props)
+                PropertyInfo[] properties = null;
+
+                //check the cache before we do the expensive bit
+                if (_propertyCache.ContainsKey(itemType.FullName))
+                    properties = _propertyCache[itemType.FullName];
+                else
+                {
+                    properties = itemType.GetProperties();
+                    _propertyCache.Add(itemType.FullName, properties);
+                }
+
+                //we need to now build up the list of parameters
+                Dictionary<string, object> parameters = new Dictionary<string, object>();
+                foreach (PropertyInfo prop in properties)
                 {
                     if (prop.GetIndexParameters().Length == 0)
                         parameters.Add(prop.Name, prop.GetValue(item, null));
@@ -162,10 +195,10 @@ namespace helloserve.com
                 Save(parameters, connection, tableName);
             }
 
-            foreach (string cat in _categories.Keys)
+            foreach (string cat in cacheToDump.Keys)
             {
                 if (cat == category || string.IsNullOrEmpty(category))
-                    _categories[cat].Clear();
+                    cacheToDump[cat].Clear();
             }
         }
 
@@ -202,11 +235,13 @@ namespace helloserve.com
             sql.Append(values);
             sql.Append(")");
 
-            SqlCommand command = new SqlCommand(sql.ToString(), connection);
-            command.Parameters.AddRange(sqlParams.ToArray());
-            int rows = command.ExecuteNonQuery();
-            if (rows != 1)
-                throw new ArgumentException("Log affected zero rows while dumping");
+            using (SqlCommand command = new SqlCommand(sql.ToString(), connection))
+            {
+                command.Parameters.AddRange(sqlParams.ToArray());
+                int rows = command.ExecuteNonQuery();
+                if (rows != 1)
+                    throw new ArgumentException("Log affected zero rows while dumping");
+            }
         }
     }
 }

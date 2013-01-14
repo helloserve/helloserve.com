@@ -242,12 +242,12 @@ namespace helloserve.com
         /// <returns>Returns whether logging was successful.</returns>
         public bool Log(LogElement element)
         {
-            //we can't log this entry since we're busy, so it will get lost
-            if (_dumping)
-            {
-                LogWarning("Busy writing to permanent store; could not log entry", element);
-                return false;
-            }
+            ////we can't log this entry since we're busy, so it will get lost
+            //if (_dumping)
+            //{
+            //    LogWarning("Busy writing to permanent store; could not log entry", element);
+            //    return false;
+            //}
 
             try
             {
@@ -331,7 +331,7 @@ namespace helloserve.com
             }
             catch (ALogRethrowException ex)
             {
-                throw ex;
+                throw;
             }
             catch (Exception ex)
             {
@@ -345,6 +345,7 @@ namespace helloserve.com
         /// </summary>
         public void Dump()
         {
+
             if (_dumping)
                 return;
 
@@ -357,12 +358,11 @@ namespace helloserve.com
 
                 if (_logCache != null)
                 {
-                    SqlConnection connection = new SqlConnection(_connectionString);
-                    connection.Open();
-
-                    _logCache.Dump(connection, _tableName);
-
-                    connection.Close();
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
+                        _logCache.Dump(connection, _tableName);
+                    }
                 }
             }
             catch (ALogRethrowException ex)

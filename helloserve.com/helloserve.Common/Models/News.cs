@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace helloserve.Common
 {
@@ -36,6 +37,20 @@ namespace helloserve.Common
         public void Delete()
         {
             base.Delete(this);
+        }
+
+        public string GetCutBland()
+        {
+            Regex regex = new Regex(@"(?'open'<a.*>)(?'text'.*)(?'close'</a>)");
+            string cut = Cut;
+            Match match = regex.Match(cut);
+            while (match.Success)
+            {
+                cut = cut.Replace(match.Groups[0].Value, match.Groups["text"].Value);
+                match = regex.Match(cut);
+            };
+
+            return cut;
         }
     }
 }
