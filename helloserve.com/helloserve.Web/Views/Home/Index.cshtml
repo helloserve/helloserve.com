@@ -12,10 +12,18 @@
     @Html.Hidden("tweetTags", Url.Encode("@helloserve"))
     <div style="width: 49%; min-width:600px; float: left; margin-right:20px">
         <div>
+            <div style="width:100%; display:block">
+            @foreach (var feature in Model.MainFeatures)
+            {
+                Html.RenderPartial("_MainFeature", feature);
+            }
+            </div>
+            <div>
             @foreach (var feature in Model.LatestFeatures)
             {
                 Html.RenderPartial("_Feature", feature);
             }
+            </div>
         </div>
         <div id="otherLinks" style="width: 600px; color:Black">
             <h2>

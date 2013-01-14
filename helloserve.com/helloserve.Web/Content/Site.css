@@ -137,28 +137,6 @@ header h1, #header h1
 #main
 {
     padding: 30px 30px 15px 30px;    
-    border-radius: 4px 4px 0 0;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    border:1px solid black;
-    
-    /* IE10 Consumer Preview */ 
-    background-image: url(/Content/img/cell.png), -ms-radial-gradient(center bottom, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
-
-    /* Mozilla Firefox */ 
-    background-image: url(/Content/img/cell.png), -moz-radial-gradient(center bottom, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
-
-    /* Opera */ 
-    background-image: url(/Content/img/cell.png), -o-radial-gradient(center bottom, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
-
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: url(/Content/img/cell.png), -webkit-gradient(radial, center bottom, 0, center top, 561, color-stop(0, #98B4D4), color-stop(1, #E6E6E6));
-
-    /* Webkit (Chrome 11+) */ 
-    background-image: url(/Content/img/cell.png), -webkit-radial-gradient(center bottom, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
-
-    /* W3C Markup, IE10 Release Preview */ 
-    background-image: url(/Content/img/cell.png), radial-gradient(ellipse farthest-corner at center bottom, #98B4D4 0%, #E6E6E6 100%);
 }
 
 footer, #footer
@@ -171,27 +149,6 @@ footer, #footer
     font-size: .9em;
     border:1px solid Black;
     border-top:none;
-    border-radius: 0 0 4px 4px;
-    -webkit-border-radius: 0 0 4px 4px;
-    -moz-border-radius: 0 0 4px 4px;
-    
-    /* IE10 Consumer Preview */ 
-    background-image: url(/Content/img/cell.png), -ms-radial-gradient(center top, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
-
-    /* Mozilla Firefox */ 
-    background-image: url(/Content/img/cell.png), -moz-radial-gradient(center top, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
-
-    /* Opera */ 
-    background-image: url(/Content/img/cell.png), -o-radial-gradient(center top, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
-
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: url(/Content/img/cell.png), -webkit-gradient(radial, center top, 0, center top, 561, color-stop(0, #98B4D4), color-stop(1, #E6E6E6));
-
-    /* Webkit (Chrome 11+) */ 
-    background-image: url(/Content/img/cell.png), -webkit-radial-gradient(center top, ellipse farthest-corner, #98B4D4 0%, #E6E6E6 100%);
-
-    /* W3C Markup, IE10 Release Preview */ 
-    background-image: url(/Content/img/cell.png), radial-gradient(ellipse farthest-corner at center top, #98B4D4 0%, #E6E6E6 100%);
 }
 
 /* TAB MENU   
@@ -205,10 +162,7 @@ div.menu
     text-decoration: none;
     line-height: 2.8em;
     background-color: White;
-    border-radius: 4px 4px 4px 4px;
     border: 1px solid #444466;
-    -webkit-border-radius: 4px 4px 4px 4px;
-    -moz-border-radius: 4px 4px 4px 4px;
     float: right;
     width: 50px;
     height: 40px;
@@ -216,30 +170,10 @@ div.menu
     vertical-align: middle; 
     color: #444466;
     font-weight:900;
-    /* IE10 Consumer Preview */ 
-    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
-
-    /* Mozilla Firefox */ 
-    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
-
-    /* Opera */ 
-    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
-
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #D6D6D6), color-stop(1, #DBDBDB));
-
-    /* Webkit (Chrome 11+) */ 
-    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
-
-    /* W3C Markup, IE10 Release Preview */ 
-    background-image: radial-gradient(ellipse farthest-corner at center bottom, #D6D6D6 0%, #DBDBDB 100%);
 }
 
 div.menu.profile
 {
-    border-radius: 4px 0px 0px 4px;
-    -webkit-border-radius: 4px 0px 0px 4px;
-    -moz-border-radius: 4px 0px 0px 4px;
     padding: 0px 0px;    
     margin: 0px -1px 0px 2px;
     width:150px;
@@ -247,9 +181,6 @@ div.menu.profile
 
 div.menu.logoff
 {
-    border-radius: 0px 4px 4px 0px;
-    -webkit-border-radius: 0px 4px 4px 0px;
-    -moz-border-radius: 0px 4px 4px 0px;    
     margin:0px 2px 0px 0px;
 }
 
@@ -262,23 +193,6 @@ div.menu:hover
 {
     border: 1px solid #FF6500;    
     color: #FF6500;   
-    /* IE10 Consumer Preview */ 
-    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Mozilla Firefox */ 
-    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Opera */ 
-    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
-
-    /* Webkit (Chrome 11+) */ 
-    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* W3C Markup, IE10 Release Preview */ 
-    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);
 }
 
 div.dropButton
@@ -286,9 +200,6 @@ div.dropButton
     display: none;
     background-color: White;
     border: 1px solid black;
-    border-radius: 4px 4px 4px 4px;
-    -webkit-border-radius: 4px 4px 4px 4px;
-    -moz-border-radius: 4px 4px 4px 4px;
     padding: 10px 0px 0px 11px;
     margin: -5px 0px 0px -15px;
     z-index: 500;
@@ -296,23 +207,6 @@ div.dropButton
     top: 19px;
     text-align: left;
     color: #444466;
-    /* IE10 Consumer Preview */ 
-    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
-
-    /* Mozilla Firefox */ 
-    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
-
-    /* Opera */ 
-    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
-
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #D6D6D6), color-stop(1, #DBDBDB));
-
-    /* Webkit (Chrome 11+) */ 
-    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #D6D6D6 0%, #DBDBDB 100%);
-
-    /* W3C Markup, IE10 Release Preview */ 
-    background-image: radial-gradient(ellipse farthest-corner at center bottom, #D6D6D6 0%, #DBDBDB 100%);
 }
 
 div.dropButton ul
@@ -340,23 +234,6 @@ div.menu:hover .dropButton
     display: block;
     border: 1px solid #FF6500;    
     color: #FF6500;   
-    /* IE10 Consumer Preview */ 
-    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Mozilla Firefox */ 
-    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Opera */ 
-    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
-
-    /* Webkit (Chrome 11+) */ 
-    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* W3C Markup, IE10 Release Preview */ 
-    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);
 }
 
 div.forumPager
@@ -367,9 +244,6 @@ div.forumPager
     margin:0px 2px;
     text-align: center;
     border: 1px solid black;
-    border-radius: 4px 4px 4px 4px;
-    -webkit-border-radius: 4px 4px 4px 4px;
-    -moz-border-radius: 4px 4px 4px 4px;
 }
       
 div.forumPagerEmpty
@@ -392,10 +266,7 @@ div.forumModerateLinks
 {
     padding:2px 4px; 
     margin: -4px 0px 0px 0px; 
-    border:1px solid black; 
-    border-radius: 4px 4px 4px 4px; 
-    -webkit-border-radius: 4px 4px 4px 4px; 
-    -moz-border-radius: 4px 4px 4px 4px;    
+    border:1px solid black;    
 }
 
 .forumModerateLinks a
@@ -421,10 +292,7 @@ span.forumPostDetails
     background-color:#EFEFEF;
     padding:15px;
     margin-bottom:15px;
-    border:1px solid black; 
-    border-radius: 4px 4px 4px 4px; 
-    -webkit-border-radius: 4px 4px 4px 4px; 
-    -moz-border-radius: 4px 4px 4px 4px;        
+    border:1px solid black;     
 }
 
 span.invalid
@@ -523,36 +391,15 @@ div.tweet
     display: inline-block;
     padding: 4px 4px 4px 4px;
     margin:5px 0px;
-    border: solid 1px Black;
+    border: solid 1px #AAAAEE;
     min-width:600px;
-    border-radius: 4px 4px 4px 4px; 
-    -webkit-border-radius: 4px 4px 4px 4px; 
-    -moz-border-radius: 4px 4px 4px 4px;        
-    
-    /* IE10 Consumer Preview */ 
-    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Mozilla Firefox */ 
-    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Opera */ 
-    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
-
-    /* Webkit (Chrome 11+) */ 
-    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* W3C Markup, IE10 Release Preview */ 
-    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);    
+    background-color:#EEEEFF;
 }
 
 div.contentBlock
 {
     display: inline-block;
-    padding: 5px 5px 5px 5px;
-    margin: 2px 2px 2px 5px;
+    margin: 2px;
     min-width: 300px;
     max-width: 600px;
     background-color: transparent;
@@ -561,73 +408,85 @@ div.contentBlock
 div.contentBlock:hover
 {
     display: inline-block;
-    padding: 4px 4px 4px 4px;
+    margin: 1px;
+    border:1px solid #BBBBEE;
     min-width: 300px;
     max-width: 600px;
-    border: solid 1px;
-    border-radius: 4px 4px 4px 4px; 
-    -webkit-border-radius: 4px 4px 4px 4px; 
-    -moz-border-radius: 4px 4px 4px 4px;        
-    
-    /* IE10 Consumer Preview */ 
-    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+    background-color:#EEEEFF;
+}
 
-    /* Mozilla Firefox */ 
-    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+a.aFeature:hover 
+{
+    color:#AA2400;
+}
 
-    /* Opera */ 
-    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+div.mainFeatureBlock
+{
+    margin:1px;
+    display: block;
+    min-width: 300px;
+}
 
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
+.description
+{
+    visibility:hidden;
+    clear:both; 
+    background-color:#DDDDDD; 
+    opacity:0.5; 
+    padding:3px; 
+}
 
-    /* Webkit (Chrome 11+) */ 
-    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
+.descriptionText
+{
+    visibility:hidden;
+    float:left;
+    padding:3px; 
+}
 
-    /* W3C Markup, IE10 Release Preview */ 
-    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);
+div.mainFeatureBlock:hover .description
+{
+    visibility:visible;
+}
+
+div.mainFeatureBlock:hover .descriptionText
+{
+    visibility:visible;
+}
+
+div.mainFeatureBlock:hover
+{
+    margin:0px;
+    border: solid 1px black;
 }
 
 div.featureBlock
 {
+    font-size:smaller;
     display: inline-block;
-    padding: 10px;
-    margin: 5px;
+    margin: 4px 4px 1px 0px;
     min-width: 300px;
     max-width: 600px;
     background-color: transparent;
 }
 
+div.featureBlock:hover .description
+{
+    visibility:visible;
+}
+
+div.featureBlock:hover .descriptionText
+{
+    visibility:visible;
+}
+
 div.featureBlock:hover
 {
     display: inline-block;
-    padding: 9px;
-    margin: 5px;
+    margin: 3px 3px 0px -1px;
     min-width: 300px;
     max-width: 600px;
-    border: solid 1px;
+    border: solid 1px black;
     background-color: #DDD;
-    border-radius: 4px 4px 4px 4px; 
-    -webkit-border-radius: 4px 4px 4px 4px; 
-    -moz-border-radius: 4px 4px 4px 4px;    
-
-    /* IE10 Consumer Preview */ 
-    background-image: -ms-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Mozilla Firefox */ 
-    background-image: -moz-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Opera */ 
-    background-image: -o-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* Webkit (Safari/Chrome 10) */ 
-    background-image: -webkit-gradient(radial, center bottom, 0, center bottom, 561, color-stop(0, #F5F5F5), color-stop(1, #DBDBDB));
-
-    /* Webkit (Chrome 11+) */ 
-    background-image: -webkit-radial-gradient(center bottom, ellipse farthest-corner, #F5F5F5 0%, #DBDBDB 100%);
-
-    /* W3C Markup, IE10 Release Preview */ 
-    background-image: radial-gradient(ellipse farthest-corner at center bottom, #F5F5F5 0%, #DBDBDB 100%);
 }
 
 textarea.cut

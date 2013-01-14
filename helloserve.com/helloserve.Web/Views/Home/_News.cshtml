@@ -1,22 +1,12 @@
 ﻿@model News
 <a href="/News/News?id=@(Model.NewsID)" title="@(Model.Title)">
-    <div id="News@(Model.NewsID)" class="contentBlock">
+    <div id="News@(Model.NewsID)" class="contentBlock" style="width:300px">
+        <div style="background-image:url('/Thumb/@(Model.HeaderImageID ?? -1)'); padding:5px;">
         <div>
             <h3>@Model.Title</h3>
         </div>
-        @if (Model.HeaderImageID.HasValue)
-        {
-            <div style="text-align:center; width: 250px; height:50px; border:1px solid black">
-                    <img src="/Thumb/@(Model.HeaderImageID.Value)" style="width:250px; height:50px"/>
-            </div>
-        }
-        else
-        {
-            <div style="text-align:center; width: 250px; height:50px;">
-                    <img src="/Content/Img/News_Image_Placeholder.png" style="width:250px; height:50px"/>
-            </div>
-        }
         <div>@Model.CreatedDate.ToShortDateString()</div>
         <div>@Html.Raw(Model.GetCutBland())</div>
+    </div>
     </div>
 </a>

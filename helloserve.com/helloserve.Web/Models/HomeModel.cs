@@ -10,6 +10,7 @@ namespace helloserve.Web
 {
     public class HomeModel
     {
+        public List<Feature> MainFeatures { get; internal set; }
         public List<Feature> LatestFeatures { get; internal set; }
         public List<News> LatestNews { get; internal set; }
         public List<News> LatestBlogPosts { get; internal set; }
@@ -18,7 +19,8 @@ namespace helloserve.Web
 
         public HomeModel()
         {
-            LatestFeatures = FeatureRepo.GetAll().OrderByDescending(f => f.ModifiedDate).Take(5).ToList();
+            MainFeatures = FeatureRepo.GetAll().Where(f => f.IsMainFeature).ToList();
+            LatestFeatures = FeatureRepo.GetAll().Where(f=>!f.IsMainFeature).OrderByDescending(f => f.ModifiedDate).Take(5).ToList();
             LatestNews = NewsRepo.GetAllNews().OrderByDescending(n => n.ModifiedDate).Take(10).ToList();
             LatestBlogPosts = NewsRepo.GetAllBlogPosts().OrderByDescending(b => b.ModifiedDate).Take(10).ToList();
 

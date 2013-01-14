@@ -11,6 +11,7 @@ namespace helloserve.Common
     {
         [Required, Key, DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
         public int FeatureID { get; set; }
+        public bool IsMainFeature { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string ExtendedDescription { get; set; }

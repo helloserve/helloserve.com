@@ -24,6 +24,11 @@
                     </div>
                     <div>
                         <div>
+                            Main Feature?</div>
+                        <div>@Html.CheckBoxFor(model => model.Feature.IsMainFeature, new { style = "width:500px" })</div>
+                    </div>
+                    <div>
+                        <div>
                             Name</div>
                         <div>@Html.TextBoxFor(model => model.Feature.Name, new { style = "width:500px" })</div>
                     </div>
@@ -44,7 +49,7 @@
                     </div>
                     <div>
                         <div>
-                            Header Image ID (200x100)</div>
+                            Header Image ID (Main Feature:640x250, otherwise 300x150)</div>
                         <div>@Html.TextBoxFor(model => model.Feature.HeaderImageID, new { style = "width:500px" })</div>
                     </div>
                     <div>
