@@ -21,8 +21,8 @@ namespace helloserve.Web
         {
             MainFeatures = FeatureRepo.GetAll().Where(f => f.IsMainFeature).ToList();
             LatestFeatures = FeatureRepo.GetAll().Where(f=>!f.IsMainFeature).OrderByDescending(f => f.ModifiedDate).Take(5).ToList();
-            LatestNews = NewsRepo.GetAllNews().OrderByDescending(n => n.ModifiedDate).Take(10).ToList();
-            LatestBlogPosts = NewsRepo.GetAllBlogPosts().OrderByDescending(b => b.ModifiedDate).Take(10).ToList();
+            LatestNews = NewsRepo.GetAllNews().OrderByDescending(n => n.ModifiedDate).Take(4).ToList();
+            LatestBlogPosts = NewsRepo.GetAllBlogPosts().OrderByDescending(b => b.ModifiedDate).Take(4).ToList();
 
             var forumPosts = ForumRepo.GetLatestPosts();
 

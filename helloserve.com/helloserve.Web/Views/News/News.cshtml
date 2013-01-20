@@ -1,10 +1,15 @@
 ﻿@model NewsModel
-
+<div style="width:1000px">
 @Html.Partial("_NewsControl", Model)
 <h2>@Model.News.Title</h2>
+@if (Model.News.HeaderImageID.HasValue)
+{
+    <img src="/Media/@Model.News.HeaderImageID" width="1000px" />
+}
 <div>@Model.News.CreatedDate.ToShortDateString()</div>
 <div>@Html.Raw(Model.News.Cut)</div>
 <br />
 <div>@Html.Raw(Model.News.Post)</div>
 <br />
 @Html.Partial("_NewsControl", Model)
+</div>

@@ -92,12 +92,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Carousel\carousel.css" />
+    <Content Include="Content\Carousel\CarouselLeftBar.png" />
+    <Content Include="Content\Carousel\CarouselLeftScroll.png" />
+    <Content Include="Content\Carousel\CarouselRightBar.png" />
+    <Content Include="Content\Carousel\CarouselRightScroll.png" />
     <Content Include="Content\fonts\ProximaNova-Light-webfont.svg" />
     <Content Include="Content\fonts\ProximaNova-Reg-webfont.svg" />
     <Content Include="Content\fonts\ProximaNova-Sbold-webfont.svg" />
     <Content Include="Content\Img\cell.png" />
+    <Content Include="Content\Img\CirclingElements.jpg" />
     <Content Include="Content\Img\Feature_Image_Placeholder.png" />
     <Content Include="Content\Img\g-plus-icon-32x32.png" />
+    <Content Include="Content\Img\logo.png" />
     <Content Include="Content\Img\mgsa.png" />
     <Content Include="Content\Img\News_Image_Placeholder.png" />
     <Content Include="Content\Img\rss.png" />
@@ -174,6 +181,7 @@
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Forum\_TopicPost.cshtml" />
     <Content Include="Views\Home\_MainFeature.cshtml" />
+    <Content Include="Views\Feature\_Blog.cshtml" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />

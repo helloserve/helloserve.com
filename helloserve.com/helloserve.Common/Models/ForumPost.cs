@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace helloserve.Common
 {
@@ -28,6 +29,27 @@ namespace helloserve.Common
                 User user = UserRepo.GetAll().Where(u => u.UserID == UserID).SingleOrDefault();
                 return (user == null) ? new User() { UserID = -1, Username = "Unknown" } : user;
             }
+        }
+
+        public string GetPostBrief()
+        {
+            Regex regex = new Regex(@"(?'open'\[img\])(?'link'http://.*)(?'close'\[/img\])");
+            string post = Post.Substring(0, Math.Min(200, Post.Length));
+            Match match = regex.Match(post);
+            while (match.Success)
+            {
+                post = post.Replace(match.Groups[0].Value, "<img src=\"" + match.Groups["link"].Value + "\" width=\"100px\" height=\"auto\" />");
+                match = regex.Match(post);
+            }
+
+            regex = new Regex(@"(?'open'\[img\])(?'link'http://.*)");
+            match = regex.Match(post);
+            if (match.Success)
+            {
+                post = post.Replace("[img]", "");
+            }
+
+            return post;
         }
 
         #region IENTITY

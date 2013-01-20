@@ -36,13 +36,18 @@
                 </div>
                 <div>
                     <div>
+                        Import From Old Site</div>
+                    <div>@Html.CheckBox("ImportCheck", false, new { id="ImportCheck" })</div>
+                </div>
+                <div>
+                    <div>
                         Header Image ID</div>
                     <div>@Html.TextBoxFor(model => model.News.HeaderImageID)</div>
                 </div>
                 <div>
                     <div>
                         Created Date</div>
-                    <div>@Html.DatePicker("News.CreatedDate", Model.News.CreatedDate.ToDisplayString())</div>
+                    <div>@Html.DatePicker("News.CreatedDate", Model.News.CreatedDate.ToDisplayString())&nbsp;<a href="" onclick="Admin.CopyVal('News_CreatedDate', 'News_ModifiedDate'); return false;">Copy to Modified</a></div>
                 </div>
                 <div>
                     <div>

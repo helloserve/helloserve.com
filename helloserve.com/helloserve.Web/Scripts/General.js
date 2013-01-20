@@ -250,6 +250,7 @@ var CKEditorSetup = {
 };
 */
 var slideShow = new function () {
+    this.basePath = '',
     this.containerID = '',
     this.fullSource = '',
     this.thumbSource = '',
@@ -299,11 +300,10 @@ var slideShow = new function () {
         }
 
         //width="' + this.width + '"; 
-        //var bigPicture = '<div id="mainFrame" style="position:relative; height=' + this.height + 'px"><a onclick="slideShow.Prev()"><div style="float:left; border:solid 1px; width:20px; height:' + this.height + 'px; position:absolute"/></a><img src="' + this.PictureSource(this.items[this.currentIndex].FileName) + '" alt="' + this.items[this.currentIndex].FileName + '" ' + bigPictureSize + '/><a onclick="slideShow.Next()"><div style="float:right; border:solid 1px; width:20px; height:' + this.height + 'px; left:' + (this.width - 20) + 'px; top:0px; position:absolute;"/></a></div>';
-        var bigPicture = '<div id="mainFrame" style="position:relative; height=' + this.height + 'px"><a href="" style="text-decoration:none;" onclick="slideShow.Prev(); return false;"><div style="border:solid 1px; width:60px; height:' + targetHeight + 'px; top:0px; left:' + ((this.width / 2) - (targetWidth / 2) - 30) + 'px; position:absolute"/></a><img src="' + this.PictureSource(this.items[this.currentIndex].FileName) + '" alt="' + this.items[this.currentIndex].FileName + '" ' + bigPictureSize + '/><a href="" style="text-decoration:none;" onclick="slideShow.Next(); return false;"><div style="border:solid 1px; width:60px; height:' + targetHeight + 'px; left:' + (this.width - (this.width / 2) + (targetWidth / 2) - 30) + 'px; top:0px; position:absolute;"/></a></div>';
+        var bigPicture = '<div id="mainFrame" class="carouselMainFrame" style="height=' + this.height + 'px"><a href="" style="text-decoration:none;" onclick="slideShow.Prev(); return false;"><div class="carouselLeftBar" style="width:60px; height:' + targetHeight + 'px; top:0px; left:' + ((this.width / 2) - (targetWidth / 2)) + 'px;"/></a><img src="' + this.PictureSource(this.items[this.currentIndex].FileName) + '" alt="' + this.items[this.currentIndex].FileName + '" ' + bigPictureSize + '/><a href="" style="text-decoration:none;" onclick="slideShow.Next(); return false;"><div class="carouselRightBar" style="height:' + targetHeight + 'px; left:' + (this.width - (this.width / 2) + (targetWidth / 2) - 60) + 'px;"/></a></div>';
 
-        var left = '<a href="" style="text-decoration:none;" onclick="slideShow.Prev(); return false;"><span id="scrollLeft" style="width:15px">L E F T</span></a>';
-        var right = '<a href="" style="text-decoration:none;" onclick="slideShow.Next(); return false;"><span id="scrollRight" style="width:15px">R I G H T</span></a>';
+        var left = '<a href="" style="text-decoration:none;" onclick="slideShow.Prev(); return false;"><img src="' + this.basePath + 'CarouselLeftScroll.png"/></a>';
+        var right = '<a href="" style="text-decoration:none;" onclick="slideShow.Next(); return false;"><img src="' + this.basePath + 'CarouselRightScroll.png"/></a>';
 
         var thumbs = '';
         var index = Math.round(this.currentIndex - (this.thumbCount / 2));
@@ -341,7 +341,18 @@ var slideShow = new function () {
         this.currentIndex = index;
         this.GetHtml();
     },
-    this.init = function (items, thumbnailCount, containerID, fullSource, thumbSource, startIndex) {
+    this.init = function (basePath, items, thumbnailCount, containerID, fullSource, thumbSource, startIndex) {
+        var cssId = 'carouselCss';  // you could encode the css path itself to generate id..
+        if (!document.getElementById(cssId)) {
+            var fileref = document.createElement('link')
+            fileref.id = cssId;
+            fileref.setAttribute('rel', 'stylesheet')
+            fileref.setAttribute('type', 'text/css')
+            fileref.setAttribute('href', basePath + 'carousel.css');
+            document.getElementsByTagName("head")[0].appendChild(fileref);
+        }
+
+        this.basePath = basePath;
         this.items = items;
         this.thumbCount = thumbnailCount;
         this.containerID = containerID;

@@ -12,6 +12,9 @@ namespace helloserve.Web
     {
         public ActionResult Index(string id)
         {
+            if (id == "-1")
+                return null;
+
             HomeMediaModel model = new HomeMediaModel(id);
 
             if (model == null)
@@ -36,6 +39,9 @@ namespace helloserve.Web
 
         public ActionResult Thumb(string id)
         {
+            if (id == "-1")
+                return null;
+
             HomeMediaModel model = new HomeMediaModel(id);
 
             if (model == null)

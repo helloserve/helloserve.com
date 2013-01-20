@@ -60,8 +60,8 @@ namespace helloserve.Common
         {
             var news = (from n in DB.NewsItems
                         join nprev in DB.NewsItems on n.FeatureID equals nprev.FeatureID
-                        where n.NewsID == newsID && nprev.CreatedDate < n.CreatedDate
-                        orderby nprev.CreatedDate descending
+                        where n.NewsID == newsID && (nprev.CreatedDate > n.CreatedDate || (nprev.CreatedDate == n.CreatedDate && nprev.NewsID < n.NewsID))
+                        orderby new { nprev.CreatedDate, nprev.NewsID } descending
                         select nprev).FirstOrDefault();
 
             return news;
@@ -70,10 +70,10 @@ namespace helloserve.Common
         public static News GetNext(int newsID)
         {
             var news = (from n in DB.NewsItems
-                        join nprev in DB.NewsItems on n.FeatureID equals nprev.FeatureID
-                        where n.NewsID == newsID && nprev.CreatedDate > n.CreatedDate
-                        orderby nprev.CreatedDate
-                        select nprev).FirstOrDefault();
+                        join nnext in DB.NewsItems on n.FeatureID equals nnext.FeatureID
+                        where n.NewsID == newsID && (nnext.CreatedDate > n.CreatedDate || (nnext.CreatedDate == n.CreatedDate && nnext.NewsID > n.NewsID))
+                        orderby new { nnext.CreatedDate, nnext.NewsID }
+                        select nnext).FirstOrDefault();
 
             return news;
         }

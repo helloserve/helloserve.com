@@ -52,5 +52,29 @@ namespace helloserve.Common
 
             return cut;
         }
+
+        public void ImportCut()
+        {
+            string cut = Cut;
+            cut = cut.Replace("&op&c", "").Replace("&o/p&c", "").Replace("&o", "<").Replace("&c", ">");;
+            Cut = cut;
+        }
+
+        public void ImportPost()
+        {
+            string post = Post;
+
+            post = post.Replace("&o", "<").Replace("&c", ">");
+
+            Regex regex = new Regex(@"(?'open'\[image ')(?'name'.*)(?'close''\])");
+            Match match = regex.Match(post);
+            while (match.Success)
+            {
+                post = post.Replace(match.Groups[0].Value, string.Format("<img src=\"/Media/{0}\" alt=\"{0}\" />", match.Groups["name"].Value));
+                match = regex.Match(post);
+            }
+
+            Post = post;
+        }
     }
 }

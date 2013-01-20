@@ -4,6 +4,10 @@
 });
 
 var Admin = {
+    CopyVal: function (elemSource, elemTarget) {
+        var valSource = $('#' + elemSource).val();
+        $('#' + elemTarget).val(valSource);
+    },
     CancelAction: function () {
         $('#adminAction').hide();
     },
@@ -60,9 +64,13 @@ var Admin = {
             General.init();
         });
     },
-    EditNews: function () {
+    EditNews: function (id) {
         var newsID = $('#AdminEditNewsSelection').val();
-        if (typeof (newsID) != "string")
+
+        if (id != null)
+            newsID = id;
+
+        if ((typeof (newsID) != "string") && (typeof (newsID) != "number"))
             return false;
 
         $('#adminAction').load('/Admin/EditNews', { id: newsID }, function () {

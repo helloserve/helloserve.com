@@ -28,19 +28,19 @@ body
     margin: 0;
     padding: 0;
     color: #000;
-    min-width:1204px;
+    min-width:690px;
 }
 
 a:link
 {
     color: #444466;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 a:visited
 {
     color: #444466;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 a:hover
@@ -52,7 +52,7 @@ a:hover
 a:active
 {
     color: #444466;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 p, ul
@@ -119,7 +119,7 @@ header, #header
     margin-bottom: 0px;
     color: #000;
     padding: 0;
-    height: 50px;
+    vertical-align:middle; 
 }
 
 header h1, #header h1
@@ -153,11 +153,18 @@ footer, #footer
 
 /* TAB MENU   
 ----------------------------------------------------------*/
+.pictureDiv 
+{
+    display:block;
+    text-align:center;
+    font-size:smaller;  
+}
+
 div.menu
 {
     text-align: center;
     padding: 0px 20px;
-    margin: 0px 2px;
+    margin: 2px 2px;
     font-weight: bold;
     text-decoration: none;
     line-height: 2.8em;
@@ -175,13 +182,13 @@ div.menu
 div.menu.profile
 {
     padding: 0px 0px;    
-    margin: 0px -1px 0px 2px;
+    margin: 2px -1px 2px 2px;
     width:150px;
 }
 
 div.menu.logoff
 {
-    margin:0px 2px 0px 0px;
+    margin:2px 2px 2px 0px;
 }
 
 a div.menu:hover
@@ -197,14 +204,15 @@ div.menu:hover
 
 div.dropButton
 {
+    position:relative; 
     display: none;
     background-color: White;
     border: 1px solid black;
     padding: 10px 0px 0px 11px;
     margin: -5px 0px 0px -15px;
-    z-index: 500;
+    z-index: 1000;
     width: 150px;
-    top: 19px;
+    top: 0px;
     text-align: left;
     color: #444466;
 }
@@ -382,8 +390,10 @@ table a, .controlDiv a
 
 nav, #menucontainer
 {
-    margin-top: 40px;
     text-align: right;
+    position:absolute;
+    bottom:5px;
+    right:5px;
 }
 
 div.tweet
@@ -399,7 +409,6 @@ div.tweet
 div.contentBlock
 {
     display: inline-block;
-    margin: 2px;
     min-width: 300px;
     max-width: 600px;
     background-color: transparent;
@@ -408,17 +417,88 @@ div.contentBlock
 div.contentBlock:hover
 {
     display: inline-block;
-    margin: 1px;
-    border:1px solid #BBBBEE;
     min-width: 300px;
     max-width: 600px;
-    background-color:#EEEEFF;
+}
+
+.newsTitleOverlay
+{
+    background-color:#2F2F2F;
+    color:#FFFFFF;
+    padding:5px;
+    opacity:0.5;
+    font-weight:bolder;
+    font-size:larger;
+}
+
+.newsTitle
+{
+    position:absolute;
+    padding:5px;
+    top:0px;
+    left:0px;
+    color:#FFFFFF;
+    font-weight:bolder;
+    font-size:larger;
+    float:left;
+}
+
+.newsDescription
+{
+    visibility:hidden;
+    clear:both; 
+    background-color:#2F2F2F; 
+    opacity:0.5; 
+    padding:3px; 
+    position:absolute; 
+    bottom:0px; 
+    left:0px;
+    color:#FFFFFF;
+}
+
+.newsDescriptionText
+{
+    visibility:hidden;
+    float:left;
+    padding:3px;
+    position:absolute; 
+    color:#FFFFFF;
+    bottom:0px; 
+    left:0px;
+}
+
+div.contentBlock:hover .newsDescriptionText 
+{
+    color: #FF6500;
 }
 
 a.aFeature:hover 
 {
     color:#AA2400;
 }
+
+.featureTitleOverlay
+{
+    background-color:#2F2F2F;
+    color:#FFFFFF;
+    opacity:0.5;
+    padding:5px;
+    font-weight:bolder;
+    font-size:larger;
+}
+
+.featureTitle
+{
+    position:absolute;
+    top:0px;
+    left:0px;
+    color:#FFFFFF;
+    padding:5px;
+    font-weight:bolder;
+    font-size:larger;
+    float:left;
+}
+
 
 div.mainFeatureBlock
 {
@@ -431,16 +511,23 @@ div.mainFeatureBlock
 {
     visibility:hidden;
     clear:both; 
-    background-color:#DDDDDD; 
+    background-color:#2F2F2F; 
     opacity:0.5; 
     padding:3px; 
+    position:absolute; 
+    bottom:0px; 
+    left:0px;
 }
 
 .descriptionText
 {
     visibility:hidden;
     float:left;
-    padding:3px; 
+    padding:3px;
+    color:#FFFFFF;
+    position:absolute; 
+    bottom:0px; 
+    left:0px;
 }
 
 div.mainFeatureBlock:hover .description

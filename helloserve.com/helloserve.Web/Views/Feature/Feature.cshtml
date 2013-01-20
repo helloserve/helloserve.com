@@ -3,7 +3,7 @@
 @section headScript{
     <script type="text/javascript" language="javascript">
         $(function() { 
-            slideShow.init(@(Html.Raw(Json.Encode(Model.Media.Select(m => new { m.FileName, m.Width, m.Height }).ToArray()))), 6, '#featureSlideShow', '/Media/', '/Thumb/', 0);
+            slideShow.init('/Content/Carousel/', @(Html.Raw(Json.Encode(Model.Media.Select(m => new { m.FileName, m.Width, m.Height }).ToArray()))), 4, '#featureSlideShow', '/Media/', '/Thumb/', 0);
         });        
     </script>
 }
@@ -25,6 +25,19 @@
     <br />
     <div class="featureText">
         @Html.Raw(Model.Feature.ExtendedDescription)
+    </div>
+    <div style="clear: both; text-align:center;">
+        @if (Model.Media.Count == 0)
+        {
+            <div style="text-align: center; vertical-align: middle">
+                Aaah, no pictures :(
+            </div>
+        }
+        else
+        {
+            <div id="featureSlideShow" style="border:solid 0px; min-height:1080px;">
+            </div>
+        }
     </div>
 </div>
 <div style="width: 29%; float: right">
@@ -97,23 +110,13 @@
         Blog Posts</h2>
     @foreach (var post in Model.BlogPosts)
     {
+        Html.RenderPartial("_Blog", post);
+        @*
         <div style="border: solid 1px; margin: 5px; padding: 5px;">
             <h3>@Html.ActionLink(post.Title, "News", "News", new { id = post.NewsID }, null)</h3>
             <div>@post.CreatedDate.ToShortDateString()</div>
             <div>@Html.Raw(post.Cut)</div>
         </div>
-    }
-</div>
-<div style="clear: both; text-align:center;">
-    @if (Model.Media.Count == 0)
-    {
-        <div style="text-align: center; vertical-align: middle">
-            Aaah, no pictures :(
-        </div>
-    }
-    else
-    {
-        <div id="featureSlideShow" style="border:solid 1px; min-height:1080px;">
-        </div>
+        *@
     }
 </div>

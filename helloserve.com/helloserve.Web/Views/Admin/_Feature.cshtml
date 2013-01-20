@@ -24,8 +24,7 @@
                     </div>
                     <div>
                         <div>
-                            Main Feature?</div>
-                        <div>@Html.CheckBoxFor(model => model.Feature.IsMainFeature, new { style = "width:500px" })</div>
+                            Main Feature @Html.CheckBoxFor(model => model.Feature.IsMainFeature, new { style = "width:25px" })</div>
                     </div>
                     <div>
                         <div>
@@ -49,7 +48,7 @@
                     </div>
                     <div>
                         <div>
-                            Header Image ID (Main Feature:640x250, otherwise 300x150)</div>
+                            Header Image ID (800x400, thumb main feature:605x250 else 300x150)</div>
                         <div>@Html.TextBoxFor(model => model.Feature.HeaderImageID, new { style = "width:500px" })</div>
                     </div>
                     <div>
@@ -70,7 +69,7 @@
                     <div>
                         <div>
                             Created Date</div>
-                        <div>@Html.DatePicker("Feature.CreatedDate", Model.Feature.CreatedDate.ToDisplayString())</div>
+                        <div>@Html.DatePicker("Feature.CreatedDate", Model.Feature.CreatedDate.ToDisplayString())&nbsp;<a href="" onclick="Admin.CopyVal('Feature_CreatedDate', 'Feature_ModifiedDate'); return false;">Copy to Modified</a></div>
                     </div>
                     <div>
                         <div>

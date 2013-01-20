@@ -86,7 +86,6 @@ namespace helloserve.Common
             foreach (Media item in mediaItems)
                 item.Save();
 
-
             Dictionary<string, int> features = FeatureRepo.GetMediaFolders();
             List<FeatureMedia> linkedFeatures = new List<FeatureMedia>();
 
@@ -94,7 +93,7 @@ namespace helloserve.Common
             foreach (string key in features.Keys)
             {
                 lPath = Path.Combine(path, key);
-                foreach (Media item in MediaRepo.GetInLocation(lPath))
+                foreach (Media item in MediaRepo.GetInLocation(lPath).ToList())
                 {
                     FeatureMediaRepo.Link(features[key], item.MediaID);
                 }

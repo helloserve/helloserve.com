@@ -67,29 +67,35 @@
         </div>
     </div>
     <div style="width: 49%; min-width:600px; float: left">
-        <h2>
-            Latest Blog Posts</h2>
-        <div>
-            @foreach (var blog in Model.LatestBlogPosts)
-            {
-                Html.RenderPartial("_Blog", blog);
-            }
+        <div style="background-color:#CFDDE3; padding:5px; margin:0px 5px 5px 5px;">
+            <h2>
+                Latest Blog Posts</h2>
+            <div>
+                @foreach (var blog in Model.LatestBlogPosts)
+                {
+                    Html.RenderPartial("_Blog", blog);
+                }
+            </div>
         </div>
-        <h2>
-            Latest News Posts</h2>
-        <div>
-            @foreach (var news in Model.LatestNews)
-            {
-                Html.RenderPartial("_News", news);
-            }
+        <div style="background-color:#E8CEC3; padding:5px; margin:5px;">
+            <h2>
+                Latest News Posts</h2>
+            <div>
+                @foreach (var news in Model.LatestNews)
+                {
+                    Html.RenderPartial("_News", news);
+                }
+            </div>
         </div>
-        <h2>
-            Latest Forum Posts</h2>
-        <div>
-            @foreach (var post in Model.LatestForumPosts)
-            {
-                Html.RenderPartial("_Forum", post);
-            }
+        <div style="background-color:#C3E8C6; padding:5px; margin:5px;">
+            <h2>
+                Latest Forum Posts</h2>
+            <div>
+                @foreach (var post in Model.LatestForumPosts)
+                {
+                    Html.RenderPartial("_Forum", post);
+                }
+            </div>
         </div>
     </div>
 

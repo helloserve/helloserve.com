@@ -206,6 +206,12 @@ namespace helloserve.Web
 
                 TryUpdateModel<News>(model.News, "News");
 
+                if (form["ImportCheck"] != null && ((string)form["ImportCheck"]).Contains("true"))
+                {
+                    model.News.ImportCut();
+                    model.News.ImportPost();
+                }
+
                 if (!ModelState.IsValid)
                 {
                     return ReturnJsonResult(true, this.RenderPartialView("_News", model));

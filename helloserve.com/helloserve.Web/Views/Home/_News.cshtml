@@ -1,12 +1,14 @@
 ﻿@model News
-<a href="/News/News?id=@(Model.NewsID)" title="@(Model.Title)">
-    <div id="News@(Model.NewsID)" class="contentBlock" style="width:300px">
-        <div style="background-image:url('/Thumb/@(Model.HeaderImageID ?? -1)'); padding:5px;">
-        <div>
-            <h3>@Model.Title</h3>
+<a href="/News/News?id=@(Model.NewsID)" title="@(Model.Title)" style="text-decoration:none" class="aNews">
+    <div id="News@(Model.FeatureID)" class="contentBlock" style="position:relative; width:300px; height:150px; display:inline-block;">
+        <div style="float: left; width: 300px; height: 150px">
+            <img src="/Thumb/@(Model.HeaderImageID ?? -1)" width="300px" height="150px" />
         </div>
-        <div>@Model.CreatedDate.ToShortDateString()</div>
-        <div>@Html.Raw(Model.GetCutBland())</div>
-    </div>
-    </div>
+        <div style="width:300px; height:150px; position:absolute; top:0px; left:0px;">
+            <div class="newsTitleOverlay">@Model.Title&nbsp;<span style="font-size:x-small; font-weight:normal">@Model.CreatedDate.ToShortDateString()</span></div>
+            <div class="newsTitle">@Model.Title&nbsp;<span style="font-size:x-small; font-weight:normal">@Model.CreatedDate.ToShortDateString()</span></div>
+            <div class="newsDescription" style="width:294px; visibility:visible">@Html.Raw(Model.GetCutBland())</div>
+            <div class="newsDescriptionText" style="width:294px; visibility:visible">@Html.Raw(Model.GetCutBland())</div>
+        </div>
+    </div> 
 </a>
