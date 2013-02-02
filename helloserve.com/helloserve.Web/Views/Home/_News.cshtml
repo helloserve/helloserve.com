@@ -1,14 +1,24 @@
 ﻿@model News
 <a href="/News/News?id=@(Model.NewsID)" title="@(Model.Title)" style="text-decoration:none" class="aNews">
-    <div id="News@(Model.FeatureID)" class="contentBlock" style="position:relative; width:300px; height:150px; display:inline-block;">
+    <div id="News@(Model.NewsID)" class="contentBlock" style="position:relative; width:300px; height:150px; display:inline-block;">
+        @if (Model.HeaderImageID.HasValue)
+        {
         <div style="float: left; width: 300px; height: 150px">
-            <img src="/Thumb/@(Model.HeaderImageID ?? -1)" width="300px" height="150px" />
+            <img src="/Thumb/@(Model.HeaderImageID ?? -1)/@Model.HeaderImageFilename" width="300px" height="150px" />
         </div>
         <div style="width:300px; height:150px; position:absolute; top:0px; left:0px;">
             <div class="newsTitleOverlay">@Model.Title&nbsp;<span style="font-size:x-small; font-weight:normal">@Model.CreatedDate.ToShortDateString()</span></div>
-            <div class="newsTitle">@Model.Title&nbsp;<span style="font-size:x-small; font-weight:normal">@Model.CreatedDate.ToShortDateString()</span></div>
+            <div class="newsTitle" style="color:#FFFFFF;">@Model.Title&nbsp;<span style="font-size:x-small; font-weight:normal">@Model.CreatedDate.ToShortDateString()</span></div>
             <div class="newsDescription" style="width:294px; visibility:visible">@Html.Raw(Model.GetCutBland())</div>
-            <div class="newsDescriptionText" style="width:294px; visibility:visible">@Html.Raw(Model.GetCutBland())</div>
+            <div class="newsDescriptionText" style="width:294px; visibility:visible; color:#FFFFFF;">@Html.Raw(Model.GetCutBland())</div>
         </div>
+        }
+        else
+        {
+            <div style="width:300px; height:150px; position:absolute; top:0px; left:0px;">
+                <div class="newsTitle" style="color:#000000;">@Model.Title&nbsp;<span style="font-size:x-small; font-weight:normal">@Model.CreatedDate.ToShortDateString()</span></div>
+                <div class="newsDescriptionText" style="width:294px; visibility:visible">@Html.Raw(Model.GetCutBland())</div>
+            </div>
+        }
     </div> 
 </a>

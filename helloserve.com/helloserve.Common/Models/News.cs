@@ -20,6 +20,18 @@ namespace helloserve.Common
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
 
+        [NotMapped]
+        public string HeaderImageFilename
+        {
+            get
+            {
+                if (HeaderImageID.HasValue)
+                    return MediaRepo.GetByID(HeaderImageID.Value).FileName;
+                else
+                    return string.Empty;
+            }
+        }
+
         #region IENTITY
 
         public bool IsNew()

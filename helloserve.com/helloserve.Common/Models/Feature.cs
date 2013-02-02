@@ -24,6 +24,18 @@ namespace helloserve.Common
         public DateTime ModifiedDate { get; set; }
 
         [NotMapped]
+        public string HeaderImageFilename
+        {
+            get
+            {
+                if (HeaderImageID.HasValue)
+                    return MediaRepo.GetByID(HeaderImageID.Value).FileName;
+                else
+                    return string.Empty;
+            }
+        }
+
+        [NotMapped]
         public string Link
         {
             get

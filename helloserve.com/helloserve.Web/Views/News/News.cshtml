@@ -4,7 +4,7 @@
 <h2>@Model.News.Title</h2>
 @if (Model.News.HeaderImageID.HasValue)
 {
-    <img src="/Media/@Model.News.HeaderImageID" width="1000px" />
+    <img src="/Media/@Model.News.HeaderImageID/@Model.News.HeaderImageFilename" width="1000px" />
 }
 <div>@Model.News.CreatedDate.ToShortDateString()</div>
 <div>@Html.Raw(Model.News.Cut)</div>

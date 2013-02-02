@@ -60,7 +60,7 @@ namespace helloserve.Common
         {
             var news = (from n in DB.NewsItems
                         join nprev in DB.NewsItems on n.FeatureID equals nprev.FeatureID
-                        where n.NewsID == newsID && (nprev.CreatedDate > n.CreatedDate || (nprev.CreatedDate == n.CreatedDate && nprev.NewsID < n.NewsID))
+                        where n.NewsID == newsID && (nprev.CreatedDate < n.CreatedDate || (nprev.CreatedDate == n.CreatedDate && nprev.NewsID < n.NewsID))
                         orderby new { nprev.CreatedDate, nprev.NewsID } descending
                         select nprev).FirstOrDefault();
 

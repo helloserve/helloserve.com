@@ -412,6 +412,7 @@ div.contentBlock
     min-width: 300px;
     max-width: 600px;
     background-color: transparent;
+    margin:1px;
 }
 
 div.contentBlock:hover
@@ -419,6 +420,8 @@ div.contentBlock:hover
     display: inline-block;
     min-width: 300px;
     max-width: 600px;
+    border:1px solid black;
+    margin:0px;
 }
 
 .newsTitleOverlay
@@ -437,7 +440,6 @@ div.contentBlock:hover
     padding:5px;
     top:0px;
     left:0px;
-    color:#FFFFFF;
     font-weight:bolder;
     font-size:larger;
     float:left;
@@ -453,7 +455,6 @@ div.contentBlock:hover
     position:absolute; 
     bottom:0px; 
     left:0px;
-    color:#FFFFFF;
 }
 
 .newsDescriptionText
@@ -462,7 +463,6 @@ div.contentBlock:hover
     float:left;
     padding:3px;
     position:absolute; 
-    color:#FFFFFF;
     bottom:0px; 
     left:0px;
 }
@@ -548,7 +548,6 @@ div.mainFeatureBlock:hover
 
 div.featureBlock
 {
-    font-size:smaller;
     display: inline-block;
     margin: 4px 4px 1px 0px;
     min-width: 300px;

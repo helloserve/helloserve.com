@@ -414,7 +414,7 @@ namespace helloserve.Web
                                               ((!string.IsNullOrEmpty(filter.Category) && l.Category == filter.Category) || string.IsNullOrEmpty(filter.Category)) &&
                                               ((filter.UserID.HasValue && l.UserID == filter.UserID.Value) || !filter.UserID.HasValue) &&
                                               ((!string.IsNullOrEmpty(filter.Message) && l.Message.Contains(filter.Message)) || string.IsNullOrEmpty(filter.Message)) &&
-                                              ((!string.IsNullOrEmpty(filter.Source) && l.Source.Contains(filter.Source)) || string.IsNullOrEmpty(filter.Source))).OrderByDescending(l => l.Timestamp).ToList();
+                                              ((!string.IsNullOrEmpty(filter.Source) && l.Source.Contains(filter.Source)) || string.IsNullOrEmpty(filter.Source))).OrderByDescending(l => l.Timestamp).Take(1000).ToList();
             FillLookups();
         }
 

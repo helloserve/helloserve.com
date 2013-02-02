@@ -27,14 +27,26 @@ namespace helloserve.Web
             routes.Add("Subdomains", new SubdomainRoutes());
 
             routes.MapRoute(
-                "Media", // Route name
+                "MediaID", // Route name
                 "Media/{id}", // URL with parameters
                 new { controller = "Media", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
             routes.MapRoute(
-                "Thumb", // Route name
+                "Media", // Route name
+                "Media/{id}/{name}", // URL with parameters
+                new { controller = "Media", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "ThumbID", // Route name
                 "Thumb/{id}", // URL with parameters
+                new { controller = "Media", action = "Thumb", id = UrlParameter.Optional } // Parameter defaults
+            );
+
+            routes.MapRoute(
+                "Thumb", // Route name
+                "Thumb/{id}/{name}", // URL with parameters
                 new { controller = "Media", action = "Thumb", id = UrlParameter.Optional } // Parameter defaults
             );
 
