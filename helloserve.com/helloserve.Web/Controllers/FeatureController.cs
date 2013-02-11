@@ -12,6 +12,7 @@ namespace helloserve.Web.Controllers
         public ActionResult Index()
         {
             FeaturesModel model = new FeaturesModel();
+            ViewBag.Title = string.Format("{0} - helloserve Productions", "Features");
             return View(model);
         }
 
@@ -23,6 +24,7 @@ namespace helloserve.Web.Controllers
             if (int.TryParse(id, out featureID))
             {
                 model = new FeatureModel(featureID);
+                ViewBag.Title = string.Format("{0} - helloserve Productions", model.Feature.Name);
                 //LogRepo.LogForFeature(Settings.Current.GetUserID(), featureID, model.Feature.Name, "Feature.Feature");
                 Settings.EventLogger.Log(EventLogEntry.LogForFeature(Settings.Current.GetUserID(), featureID, model.Feature.Name, "Feature.Feature"));
                 return View(model);
@@ -36,6 +38,7 @@ namespace helloserve.Web.Controllers
             FeatureModel model = FeatureModel.FromSubdomain(id);
             if (model != null)
             {
+                ViewBag.Title = string.Format("{0} - helloserve Productions", model.Feature.Name);
                 //LogRepo.LogForFeature(Settings.Current.GetUserID(), model.Feature.FeatureID, model.Feature.Name, "Feature.FromSubdomain");
                 Settings.EventLogger.Log(EventLogEntry.LogForFeature(Settings.Current.GetUserID(), model.Feature.FeatureID, model.Feature.Name, "Feature.Feature"));
                 return View(model);

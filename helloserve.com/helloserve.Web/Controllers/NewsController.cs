@@ -22,6 +22,7 @@ namespace helloserve.Web.Controllers
             if (int.TryParse(id, out newsID))
             {
                 NewsModel model = new NewsModel(newsID);
+                ViewBag.Title = string.Format("{0} - helloserve Productions", model.News.Title);
                 return View(model);
             };
 

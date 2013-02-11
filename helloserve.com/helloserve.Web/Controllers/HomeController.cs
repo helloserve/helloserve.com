@@ -9,7 +9,8 @@ namespace helloserve.Web
     public class HomeController : BaseController
     {
         public ActionResult Index()
-        {           
+        {
+            ViewBag.Title = string.Format("{0} - helloserve Productions", "Home");
             return View(new HomeModel());
         }
 
