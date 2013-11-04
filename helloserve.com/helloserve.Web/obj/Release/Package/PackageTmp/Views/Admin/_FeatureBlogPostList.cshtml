@@ -1,9 +1,0 @@
-﻿@model AdminFeatureModel
-<div>
-    <ul>
-        @foreach (var blogPost in Model.BlogPosts)
-        {
-            <li>@blogPost.Title (@blogPost.CreatedDate.ToShortDateString()) - <a onclick="Admin.EditNews(@(blogPost.NewsID))">Edit</a></li>
-        }
-    </ul>
-</div>
