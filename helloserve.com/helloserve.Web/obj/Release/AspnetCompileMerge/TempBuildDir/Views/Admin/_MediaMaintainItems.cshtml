@@ -1,0 +1,60 @@
+﻿@model AdminMediaModel
+<div>
+    @foreach (var key in Model.BreadCrumbs.Keys)
+    {
+        <span>
+            <input type="button" onclick="Admin.RefreshMedia('#adminMediaMaintainItems', '@(Model.BreadCrumbs[key])')" value="@(key)" />
+            \ </span>
+    }
+</div>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var key in Model.Folders.Keys)
+            {
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <a onclick="Admin.RefreshMedia('#adminMediaMaintainItems', '@(Model.Folders[key])')">@key</a>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.MediaItems)
+            {
+                <tr class="mediaRow" id="mediaRow_@(item.MediaID)">
+                    <td>@item.MediaID
+                        @Html.CheckBox("MediaItemChecked", false, new { @class = "mediaItemSelected" })
+                    </td>
+                    <td>
+                        <a href="/Media/@(item.FileName)">@item.FileName</a>
+                    </td>
+                    <td>
+                        <img src="/Thumb/@(item.FileName)" alt="@(item.FileName)" width="150px" height="auto"/>
+                    </td>
+                    <td>
+                        <a onclick="Admin.RemoveMedia(@(item.MediaID), '@(Model.CurrentPath)')">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

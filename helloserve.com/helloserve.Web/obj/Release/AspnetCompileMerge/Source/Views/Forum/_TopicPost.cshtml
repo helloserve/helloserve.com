@@ -1,0 +1,16 @@
+﻿@model ForumPostModel
+@Html.Hidden("PostID", Model.Post.ForumPostID)
+<div style="width:300px; height:50px">
+    <div style="float:left; height:50px; width:50px; border:1px solid black; margin:0px 5px 0px 0px;"><img src="http://www.gravatar.com/avatar/@(Model.Post.User.EmailMd5Hash)?s=50" /></div>
+    <div style="float:left; padding:10px 0px;"><span class="forumUser">@Model.Post.User.Username</span>&nbsp;<span class="forumPostDetails">@Model.Post.Date.ToShortDateString() @Model.Post.Date.ToShortTimeString()</span></div>
+    @if (Settings.Current.IsAdminUser)
+    {
+        <div class="forumModerateLinks" style="float:left">
+        <a onclick="Forum.DeleteForumPost('@Model.Forum.Name', '@Model.Category.Name', @Model.Topic.ForumTopicID, @Model.Post.ForumPostID)">Delete</a> 
+        | 
+        <a onclick="Forum.MaintainForumPost('@(Model.Forum.Name)', '@(Model.Category.Name)', @(Model.Topic.ForumTopicID), @(Model.Post.ForumPostID))">Edit</a>
+        </div>
+    }
+</div>
+<div style="padding:5px 0px;">@Html.Raw(Html.ForumPost(Model.Post.Post))</div>
+

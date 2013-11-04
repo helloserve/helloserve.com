@@ -1,0 +1,18 @@
+﻿@model ForumModel
+<h2>@Model.Forum.Name</h2>
+<p>@Model.Forum.Description</p>
+
+<div>
+    <h3>Categories</h3>
+        @foreach (var category in Model.Categories)
+        {
+            <br />
+            <div><div><span>@Html.ActionLink(category.Category.Name, "ForumCategory", "Forum", new { forum = Model.Forum.Name, category = category.Category.Name }, null) - [@category.TopicCount.GetValueOrDefault() topic(s)]</span></div>
+             <div>@category.Category.Description</div>
+             @if (category.LatestTopic != null)
+             {
+                <div>Latest Topic: <span>@Html.ActionLink(category.LatestTopic.Name, "ForumTopic", "Forum", new { forum = Model.Forum.Name, category = category.Category.Name, topicID = category.LatestTopic.ForumTopicID, offset = 0 }, null) by @category.LatestTopic.User.Username</span></div>
+             }
+             </div>
+        }
+</div>

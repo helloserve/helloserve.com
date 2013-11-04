@@ -1,0 +1,121 @@
+﻿@model AdminLogModel
+<h2>
+    System Log</h2>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                </th>
+                <th>
+                    @if (Model.FilterModel == null)
+                    {
+                        @Html.DatePicker("Log.FilterDate", (DateTime.Today.AddMonths(-1)).ToDisplayString())
+                    }
+                    else
+                    {
+                        @Html.DatePicker("Log.FilterDate", (Model.FilterModel.Date.ToDisplayString()))
+                    }
+                </th>
+                <th>
+                    @Html.DropDownList("Log.Category", Model.Categories, "None")
+                </th>
+                <th>
+                    @Html.DropDownList("Log.FilterUser", Model.Users, "None")
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                </th>
+                <th>
+                    @Html.TextBox("Log.FilterMessage", Model.FilterModel.Message)
+                </th>
+                <th>
+                    @Html.TextBox("Log.FilterSource", Model.FilterModel.Source)
+                </th>
+                <th>
+                    <input type="button" value="Apply" onclick="Admin.FilterSystemLog()" />
+                </th>
+            </tr>
+            <tr>
+                <th>
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    UserID
+                </th>
+                <th>
+                    FeatureID
+                </th>
+                <th>
+                    MediaID
+                </th>
+                <th>
+                    DownloadableID
+                </th>
+                <th>
+                    Message
+                </th>
+                <th>
+                    Source
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model.Logs)
+            {
+                <tr class="logRow">
+                    <td>
+                        @log.LogID.ToString()
+                        @Html.Hidden("logID", log.LogID)
+                    </td>
+                    <td>
+                        @log.Timestamp.ToShortDateString() &nbsp; @log.Timestamp.ToShortTimeString()
+                    </td>
+                    <td>@log.Category</td>
+                    <td>
+                        @if (log.UserID.HasValue)
+                        {
+                            @log.UserID.Value.ToString() <text>:</text> @((log.User == null) ? "~" : log.User.Username)
+                        }
+                        else
+                        {
+                            @log.UserID.ToString()
+                        }
+                    </td>
+                    <td>
+                        @if (log.FeatureID.HasValue)
+                        {
+                            @log.FeatureID.Value.ToString() <text>:</text> @log.Feature.Name
+                        }
+                        else
+                        {
+                            @log.FeatureID.ToString()
+                        }
+                    </td>
+                    <td>
+                        @log.MediaID.ToString()
+                    </td>
+                    <td>
+                        @log.DownloadID.ToString()
+                    </td>
+                    <td>
+                        @log.Message
+                    </td>
+                    <td>
+                        @log.Source
+                    </td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

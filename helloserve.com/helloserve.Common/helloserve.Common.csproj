@@ -89,7 +89,7 @@
     <Compile Include="Types\Enums.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\helloserve.com.logger\helloserve.com.Logger\helloserve.com.Logger.csproj">
+    <ProjectReference Include="..\..\..\helloserve.com.logger\helloserve.com.Logger\helloserve.com.Logger.csproj">
       <Project>{42CD6D02-C6D1-44A4-8FA1-6F3A6B4690D1}</Project>
       <Name>helloserve.com.Logger</Name>
     </ProjectReference>

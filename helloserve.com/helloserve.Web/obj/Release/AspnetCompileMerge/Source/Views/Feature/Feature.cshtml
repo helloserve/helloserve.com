@@ -1,0 +1,122 @@
+﻿@model FeatureModel
+
+@section headScript{
+    <script type="text/javascript" language="javascript">
+        $(function() { 
+            slideShow.init('/Content/Carousel/', @(Html.Raw(Json.Encode(Model.Media.Select(m => new { m.FileName, m.Width, m.Height }).ToArray()))), 4, '#featureSlideShow', '/Media/', '/Thumb/', 0);
+        });        
+    </script>
+}
+
+<h2>@Model.Feature.Name</h2>
+<div style="width: 70%; float: left">
+    <div>@Model.Feature.CreatedDate.ToDisplayString()</div>
+    <br />
+    <div>
+        @foreach (var req in Model.Requirements)
+        {
+            <span>&nbsp<a href="@(req.Requirement.Link)">@(req.Requirement.Description)</a>&nbsp</span>
+        }
+    </div>
+    <br />
+    <div class="featureText">
+        @Html.Raw(Model.Feature.Description)
+    </div>
+    <br />
+    <div class="featureText">
+        @Html.Raw(Model.Feature.ExtendedDescription)
+    </div>
+    <div style="clear: both; text-align:center;">
+        @if (Model.Media.Count == 0)
+        {
+            <div style="text-align: center; vertical-align: middle">
+                Aaah, no pictures :(
+            </div>
+        }
+        else
+        {
+            <div id="featureSlideShow" style="border:solid 0px; min-height:1080px;">
+            </div>
+        }
+    </div>
+</div>
+<div style="width: 29%; float: right">
+    <h2>
+        Downloads
+    </h2>
+    <div>
+        @foreach (var dl in Model.Downloadables)
+        {
+            <div class="downloadDiv">
+                <div>
+                    <span><a href="/Download/@(dl.DownloadableID)">@dl.Name</a></span>
+                    <span style="padding:0px 15px; font-size:smaller">@dl.ModifiedDate.ToShortDateString()</span>
+                </div>
+                <div>@dl.Description</div>
+            </div>            
+        }
+    </div>
+    <h2>
+        Links and Related</h2>
+    <div>
+        <table style="vertical-align: middle; border: none">
+            @if (!string.IsNullOrEmpty(Model.Feature.IndieDBLink))
+            {
+                //http://www.indiedb.com/games/stingray-incursion
+                <tr>
+                    <td>
+                        Follow @(Model.Feature.Name)
+                        on Indie DB
+                    </td>
+                    <td>
+                        <a href="@(Model.Feature.IndieDBLink)" title="View @(Model.Feature.Name) on Indie DB" target="_blank">
+                            <img src="http://media.indiedb.com/images/global/indiedb.png" alt="@(Model.Feature.Name)" /></a>
+                    </td>
+                </tr>  
+            }
+            @foreach (var link in Model.RelatedLinks)
+            {
+                <tr>
+                    @if (string.IsNullOrEmpty(link.Icon))
+                    {
+                        <td colspan="2">
+                            <a href="@(link.Link)">@link.Description</a>
+                        </td>
+                    }
+                    else
+                    {
+                        if (string.IsNullOrEmpty(link.Link) && !string.IsNullOrEmpty(link.Icon))
+                        {
+                        <td>@link.Description
+                        </td>
+                        <td>
+                            @Html.Raw(link.Icon)
+                        </td>
+                        }
+                        else
+                        {
+                        <td>@link.Description
+                        </td>
+                        <td>
+                            <a href="@(link.Link)"><img src="@(link.Icon)" /></a>
+                        </td>
+                        }
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+    <h2>
+        Blog Posts</h2>
+    @foreach (var post in Model.BlogPosts)
+    {
+        Html.RenderPartial("_Blog", post);
+        @*
+        <div style="border: solid 1px; margin: 5px; padding: 5px;">
+            <h3>@Html.ActionLink(post.Title, "News", "News", new { id = post.NewsID }, null)</h3>
+            <div>@post.CreatedDate.ToShortDateString()</div>
+            <div>@Html.Raw(post.Cut)</div>
+        </div>
+        *@
+    }
+</div>

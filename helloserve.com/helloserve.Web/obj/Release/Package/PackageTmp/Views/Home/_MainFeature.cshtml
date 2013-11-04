@@ -1,0 +1,40 @@
+﻿@model Feature
+<a href="@(Model.Link)" title="@(Model.Name)" style="text-decoration:none;" class="aFeature">
+<div id="Feature@(Model.FeatureID)" class="mainFeatureBlock" style="position:relative; width:605px; height:250px; display:inline-block; background-color:#FF9955;">
+    <div style=" float:left; width:605px; height:250px">
+        <img src="/Thumb/@(Model.HeaderImageID ?? -1)/@Model.HeaderImageFilename" alt="@Model.Name" width="605px" height="250px" />
+    </div>
+    <div style="height:250px; position:absolute; top:0px; left:0px;">
+        <div class="featureTitleOverlay" style="width:595px; font-size:x-large">@Model.Name</div>
+        <div class="featureTitle" style="width:595px; font-size:x-large">@Model.Name</div>
+        <div class="description" style="width:600px;">@Model.Description</div>
+        <div class="descriptionText" style="width:600px;">@Model.Description</div>
+    </div>
+</div>
+</a>
+
+@*
+<a href="@(Model.Link)" title="@(Model.Name)" style="text-decoration:none;" class="aFeature">
+    <div id="Feature@(Model.FeatureID)" class="mainFeatureBlock" style="width:605px; height:250px; display:inline-block; background-image:url('/Thumb/@(Model.HeaderImageID ?? -1)'); background-color:#FF9955;">
+        <div style="height:250px; position:relative;">
+            <div class="featureTitleOverlay" style="width:595px; font-size:x-large">@Model.Name</div>
+            <div class="featureTitle" style="width:595px; font-size:x-large">@Model.Name</div>
+            <div class="description" style="width:600px;">@Model.Description</div>
+            <div class="descriptionText" style="width:600px;">@Model.Description</div>
+        </div>
+    </div>
+</a>
+*@
+
+@*
+                <div style="width: 200px; height:100px; display:inline-block; text-align: right; border:1px solid black;">
+                    <img src="/Thumb/@(Model.HeaderImageID.Value)" style="width: 200px;
+                        height: 100px" />
+                </div>
+
+                <div style="width: 200px; height:100px; display:inline-block; text-align: right;">
+                    <img src="/Content/Img/Feature_Image_Placeholder.png" style="width: 200px;
+                    height: 100px" />
+                </div>
+
+*@

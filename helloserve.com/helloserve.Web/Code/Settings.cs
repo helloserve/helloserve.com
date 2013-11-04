@@ -113,7 +113,7 @@ namespace helloserve.Web
             {
                 if (TweetModel.Tweets.ShouldPoll())
                 {
-                    Twitter.Poll();
+                    //Twitter.Poll();
                     TweetModel.Tweets.LastPolled = DateTime.Now;
                 }
 

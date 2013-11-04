@@ -59,7 +59,7 @@ namespace helloserve.Web
 
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient(ConfigurationManager.AppSettings["SMTPServer"]);
             int port = 0;
-            if (int.TryParse(ConfigurationManager.AppSettings["SMPTPort"], out port))
+            if (int.TryParse(ConfigurationManager.AppSettings["SMTPPort"], out port))
             {
                 client.Port = int.Parse(ConfigurationManager.AppSettings["SMTPPort"]);
             }

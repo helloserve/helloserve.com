@@ -1,0 +1,22 @@
+﻿@model AdminFeatureRequirementModel
+<div>
+    <fieldset>
+        <legend>Requirements</legend>
+        @Html.DropDownList("Requirements", Model.Requirements, new { id = "RequirementSelection" })
+        <input type="button" value="Add" onclick="Admin.AttachRequirement(@(Model.FeatureID))" />
+        <table>
+            @foreach (var req in Model.FeatureRequirements)
+            {                                   
+                <tr>
+                    <td>
+                        @req.Requirement.Description
+                    </td>
+                    <td>
+                        <a onclick="Admin.DetachRequirement(@(Model.FeatureID), @(req.Requirement.RequirementID))">
+                            Remove</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </fieldset>
+</div>

@@ -1,0 +1,13 @@
+﻿@model AdminMenuModel
+@{
+    ViewBag.Title = "helloserve Admin";    
+}
+@section headScript{
+    @IncludeRichEditor()
+}
+
+<h2>
+    Admin</h2>
+@Html.Partial("_AdminFunctions", Model)
+<div id="adminAction">
+</div>

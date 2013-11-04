@@ -1,0 +1,60 @@
+﻿@model AdminFeatureRelatedModel
+<div>
+    <fieldset>
+        <legend>Related Links</legend>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Link
+                    </th>
+                    <th>
+                        Icon
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+            </thead>
+            @foreach (var req in Model.RelatedLinks)
+            {                                   
+                <tr class="relatedRow" id="related_@(req.RelatedLinkID)">
+                    <td>
+                        @Html.TextBox("RelatedDescription", req.Description, new { @class = "related_description" })
+                    </td>
+                    <td>
+                        @Html.TextBox("RelatedLink", req.Link, new { @class = "related_link" })
+                    </td>
+                    <td>
+                        @Html.TextBox("RelatedIcon", req.Icon, new { @class = "related_icon" })
+                    </td>
+                    <td>
+                        <a onclick="Admin.RemoveRelated(@(Model.FeatureID), @(req.RelatedLinkID))">Remove</a>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td>
+                    @Html.TextBox("RelatedDescription", "", new { id = "related_add_description" })
+                </td>
+                <td>
+                    @Html.TextBox("RelatedLink", "", new { id = "related_add_link" })
+                </td>
+                <td>
+                    @Html.TextBox("RelatedIcon", "", new { id = "related_add_icon" })
+                </td>
+                <td>
+                    <input type="button" value="Add" onclick="Admin.AddRelated(@(Model.FeatureID))" />
+                </td>
+            </tr>
+        </table>
+        <div>
+            <div class="controlDiv">
+                <input type="button" id="SaveRequirements" value="Save" onclick="Admin.SaveRelated(@(Model.FeatureID))" />
+            </div>
+        </div>
+    </fieldset>
+</div>
+

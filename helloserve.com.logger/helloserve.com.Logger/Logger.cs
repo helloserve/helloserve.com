@@ -189,6 +189,11 @@ namespace helloserve.com
 
             _perfCache = new Dictionary<int, PerfLogElement>();
 
+            RestartClockThread();
+        }
+
+        private void RestartClockThread()
+        {
             ParameterizedThreadStart threadStart = new ParameterizedThreadStart(Clock);
             _clockThread = new Thread(threadStart);
             _clockThread.Start();
@@ -207,8 +212,17 @@ namespace helloserve.com
         public void Start()
         {
             _stop = false;
-            if (_clockThread != null)
-                _clockThread.Start();
+            if (_clockThread != null && _clockThread.ThreadState != ThreadState.Running)
+            {
+                try
+                {
+                    _clockThread.Start();
+                }
+                catch
+                {
+                    RestartClockThread();
+                }
+            }
         }
 
         /// <summary>
@@ -329,7 +343,7 @@ namespace helloserve.com
                 return Log(entry);
 
             }
-            catch (ALogRethrowException ex)
+            catch (ALogRethrowException)
             {
                 throw;
             }
@@ -392,7 +406,6 @@ namespace helloserve.com
 
                 System.Diagnostics.EventLog log = new System.Diagnostics.EventLog("Application");
                 log.Source = "ALog - " + _logName;
-                log.ModifyOverflowPolicy(System.Diagnostics.OverflowAction.OverwriteAsNeeded, 0);
                 log.WriteEntry(msg.ToString(), System.Diagnostics.EventLogEntryType.Error);
             }
             catch { }
@@ -412,7 +425,7 @@ namespace helloserve.com
 
                 System.Diagnostics.EventLog log = new System.Diagnostics.EventLog("Application");
                 log.Source = "ALog - " + _logName;
-                log.ModifyOverflowPolicy(System.Diagnostics.OverflowAction.OverwriteAsNeeded, 0);
+                //log.ModifyOverflowPolicy(System.Diagnostics.OverflowAction.OverwriteAsNeeded, 0);
                 log.WriteEntry(msg.ToString(), System.Diagnostics.EventLogEntryType.Warning);
             }
             catch { }

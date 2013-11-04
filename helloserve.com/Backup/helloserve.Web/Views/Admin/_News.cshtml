@@ -1,0 +1,66 @@
+﻿@model AdminNewsModel
+@using (Html.BeginForm("SaveNews", "Admin", FormMethod.Post, new { id = "adminNewsForm" }))
+{
+    <div id="mainNewsEdit">
+        <fieldset>
+            <legend>
+                @if (Model.FeatureID.HasValue)
+                {
+                    <text>Blog Post Details</text>   
+                }
+                else
+                {
+                    <text>News Post Details</text>}</legend>
+            <div id="newsDetails">
+                <div>
+                    <div>
+                        ID</div>
+                    <div>@Html.DisplayFor(model => model.News.NewsID)</div>
+                    @Html.HiddenFor(model => model.News.FeatureID)
+                    @Html.HiddenFor(model => model.News.NewsID)
+                </div>
+                <div>
+                    <div>
+                        Title</div>
+                    <div>@Html.TextBoxFor(model => model.News.Title)</div>
+                </div>
+                <div>
+                    <div>
+                        Cut</div>
+                    <div>@Html.TextAreaFor(model => model.News.Cut, new { @class = "cut" })</div>
+                </div>
+                <div>
+                    <div>
+                        Post</div>
+                    <div>@Html.TextAreaFor(model => model.News.Post, new { @class = "post" })</div>
+                </div>
+                <div>
+                    <div>
+                        Import From Old Site</div>
+                    <div>@Html.CheckBox("ImportCheck", false, new { id="ImportCheck" })</div>
+                </div>
+                <div>
+                    <div>
+                        Header Image ID</div>
+                    <div>@Html.TextBoxFor(model => model.News.HeaderImageID)</div>
+                </div>
+                <div>
+                    <div>
+                        Created Date</div>
+                    <div>@Html.DatePicker("News.CreatedDate", Model.News.CreatedDate.ToDisplayString())&nbsp;<a href="" onclick="Admin.CopyVal('News_CreatedDate', 'News_ModifiedDate'); return false;">Copy to Modified</a></div>
+                </div>
+                <div>
+                    <div>
+                        Modified Date</div>
+                    <div>@Html.DatePicker("News.ModifiedDate", DateTime.Now.ToDisplayString())</div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div>
+        <div class="controlDiv">
+            <input type="submit" id="SaveNews" value="Save" />
+            <a href="" onclick="Admin.CancelAction()">Cancel</a>
+        </div>
+    </div>
+}

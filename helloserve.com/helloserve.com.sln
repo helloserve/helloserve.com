@@ -1,11 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.Web", "helloserve.Web\helloserve.Web.csproj", "{D8159E8A-F02D-491C-A08E-49F9F00BEEBE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.Common", "helloserve.Common\helloserve.Common.csproj", "{FF8F9B3B-9887-478C-B369-BC2C819DFAFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Logger", "..\helloserve.com.logger\helloserve.com.Logger\helloserve.com.Logger.csproj", "{42CD6D02-C6D1-44A4-8FA1-6F3A6B4690D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Logger", "..\..\helloserve.com.logger\helloserve.com.Logger\helloserve.com.Logger.csproj", "{42CD6D02-C6D1-44A4-8FA1-6F3A6B4690D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,49 @@
+﻿@model AdminFeatureDownloadableModel
+<div>
+    <fieldset>
+        <legend>Downloadables</legend>
+        <div>
+            <div>
+                @Html.HiddenFor(model => model.FeatureID)
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Filename
+                        </th>
+                        <th>
+                            Last Modified
+                        </th>
+                        <th>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Downloadable dl in Model.Downloadables)
+                    {
+                        <tr class="downloadableRow" id="downloadable_@(dl.DownloadableID)">
+                            <td>
+                                @dl.Name
+                            </td>
+                            <td>
+                                @dl.ModifiedDate.ToShortDateString() @dl.ModifiedDate.ToShortTimeString()
+                            </td>
+                            <td>
+                                <a onclick="return Admin.UnlinkDownloadable(@(dl.DownloadableID), @(Model.FeatureID))">Unlink</a>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="2">
+                            @Html.DropDownList("AvailableDownloadables", Model.AvailableDownloads, new { id = "featureAvailableDownloadables" })
+                        </td>
+                        <td>
+                            <a onclick="return Admin.LinkDownloadable(@(Model.FeatureID))">Link</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+</div>

@@ -1,0 +1,66 @@
+﻿@model AdminMenuModel
+<div id="adminFunctions" class="controlDiv">
+    <div>
+        <a onclick="Admin.AddFeature()">Add Feature</a>
+    </div>
+    <div>
+        Edit Feature @Html.DropDownList("EditFeatureList", null, new { id = "AdminEditFeatureSelection", onchange = "Admin.LoadFeatureStuff()" })
+        <a onclick="Admin.EditFeature()">Edit</a> | 
+        <a onclick="Admin.DeleteFeature()">Delete</a> | 
+        <a onclick="Admin.AddBlogPost()">Add Blog Post</a>
+        <div id="adminFunctionsFeatureBlogs">
+        </div>      
+    </div>
+    <hr />
+    <div>
+        <a onclick="Admin.AddNews()">Add News</a>
+    </div>
+    <div>
+        Edit News @Html.DropDownList("EditNewsList", null, new { id = "AdminEditNewsSelection", onchange = "Admin.LoadNewsStuff()" })
+        <a onclick="Admin.EditNews()">Edit</a> | 
+        <a onclick="Admin.DeleteNews()">Delete</a>
+    </div>
+    <hr />
+    <div>
+        <a onclick="Admin.EditRequirements()">Maintain Requirements</a>
+    </div>
+    <hr />
+    <div>
+        <a onclick="Admin.EditDownloads()">Maintain Downloads</a>
+    </div>
+    <hr />
+    <div>
+        <a onclick="Admin.ScanMedia()">Scan Media</a> | <a onclick="Admin.MaintainMedia('#adminAction', '')">Maintain</a>&nbsp;<a href="/Admin/MediaPage/">(on Page)</a>
+    </div>
+    <div>
+        <br />
+        <a onclick="Admin.AddMedia()">Create (non physical) Media</a>
+    </div>
+    <hr />
+    <div>
+        <a onclick="Admin.AddForum()">Add Forum</a>
+    </div>
+    <div>
+        Manage Forum @Html.DropDownList("EditForumList", null, new { id = "AdminEditForumSelection" })
+        <a onclick="Admin.EditForum()">Edit</a>
+        <a onclick="Admin.DeleteForum()">Delete</a>
+    </div>
+    <br />
+    <div>
+        <a onclick="Admin.Users()">Maintain Users</a>
+    </div>
+    <br />
+    <div>
+        <a onclick="Admin.SystemLog()">Check System Log</a>
+    </div>
+    <br />
+    <div>
+        @Html.ActionLink("Export Database", "ExportDatabase", "Admin")
+    </div>
+    <br />
+    @using (Html.BeginForm("ImportDatabase", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "importDatabase" }))
+    {
+        <div><span style="width:400px">JSON file </span><input type="file" name="uploadedFile" size="100"/></div>
+        <div><input type="submit" name="import" value="Import"/></div>
+    }
+</div>

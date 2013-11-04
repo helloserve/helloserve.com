@@ -1,0 +1,38 @@
+﻿@model AdminErrorModel
+<h2>Error Log</h2>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Message</th>
+                <th>Stack Trace / Source</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var error in Model.Errors)
+            {
+                <tr class="userRow">
+                    <td>
+                        @error.ErrorID.ToString()
+                        @Html.Hidden("ErrorID", error.ErrorID)
+                    </td>
+                    <td>
+                        @error.ErrorDate.ToShortDateString() &nbsp; @error.ErrorDate.ToShortTimeString()
+                    </td>
+                    <td>
+                        @error.ErrorType.ToString()
+                    </td>
+                    <td>
+                        @error.Message
+                    </td>
+                    <td>
+                        @error.StackTrace
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

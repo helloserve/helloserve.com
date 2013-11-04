@@ -1,0 +1,21 @@
+﻿@model AuthenticationModel
+
+@if(Request.IsAuthenticated) {
+    <a href="/Account/LogOff" title="Log Off"><div class="menu logoff">Log Off</div></a>
+    <a href="/Account/Profile" title="Edit Profile">
+        <div class="menu profile" style="vertical-align:baseline; text-align:center">
+            <div style="display:inline">
+                <div style="float:left; width:38%; text-align:right;">
+                    <img src="http://www.gravatar.com/avatar/@(helloserve.Web.Settings.Current.User.EmailMd5Hash)?s=25" style="width:25px; height:25px; border:1px inset #212121; margin-top:6px;" />
+                </div>
+                <div style="float:right; width:58%; text-align:left;">
+                    @helloserve.Web.Settings.Current.User.Username
+                </div>
+            </div>
+        </div>
+    </a>
+}
+else
+{
+    <a href="/Account/LogOn" title="Log On"><div class="menu" style="width:150px">Log On</div></a>
+}
