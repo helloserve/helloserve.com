@@ -1,0 +1,80 @@
+﻿body {
+    font-family:Muli, Arial
+}
+
+.body-content {
+}
+
+.page {
+    padding-left: 15em;
+    padding-right: 15em;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* menu*/
+.sideBar {
+    position: absolute;
+    z-index: 1;
+    width: 5em;
+    height: 20em;
+    overflow: no-content;
+    left: 0px;
+    top: 5em;
+    box-shadow: 5px 5px 2px #CCCCCC;
+    -webkit-animation: sideBarContract 0.25s;
+    animation: sideBarContract 0.25s;
+    background-color:white;
+    padding:5px;
+}
+
+    .sideBar:hover {
+        -webkit-animation: sideBarExpand 0.25s;
+        animation: sideBarExpand 0.25s;
+        width: 20%;
+    }
+
+@-webkit-keyframes sideBarContract {
+    from {
+        width: 20%;
+    }
+
+    to {
+        width: 5em;
+    }
+}
+
+@keyframes sideBarContract {
+    from {
+        width: 20%;
+    }
+
+    to {
+        width: 5em;
+    }
+}
+
+@-webkit-keyframes sideBarExpand {
+    from {
+        width: 5em;
+    }
+
+    to {
+        width: 20%;
+    }
+}
+
+@keyframes sideBarExpand {
+    from {
+        width: 5em;
+    }
+
+    to {
+        width: 20%;
+    }
+}

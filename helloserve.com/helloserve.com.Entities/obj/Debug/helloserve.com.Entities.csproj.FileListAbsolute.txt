@@ -1,0 +1,5 @@
+D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\bin\Debug\helloserve.com.Entities.dll
+D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\bin\Debug\helloserve.com.Entities.pdb
+D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\obj\Debug\helloserve.com.Entities.csprojResolveAssemblyReference.cache
+D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\obj\Debug\helloserve.com.Entities.dll
+D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\obj\Debug\helloserve.com.Entities.pdb
