@@ -1,5 +1,5 @@
 ﻿body {
-    font-family:Muli, Arial
+    font-family: Muli, Arial;
 }
 
 .body-content {
@@ -29,14 +29,37 @@ textarea {
     box-shadow: 5px 5px 2px #CCCCCC;
     -webkit-animation: sideBarContract 0.25s;
     animation: sideBarContract 0.25s;
-    background-color:white;
-    padding:5px;
+    background-color: white;
+    padding: 5px;
 }
 
     .sideBar:hover {
         -webkit-animation: sideBarExpand 0.25s;
         animation: sideBarExpand 0.25s;
         width: 20%;
+    }
+
+    .sideBar .feature {
+        display: block;
+        vertical-align: middle;
+        height: 4.7em;
+        overflow:hidden;
+    }
+
+        .sideBar .feature .image {
+            width: 4.5em;
+            height: 4.5em;
+            border: 1px solid black;
+            display: inline-block;
+            vertical-align:middle;
+        }
+
+        .sideBar .feature .heading {
+            display: none;
+        }
+
+    .sideBar:hover .feature .heading {
+        display: inline;
     }
 
 @-webkit-keyframes sideBarContract {

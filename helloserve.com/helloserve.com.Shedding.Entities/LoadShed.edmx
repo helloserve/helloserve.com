@@ -1,0 +1,537 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorityId" Type="int" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Authority">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ClassType" Type="nvarchar(max)" />
+          <Property Name="DataUrl" Type="nvarchar(max)" />
+          <Property Name="StatusUrl" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+          <Property Name="SheddingStageId" Type="int" Nullable="false" />
+          <Property Name="DayOfMonth" Type="int" />
+          <Property Name="DayOfWeek" Type="int" />
+          <Property Name="StartTime" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="EndTime" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="ScheduleCalendar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+          <Property Name="SheddingStageId" Type="int" Nullable="false" />
+          <Property Name="ScheduleId" Type="int" />
+          <Property Name="StartTime" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="EndTime" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SheddingStage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="NotificationPeriod" Type="int" />
+        </EntityType>
+        <EntityType Name="UserArea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="AreaId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Area_Authority">
+          <End Role="Authority" Type="Self.Authority" Multiplicity="0..1" />
+          <End Role="Area" Type="Self.Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="AuthorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_SheddingStage">
+          <End Role="SheddingStage" Type="Self.SheddingStage" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SheddingStage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SheddingStageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleCalendar_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="ScheduleCalendar" Type="Self.ScheduleCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduleCalendar">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleCalendar_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="0..1" />
+          <End Role="ScheduleCalendar" Type="Self.ScheduleCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduleCalendar">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleCalendar_SheddingStage">
+          <End Role="SheddingStage" Type="Self.SheddingStage" Multiplicity="1" />
+          <End Role="ScheduleCalendar" Type="Self.ScheduleCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SheddingStage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduleCalendar">
+              <PropertyRef Name="SheddingStageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserArea_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="UserArea" Type="Self.UserArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserArea">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserArea_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserArea" Type="Self.UserArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserArea">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestModelStoreContainer">
+          <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authority" EntityType="Self.Authority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ScheduleCalendar" EntityType="Self.ScheduleCalendar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SheddingStage" EntityType="Self.SheddingStage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserArea" EntityType="Self.UserArea" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Area_Authority" Association="Self.FK_Area_Authority">
+            <End Role="Authority" EntitySet="Authority" />
+            <End Role="Area" EntitySet="Area" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Area" Association="Self.FK_Schedule_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_SheddingStage" Association="Self.FK_Schedule_SheddingStage">
+            <End Role="SheddingStage" EntitySet="SheddingStage" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleCalendar_Area" Association="Self.FK_ScheduleCalendar_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="ScheduleCalendar" EntitySet="ScheduleCalendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleCalendar_Schedule" Association="Self.FK_ScheduleCalendar_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="ScheduleCalendar" EntitySet="ScheduleCalendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleCalendar_SheddingStage" Association="Self.FK_ScheduleCalendar_SheddingStage">
+            <End Role="SheddingStage" EntitySet="SheddingStage" />
+            <End Role="ScheduleCalendar" EntitySet="ScheduleCalendar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserArea_Area" Association="Self.FK_UserArea_Area">
+            <End Role="Area" EntitySet="Area" />
+            <End Role="UserArea" EntitySet="UserArea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserArea_User" Association="Self.FK_UserArea_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserArea" EntitySet="UserArea" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorityId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Authority" Relationship="Self.FK_Area_Authority" FromRole="Area" ToRole="Authority" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_Area" FromRole="Area" ToRole="Schedule" />
+          <NavigationProperty Name="ScheduleCalendars" Relationship="Self.FK_ScheduleCalendar_Area" FromRole="Area" ToRole="ScheduleCalendar" />
+          <NavigationProperty Name="UserAreas" Relationship="Self.FK_UserArea_Area" FromRole="Area" ToRole="UserArea" />
+        </EntityType>
+        <EntityType Name="Authority">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DataUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StatusUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Areas" Relationship="Self.FK_Area_Authority" FromRole="Authority" ToRole="Area" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="SheddingStageId" Type="Int32" Nullable="false" />
+          <Property Name="DayOfMonth" Type="Int32" />
+          <Property Name="DayOfWeek" Type="Int32" />
+          <Property Name="StartTime" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="EndTime" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_Schedule_Area" FromRole="Schedule" ToRole="Area" />
+          <NavigationProperty Name="SheddingStage" Relationship="Self.FK_Schedule_SheddingStage" FromRole="Schedule" ToRole="SheddingStage" />
+          <NavigationProperty Name="ScheduleCalendars" Relationship="Self.FK_ScheduleCalendar_Schedule" FromRole="Schedule" ToRole="ScheduleCalendar" />
+        </EntityType>
+        <EntityType Name="ScheduleCalendar">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="SheddingStageId" Type="Int32" Nullable="false" />
+          <Property Name="ScheduleId" Type="Int32" />
+          <Property Name="StartTime" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="EndTime" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_ScheduleCalendar_Area" FromRole="ScheduleCalendar" ToRole="Area" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_ScheduleCalendar_Schedule" FromRole="ScheduleCalendar" ToRole="Schedule" />
+          <NavigationProperty Name="SheddingStage" Relationship="Self.FK_ScheduleCalendar_SheddingStage" FromRole="ScheduleCalendar" ToRole="SheddingStage" />
+        </EntityType>
+        <EntityType Name="SheddingStage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schedules" Relationship="Self.FK_Schedule_SheddingStage" FromRole="SheddingStage" ToRole="Schedule" />
+          <NavigationProperty Name="ScheduleCalendars" Relationship="Self.FK_ScheduleCalendar_SheddingStage" FromRole="SheddingStage" ToRole="ScheduleCalendar" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NotificationPeriod" Type="Int32" />
+          <NavigationProperty Name="UserAreas" Relationship="Self.FK_UserArea_User" FromRole="User" ToRole="UserArea" />
+        </EntityType>
+        <EntityType Name="UserArea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_UserArea_Area" FromRole="UserArea" ToRole="Area" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserArea_User" FromRole="UserArea" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Area_Authority">
+          <End Role="Authority" Type="Self.Authority" Multiplicity="0..1" />
+          <End Role="Area" Type="Self.Area" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Area">
+              <PropertyRef Name="AuthorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleCalendar_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="ScheduleCalendar" Type="Self.ScheduleCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduleCalendar">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserArea_Area">
+          <End Role="Area" Type="Self.Area" Multiplicity="1" />
+          <End Role="UserArea" Type="Self.UserArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Area">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserArea">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_SheddingStage">
+          <End Role="SheddingStage" Type="Self.SheddingStage" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SheddingStage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="SheddingStageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleCalendar_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="0..1" />
+          <End Role="ScheduleCalendar" Type="Self.ScheduleCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduleCalendar">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleCalendar_SheddingStage">
+          <End Role="SheddingStage" Type="Self.SheddingStage" Multiplicity="1" />
+          <End Role="ScheduleCalendar" Type="Self.ScheduleCalendar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SheddingStage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduleCalendar">
+              <PropertyRef Name="SheddingStageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserArea_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserArea" Type="Self.UserArea" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserArea">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LoadShedEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Areas" EntityType="Self.Area" />
+          <EntitySet Name="Authorities" EntityType="Self.Authority" />
+          <EntitySet Name="Schedules" EntityType="Self.Schedule" />
+          <EntitySet Name="ScheduleCalendars" EntityType="Self.ScheduleCalendar" />
+          <EntitySet Name="SheddingStages" EntityType="Self.SheddingStage" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserAreas" EntityType="Self.UserArea" />
+          <AssociationSet Name="FK_Area_Authority" Association="Self.FK_Area_Authority">
+            <End Role="Authority" EntitySet="Authorities" />
+            <End Role="Area" EntitySet="Areas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Area" Association="Self.FK_Schedule_Area">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleCalendar_Area" Association="Self.FK_ScheduleCalendar_Area">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="ScheduleCalendar" EntitySet="ScheduleCalendars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserArea_Area" Association="Self.FK_UserArea_Area">
+            <End Role="Area" EntitySet="Areas" />
+            <End Role="UserArea" EntitySet="UserAreas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_SheddingStage" Association="Self.FK_Schedule_SheddingStage">
+            <End Role="SheddingStage" EntitySet="SheddingStages" />
+            <End Role="Schedule" EntitySet="Schedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleCalendar_Schedule" Association="Self.FK_ScheduleCalendar_Schedule">
+            <End Role="Schedule" EntitySet="Schedules" />
+            <End Role="ScheduleCalendar" EntitySet="ScheduleCalendars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleCalendar_SheddingStage" Association="Self.FK_ScheduleCalendar_SheddingStage">
+            <End Role="SheddingStage" EntitySet="SheddingStages" />
+            <End Role="ScheduleCalendar" EntitySet="ScheduleCalendars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserArea_User" Association="Self.FK_UserArea_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserArea" EntitySet="UserAreas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="LoadShedEntities">
+          <EntitySetMapping Name="Areas">
+            <EntityTypeMapping TypeName="TestModel.Area">
+              <MappingFragment StoreEntitySet="Area">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AuthorityId" ColumnName="AuthorityId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authorities">
+            <EntityTypeMapping TypeName="TestModel.Authority">
+              <MappingFragment StoreEntitySet="Authority">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ClassType" ColumnName="ClassType" />
+                <ScalarProperty Name="DataUrl" ColumnName="DataUrl" />
+                <ScalarProperty Name="StatusUrl" ColumnName="StatusUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedules">
+            <EntityTypeMapping TypeName="TestModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="SheddingStageId" ColumnName="SheddingStageId" />
+                <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduleCalendars">
+            <EntityTypeMapping TypeName="TestModel.ScheduleCalendar">
+              <MappingFragment StoreEntitySet="ScheduleCalendar">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="SheddingStageId" ColumnName="SheddingStageId" />
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SheddingStages">
+            <EntityTypeMapping TypeName="TestModel.SheddingStage">
+              <MappingFragment StoreEntitySet="SheddingStage">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TestModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="NotificationPeriod" ColumnName="NotificationPeriod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserAreas">
+            <EntityTypeMapping TypeName="TestModel.UserArea">
+              <MappingFragment StoreEntitySet="UserArea">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

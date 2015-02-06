@@ -27,6 +27,5 @@ D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\Newtonsoft.Json.xml
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\System.Net.Http.Formatting.xml
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\System.Web.Http.xml
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\System.Web.Http.WebHost.xml
-D:\Dev\helloserve\helloserve.com\helloserve.com.Web\obj\Debug\helloserve.com.Web.csprojResolveAssemblyReference.cache
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\obj\Debug\helloserve.com.Web.dll
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\obj\Debug\helloserve.com.Web.pdb
