@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ALog")]
+[assembly: AssemblyTitle("helloserve.com.Logger")]
 [assembly: AssemblyDescription("A lightweight logger")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Alacrity")]
-[assembly: AssemblyProduct("ALog")]
-[assembly: AssemblyCopyright("Copyright © Alacrity 2012 - 2013")]
+[assembly: AssemblyCompany("helloserve.com")]
+[assembly: AssemblyProduct("HLog")]
+[assembly: AssemblyCopyright("Copyright © helloserve Productions 2014 - 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

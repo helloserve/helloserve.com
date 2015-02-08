@@ -7,8 +7,11 @@ using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Reflection;
 using System.Data.SqlClient;
+using ALog.Config;
+using System.Collections.Concurrent;
+using System.Data.Common;
 
-namespace helloserve.com
+namespace helloserve.com.Logger
 {
     internal class ALogElementComparer : IComparer<LogElement>
     {
@@ -18,11 +21,26 @@ namespace helloserve.com
         }
     }
 
+    public enum LogLevel
+    {
+        Debug = 0,
+        Info = 1,
+        Warning = 2,
+        Error = 3,
+        Fatal = 4,
+        Monitor = 10    //this should always be logged
+    }
+
     /// <summary>
     /// The base class for any log entry accepted by the Logger class. Inherit and add your own properties that match the column names in your SQL table.
     /// </summary>
     public class LogElement
     {
+        public LogElement()
+        {
+            Timestamp = DateTime.UtcNow;
+        }
+
         /// <summary>
         /// The time stamp of your log entry.
         /// </summary>
@@ -39,34 +57,96 @@ namespace helloserve.com
         public string Message { get; set; }
 
         /// <summary>
+        /// The exception object to log
+        /// </summary>
+        public Exception Exception { get; set; }
+
+        /// <summary>
+        /// The level of the logging. Logging on a level includes all levels above it.
+        /// </summary>
+        public LogLevel Level { get; set; }
+
+        /// <summary>
         /// Returns a default size of about 10Kb. Override this method to compute the size of your log element.
         /// </summary>
         public virtual long Size()
         {
-            return 16 + 2000 + 8000;
+            int length = Category.Length + Message.Length;
+            if (Exception != null)
+                length += Exception.AsLogString().Length;
+
+            return 16 + (length * 4);
         }
 
         /// <summary>
-        /// Override this method to customize the fill of the parameters from your own properties that will be used in the dynamic SQL generation. Parameter names must correspond to table column names.
-        /// The default implementation does nothing special.
+        /// Saves this log entry
         /// </summary>
-        /// <param name="parameters">A dictionary containing all the parameters.</param>
-        public virtual void FillParams(Dictionary<string, object> parameters)
+        /// <param name="connection">The scribe object that will use the output</param>
+        /// <returns>An object that contains information to use saving the log</returns>
+        public virtual object Scribe(Scribe scribe)
         {
+            return this;
+        }
+
+        /// <summary>
+        /// Saves this log entry specifically using the SqlCommandScribe type
+        /// </summary>
+        /// <param name="scribe">The SqlCommandScribe instance that will use the output</param>
+        /// <returns>The SqlCommand object to use</returns>
+        public virtual SqlCommand Scribe(SqlCommandScribe scribe)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[5];
+            sqlParams[0] = new SqlParameter("@Level", Level.ToString());
+            sqlParams[1] = new SqlParameter("@Timestamp", Timestamp);
+            sqlParams[2] = new SqlParameter("@Category", Category);
+            sqlParams[3] = new SqlParameter("@Message", Message);
+
+            if (Exception != null)
+                sqlParams[4] = new SqlParameter("@Exception", Exception.AsLogString());
+            else
+                sqlParams[4] = new SqlParameter("@Exception", DBNull.Value);
+
+            string sql = "INSERT INTO [Log] (Level, Timestamp, Category, Message, Exception) VALUES (@Level, @Timestamp, @Category, @Message, @Exception)";
+
+            SqlCommand command = new SqlCommand(sql);
+            command.Parameters.AddRange(sqlParams);
+
+            return command;
+        }
+
+        /// <summary>
+        /// Saves this log entry specifically using the FileScribe type
+        /// </summary>
+        /// <param name="scribe">The FileScribe instance that will use the output</param>
+        /// <returns>The line(s) of text to write to the log file</returns>
+        public virtual string Scribe(FileScribe scribe)
+        {
+            StringBuilder blr = new StringBuilder();
+            blr.Append(Timestamp.ToString(System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat));
+            blr.Append("    ");
+            blr.Append(Level.ToString());
+            blr.Append(" ");
+            blr.Append(Category.PadRight(20));
+            blr.Append(Message);
+            if (Exception != null)
+            {
+                blr.AppendLine(string.Empty);
+                blr.AppendLine(Exception.AsLogString());
+            }
+            blr.AppendLine(string.Empty);
+            return blr.ToString();
         }
     }
 
     /// <summary>
     /// A base performance monitoring log entry class derived from LogElement. Inherit from this class to implement a construtor to start the monitoring and the monitor method to gather the monitoring data.
     /// </summary>
-    public class PerfLogElement : LogElement
+    public abstract class PerfLogElement : LogElement
     {
         /// <summary>
         /// Override this method to implement your own custom monitoring code.
         /// </summary>
-        public virtual void Monitor()
-        {
-        }
+        public abstract void Monitor();
     }
 
     /// <summary>
@@ -94,29 +174,83 @@ namespace helloserve.com
         }
 
         /// <summary>
-        /// This override implements filling the two additional properties 'Initiated' and 'ElapsedSeconds'.
-        /// </summary>
-        /// <param name="parameters">A dictionary containing all the parameters.</param>
-        public override void FillParams(Dictionary<string, object> parameters)
-        {
-            parameters["Initiated"] = Initiated;
-            parameters["ElapsedSeconds"] = ElapsedSeconds;
-        }
-
-        /// <summary>
         /// Implements the calculation of the elapsed time from Initiated to current.
         /// </summary>
         public override void Monitor()
         {
             ElapsedSeconds = (DateTime.Now - Initiated).TotalSeconds;
         }
+
+        /// <summary>
+        /// Saves this log entry specifically using the SqlCommandScribe type
+        /// </summary>
+        /// <param name="scribe">The SqlCommandScribe instance that will use the output</param>
+        /// <returns>The SqlCommand object to use</returns>
+        public override SqlCommand Scribe(SqlCommandScribe scribe)
+        {
+            SqlParameter[] sqlParams = new SqlParameter[7];
+            sqlParams[0] = new SqlParameter("@Level", Level.ToString());
+            sqlParams[1] = new SqlParameter("@Timestamp", Timestamp);
+            sqlParams[2] = new SqlParameter("@Category", Category);
+            sqlParams[3] = new SqlParameter("@Message", Message);
+
+            if (Exception != null)
+            {
+                StringBuilder blr = new StringBuilder();
+                Exception ex = Exception;
+                blr.AppendLine(ex.Message);
+                blr.AppendLine(ex.StackTrace);
+                ex = ex.InnerException;
+                while (ex != null)
+                {
+                    blr.AppendLine("-- inner exception --");
+                    blr.AppendLine(ex.Message);
+                    blr.AppendLine(ex.StackTrace);
+                    ex = ex.InnerException;
+                    if (ex == null)
+                        blr.AppendLine("-- end of inner exceptions --");
+                }
+
+                sqlParams[4] = new SqlParameter("@Exception", blr.ToString());
+            }
+            else
+                sqlParams[4] = new SqlParameter("@Exception", DBNull.Value);
+
+            sqlParams[5] = new SqlParameter("@Initiated", Initiated);
+            sqlParams[6] = new SqlParameter("@ElapsedSeconds", ElapsedSeconds);
+
+            string sql = "INSERT INTO [PerfLog] (Level, Timestamp, Category, Message, Exception, Initiated, ElapsedSeconds) VALUES (@Level, @Timestamp, @Category, @Message, @Exception, @Initiated, @ElapsedSeconds)";
+
+            SqlCommand command = new SqlCommand(sql);
+            command.Parameters.AddRange(sqlParams);
+
+            return command;
+        }
     }
 
     /// <summary>
     /// The main logger interface. Grab an instance through the GetLogger() static method and simply keep it alive.
     /// </summary>
-    public class Logger
+    public class Logger : IDisposable
     {
+        private static List<Logger> _loggers = new List<Logger>();
+
+        /// <summary>
+        /// Creates an instance of the Logger class using the configuration from the web or app config file.
+        /// </summary>
+        /// <param name="name">The name of the logger - used in the EventViewer logs for identification</param>
+        /// <returns>An instance of the Logger class</returns>
+        public static Logger GetLogger(string name)
+        {
+            LoggerConfig config = LoggerConfig.GetConfig();
+            if (config == null)
+                throw new ArgumentNullException("Could not load config");
+
+            Logger logger = new Logger(name, config.ConnectionString, config.DumpInterval, config.ByteSizeLimit);
+            _loggers.Add(logger);
+            return logger;
+        }
+
         /// <summary>
         /// Creates an instance of the Logger class for you to take care of. Each instance maintains it's own cache.
         /// </summary>
@@ -126,12 +260,22 @@ namespace helloserve.com
         /// <param name="dumpInterval">The interval in seconds that the logger should attempt to dump to the permanent store. Optional, default is 30</param>
         /// <param name="byteSizeLimit">The size limit (in bytes) that the logger should attempt to stick to. Optional, default is around 5MB</param>
         /// <returns>An instance of the Logger class</returns>
-        public static Logger GetLogger(string name, string connectionString, string tableName, int dumpInterval = 30, long byteSizeLimit = 5242880)
+        public static Logger GetLogger(string name, string connectionString, int dumpInterval = 30, long byteSizeLimit = 5242880)
         {
-            return new Logger(name, connectionString, tableName, dumpInterval, byteSizeLimit);
+            Logger logger = new Logger(name, connectionString, dumpInterval, byteSizeLimit);
+            _loggers.Add(logger);
+            return logger;
         }
 
-        #region THREADING
+        public static void EndLoggers()
+        {
+            foreach (Logger logger in _loggers)
+            {
+                logger.Dispose();
+            }
+        }
+
+        #region CLOCK
 
         private bool _stop = false;
         private DateTime _lastClock;
@@ -139,47 +283,37 @@ namespace helloserve.com
 
         private void Clock(object state)
         {
-            while (true)
-            {
-                TimeSpan elapsed = DateTime.Now - _lastClock;
-                bool interval = (elapsed.TotalSeconds > _dumpInterval);
-                bool size = (_logCache.TotalSizeInBytes >= _byteLimit);
-                bool busy = (_logCache.LogsPerMinutes > 120);
+            if (_stop)
+                return;
 
-                if (interval || (_stop) || size)
-                {
-                    if (_stop || size || (interval && !busy))
-                        Dump();
+            bool size = (_logCache.TotalSizeInBytes >= _byteLimit);
+            bool busy = (_logCache.LogsPerMinutes > 120);
 
-                    if (_stop)
-                        break;
+            if (!busy)
+                Dump();
 
-                    _lastClock = DateTime.Now;
-                }
-
-                //just rest for a while
-                Thread.Sleep(_dumpInterval * 1000);
-            }
+            _lastClock = DateTime.Now;
         }
 
         #endregion
 
+        private static int _logKeySequence = 1;
+
         private Cache _logCache;
-        private Dictionary<int, PerfLogElement> _perfCache;
+        private ConcurrentDictionary<int, PerfLogElement> _perfCache;
+        private List<Scribe> _scribes;
         private string _logName;
         private string _connectionString;
-        private string _tableName;
 
         private int _dumpInterval;
         private long _byteLimit;
 
-        private Thread _clockThread;
+        private Timer _clock;
 
-        Logger(string name, string connectionString, string tableName, int dumpInterval, long byteLimit)
+        Logger(string name, string connectionString, int dumpInterval, long byteLimit)
         {
             _logName = name;
             _connectionString = connectionString;
-            _tableName = tableName;
 
             _dumpInterval = dumpInterval;
             _byteLimit = byteLimit;
@@ -187,16 +321,18 @@ namespace helloserve.com
             _logCache = new Cache();
             _logCache.DumpNow += new EventHandler(_logCache_DumpNow);
 
-            _perfCache = new Dictionary<int, PerfLogElement>();
+            _perfCache = new ConcurrentDictionary<int, PerfLogElement>();
+
+            _scribes = new List<Scribe>();
+            _scribes.Add(new SqlCommandScribe(connectionString));
+            _scribes.Add(new FileScribe(@"C:\Logs\CounselConnect\Default.Log"));
 
             RestartClockThread();
         }
 
         private void RestartClockThread()
         {
-            ParameterizedThreadStart threadStart = new ParameterizedThreadStart(Clock);
-            _clockThread = new Thread(threadStart);
-            _clockThread.Start();
+            _clock = new Timer(new TimerCallback(Clock), null, 0, _dumpInterval);
         }
 
         void _logCache_DumpNow(object sender, EventArgs e)
@@ -212,17 +348,7 @@ namespace helloserve.com
         public void Start()
         {
             _stop = false;
-            if (_clockThread != null && _clockThread.ThreadState != ThreadState.Running)
-            {
-                try
-                {
-                    _clockThread.Start();
-                }
-                catch
-                {
-                    RestartClockThread();
-                }
-            }
+            RestartClockThread();
         }
 
         /// <summary>
@@ -238,13 +364,7 @@ namespace helloserve.com
         /// </summary>
         public bool IsStopped
         {
-            get
-            {
-                if (_clockThread == null)
-                    return true;
-
-                return _clockThread.ThreadState == ThreadState.Stopped;
-            }
+            get { return _stop; }
         }
 
         #endregion
@@ -284,13 +404,9 @@ namespace helloserve.com
             return true;
         }
 
-        /// <summary>
-        /// Starts a performance monitoring log entry using the default ElapsedLogElement type.
-        /// </summary>
-        /// <returns>A thread-based unique key that the consumer should use to stop and log the performance monitor.</returns>
-        public int StartElapsedPerfLog(string message)
+        public bool Log(LogLevel level, string category, string message, Exception ex = null)
         {
-            return StartPerfLog(new ElapsedLogElement() { Category = "Elapsed Time", Message = message });
+            return Log(new LogElement() { Level = level, Category = category, Message = message, Exception = ex });
         }
 
         /// <summary>
@@ -302,9 +418,13 @@ namespace helloserve.com
         {
             try
             {
-                int key = Thread.CurrentThread.ManagedThreadId;
+                int key = ++_logKeySequence;
 
-                _perfCache.Add(key, element);
+                _perfCache.AddOrUpdate(key, element, (k, v) =>
+                {
+                    v = element;
+                    return v;
+                });
 
                 return key;
             }
@@ -313,6 +433,15 @@ namespace helloserve.com
                 LogError(ex, element);
                 return -1;
             }
+        }
+
+        /// <summary>
+        /// Starts a performance monitoring log entry using the default ElapsedLogElement type.
+        /// </summary>
+        /// <returns>A thread-based unique key that the consumer should use to stop and log the performance monitor.</returns>
+        public int StartElapsedPerfLog(LogLevel level, string category, string message, Exception ex = null)
+        {
+            return StartPerfLog(new ElapsedLogElement() { Level = level, Category = category, Message = message, Exception = ex });
         }
 
         /// <summary>
@@ -328,7 +457,6 @@ namespace helloserve.com
                     return false;
 
                 PerfLogElement entry = _perfCache[key];
-                entry.Timestamp = DateTime.Now;
                 try
                 {
                     entry.Monitor();
@@ -338,7 +466,8 @@ namespace helloserve.com
                     throw new ALogRethrowException("Exception in your implementation of 'PerfLogElement.Monitor()'", ex);
                 }
 
-                _perfCache.Remove(key);
+                PerfLogElement element;
+                _perfCache.TryRemove(key, out element);
 
                 return Log(entry);
 
@@ -375,7 +504,7 @@ namespace helloserve.com
                     using (SqlConnection connection = new SqlConnection(_connectionString))
                     {
                         connection.Open();
-                        _logCache.Dump(connection, _tableName);
+                        _logCache.Dump(_scribes);
                     }
                 }
             }
@@ -385,7 +514,7 @@ namespace helloserve.com
             }
             catch (Exception ex)
             {
-                LogError(ex, new LogElement() { Category = "ALog", Message = string.Format("Error dumping to permanent store at '{0}', table '{1}'", _connectionString, _tableName), Timestamp = DateTime.Now });
+                LogError(ex, new LogElement() { Category = "HLog", Message = string.Format("Error dumping to permanent store at '{0}'", _connectionString), Timestamp = DateTime.Now });
             }
 
             _dumping = false;
@@ -396,7 +525,7 @@ namespace helloserve.com
             try
             {
                 StringBuilder msg = new StringBuilder();
-                msg.AppendLine(string.Format("Alog encountered an error for configuration '{0}':", _logName));
+                msg.AppendLine(string.Format("HLog encountered an error for configuration '{0}':", _logName));
                 msg.AppendLine(string.Empty);
                 msg.AppendLine(element.Message);
                 msg.AppendLine(string.Empty);
@@ -405,7 +534,7 @@ namespace helloserve.com
                 msg.AppendLine(ex.StackTrace);
 
                 System.Diagnostics.EventLog log = new System.Diagnostics.EventLog("Application");
-                log.Source = "ALog - " + _logName;
+                log.Source = "HLog - " + _logName;
                 log.WriteEntry(msg.ToString(), System.Diagnostics.EventLogEntryType.Error);
             }
             catch { }
@@ -417,18 +546,24 @@ namespace helloserve.com
             try
             {
                 StringBuilder msg = new StringBuilder();
-                msg.AppendLine(string.Format("Alog issued a warning for configuration '{0}':", _logName));
+                msg.AppendLine(string.Format("HLog issued a warning for configuration '{0}':", _logName));
                 msg.AppendLine(string.Empty);
                 msg.AppendLine(element.Message);
                 msg.AppendLine(string.Empty);
                 msg.AppendLine(message);
 
                 System.Diagnostics.EventLog log = new System.Diagnostics.EventLog("Application");
-                log.Source = "ALog - " + _logName;
+                log.Source = "HLog - " + _logName;
                 //log.ModifyOverflowPolicy(System.Diagnostics.OverflowAction.OverwriteAsNeeded, 0);
                 log.WriteEntry(msg.ToString(), System.Diagnostics.EventLogEntryType.Warning);
             }
             catch { }
+        }
+
+        public void Dispose()
+        {
+            Dump();
+            _clock.Dispose();
         }
     }
 }

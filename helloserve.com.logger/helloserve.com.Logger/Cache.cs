@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Reflection;
 
-namespace helloserve.com
+namespace helloserve.com.Logger
 {
     internal class ALogRethrowException : Exception
     {
@@ -54,7 +54,7 @@ namespace helloserve.com
     {
         private object _lockCache = new Object();
 
-        private Dictionary<string, PropertyInfo[]> _propertyCache;
+        //private Dictionary<string, PropertyInfo[]> _propertyCache;
         private Dictionary<string, CategoryCache> _categoriesAlpha;
         private Dictionary<string, CategoryCache> _categoriesBeta;
 
@@ -75,7 +75,7 @@ namespace helloserve.com
 
         internal Cache()
         {
-            _propertyCache = new Dictionary<string, PropertyInfo[]>();
+            //_propertyCache = new Dictionary<string, PropertyInfo[]>();
 
             _categoriesAlpha = new Dictionary<string, CategoryCache>();
             _categoriesBeta = new Dictionary<string, CategoryCache>();
@@ -134,7 +134,7 @@ namespace helloserve.com
             }
         }
 
-        internal void Dump(SqlConnection connection, string tableName, string category = null)
+        internal void Dump(List<Scribe> scribes, string category = null)
         {
             if (_categories == null)
                 return;
@@ -160,87 +160,16 @@ namespace helloserve.com
 
             foreach (LogElement item in _allItems)
             {
-                Type itemType = item.GetType();
-
-                PropertyInfo[] properties = null;
-
-                //check the cache before we do the expensive bit
-                if (_propertyCache.ContainsKey(itemType.FullName))
-                    properties = _propertyCache[itemType.FullName];
-                else
+                foreach (Scribe scribe in scribes)
                 {
-                    properties = itemType.GetProperties();
-                    _propertyCache.Add(itemType.FullName, properties);
+                    scribe.ScribeElement(item);
                 }
-
-                //we need to now build up the list of parameters
-                Dictionary<string, object> parameters = new Dictionary<string, object>();
-                foreach (PropertyInfo prop in properties)
-                {
-                    if (prop.GetIndexParameters().Length == 0)
-                        parameters.Add(prop.Name, prop.GetValue(item, null));
-                }
-
-                try
-                {
-                    //let the user do some stuff
-                    item.FillParams(parameters);
-                }
-                catch (Exception ex)
-                {
-                    throw new ALogRethrowException("Exception in your implementation of 'LogElement.FillParams(Dictionary<string, object>)'", ex);
-                }
-
-                //finally save it
-                Save(parameters, connection, tableName);
             }
 
             foreach (string cat in cacheToDump.Keys)
             {
                 if (cat == category || string.IsNullOrEmpty(category))
                     cacheToDump[cat].Clear();
-            }
-        }
-
-        internal void Save(Dictionary<string, object> parameters, SqlConnection connection, string tableName)
-        {
-            StringBuilder columns = new StringBuilder();
-            StringBuilder values = new StringBuilder();
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-
-            foreach (string param in parameters.Keys)
-            {
-                columns.Append(param);
-                columns.Append(",");
-
-                values.Append("@");
-                values.Append(param);
-                values.Append(",");
-
-                if (parameters[param] == null)
-                    sqlParams.Add(new SqlParameter(param, DBNull.Value));
-                else
-                    sqlParams.Add(new SqlParameter(param, parameters[param]));
-            }
-            columns.Remove(columns.Length - 1, 1);
-            values.Remove(values.Length - 1, 1);
-
-            //build the SQL string
-            StringBuilder sql = new StringBuilder();
-            sql.Append("INSERT INTO ");
-            sql.Append(tableName);
-            sql.Append(" (");
-            sql.Append(columns);
-            sql.Append(") VALUES (");
-            sql.Append(values);
-            sql.Append(")");
-
-            using (SqlCommand command = new SqlCommand(sql.ToString(), connection))
-            {
-                command.Parameters.AddRange(sqlParams.ToArray());
-                int rows = command.ExecuteNonQuery();
-                if (rows != 1)
-                    throw new ArgumentException("Log affected zero rows while dumping");
             }
         }
     }
