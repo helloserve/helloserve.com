@@ -16,12 +16,18 @@ namespace helloserve.com.Shedding.Api.Models
         public int? NotificationPeriod { get; set; }
 
         /// <summary>
+        /// The unqiue platform identifiation string for notification services (APN, GNS etc)
+        /// </summary>
+        public string PushNotificationId { get; set; }
+
+        /// <summary>
         /// Update method for user.
         /// </summary>
         /// <param name="session">The session containing the UserModel instance.</param>
         public void Update(ShedSession session)
         {
             session.User.NotificationPeriod = NotificationPeriod;
+            session.User.PushNotificationId = PushNotificationId;
             session.User.Update();
             session.Set();
         }

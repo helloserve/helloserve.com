@@ -23,6 +23,7 @@ namespace helloserve.com.Shedding.Entities
         public string UniqueNumber { get; set; }
         public Nullable<int> NotificationPeriod { get; set; }
         public System.DateTime CreatedDate { get; set; }
+        public string PushNotificationId { get; set; }
     
         public virtual ICollection<UserArea> UserAreas { get; set; }
     }

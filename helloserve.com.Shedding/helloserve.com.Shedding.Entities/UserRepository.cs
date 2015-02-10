@@ -13,7 +13,7 @@ namespace helloserve.com.Shedding.Entities
             return Db.Users.SingleOrDefault(u => u.UniqueNumber == uniqueNumber);
         }
 
-        public User Add(string uniqueNumber, int? notificationPeriod)
+        public User Add(string uniqueNumber, int? notificationPeriod, string pushNotificationId)
         {
             User user = Db.Users.SingleOrDefault(u => u.UniqueNumber == uniqueNumber);
             if (user != null)
@@ -22,23 +22,24 @@ namespace helloserve.com.Shedding.Entities
             user = Db.Users.Add(new User());
             user.CreatedDate = DateTime.UtcNow;
 
-            return Save(user, uniqueNumber, notificationPeriod);
+            return Save(user, uniqueNumber, notificationPeriod, pushNotificationId);
         }
 
-        public User Update(int id, string uniqueNumber, int? notificationPeriod)
+        public User Update(int id, string uniqueNumber, int? notificationPeriod, string pushNotificationId)
         {
             User user = Get(uniqueNumber);
 
             if (user == null)
                 return null;
 
-            return Save(user, uniqueNumber, notificationPeriod);
+            return Save(user, uniqueNumber, notificationPeriod, pushNotificationId);
         }
 
-        private User Save(User user, string uniqueNumber, int? notificationPeriod)
+        private User Save(User user, string uniqueNumber, int? notificationPeriod, string pushNotificationId)
         {
             user.UniqueNumber = uniqueNumber;
             user.NotificationPeriod = notificationPeriod;
+            user.PushNotificationId = pushNotificationId;
 
             Db.SaveChanges();
 

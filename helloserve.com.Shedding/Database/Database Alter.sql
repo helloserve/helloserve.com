@@ -16,3 +16,10 @@ BEGIN
 	EXEC sp_rename @objname = '[User].PhoneNumber', @newname = 'UniqueNumber', @objtype = 'COLUMN'
 END
 GO
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE Name = 'PushNotificationId' AND object_id = OBJECT_ID(N'User'))
+BEGIN
+	ALTER TABLE [User]
+	ADD PushNotificationId NVARCHAR(MAX) NULL
+END
+GO

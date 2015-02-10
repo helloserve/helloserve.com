@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace helloserve.com.Shedding.Model
 {
-    public class GPCityPower : AuthorityModel
+    public class GpCityPower : AuthorityModel
     {
         private class ScheduleItem
         {
@@ -25,14 +25,14 @@ namespace helloserve.com.Shedding.Model
             public string Suburb;
         }
 
-        ILog _log = LogManager.GetLogger(typeof(GPCityPower));
+        ILog _log = LogManager.GetLogger(typeof(GpCityPower));
 
         public override void CalculateSchedule(int areaId, int stageId)
         {
             AreaModel area = AreaModel.Get(areaId);
 
             StageModel stage = StageModel.Get(stageId);
-            string stageCode = stage.Name.Replace(" ","");
+            string stageCode = stage.Name.Replace(" ", "");
 
             ScheduleItem[] schedules = GetScheduleFor(area.Code, stageCode);
         }
@@ -45,20 +45,24 @@ namespace helloserve.com.Shedding.Model
                 if (url.EndsWith("/"))
                     url = url.Substring(0, url.Length - 1);
 
-                url = string.Format("?Suburb={0}&Stage={1}", areacode, stagecode);
+                url = string.Format("{0}?Suburb={1}&Stage={2}", url, areacode, stagecode);
 
                 _log.Info(string.Format("Requesting schedule from CityPower with '{0}'", url));
 
                 Uri uri = new Uri(url);
 
                 HttpWebRequest request = HttpWebRequest.Create(uri) as HttpWebRequest;
-                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-
-                Stream responseStream = response.GetResponseStream();
-                byte[] responseBytes = new byte[responseStream.Length];
-                responseStream.Read(responseBytes, 0, responseBytes.Length);
-
-                string responseString = Encoding.UTF8.GetString(responseBytes);
+                string responseString = string.Empty;
+                using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    using (Stream responseStream = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(responseStream))
+                        {
+                            responseString = reader.ReadToEnd();
+                        }
+                    }
+                }
 
                 ScheduleItem[] schedules = JsonConvert.DeserializeObject<ScheduleItem[]>(responseString);
 

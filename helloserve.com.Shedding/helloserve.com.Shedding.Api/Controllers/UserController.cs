@@ -39,7 +39,7 @@ namespace helloserve.com.Shedding.Api.Controllers
 
             try
             {
-                UserModel user = UserModel.Create(uniqueNumber, data.NotificationPeriod);
+                UserModel user = UserModel.Create(uniqueNumber, data.NotificationPeriod, data.PushNotificationId);
             }
             catch (InvalidOperationException)
             {

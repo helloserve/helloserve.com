@@ -5,8 +5,7 @@ DECLARE @Stage TABLE (Id int, Name nvarchar(max))
 INSERT INTO @Stage
 VALUES (1, 'Stage 1'),
 	   (2, 'Stage 2'),
-	   (3, 'Stage 3a'),
-	   (4, 'Stage 3b')
+	   (3, 'Stage 3')
 
 SET IDENTITY_INSERT SheddingStage ON
 
@@ -20,6 +19,8 @@ WHEN NOT MATCHED THEN
     VALUES (source.Id, source.Name);
 
 SET IDENTITY_INSERT SheddingStage OFF
+
+DELETE SheddingStage WHERE Id = 4
 
 /* Authority */
 
