@@ -12,18 +12,20 @@ namespace helloserve.com.Shedding.Model
         public int Id;
         public string UniqueNumber;
         public int? NotificationPeriod;
+        public string PushNotificationId;
 
-        public static UserModel Create(string uniqueNumber, int? notificationPeriod)
+        public static UserModel Create(string uniqueNumber, int? notificationPeriod, string pushNotificationId)
         {
             UserRepository repo = new UserRepository();
-            User entity = repo.Add(uniqueNumber, notificationPeriod);
+            User entity = repo.Add(uniqueNumber, notificationPeriod, pushNotificationId);
             if (entity == null)
                 throw new InvalidOperationException();
 
             return entity.AsModel();
         }
 
-        public static UserModel Get(string phoneNumber) {
+        public static UserModel Get(string phoneNumber)
+        {
             UserRepository repo = new UserRepository();
             User entity = repo.Get(phoneNumber);
             return entity.AsModel();
@@ -32,7 +34,7 @@ namespace helloserve.com.Shedding.Model
         public void Update()
         {
             UserRepository repo = new UserRepository();
-            User entity = repo.Update(Id, UniqueNumber, NotificationPeriod);
+            User entity = repo.Update(Id, UniqueNumber, NotificationPeriod, PushNotificationId);
         }
 
         public void Delete()

@@ -81,11 +81,31 @@ namespace helloserve.com.Shedding.Api.Controllers
         /// Retrieve the schedule data for a specific area.
         /// </summary>
         /// <param name="area">The area id.</param>
-        /// <param name="stage">An optional stage id to view schedule data for a different stage than what is currently in effect.</param>
+        /// <returns>Object detailing related schedule values.</returns>
+        [SessionFilter]
+        [Route("{area:int}")]
+        public ScheduleDetail Get(int area)
+        {
+            try
+            {
+                return ScheduleModel.GetSchedule(Session.User.Id, area, null).AsDetail();
+            }
+            catch (Exception ex)
+            {
+                _log.Error(string.Format("Error getting schedule for area {0}", area), ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve the schedule data for a specific area, for a specific stage.
+        /// </summary>
+        /// <param name="area">The area id.</param>
+        /// <param name="stage">The stage id to view schedule data for a different stage than what is currently in effect.</param>
         /// <returns>Object detailing related schedule values.</returns>
         [SessionFilter]
         [Route("{area:int}/{stage:int}")]
-        public ScheduleDetail Get(int area, int? stage = null)
+        public ScheduleDetail Get(int area, int stage)
         {
             try
             {

@@ -504,12 +504,19 @@
             </summary>
             <returns>List object of areas.</returns>
         </member>
-        <member name="M:helloserve.com.Shedding.Api.Controllers.ScheduleController.Get(System.Int32,System.Nullable{System.Int32})">
+        <member name="M:helloserve.com.Shedding.Api.Controllers.ScheduleController.Get(System.Int32)">
             <summary>
             Retrieve the schedule data for a specific area.
             </summary>
             <param name="area">The area id.</param>
-            <param name="stage">An optional stage id to view schedule data for a different stage than what is currently in effect.</param>
+            <returns>Object detailing related schedule values.</returns>
+        </member>
+        <member name="M:helloserve.com.Shedding.Api.Controllers.ScheduleController.Get(System.Int32,System.Int32)">
+            <summary>
+            Retrieve the schedule data for a specific area, for a specific stage.
+            </summary>
+            <param name="area">The area id.</param>
+            <param name="stage">The stage id to view schedule data for a different stage than what is currently in effect.</param>
             <returns>Object detailing related schedule values.</returns>
         </member>
         <member name="T:helloserve.com.Shedding.Api.Controllers.UserController">
@@ -724,6 +731,11 @@
         <member name="P:helloserve.com.Shedding.Api.Models.UserDetail.NotificationPeriod">
             <summary>
             The period lead time (in minutes) for notification. If this value is omitted (null), the user will be notified at the time the event occurs.
+            </summary>
+        </member>
+        <member name="P:helloserve.com.Shedding.Api.Models.UserDetail.PushNotificationId">
+            <summary>
+            The unqiue platform identifiation string for notification services (APN, GNS etc)
             </summary>
         </member>
     </members>

@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthorityModel.cs" />
-    <Compile Include="Authority\GPCityPower.cs" />
+    <Compile Include="Authority\GpCityPower.cs" />
     <Compile Include="Cache\ModelCache.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Extentions\AuthorityExtentions.cs" />

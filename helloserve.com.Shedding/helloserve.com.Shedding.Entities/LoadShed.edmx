@@ -63,6 +63,7 @@
           <Property Name="UniqueNumber" Type="nvarchar(max)" />
           <Property Name="NotificationPeriod" Type="int" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="PushNotificationId" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="UserArea">
           <Key>
@@ -419,6 +420,7 @@
           <Property Name="UniqueNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NotificationPeriod" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PushNotificationId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserAreas" Relationship="TestModel.FK_UserArea_User" FromRole="User" ToRole="UserArea" />
         </EntityType>
         <Association Name="FK_UserArea_User">
@@ -506,6 +508,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TestModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="PushNotificationId" ColumnName="PushNotificationId" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="NotificationPeriod" ColumnName="NotificationPeriod" />
                 <ScalarProperty Name="UniqueNumber" ColumnName="UniqueNumber" />

@@ -12,7 +12,8 @@ namespace helloserve.com.Shedding.Api.Models
         {
             return new UserDetail()
             {
-                NotificationPeriod = model.NotificationPeriod
+                NotificationPeriod = model.NotificationPeriod,
+                PushNotificationId = model.PushNotificationId
             };
         }
     }

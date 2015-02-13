@@ -11,7 +11,6 @@ namespace helloserve.com.Shedding.Model
         None = 0,
         Stage1 = 1,
         Stage2 = 2,
-        Stage3a = 3,
-        Stage3b = 4
+        Stage3 = 3
     }
 }

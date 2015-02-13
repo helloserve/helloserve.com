@@ -11,8 +11,18 @@ namespace helloserve.com.Shedding.Model
     {
         public static AuthorityModel AsAuthorityModel(this Entities.Authority entity)
         {
-            Type modelType = Assembly.GetAssembly(typeof(AuthorityModel)).GetType(entity.ClassType);
-            AuthorityModel model = Activator.CreateInstance(modelType) as AuthorityModel;
+            AuthorityModel model;
+            if (string.IsNullOrEmpty(entity.ClassType))
+                model = new AuthorityModel();
+            else
+            {
+                string classType = entity.ClassType;
+                if (!classType.StartsWith("helloserve.com.Shedding.Model."))
+                    classType = string.Format("helloserve.com.Shedding.Model.{0}", classType);
+
+                Type modelType = Assembly.GetAssembly(typeof(AuthorityModel)).GetType(classType);
+                model = Activator.CreateInstance(modelType) as AuthorityModel;
+            }
 
             model.Id = entity.Id;
             model.Name = entity.Name;
