@@ -7,12 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Web", "hello
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Entities", "helloserve.com.Entities\helloserve.com.Entities.csproj", "{08EFBFA6-5225-4D56-986C-294559049CC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Shedding.Api", "helloserve.com.Shedding.Api\helloserve.com.Shedding.Api.csproj", "{FC20922B-4383-47B4-8A1C-E377CB50C15D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Shedding.Entities", "helloserve.com.Shedding.Entities\helloserve.com.Shedding.Entities.csproj", "{7A36954C-EF7A-4900-A0D0-6E02A6C14957}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Shedding.Model", "helloserve.com.Shedding.Model\helloserve.com.Shedding.Model.csproj", "{3552DD3E-E50A-492D-A442-743F1D25D6A8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,21 +26,6 @@ Global
 		{08EFBFA6-5225-4D56-986C-294559049CC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{08EFBFA6-5225-4D56-986C-294559049CC4}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{08EFBFA6-5225-4D56-986C-294559049CC4}.Test|Any CPU.Build.0 = Test|Any CPU
-		{FC20922B-4383-47B4-8A1C-E377CB50C15D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC20922B-4383-47B4-8A1C-E377CB50C15D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC20922B-4383-47B4-8A1C-E377CB50C15D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC20922B-4383-47B4-8A1C-E377CB50C15D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC20922B-4383-47B4-8A1C-E377CB50C15D}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{7A36954C-EF7A-4900-A0D0-6E02A6C14957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A36954C-EF7A-4900-A0D0-6E02A6C14957}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A36954C-EF7A-4900-A0D0-6E02A6C14957}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A36954C-EF7A-4900-A0D0-6E02A6C14957}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A36954C-EF7A-4900-A0D0-6E02A6C14957}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{3552DD3E-E50A-492D-A442-743F1D25D6A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3552DD3E-E50A-492D-A442-743F1D25D6A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3552DD3E-E50A-492D-A442-743F1D25D6A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3552DD3E-E50A-492D-A442-743F1D25D6A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3552DD3E-E50A-492D-A442-743F1D25D6A8}.Test|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

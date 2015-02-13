@@ -3,3 +3,8 @@ D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\bin\Debug\helloserve.co
 D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\obj\Debug\helloserve.com.Entities.dll
 D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\obj\Debug\helloserve.com.Entities.pdb
 D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\obj\Debug\helloserve.com.Entities.csprojResolveAssemblyReference.cache
+D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\bin\Debug\helloserve.com.Entities.dll.config
+D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\bin\Debug\EntityFramework.dll
+D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\bin\Debug\EntityFramework.SqlServer.dll
+D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\bin\Debug\EntityFramework.xml
+D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\bin\Debug\EntityFramework.SqlServer.xml

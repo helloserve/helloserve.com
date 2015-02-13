@@ -1,0 +1,1100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="helloserveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Downloadable">
+          <Key>
+            <PropertyRef Name="DownloadableID" />
+          </Key>
+          <Property Name="DownloadableID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeatureID" Type="int" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Location" Type="nvarchar(max)" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Error">
+          <Key>
+            <PropertyRef Name="ErrorID" />
+          </Key>
+          <Property Name="ErrorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ErrorDate" Type="datetime" Nullable="false" />
+          <Property Name="ErrorType" Type="int" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="StackTrace" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Feature">
+          <Key>
+            <PropertyRef Name="FeatureID" />
+          </Key>
+          <Property Name="FeatureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="IsMainFeature" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ExtendedDescription" Type="nvarchar(max)" />
+          <Property Name="MediaFolder" Type="nvarchar(max)" />
+          <Property Name="HeaderImageID" Type="int" />
+          <Property Name="Subdomain" Type="nvarchar(max)" />
+          <Property Name="CustomPage" Type="nvarchar(max)" />
+          <Property Name="IndieDBLink" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FeatureMedia">
+          <Key>
+            <PropertyRef Name="FeatureMediaID" />
+          </Key>
+          <Property Name="FeatureMediaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeatureID" Type="int" Nullable="false" />
+          <Property Name="MediaID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FeatureRequirement">
+          <Key>
+            <PropertyRef Name="FeatureRequirementID" />
+          </Key>
+          <Property Name="FeatureRequirementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequirementID" Type="int" Nullable="false" />
+          <Property Name="FeatureID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Forum">
+          <Key>
+            <PropertyRef Name="ForumID" />
+          </Key>
+          <Property Name="ForumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Internal" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumCategory">
+          <Key>
+            <PropertyRef Name="ForumCategoryID" />
+          </Key>
+          <Property Name="ForumCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForumID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumPost">
+          <Key>
+            <PropertyRef Name="ForumPostID" />
+          </Key>
+          <Property Name="ForumPostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForumTopicID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Post" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumTopic">
+          <Key>
+            <PropertyRef Name="ForumTopicID" />
+          </Key>
+          <Property Name="ForumTopicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForumCategoryID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Sticky" Type="bit" Nullable="false" />
+          <Property Name="Locked" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="Category" Type="nvarchar(max)" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="Source" Type="nvarchar(max)" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="FeatureID" Type="int" />
+          <Property Name="NewsID" Type="int" />
+          <Property Name="MediaID" Type="int" />
+          <Property Name="DownloadID" Type="int" />
+          <Property Name="Initiated" Type="datetime" />
+          <Property Name="ElapsedSeconds" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Media">
+          <Key>
+            <PropertyRef Name="MediaID" />
+          </Key>
+          <Property Name="MediaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MediaType" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar(max)" />
+          <Property Name="Width" Type="int" Nullable="false" />
+          <Property Name="Height" Type="int" Nullable="false" />
+          <Property Name="Location" Type="nvarchar(max)" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="NewsID" />
+          </Key>
+          <Property Name="NewsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeatureID" Type="int" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="Cut" Type="nvarchar(max)" />
+          <Property Name="Post" Type="nvarchar(max)" />
+          <Property Name="HeaderImageID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelatedLink">
+          <Key>
+            <PropertyRef Name="RelatedLinkID" />
+          </Key>
+          <Property Name="RelatedLinkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeatureID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Link" Type="nvarchar(max)" />
+          <Property Name="Icon" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Requirement">
+          <Key>
+            <PropertyRef Name="RequirementID" />
+          </Key>
+          <Property Name="RequirementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Link" Type="nvarchar(max)" />
+          <Property Name="Icon" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="SellingPoint">
+          <Key>
+            <PropertyRef Name="SellingPointID" />
+          </Key>
+          <Property Name="SellingPointID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeatureID" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" />
+          <Property Name="Password" Type="varbinary(max)" />
+          <Property Name="EmailAddress" Type="nvarchar(max)" />
+          <Property Name="ReceiveUpdates" Type="bit" Nullable="false" />
+          <Property Name="Administrator" Type="bit" Nullable="false" />
+          <Property Name="ActivationToken" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Activated" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Downloadable_Feature">
+          <End Role="Feature" Type="Self.Feature" Multiplicity="0..1" />
+          <End Role="Downloadable" Type="Self.Downloadable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="Downloadable">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeatureMedia_Feature">
+          <End Role="Feature" Type="Self.Feature" Multiplicity="1" />
+          <End Role="FeatureMedia" Type="Self.FeatureMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="FeatureMedia">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeatureMedia_Media">
+          <End Role="Media" Type="Self.Media" Multiplicity="1" />
+          <End Role="FeatureMedia" Type="Self.FeatureMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media">
+              <PropertyRef Name="MediaID" />
+            </Principal>
+            <Dependent Role="FeatureMedia">
+              <PropertyRef Name="MediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeatureRequirement_Feature">
+          <End Role="Feature" Type="Self.Feature" Multiplicity="1" />
+          <End Role="FeatureRequirement" Type="Self.FeatureRequirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="FeatureRequirement">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeatureRequirement_Requirement">
+          <End Role="Requirement" Type="Self.Requirement" Multiplicity="1" />
+          <End Role="FeatureRequirement" Type="Self.FeatureRequirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requirement">
+              <PropertyRef Name="RequirementID" />
+            </Principal>
+            <Dependent Role="FeatureRequirement">
+              <PropertyRef Name="RequirementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumCategory_Forum">
+          <End Role="Forum" Type="Self.Forum" Multiplicity="1" />
+          <End Role="ForumCategory" Type="Self.ForumCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forum">
+              <PropertyRef Name="ForumID" />
+            </Principal>
+            <Dependent Role="ForumCategory">
+              <PropertyRef Name="ForumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumPost_ForumTopic">
+          <End Role="ForumTopic" Type="Self.ForumTopic" Multiplicity="1" />
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumTopic">
+              <PropertyRef Name="ForumTopicID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="ForumTopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumPost_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ForumPost" Type="Self.ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumTopic_ForumCategory">
+          <End Role="ForumCategory" Type="Self.ForumCategory" Multiplicity="1" />
+          <End Role="ForumTopic" Type="Self.ForumTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumCategory">
+              <PropertyRef Name="ForumCategoryID" />
+            </Principal>
+            <Dependent Role="ForumTopic">
+              <PropertyRef Name="ForumCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumTopic_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ForumTopic" Type="Self.ForumTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ForumTopic">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Feature">
+          <End Role="Feature" Type="Self.Feature" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Media">
+          <End Role="Media" Type="Self.Media" Multiplicity="0..1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media">
+              <PropertyRef Name="MediaID" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="HeaderImageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelatedLink_Feature">
+          <End Role="Feature" Type="Self.Feature" Multiplicity="1" />
+          <End Role="RelatedLink" Type="Self.RelatedLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="RelatedLink">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SellingPoint_Feature">
+          <End Role="Feature" Type="Self.Feature" Multiplicity="0..1" />
+          <End Role="SellingPoint" Type="Self.SellingPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="SellingPoint">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="helloserveModelStoreContainer">
+          <EntitySet Name="Downloadable" EntityType="Self.Downloadable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feature" EntityType="Self.Feature" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeatureMedia" EntityType="Self.FeatureMedia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeatureRequirement" EntityType="Self.FeatureRequirement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Forum" EntityType="Self.Forum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForumCategory" EntityType="Self.ForumCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForumPost" EntityType="Self.ForumPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ForumTopic" EntityType="Self.ForumTopic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Media" EntityType="Self.Media" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelatedLink" EntityType="Self.RelatedLink" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Requirement" EntityType="Self.Requirement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellingPoint" EntityType="Self.SellingPoint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Downloadable_Feature" Association="Self.FK_Downloadable_Feature">
+            <End Role="Feature" EntitySet="Feature" />
+            <End Role="Downloadable" EntitySet="Downloadable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeatureMedia_Feature" Association="Self.FK_FeatureMedia_Feature">
+            <End Role="Feature" EntitySet="Feature" />
+            <End Role="FeatureMedia" EntitySet="FeatureMedia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeatureMedia_Media" Association="Self.FK_FeatureMedia_Media">
+            <End Role="Media" EntitySet="Media" />
+            <End Role="FeatureMedia" EntitySet="FeatureMedia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeatureRequirement_Feature" Association="Self.FK_FeatureRequirement_Feature">
+            <End Role="Feature" EntitySet="Feature" />
+            <End Role="FeatureRequirement" EntitySet="FeatureRequirement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeatureRequirement_Requirement" Association="Self.FK_FeatureRequirement_Requirement">
+            <End Role="Requirement" EntitySet="Requirement" />
+            <End Role="FeatureRequirement" EntitySet="FeatureRequirement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumCategory_Forum" Association="Self.FK_ForumCategory_Forum">
+            <End Role="Forum" EntitySet="Forum" />
+            <End Role="ForumCategory" EntitySet="ForumCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumPost_ForumTopic" Association="Self.FK_ForumPost_ForumTopic">
+            <End Role="ForumTopic" EntitySet="ForumTopic" />
+            <End Role="ForumPost" EntitySet="ForumPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumPost_User" Association="Self.FK_ForumPost_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ForumPost" EntitySet="ForumPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumTopic_ForumCategory" Association="Self.FK_ForumTopic_ForumCategory">
+            <End Role="ForumCategory" EntitySet="ForumCategory" />
+            <End Role="ForumTopic" EntitySet="ForumTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumTopic_User" Association="Self.FK_ForumTopic_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ForumTopic" EntitySet="ForumTopic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Feature" Association="Self.FK_News_Feature">
+            <End Role="Feature" EntitySet="Feature" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Media" Association="Self.FK_News_Media">
+            <End Role="Media" EntitySet="Media" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelatedLink_Feature" Association="Self.FK_RelatedLink_Feature">
+            <End Role="Feature" EntitySet="Feature" />
+            <End Role="RelatedLink" EntitySet="RelatedLink" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SellingPoint_Feature" Association="Self.FK_SellingPoint_Feature">
+            <End Role="Feature" EntitySet="Feature" />
+            <End Role="SellingPoint" EntitySet="SellingPoint" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="helloserveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Downloadable">
+          <Key>
+            <PropertyRef Name="DownloadableID" />
+          </Key>
+          <Property Name="DownloadableID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeatureID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Feature" Relationship="helloserveModel.FK_Downloadable_Feature" FromRole="Downloadable" ToRole="Feature" />
+        </EntityType>
+        <EntityType Name="Error">
+          <Key>
+            <PropertyRef Name="ErrorID" />
+          </Key>
+          <Property Name="ErrorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErrorDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ErrorType" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Feature">
+          <Key>
+            <PropertyRef Name="FeatureID" />
+          </Key>
+          <Property Name="FeatureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsMainFeature" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExtendedDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MediaFolder" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HeaderImageID" Type="Int32" />
+          <Property Name="Subdomain" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CustomPage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IndieDBLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Downloadables" Relationship="helloserveModel.FK_Downloadable_Feature" FromRole="Feature" ToRole="Downloadable" />
+          <NavigationProperty Name="FeatureMedias" Relationship="helloserveModel.FK_FeatureMedia_Feature" FromRole="Feature" ToRole="FeatureMedia" />
+          <NavigationProperty Name="FeatureRequirements" Relationship="helloserveModel.FK_FeatureRequirement_Feature" FromRole="Feature" ToRole="FeatureRequirement" />
+          <NavigationProperty Name="News" Relationship="helloserveModel.FK_News_Feature" FromRole="Feature" ToRole="News" />
+          <NavigationProperty Name="RelatedLinks" Relationship="helloserveModel.FK_RelatedLink_Feature" FromRole="Feature" ToRole="RelatedLink" />
+          <NavigationProperty Name="SellingPoints" Relationship="helloserveModel.FK_SellingPoint_Feature" FromRole="Feature" ToRole="SellingPoint" />
+        </EntityType>
+        <EntityType Name="FeatureMedia">
+          <Key>
+            <PropertyRef Name="FeatureMediaID" />
+          </Key>
+          <Property Name="FeatureMediaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeatureID" Type="Int32" Nullable="false" />
+          <Property Name="MediaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Feature" Relationship="helloserveModel.FK_FeatureMedia_Feature" FromRole="FeatureMedia" ToRole="Feature" />
+          <NavigationProperty Name="Medium" Relationship="helloserveModel.FK_FeatureMedia_Media" FromRole="FeatureMedia" ToRole="Medium" />
+        </EntityType>
+        <EntityType Name="FeatureRequirement">
+          <Key>
+            <PropertyRef Name="FeatureRequirementID" />
+          </Key>
+          <Property Name="FeatureRequirementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequirementID" Type="Int32" Nullable="false" />
+          <Property Name="FeatureID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Feature" Relationship="helloserveModel.FK_FeatureRequirement_Feature" FromRole="FeatureRequirement" ToRole="Feature" />
+          <NavigationProperty Name="Requirement" Relationship="helloserveModel.FK_FeatureRequirement_Requirement" FromRole="FeatureRequirement" ToRole="Requirement" />
+        </EntityType>
+        <EntityType Name="Forum">
+          <Key>
+            <PropertyRef Name="ForumID" />
+          </Key>
+          <Property Name="ForumID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Internal" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ForumCategories" Relationship="helloserveModel.FK_ForumCategory_Forum" FromRole="Forum" ToRole="ForumCategory" />
+        </EntityType>
+        <EntityType Name="ForumCategory">
+          <Key>
+            <PropertyRef Name="ForumCategoryID" />
+          </Key>
+          <Property Name="ForumCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForumID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Forum" Relationship="helloserveModel.FK_ForumCategory_Forum" FromRole="ForumCategory" ToRole="Forum" />
+          <NavigationProperty Name="ForumTopics" Relationship="helloserveModel.FK_ForumTopic_ForumCategory" FromRole="ForumCategory" ToRole="ForumTopic" />
+        </EntityType>
+        <EntityType Name="ForumPost">
+          <Key>
+            <PropertyRef Name="ForumPostID" />
+          </Key>
+          <Property Name="ForumPostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForumTopicID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Post" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ForumTopic" Relationship="helloserveModel.FK_ForumPost_ForumTopic" FromRole="ForumPost" ToRole="ForumTopic" />
+          <NavigationProperty Name="User" Relationship="helloserveModel.FK_ForumPost_User" FromRole="ForumPost" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ForumTopic">
+          <Key>
+            <PropertyRef Name="ForumTopicID" />
+          </Key>
+          <Property Name="ForumTopicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForumCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Sticky" Type="Boolean" Nullable="false" />
+          <Property Name="Locked" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ForumCategory" Relationship="helloserveModel.FK_ForumTopic_ForumCategory" FromRole="ForumTopic" ToRole="ForumCategory" />
+          <NavigationProperty Name="ForumPosts" Relationship="helloserveModel.FK_ForumPost_ForumTopic" FromRole="ForumTopic" ToRole="ForumPost" />
+          <NavigationProperty Name="User" Relationship="helloserveModel.FK_ForumTopic_User" FromRole="ForumTopic" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Source" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="FeatureID" Type="Int32" />
+          <Property Name="NewsID" Type="Int32" />
+          <Property Name="MediaID" Type="Int32" />
+          <Property Name="DownloadID" Type="Int32" />
+          <Property Name="Initiated" Type="DateTime" Precision="3" />
+          <Property Name="ElapsedSeconds" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Medium">
+          <Key>
+            <PropertyRef Name="MediaID" />
+          </Key>
+          <Property Name="MediaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MediaType" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Width" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Int32" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="FeatureMedias" Relationship="helloserveModel.FK_FeatureMedia_Media" FromRole="Medium" ToRole="FeatureMedia" />
+          <NavigationProperty Name="News" Relationship="helloserveModel.FK_News_Media" FromRole="Medium" ToRole="News" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="NewsID" />
+          </Key>
+          <Property Name="NewsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeatureID" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cut" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Post" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HeaderImageID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Feature" Relationship="helloserveModel.FK_News_Feature" FromRole="News" ToRole="Feature" />
+          <NavigationProperty Name="Medium" Relationship="helloserveModel.FK_News_Media" FromRole="News" ToRole="Medium" />
+        </EntityType>
+        <EntityType Name="RelatedLink">
+          <Key>
+            <PropertyRef Name="RelatedLinkID" />
+          </Key>
+          <Property Name="RelatedLinkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeatureID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Feature" Relationship="helloserveModel.FK_RelatedLink_Feature" FromRole="RelatedLink" ToRole="Feature" />
+        </EntityType>
+        <EntityType Name="Requirement">
+          <Key>
+            <PropertyRef Name="RequirementID" />
+          </Key>
+          <Property Name="RequirementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Icon" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="FeatureRequirements" Relationship="helloserveModel.FK_FeatureRequirement_Requirement" FromRole="Requirement" ToRole="FeatureRequirement" />
+        </EntityType>
+        <EntityType Name="SellingPoint">
+          <Key>
+            <PropertyRef Name="SellingPointID" />
+          </Key>
+          <Property Name="SellingPointID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeatureID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Feature" Relationship="helloserveModel.FK_SellingPoint_Feature" FromRole="SellingPoint" ToRole="Feature" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="EmailAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiveUpdates" Type="Boolean" Nullable="false" />
+          <Property Name="Administrator" Type="Boolean" Nullable="false" />
+          <Property Name="ActivationToken" Type="Guid" Nullable="false" />
+          <Property Name="Activated" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ForumPosts" Relationship="helloserveModel.FK_ForumPost_User" FromRole="User" ToRole="ForumPost" />
+          <NavigationProperty Name="ForumTopics" Relationship="helloserveModel.FK_ForumTopic_User" FromRole="User" ToRole="ForumTopic" />
+        </EntityType>
+        <EntityContainer Name="helloserveEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Downloadables" EntityType="Self.Downloadable" />
+          <EntitySet Name="Errors" EntityType="Self.Error" />
+          <EntitySet Name="Features" EntityType="Self.Feature" />
+          <EntitySet Name="FeatureMedias" EntityType="Self.FeatureMedia" />
+          <EntitySet Name="FeatureRequirements" EntityType="Self.FeatureRequirement" />
+          <EntitySet Name="Fora" EntityType="Self.Forum" />
+          <EntitySet Name="ForumCategories" EntityType="Self.ForumCategory" />
+          <EntitySet Name="ForumPosts" EntityType="Self.ForumPost" />
+          <EntitySet Name="ForumTopics" EntityType="Self.ForumTopic" />
+          <EntitySet Name="Logs" EntityType="Self.Log" />
+          <EntitySet Name="Media" EntityType="Self.Medium" />
+          <EntitySet Name="News" EntityType="Self.News" />
+          <EntitySet Name="RelatedLinks" EntityType="Self.RelatedLink" />
+          <EntitySet Name="Requirements" EntityType="Self.Requirement" />
+          <EntitySet Name="SellingPoints" EntityType="Self.SellingPoint" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Downloadable_Feature" Association="helloserveModel.FK_Downloadable_Feature">
+            <End Role="Feature" EntitySet="Features" />
+            <End Role="Downloadable" EntitySet="Downloadables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeatureMedia_Feature" Association="helloserveModel.FK_FeatureMedia_Feature">
+            <End Role="Feature" EntitySet="Features" />
+            <End Role="FeatureMedia" EntitySet="FeatureMedias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeatureRequirement_Feature" Association="helloserveModel.FK_FeatureRequirement_Feature">
+            <End Role="Feature" EntitySet="Features" />
+            <End Role="FeatureRequirement" EntitySet="FeatureRequirements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Feature" Association="helloserveModel.FK_News_Feature">
+            <End Role="Feature" EntitySet="Features" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelatedLink_Feature" Association="helloserveModel.FK_RelatedLink_Feature">
+            <End Role="Feature" EntitySet="Features" />
+            <End Role="RelatedLink" EntitySet="RelatedLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SellingPoint_Feature" Association="helloserveModel.FK_SellingPoint_Feature">
+            <End Role="Feature" EntitySet="Features" />
+            <End Role="SellingPoint" EntitySet="SellingPoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeatureMedia_Media" Association="helloserveModel.FK_FeatureMedia_Media">
+            <End Role="Medium" EntitySet="Media" />
+            <End Role="FeatureMedia" EntitySet="FeatureMedias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeatureRequirement_Requirement" Association="helloserveModel.FK_FeatureRequirement_Requirement">
+            <End Role="Requirement" EntitySet="Requirements" />
+            <End Role="FeatureRequirement" EntitySet="FeatureRequirements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumCategory_Forum" Association="helloserveModel.FK_ForumCategory_Forum">
+            <End Role="Forum" EntitySet="Fora" />
+            <End Role="ForumCategory" EntitySet="ForumCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumTopic_ForumCategory" Association="helloserveModel.FK_ForumTopic_ForumCategory">
+            <End Role="ForumCategory" EntitySet="ForumCategories" />
+            <End Role="ForumTopic" EntitySet="ForumTopics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumPost_ForumTopic" Association="helloserveModel.FK_ForumPost_ForumTopic">
+            <End Role="ForumTopic" EntitySet="ForumTopics" />
+            <End Role="ForumPost" EntitySet="ForumPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumPost_User" Association="helloserveModel.FK_ForumPost_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ForumPost" EntitySet="ForumPosts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumTopic_User" Association="helloserveModel.FK_ForumTopic_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ForumTopic" EntitySet="ForumTopics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Media" Association="helloserveModel.FK_News_Media">
+            <End Role="Medium" EntitySet="Media" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Downloadable_Feature">
+          <End Type="helloserveModel.Feature" Role="Feature" Multiplicity="0..1" />
+          <End Type="helloserveModel.Downloadable" Role="Downloadable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="Downloadable">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeatureMedia_Feature">
+          <End Type="helloserveModel.Feature" Role="Feature" Multiplicity="1" />
+          <End Type="helloserveModel.FeatureMedia" Role="FeatureMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="FeatureMedia">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeatureRequirement_Feature">
+          <End Type="helloserveModel.Feature" Role="Feature" Multiplicity="1" />
+          <End Type="helloserveModel.FeatureRequirement" Role="FeatureRequirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="FeatureRequirement">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Feature">
+          <End Type="helloserveModel.Feature" Role="Feature" Multiplicity="0..1" />
+          <End Type="helloserveModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelatedLink_Feature">
+          <End Type="helloserveModel.Feature" Role="Feature" Multiplicity="1" />
+          <End Type="helloserveModel.RelatedLink" Role="RelatedLink" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="RelatedLink">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SellingPoint_Feature">
+          <End Type="helloserveModel.Feature" Role="Feature" Multiplicity="0..1" />
+          <End Type="helloserveModel.SellingPoint" Role="SellingPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feature">
+              <PropertyRef Name="FeatureID" />
+            </Principal>
+            <Dependent Role="SellingPoint">
+              <PropertyRef Name="FeatureID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeatureMedia_Media">
+          <End Type="helloserveModel.Medium" Role="Medium" Multiplicity="1" />
+          <End Type="helloserveModel.FeatureMedia" Role="FeatureMedia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medium">
+              <PropertyRef Name="MediaID" />
+            </Principal>
+            <Dependent Role="FeatureMedia">
+              <PropertyRef Name="MediaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeatureRequirement_Requirement">
+          <End Type="helloserveModel.Requirement" Role="Requirement" Multiplicity="1" />
+          <End Type="helloserveModel.FeatureRequirement" Role="FeatureRequirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requirement">
+              <PropertyRef Name="RequirementID" />
+            </Principal>
+            <Dependent Role="FeatureRequirement">
+              <PropertyRef Name="RequirementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumCategory_Forum">
+          <End Type="helloserveModel.Forum" Role="Forum" Multiplicity="1" />
+          <End Type="helloserveModel.ForumCategory" Role="ForumCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forum">
+              <PropertyRef Name="ForumID" />
+            </Principal>
+            <Dependent Role="ForumCategory">
+              <PropertyRef Name="ForumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumTopic_ForumCategory">
+          <End Type="helloserveModel.ForumCategory" Role="ForumCategory" Multiplicity="1" />
+          <End Type="helloserveModel.ForumTopic" Role="ForumTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumCategory">
+              <PropertyRef Name="ForumCategoryID" />
+            </Principal>
+            <Dependent Role="ForumTopic">
+              <PropertyRef Name="ForumCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumPost_ForumTopic">
+          <End Type="helloserveModel.ForumTopic" Role="ForumTopic" Multiplicity="1" />
+          <End Type="helloserveModel.ForumPost" Role="ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumTopic">
+              <PropertyRef Name="ForumTopicID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="ForumTopicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumPost_User">
+          <End Type="helloserveModel.User" Role="User" Multiplicity="1" />
+          <End Type="helloserveModel.ForumPost" Role="ForumPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ForumPost">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumTopic_User">
+          <End Type="helloserveModel.User" Role="User" Multiplicity="1" />
+          <End Type="helloserveModel.ForumTopic" Role="ForumTopic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ForumTopic">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Media">
+          <End Type="helloserveModel.Medium" Role="Medium" Multiplicity="0..1" />
+          <End Type="helloserveModel.News" Role="News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medium">
+              <PropertyRef Name="MediaID" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="HeaderImageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="helloserveModelStoreContainer" CdmEntityContainer="helloserveEntities">
+          <EntitySetMapping Name="Downloadables">
+            <EntityTypeMapping TypeName="helloserveModel.Downloadable">
+              <MappingFragment StoreEntitySet="Downloadable">
+                <ScalarProperty Name="DownloadableID" ColumnName="DownloadableID" />
+                <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Errors">
+            <EntityTypeMapping TypeName="helloserveModel.Error">
+              <MappingFragment StoreEntitySet="Error">
+                <ScalarProperty Name="ErrorID" ColumnName="ErrorID" />
+                <ScalarProperty Name="ErrorDate" ColumnName="ErrorDate" />
+                <ScalarProperty Name="ErrorType" ColumnName="ErrorType" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Features">
+            <EntityTypeMapping TypeName="helloserveModel.Feature">
+              <MappingFragment StoreEntitySet="Feature">
+                <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsMainFeature" ColumnName="IsMainFeature" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ExtendedDescription" ColumnName="ExtendedDescription" />
+                <ScalarProperty Name="MediaFolder" ColumnName="MediaFolder" />
+                <ScalarProperty Name="HeaderImageID" ColumnName="HeaderImageID" />
+                <ScalarProperty Name="Subdomain" ColumnName="Subdomain" />
+                <ScalarProperty Name="CustomPage" ColumnName="CustomPage" />
+                <ScalarProperty Name="IndieDBLink" ColumnName="IndieDBLink" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeatureMedias">
+            <EntityTypeMapping TypeName="helloserveModel.FeatureMedia">
+              <MappingFragment StoreEntitySet="FeatureMedia">
+                <ScalarProperty Name="FeatureMediaID" ColumnName="FeatureMediaID" />
+                <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
+                <ScalarProperty Name="MediaID" ColumnName="MediaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeatureRequirements">
+            <EntityTypeMapping TypeName="helloserveModel.FeatureRequirement">
+              <MappingFragment StoreEntitySet="FeatureRequirement">
+                <ScalarProperty Name="FeatureRequirementID" ColumnName="FeatureRequirementID" />
+                <ScalarProperty Name="RequirementID" ColumnName="RequirementID" />
+                <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fora">
+            <EntityTypeMapping TypeName="helloserveModel.Forum">
+              <MappingFragment StoreEntitySet="Forum">
+                <ScalarProperty Name="ForumID" ColumnName="ForumID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Internal" ColumnName="Internal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumCategories">
+            <EntityTypeMapping TypeName="helloserveModel.ForumCategory">
+              <MappingFragment StoreEntitySet="ForumCategory">
+                <ScalarProperty Name="ForumCategoryID" ColumnName="ForumCategoryID" />
+                <ScalarProperty Name="ForumID" ColumnName="ForumID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumPosts">
+            <EntityTypeMapping TypeName="helloserveModel.ForumPost">
+              <MappingFragment StoreEntitySet="ForumPost">
+                <ScalarProperty Name="ForumPostID" ColumnName="ForumPostID" />
+                <ScalarProperty Name="ForumTopicID" ColumnName="ForumTopicID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForumTopics">
+            <EntityTypeMapping TypeName="helloserveModel.ForumTopic">
+              <MappingFragment StoreEntitySet="ForumTopic">
+                <ScalarProperty Name="ForumTopicID" ColumnName="ForumTopicID" />
+                <ScalarProperty Name="ForumCategoryID" ColumnName="ForumCategoryID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Sticky" ColumnName="Sticky" />
+                <ScalarProperty Name="Locked" ColumnName="Locked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="helloserveModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="MediaID" ColumnName="MediaID" />
+                <ScalarProperty Name="DownloadID" ColumnName="DownloadID" />
+                <ScalarProperty Name="Initiated" ColumnName="Initiated" />
+                <ScalarProperty Name="ElapsedSeconds" ColumnName="ElapsedSeconds" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Media">
+            <EntityTypeMapping TypeName="helloserveModel.Medium">
+              <MappingFragment StoreEntitySet="Media">
+                <ScalarProperty Name="MediaID" ColumnName="MediaID" />
+                <ScalarProperty Name="MediaType" ColumnName="MediaType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="helloserveModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Cut" ColumnName="Cut" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+                <ScalarProperty Name="HeaderImageID" ColumnName="HeaderImageID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelatedLinks">
+            <EntityTypeMapping TypeName="helloserveModel.RelatedLink">
+              <MappingFragment StoreEntitySet="RelatedLink">
+                <ScalarProperty Name="RelatedLinkID" ColumnName="RelatedLinkID" />
+                <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requirements">
+            <EntityTypeMapping TypeName="helloserveModel.Requirement">
+              <MappingFragment StoreEntitySet="Requirement">
+                <ScalarProperty Name="RequirementID" ColumnName="RequirementID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellingPoints">
+            <EntityTypeMapping TypeName="helloserveModel.SellingPoint">
+              <MappingFragment StoreEntitySet="SellingPoint">
+                <ScalarProperty Name="SellingPointID" ColumnName="SellingPointID" />
+                <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="helloserveModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ReceiveUpdates" ColumnName="ReceiveUpdates" />
+                <ScalarProperty Name="Administrator" ColumnName="Administrator" />
+                <ScalarProperty Name="ActivationToken" ColumnName="ActivationToken" />
+                <ScalarProperty Name="Activated" ColumnName="Activated" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
