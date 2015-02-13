@@ -1,6 +1,7 @@
 obj*
 bin*
-*.sln
+*.suo
 *.dll
 *.pdb
 *.exe
+packages/

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model helloserve.com.Web.Models.BaseViewModel
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -30,27 +31,40 @@
         </div>*@
     <div class="body-content">
         <div class="page">
-            <div>
-                <h1>helloserve.com</h1>
+            <div style="display:block; vertical-align:middle;">
+                <div style="display:inline-block; vertical-align:middle"><img src="" width="70px" height="70px" /></div>
+                <div style="display:inline-block; vertical-align:middle"><h1>helloserve.com</h1></div>
             </div>
             @RenderBody()
             <div class="sideBar">
+                @foreach (var feature in Model.Features)
+                {
+                    <div style="padding:2.5px;">
+                        <a href="@(ViewBag.BaseUrl)Feature/@feature.GetUrlName">
+                            <div class="feature">
+                                <div class="image" @if (!string.IsNullOrEmpty(feature.ImageUrl)) { <text> style="background-image:url(@feature.ImageUrl)" </text>  }></div>
+                                <div class="heading-overlay">
+                                    <div class="heading">
+                                        @feature.Title
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
                 <div style="padding:2.5px;">
-                    <div class="feature">
-                        <div class="image"></div>
-                        <div class="heading">
-                            Feature 1
+                    <a href="@(ViewBag.BaseUrl)News/Index">
+                        <div class="feature">
+                            <div class="image"></div>
+                            <div class="heading-overlay">
+                                <div class="heading">
+                                    News
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-                <div style="clear: both; padding:2.5px;">
-                    <div class="feature">
-                        <div class="image"></div>
-                        <div class="heading">
-                            Feature 2
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
         <hr />
@@ -60,7 +74,6 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>

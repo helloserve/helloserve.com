@@ -1,4 +1,6 @@
-﻿@{
+﻿@model helloserve.com.Web.Models.BaseViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -24,10 +26,18 @@
             <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
         </div>
         <div>
-            <div style="display:block; vertical-align:middle; height:71px; width:71px; overflow:hidden;">
-                <div style="overflow:hidden">
-                    <div style="width:70px; height:70px; border: 1px solid black; display:inline-block; vertical-align:middle;"></div>
-                    <span>Feature</span>
+            <div style="padding:2.5px;">
+                <div class="feature">
+                    <div style="z-index:-4; position:relative; top:0px; left:0px; overflow: hidden; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+                             background-image: url(Content/images/placeholder-200x150.png); background-position-x: center; background-position-y: center; background-repeat: no-repeat;
+                             display: block; vertical-align: middle; text-align: center; width: 200px; height: 150px; border-radius: 0px;">
+                    </div>
+                    <div style="z-index: -3; top: -150px; left: 0px; display: table-cell; position: relative; width: 200px; height: 30px; background-color: rgba(0, 0, 0, 0.2);
+                             vertical-align:middle;">
+                        <div style="display:table-cell; vertical-align:middle">
+                            Test
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

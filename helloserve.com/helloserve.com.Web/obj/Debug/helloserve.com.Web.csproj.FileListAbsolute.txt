@@ -29,3 +29,4 @@ D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\System.Web.Http.xml
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\System.Web.Http.WebHost.xml
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\obj\Debug\helloserve.com.Web.dll
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\obj\Debug\helloserve.com.Web.pdb
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\obj\Debug\helloserve.com.Web.csprojResolveAssemblyReference.cache

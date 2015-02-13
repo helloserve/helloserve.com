@@ -1,5 +1,6 @@
 ﻿body {
     font-family: Muli, Arial;
+    background-color: #FFEDCC;
 }
 
 .body-content {
@@ -21,83 +22,230 @@ textarea {
 .sideBar {
     position: absolute;
     z-index: 1;
-    width: 5em;
-    height: 20em;
+    width: 85px;
     overflow: no-content;
     left: 0px;
     top: 5em;
-    box-shadow: 5px 5px 2px #CCCCCC;
+    box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.2);
     -webkit-animation: sideBarContract 0.25s;
-    animation: sideBarContract 0.25s;
+    animation: sideBarContract 0.2s;
     background-color: white;
     padding: 5px;
 }
 
     .sideBar:hover {
         -webkit-animation: sideBarExpand 0.25s;
-        animation: sideBarExpand 0.25s;
-        width: 20%;
+        animation: sideBarExpand 0.2s;
+        width: 315px;
+    }
+
+    .sideBar a {
+        text-decoration: none;
+        color: white;
     }
 
     .sideBar .feature {
         display: block;
         vertical-align: middle;
-        height: 4.7em;
-        overflow:hidden;
+        height: 75px;
+        overflow: hidden;
+        padding: 3px;
+        -webkit-animation: featureContract 0.25s;
+        animation: featureContract 0.25s;
     }
+
+        .sideBar .feature:hover {
+            height: 155px;
+            -webkit-animation: featureExpand 0.25s;
+            animation: featureExpand 0.25s;
+        }
 
         .sideBar .feature .image {
-            width: 4.5em;
-            height: 4.5em;
-            border: 1px solid black;
+            z-index:-2;
+            position:relative;
+            top:0px;
+            left:0px;
+            width: 70px;
+            height: 70px;
+            overflow: hidden;
+            /*border: 1px solid black;*/
+            border-radius: 35px;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            background-image: url(images/placeholder-200x150.png);
+            background-position-x: center;
+            background-position-y: center;
+            background-repeat: no-repeat;
+			background-size: 300px 150px;
             display: inline-block;
-            vertical-align:middle;
+            vertical-align: middle;
+            text-align: center;
+            -webkit-animation: featureImageContract 0.3s;
+            animation: featureImageContract 0.3s;
         }
 
-        .sideBar .feature .heading {
-            display: none;
+        .sideBar .feature:hover .image {
+            width: 300px;
+            height: 150px;
+            border-radius: 0px;
+            -webkit-animation: featureImageExpand 0.3s;
+            animation: featureImageExpand 0.3s;
         }
 
-    .sideBar:hover .feature .heading {
-        display: inline;
-    }
+        .sideBar .feature .heading-overlay {
+            z-index: -1;
+            top: -150px;
+            left: 0px;
+            display: none;            
+            position: relative;
+            width: 300px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.5); 
+            vertical-align:middle;          
+        }
+
+        .sideBar .feature:hover .heading-overlay {
+            display: table-cell;
+        }
+
+        .sideBar .feature .heading-overlay .heading {
+            color:white;
+            font-weight:bold;
+            display:table-cell;
+            padding-left:5px;
+        }
 
 @-webkit-keyframes sideBarContract {
     from {
-        width: 20%;
+        width: 315px;
     }
 
     to {
-        width: 5em;
+        width: 85px;
     }
 }
 
 @keyframes sideBarContract {
     from {
-        width: 20%;
+        width: 315px;
     }
 
     to {
-        width: 5em;
+        width: 85px;
     }
 }
 
 @-webkit-keyframes sideBarExpand {
     from {
-        width: 5em;
+        width: 85px;
     }
 
     to {
-        width: 20%;
+        width: 315px;
     }
 }
 
 @keyframes sideBarExpand {
     from {
-        width: 5em;
+        width: 85px;
     }
 
     to {
-        width: 20%;
+        width: 315px;
+    }
+}
+
+@-webkit-keyframes featureContract {
+    from {
+        height: 155px;
+    }
+
+    to {
+        height: 75px;
+    }
+}
+
+@keyframes featureContract {
+    from {
+        height: 155px;
+    }
+
+    to {
+        height: 75px;
+    }
+}
+
+@-webkit-keyframes featureExpand {
+    from {
+        height: 75px;
+    }
+
+    to {
+        height: 155px;
+    }
+}
+
+@keyframes featureExpand {
+    from {
+        height: 75px;
+    }
+
+    to {
+        height: 155px;
+    }
+}
+
+@-webkit-keyframes featureImageContract {
+    from {
+        width: 300px;
+        height: 150px;
+        border-radius: 0px;
+    }
+
+    to {
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+    }
+}
+
+@keyframes featureImageContract {
+    from {
+        width: 300px;
+        height: 150px;
+        border-radius: 0px;
+    }
+
+    to {
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+    }
+}
+
+@-webkit-keyframes featureImageExpand {
+    from {
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+    }
+
+    to {
+        width: 300px;
+        height: 150px;
+        border-radius: 0px;
+    }
+}
+
+@keyframes featureImageContract {
+    from {
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+    }
+
+    to {
+        width: 300px;
+        height: 150px;
+        border-radius: 0px;
     }
 }
