@@ -827,7 +827,7 @@ VALUES
 
 INSERT INTO @Areas (Id, AuthorityId, Name, Code)
 VALUES (2000, 3, 'Arcon Park, Duncanville, Vereeniging ext 1, Waldrift', '1A'),
-	   (2001, 3, 'SE6,7,8,10, Riverbend, Casino, University ', '1B'),
+	   (2001, 3, 'SE6 7 8 10, Riverbend, Casino, University ', '1B'),
 	   (2002, 3, 'SW5, SE3, SE4, SE2, SE1,SW1, SW2, Mantevrede, Lasiandra,Flora Gardens, Vaal Mall', '1C'),
 	   (2003, 3, 'NW7 Industries, Slagment, Afrox, Dorbyl, Clotan Steel', '1D'),
 	   (2004, 3, 'CE6, Technicon, CE5, Mittal (Tosa)', '1E'),
@@ -850,9 +850,9 @@ VALUES (2000, 3, 'Arcon Park, Duncanville, Vereeniging ext 1, Waldrift', '1A'),
 INSERT INTO @Areas (Id, AuthorityId, Name, Code)
 VALUES 
 	--Alberton
-	   (3000, 4, 'Randhart Ext 1& 2, General Alberts Park and Randhart', 'B1'),
+	   (3000, 4, 'Randhart Ext 1 & 2, General Alberts Park and Randhart', 'B1'),
 	   (3001, 4, 'Raceview, Southcrest, Newmarket (Pick n Pay), New-Redruth, Alberante and Extensions', 'B2'),
-	   (3002, 4, 'Brackenhurst and Extentions 1 & 2, Mayberrypark and Extention 1, Brackendowns and Extensions 1,2,3 & 4', 'B3'),
+	   (3002, 4, 'Brackenhurst and Extentions 1 & 2, Mayberrypark and Extention 1, Brackendowns and Extensions 1 2 3 & 4', 'B3'),
 	   (3003, 4, 'Meyersdal: Meyersdal (Eco Estate & Nature Estate), Thokoza North (Mpilisweni, Phenduka Section, Basothong Sections and Hostels)', 'B4'),
 	   (3004, 4, 'Civic Centre and CBD area, Alberton North and Extentions, Parklands Area, Florentia and Extentions, Verwoerd Park and Extentions', 'B5'),
 	   (3005, 4, 'Brackendowns 5, Albertsdal , Thokoza South (Ext 1 & 2), Thokoza Gardens, Everest, Unit F, Vergenoeg, Edenpark & Extentions, Greenfields, PholaPark & Extentions, Thinasonke', 'B6'),
@@ -871,14 +871,14 @@ VALUES
 	   (3016, 6, 'Rynfield, Crystal Park, Lillyvale, Putfontein, Hillcrest, Chief Ntuli Park, Cloverdene, Ebotse, sect Rynfield Agricultural Holdings (Swallow Rd, Water Edge, Rynfield Ext 111 & 114, Earlston Complex), Rynpark, Drum Drive, Benoni Agricultural Holdings, Petit, Marister, Benoni Orchards, Fairleads, Boat Lake Village, Country View.', 'B5'),
 	   (3017, 6, 'Farramere, Alphen Park, Lakefield Ext 21, Lakefield, Westdene, Rynfield Agricultural Holdings (President Steyn, President Brand, President Boshoff , President Hoffman, Hull Str, Barbet Str, Uys Str & Robin Str), Brentwood Park, Northville, Northmead Ext 4, Benoni North Agricultural Holdings, Norton Home Estates, Brentwood Park Agricultural Holdings, Goedeburg, Benoni Small Farms', 'B6'),
 	--Boksburg
-	   (3018, 7, 'Freeway Park, Sunward Park, Parkrand, Van Dyk Park (Sub 072: Subs (S080, S073, S124, K201, K183 & S089))', 'B1'),
-	   (3019, 7, 'Dawn Park, Groeneweide, Klippoortjie, Reiger Park, Villa Liza, Vosloorus Ext 28, Windmill Park (Subs 013,111,116 & 117)', 'B2'),
+	   (3018, 7, 'Freeway Park, Sunward Park, Parkrand, Van Dyk Park (Sub 072: Subs (S080 S073 S124 K201 K183 & S089))', 'B1'),
+	   (3019, 7, 'Dawn Park, Groeneweide, Klippoortjie, Reiger Park, Villa Liza, Vosloorus Ext 28, Windmill Park (Subs 013 111 116 & 117)', 'B2'),
 	   (3020, 7, 'Boksburg CBD and surrounding Areas, Cinderella, Farrar Park, Libradene, Parkdene (Sub 076: Subs(S046, S035, S024, S061))', 'B3'),
-	   (3021, 7, 'Berton Park, Boksburg West, Dayanglen, Delmore, Driefontein, Lilianton, Morgan Ridge, Ravensklip, Rosedene, Witfield (Sub 023: S005, 007 & 062)', 'B4'),
-	   (3022, 7, 'Bardene, Part of Beyers Park, Impala Park, Westwood, Witkoppie Ridge (Subs 082, 038 & 070), Atlasville, Bardene, Bartletts, Parkhaven (Subs 079, 083 & 104)', 'B5'),
-	   (3023, 7, 'Boksburg North, Eveleigh, Klipfontein, Ravenswood,Part of Beyers Park (Subs 041,057, & 086), Cason, Comet, Driefontein, Jansen Park, Jansmutsville, Plantation, Ravenswood, Vogelfontein (Subs 001,008, 045,055 & 127)', 'B6'),
+	   (3021, 7, 'Berton Park, Boksburg West, Dayanglen, Delmore, Driefontein, Lilianton, Morgan Ridge, Ravensklip, Rosedene, Witfield (Sub 023: S005 007 & 062)', 'B4'),
+	   (3022, 7, 'Bardene, Part of Beyers Park, Impala Park, Westwood, Witkoppie Ridge (Subs 082 038 & 070), Atlasville, Bardene, Bartletts, Parkhaven (Subs 079 083 & 104)', 'B5'),
+	   (3023, 7, 'Boksburg North, Eveleigh, Klipfontein, Ravenswood,Part of Beyers Park (Subs 041 057 & 086), Cason, Comet, Driefontein, Jansen Park, Jansmutsville, Plantation, Ravenswood, Vogelfontein (Subs 001 008 045 055 & 127)', 'B6'),
 	--Brakpan
-	   (3024, 8, 'Langaville Extensions 1,2,3,4,5,6,7 & 8, Vlakfontein Village, Withok Small Holdings, Geluksdal (1,2 & 3), Sallies Village, Witpoort', 'B1'),
+	   (3024, 8, 'Langaville Extensions 1 2 3 4 5 6 7 & 8, Vlakfontein Village, Withok Small Holdings, Geluksdal (1 2 & 3), Sallies Village, Witpoort', 'B1'),
 	   (3025, 8, 'Tornado, Phumulo, Riverside, Highland,Overline, Ext.1 Kwa-Thema, Ext.4 Kwa-Thema, Hostel Area', 'B2'),
 	   (3026, 8, 'Brakpan Central, Anzac, Brenthurst, Brakpan North, Huntingdon, Dalpark Extensions (Excluding Ext.1), Dalview, Larrendale, Leachville', 'B3'),
 	   (3027, 8, 'Kwa-Thema Central, Masimini, New Payneville, Deep Levels, Kwa-Thema Ext.6, White City, Vergenoeg, Gugulethu, Mthembu Village, Geduld, Mini Selcourt', 'B4'),
@@ -886,7 +886,7 @@ VALUES
 	   (3029, 8, 'Thembilisha, Rest in Peace, Kwa-Thema Ext 2, Kwa-Thema Ext 3, Barcelona, Kwa-Thema Ext 5, Interland', 'B6'),
 	--Germiston
 	   (3030, 9, 'Palm Ridge, Albermale, Dinwidie, Norton Small Farm, Castleview', 'B1'),
-	   (3031, 9, 'Phumula, Roodekop Ext 2,11,22,23,25 & 31, Mapleton Ext 10, Leondale', 'B2'),
+	   (3031, 9, 'Phumula, Roodekop Ext 2 11 22 23 25 & 31, Mapleton Ext 10, Leondale', 'B2'),
 	   (3032, 9, 'Elspark, Graceland, Gruywagen Park, Buhle Park, Van Dyk Park, Rondebult', 'B3'),
 	   (3033, 9, 'Marlands, Woodmere, Primrose, Rustavia, Driehoek, Germiston CBD, Pirrowville', 'B4'),
 	   (3034, 9, 'Parkhill Gardens, Delville, Denlee, Elsburg, Tedstoneville, Dukathole, Hazeldene, Hazel Park, Lambton, Elandshaven', 'B5'),
@@ -897,9 +897,9 @@ VALUES
 	   (3038, 10, 'Glen Marais, Allen Grove, Norkem Park, Birchleigh Extensions and Bonaero Park', 'B3'),
 	   (3039, 10, 'Birchleigh, Birchleigh North, Glen Erasmia, Kaalfontein, Esselen Park and Esselen Park Extensions', 'B4'),
 	   (3040, 10, 'Kempton Park CBD, Kempton Part Extensions, Croydon, Cresslawn, Rhodesfield, Kelvin Estate and Esther Park', 'B5'),
-	   (3041, 10, 'Bredell, Pomona, Glen Marais Extensions (49, 52, 89 & 98), Serengeti, Brentwood Park, Aston Manor, Nimrod Park, Parts of Kempton Park Ext 2 & Ext 4', 'B6'),
+	   (3041, 10, 'Bredell, Pomona, Glen Marais Extensions (49 52 89 & 98), Serengeti, Brentwood Park, Aston Manor, Nimrod Park, Parts of Kempton Park Ext 2 & Ext 4', 'B6'),
 	--Springs / Nigel
-	   (3042, 11, 'Pollark Park Ext 2, 4 & 5, Reedville, Wright Park and Dal Fouche', 'B1'),
+	   (3042, 11, 'Pollark Park Ext 2 4 & 5, Reedville, Wright Park and Dal Fouche', 'B1'),
 	   (3043, 11, 'Selcourt & Ext''s, Selection Park & Ext''s, Glenvarloch, Noycedale & Ext''s, Nigel Ext 2, Alra Park & Ext''s', 'B2'),
 	   (3044, 11, 'Springs CBD, Lodeyko, Bakerton, Payneville, Grootvlei Mine, Persida, Lazrus, Geduld, Welgadacht, Slovo', 'B3'),
 	   (3045, 11, 'Casseldale, Grootvlei Small Holdings, Strubenvale & Ext''s, Largo, Anchor, Laversburg, Visagie Park and Ferryvalle', 'B4'),

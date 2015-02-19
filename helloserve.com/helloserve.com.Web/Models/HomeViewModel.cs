@@ -8,7 +8,7 @@ namespace helloserve.com.Web.Models
 {
     public class HomeViewModel : BaseViewModel
     {
-        public List<NewsDataModel> NewsItems { get; set; }
+        public CollectionViewModel NewsItems { get; set; }        
 
         public HomeViewModel()
         {

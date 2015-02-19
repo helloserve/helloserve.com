@@ -26,12 +26,12 @@ namespace helloserve.com.Shedding.Model
             };
         }
 
-        public static AreaModel AsModel(this Entities.Area entity)
+        public static AreaModel AsModel(this Entities.Area entity, string name = null)
         {
             return new AreaModel()
             {
                 Id = entity.Id,
-                Name = entity.Name,
+                Name = name ?? entity.Name,
                 Code = entity.Code
             };
         }
@@ -53,7 +53,16 @@ namespace helloserve.com.Shedding.Model
         public static List<AreaModel> ToModelList(this IQueryable<Entities.Area> collection)
         {
             List<AreaModel> list = new List<AreaModel>();
-            collection.ToList().ForEach(e => { list.Add(e.AsModel()); });
+            collection.ToList().ForEach(e =>
+            {
+                string[] areas = e.Name.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (string area in areas)
+                {
+                    list.Add(e.AsModel(area.Trim()));
+                }
+            });
+
             return list;
         }
     }

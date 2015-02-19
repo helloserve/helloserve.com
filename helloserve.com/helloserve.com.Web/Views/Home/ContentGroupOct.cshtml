@@ -1,0 +1,19 @@
+﻿@model helloserve.com.Web.Models.Data.CollectionViewModel
+
+<div>
+    <div class="content-container" style="width:100%">
+        @Html.DisplayFor(m => m.ListItems[0])
+    </div>
+    <div class="content-container" style="width:100%">
+        <div style="display:inline-block; width:49%;">@Html.DisplayFor(m => m.ListItems[1])</div><div style="display:inline-block; width:2%">&nbsp;</div><div style="display:inline-block; width:49%;">@Html.DisplayFor(m => m.ListItems[2])</div>
+    </div>
+    <div class="content-container" style="width:100%;">
+        <div class="content-block">
+            @for (int i = 3; i < Model.ListItems.Count; i++)
+            {
+                <div style="display:inline-block; padding-left:15px; padding-right: 15px;">@Model.ListItems[i].Title</div>
+            }
+        </div>
+    </div>
+</div>
+

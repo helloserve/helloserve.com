@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                @foreach (var feature in Model.Features)
+                @foreach (helloserve.com.Web.Models.Data.FeatureDataModel feature in Model.Features.ListItems)
                 {
                     <div style="padding:2.5px;">
                         <a href="@(ViewBag.BaseUrl)Feature/@feature.GetUrlName">
