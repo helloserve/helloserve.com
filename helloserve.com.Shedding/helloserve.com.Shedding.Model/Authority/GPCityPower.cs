@@ -48,9 +48,9 @@ namespace helloserve.com.Shedding.Model
                     Date = StartDateValue.Date,
                     AreaId = areaId,
                     SheddingStageId = stageId,
-                    ScheduleId = null,
-                    StartTime = StartDateValue,
-                    EndTime = EndDateValue
+                    ScheduleId = null
+                    //StartTime = StartDateValue,
+                    //EndTime = EndDateValue
                 };
             }
         }
