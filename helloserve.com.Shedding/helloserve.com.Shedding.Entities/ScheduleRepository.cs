@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,6 +63,29 @@ namespace helloserve.com.Shedding.Entities
                        AreaId = ar.Id,
                        AuthorityId = ar.AuthorityId
                    };
+        }
+
+        public void SaveScheduleCalendarTimes(List<ScheduleCalendar> items)
+        {
+            string qryTemplate = "IF EXISTS (SELECT 1 FROM ScheduleCalendar WHERE AreaId = {0} AND SheddingStageId = {1} AND StartTime = '{2}') UPDATE ScheduleCalendar SET EndTime = {3} WHERE AreaId = {0} AND SheddingStageId = {1} AND StartTime = '{2}' ELSE INSERT INTO ScheduleCalendar (Date, AreaId, SheddingStageId, ScheduleId, StartTime, EndTime) VALUES (CONVERT(DATE, '{2}'), {0}, {1}, {4}, '{2}', '{3}')";
+
+            StringBuilder qryBuilder = new StringBuilder();
+            foreach (var item in items)
+            {
+                qryBuilder.AppendLine(string.Format(qryTemplate, item.AreaId, item.SheddingStageId, item.StartTime.ToString("yyyy/MM/dd HH:mm"), item.EndTime.ToString("yyyy/MM/dd HH:mm"), item.ScheduleId));
+            }
+
+            using (SqlConnection connection = new SqlConnection(Db.Database.Connection.ConnectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(qryBuilder.ToString(), connection))
+                {
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
         }
     }
 }

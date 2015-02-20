@@ -18,11 +18,28 @@ namespace helloserve.com.Shedding.Model
             public string Title;
             public string SubBlock;
             public string EventDate;
+            
             public string EndDate;
+            public DateTime EndDateValue
+            {
+                get { return GetDateTimeValue(EndDate); }
+            }
+
             public string Description;
             public string Reason;
             public string StartDate;
+            public DateTime StartDateValue
+            {
+                get { return GetDateTimeValue(StartDate); }
+            }
+            
             public string Suburb;
+
+            private DateTime GetDateTimeValue(string dateStr)
+            {
+                long milliseconds = int.Parse(dateStr.Replace("/Date(", "").Replace(")/", ""));
+                return (new DateTime(1970, 1, 1)).AddMilliseconds(milliseconds);
+            }
         }
 
         ILog _log = LogManager.GetLogger(typeof(GpCityPower));
@@ -35,6 +52,8 @@ namespace helloserve.com.Shedding.Model
             string stageCode = stage.Name.Replace(" ", "");
 
             ScheduleItem[] schedules = GetScheduleFor(area.Code, stageCode);
+
+            //now we need to save the items into the schedule table
         }
 
         private ScheduleItem[] GetScheduleFor(string areacode, string stagecode)

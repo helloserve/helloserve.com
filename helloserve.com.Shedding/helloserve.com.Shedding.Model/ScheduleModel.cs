@@ -20,6 +20,7 @@ namespace helloserve.com.Shedding.Model
                 throw new InvalidOperationException();
 
             AuthorityModel authority = AuthorityModel.Get(area.AuthorityId.Value);
+
             if (!stageId.HasValue)
             {
                 stageId = (int?)Cache.ModelCache.Get("EskomStage");
