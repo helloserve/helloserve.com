@@ -40,6 +40,19 @@ namespace helloserve.com.Shedding.Model
                 long milliseconds = int.Parse(dateStr.Replace("/Date(", "").Replace(")/", ""));
                 return (new DateTime(1970, 1, 1)).AddMilliseconds(milliseconds);
             }
+
+            public Entities.ScheduleCalendar AsScheduleCalendar(int areaId, int stageId)
+            {
+                return new Entities.ScheduleCalendar()
+                {
+                    Date = StartDateValue.Date,
+                    AreaId = areaId,
+                    SheddingStageId = stageId,
+                    ScheduleId = null,
+                    StartTime = StartDateValue,
+                    EndTime = EndDateValue
+                };
+            }
         }
 
         ILog _log = LogManager.GetLogger(typeof(GpCityPower));
