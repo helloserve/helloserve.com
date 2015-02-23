@@ -8,9 +8,16 @@ namespace helloserve.com.Shedding.Model
 {
     public class ScheduleModel
     {
-        public int AreaId;
-        public int StageId;
-        public bool IsShedding;
+        public int AreaId { get; set; }
+        public int StageId { get; set; }
+        public bool IsShedding { get; set; }
+
+        public List<ScheduleCalendarModel> Calendar { get; set; }
+
+        public ScheduleModel()
+        {
+            Calendar = new List<ScheduleCalendarModel>();
+        }
 
         public static ScheduleModel GetSchedule(int userId, int areaId, int? stageId = null)
         {
@@ -20,6 +27,7 @@ namespace helloserve.com.Shedding.Model
                 throw new InvalidOperationException();
 
             AuthorityModel authority = AuthorityModel.Get(area.AuthorityId.Value);
+
             if (!stageId.HasValue)
             {
                 stageId = (int?)Cache.ModelCache.Get("EskomStage");
@@ -36,9 +44,30 @@ namespace helloserve.com.Shedding.Model
             }
             
             authority.CalculateSchedule(areaId, stageId.Value);
-            
-            //load schedule
-            return new ScheduleModel();
+            List<Entities.ScheduleCalendar> calendarItems = authority.GetSchedule(areaId, stageId.Value);
+
+            ScheduleModel model = new ScheduleModel();
+
+            model.AreaId = areaId;
+            model.StageId = stageId.Value;
+            foreach (Entities.ScheduleCalendar calendarItem in calendarItems)
+            {
+                model.Calendar.Add(new ScheduleCalendarModel()
+                {
+                    StartTime = calendarItem.StartTime,
+                    EndTime = calendarItem.EndTime
+                });
+
+                model.IsShedding |= (calendarItem.StartTime <= DateTime.UtcNow && calendarItem.EndTime >= DateTime.UtcNow);
+            }
+
+            return model;
         }
+    }
+
+    public class ScheduleCalendarModel
+    {
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
     }
 }

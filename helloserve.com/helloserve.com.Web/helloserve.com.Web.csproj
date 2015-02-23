@@ -128,6 +128,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\Data\CollectionViewModel.cs" />
+    <Compile Include="Models\Data\ContentDataModel.cs" />
     <Compile Include="Models\Data\FeatureDataModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\Data\NewsDataModel.cs" />
@@ -165,7 +167,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Feature\Index.cshtml" />
     <Content Include="Views\Feature\Feature.cshtml" />
-    <Content Include="Views\Home\DisplayTemplates\NewsDataModel.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\ContentDataModel.cshtml" />
+    <Content Include="Views\Home\ContentGroupTri.cshtml" />
+    <Content Include="Views\Home\ContentGroupOct.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

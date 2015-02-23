@@ -15,12 +15,11 @@ namespace helloserve.com.Shedding.Entities
     public partial class ScheduleCalendar
     {
         public int Id { get; set; }
-        public System.DateTime Date { get; set; }
         public int AreaId { get; set; }
         public int SheddingStageId { get; set; }
         public Nullable<int> ScheduleId { get; set; }
-        public decimal StartTime { get; set; }
-        public decimal EndTime { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public System.DateTime EndTime { get; set; }
     
         public virtual Area Area { get; set; }
         public virtual Schedule Schedule { get; set; }

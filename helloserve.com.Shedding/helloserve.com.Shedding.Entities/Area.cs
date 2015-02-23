@@ -17,8 +17,8 @@ namespace helloserve.com.Shedding.Entities
         public Area()
         {
             this.Schedules = new HashSet<Schedule>();
-            this.ScheduleCalendars = new HashSet<ScheduleCalendar>();
             this.UserAreas = new HashSet<UserArea>();
+            this.ScheduleCalendars = new HashSet<ScheduleCalendar>();
         }
     
         public int Id { get; set; }
@@ -28,7 +28,7 @@ namespace helloserve.com.Shedding.Entities
     
         public virtual Authority Authority { get; set; }
         public virtual ICollection<Schedule> Schedules { get; set; }
-        public virtual ICollection<ScheduleCalendar> ScheduleCalendars { get; set; }
         public virtual ICollection<UserArea> UserAreas { get; set; }
+        public virtual ICollection<ScheduleCalendar> ScheduleCalendars { get; set; }
     }
 }

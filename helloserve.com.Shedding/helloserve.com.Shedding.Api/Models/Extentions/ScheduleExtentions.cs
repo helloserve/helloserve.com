@@ -32,8 +32,29 @@ namespace helloserve.com.Shedding.Api.Models
             return new ScheduleDetail()
             {
                 AreaId = model.AreaId,
-                IsCurrentlyShedding = model.IsShedding
+                StageId = model.StageId,
+                IsCurrentlyShedding = model.IsShedding,
+                CurrentShedding = model.IsShedding ? model.Calendar.SingleOrDefault(c=>c.StartTime <= DateTime.UtcNow && c.EndTime >= DateTime.UtcNow).AsDetail(model.AreaId, model.StageId) : null,
+                FutureShedding = model.Calendar.Where(c=>c.StartTime > DateTime.UtcNow).ToList().ToDetailList(model.AreaId, model.StageId)
             };
+        }
+
+        public static SheddingDetail AsDetail(this ScheduleCalendarModel model, int areaId, int stageId)
+        {
+            return new SheddingDetail()
+            {
+                AreaId = areaId,
+                StageId = stageId,
+                StartTime = model.StartTime,
+                StopTime = model.EndTime
+            };
+        }
+
+        public static List<SheddingDetail> ToDetailList(this List<ScheduleCalendarModel> list, int areaId, int stageId)
+        {
+            List<SheddingDetail> detailList = new List<SheddingDetail>();
+            list.ForEach(l => { detailList.Add(l.AsDetail(areaId, stageId)); });
+            return detailList;
         }
     }
 }

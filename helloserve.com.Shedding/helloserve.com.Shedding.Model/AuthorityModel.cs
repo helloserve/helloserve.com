@@ -73,6 +73,12 @@ namespace helloserve.com.Shedding.Model
 
         }
 
+        public virtual List<ScheduleCalendar> GetSchedule(int areaId, int stageId)
+        {
+            ScheduleRepository repo = new ScheduleRepository();
+            return repo.GetScheduleCalendarTimes(areaId, stageId).ToList();
+        }
+
         public virtual void Initialize(Entities.Authority entity)
         {
         }

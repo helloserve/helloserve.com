@@ -295,3 +295,22 @@ textarea {
         border-radius: 0px;
     }
 }
+
+/* font-page blocks */
+.content-container {
+	padding:5px;
+}
+
+.content-block {
+	display:inline-block;
+	padding:10px;
+	background-color:white;
+	color:black;
+	box-shadow:5px 5px 2px rgba(0, 0, 0, 0.2);
+	width:100%;
+}
+
+.content-hr {
+	margin:10px 5px;
+	border-top:1px solid black;
+}

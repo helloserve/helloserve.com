@@ -28,10 +28,10 @@ namespace helloserve.com.Shedding.Entities
         public virtual DbSet<Area> Areas { get; set; }
         public virtual DbSet<Authority> Authorities { get; set; }
         public virtual DbSet<Schedule> Schedules { get; set; }
-        public virtual DbSet<ScheduleCalendar> ScheduleCalendars { get; set; }
         public virtual DbSet<SheddingStage> SheddingStages { get; set; }
         public virtual DbSet<UserArea> UserAreas { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserPushRegistration> UserPushRegistrations { get; set; }
+        public virtual DbSet<ScheduleCalendar> ScheduleCalendars { get; set; }
     }
 }

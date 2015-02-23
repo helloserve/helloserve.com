@@ -5,22 +5,20 @@ using System.Web;
 
 namespace helloserve.com.Web.Models.Data
 {
-    public class NewsDataModel
+    public class NewsDataModel : ContentDataModel
     {
         public int NewsId { get; set; }
         public int? FeatureId { get; set; }
-        public string Title { get; set; }
-        public string Cut { get; set; }
-        public string Content { get; set; }
-        public DateTime CreatedDate { get; set; }
 
         public string HeaderImageUrl { get; set; }
 
-        public static List<NewsDataModel> MockList
+        public static CollectionViewModel MockList
         {
             get
             {
-                return new List<NewsDataModel>()
+                return new CollectionViewModel()
+                {
+                    ListItems = new List<ContentDataModel>()
                 {
                     new NewsDataModel() {
                         NewsId = 1,
@@ -47,6 +45,7 @@ namespace helloserve.com.Web.Models.Data
                         CreatedDate = new DateTime(2015, 2, 14, 15, 5, 0),
                         HeaderImageUrl = "http://www.helloserve.com/Media/75/construction.jpg"
                     },
+                }
                 };
             }
         }

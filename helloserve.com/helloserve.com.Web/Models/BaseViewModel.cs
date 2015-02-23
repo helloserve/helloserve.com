@@ -8,7 +8,7 @@ namespace helloserve.com.Web.Models
 {
     public class BaseViewModel
     {
-        public List<FeatureDataModel> Features { get; set; }
+        public CollectionViewModel Features { get; set; }
 
         public BaseViewModel()
         {

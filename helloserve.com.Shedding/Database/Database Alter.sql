@@ -54,4 +54,30 @@ END
 GO
 
 
-IF EXISTS (SELECT * FROM 
+IF EXISTS (SELECT * FROM sys.columns where Name = 'StartTime' AND object_id = OBJECT_ID(N'ScheduleCalendar') AND user_type_id = TYPE_ID(N'decimal'))
+BEGIN
+	ALTER TABLE ScheduleCalendar
+	ALTER COLUMN StartTime DATETIME NOT NULL
+END
+GO
+
+IF EXISTS (SELECT * FROM sys.columns where Name = 'EndTime' AND object_id = OBJECT_ID(N'ScheduleCalendar') AND user_type_id = TYPE_ID(N'decimal'))
+BEGIN
+	ALTER TABLE ScheduleCalendar
+	ALTER COLUMN EndTime DATETIME NOT NULL
+END
+GO
+
+IF EXISTS (SELECT * FROM sys.columns where Name = 'Date' AND object_id = OBJECT_ID(N'ScheduleCalendar'))
+BEGIN
+	ALTER TABLE ScheduleCalendar
+	DROP COLUMN Date
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes where Name = 'IX_ScheduleCalendar_StartTime')
+BEGIN
+	CREATE NONCLUSTERED INDEX IX_ScheduleCalendar_StartTime ON ScheduleCalendar (StartTime ASC)
+
+END
+GO
