@@ -95,6 +95,9 @@
     <Compile Include="UserArea.cs">
       <DependentUpon>LoadShed.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserPushRegistration.cs">
+      <DependentUpon>LoadShed.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,8 @@
         <AssociationConnector Association="TestModel.FK_ScheduleCalendar_SheddingStage" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TestModel.User" Width="1.5" PointX="0.75" PointY="6.875" />
         <AssociationConnector Association="TestModel.FK_UserArea_User" />
+        <EntityTypeShape EntityType="TestModel.UserPushRegistration" Width="1.5" PointX="3" PointY="7.125" />
+        <AssociationConnector Association="TestModel.FK_UserPushRegistration_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -733,7 +733,7 @@
             The period lead time (in minutes) for notification. If this value is omitted (null), the user will be notified at the time the event occurs.
             </summary>
         </member>
-        <member name="P:helloserve.com.Shedding.Api.Models.UserDetail.PushNotificationId">
+        <member name="P:helloserve.com.Shedding.Api.Models.UserDetail.PushRegistrationId">
             <summary>
             The unqiue platform identifiation string for notification services (APN, GNS etc)
             </summary>

@@ -13,7 +13,7 @@ namespace helloserve.com.Shedding.Entities
             return Db.Users.SingleOrDefault(u => u.UniqueNumber == uniqueNumber);
         }
 
-        public User Add(string uniqueNumber, int? notificationPeriod, string pushNotificationId)
+        public User Add(string uniqueNumber, int? notificationPeriod)
         {
             User user = Db.Users.SingleOrDefault(u => u.UniqueNumber == uniqueNumber);
             if (user != null)
@@ -22,24 +22,23 @@ namespace helloserve.com.Shedding.Entities
             user = Db.Users.Add(new User());
             user.CreatedDate = DateTime.UtcNow;
 
-            return Save(user, uniqueNumber, notificationPeriod, pushNotificationId);
+            return Save(user, uniqueNumber, notificationPeriod);
         }
 
-        public User Update(int id, string uniqueNumber, int? notificationPeriod, string pushNotificationId)
+        public User Update(int id, string uniqueNumber, int? notificationPeriod)
         {
             User user = Get(uniqueNumber);
 
             if (user == null)
                 return null;
 
-            return Save(user, uniqueNumber, notificationPeriod, pushNotificationId);
+            return Save(user, uniqueNumber, notificationPeriod);
         }
 
-        private User Save(User user, string uniqueNumber, int? notificationPeriod, string pushNotificationId)
+        private User Save(User user, string uniqueNumber, int? notificationPeriod)
         {
             user.UniqueNumber = uniqueNumber;
             user.NotificationPeriod = notificationPeriod;
-            user.PushNotificationId = pushNotificationId;
 
             Db.SaveChanges();
 
@@ -51,6 +50,22 @@ namespace helloserve.com.Shedding.Entities
             User user = Db.Users.Single(u => u.Id == userId);
             Db.Users.Remove(user);
             Db.SaveChanges();
+        }
+
+        public void AddPushRegistrationId(int userId, string registrationId)
+        {
+            UserPushRegistration registration = Db.UserPushRegistrations.SingleOrDefault(u => u.UserId == userId && u.PushRegistrationId == registrationId);
+            if (registration == null)
+            {
+                registration = new UserPushRegistration()
+                {
+                    UserId = userId,
+                    PushRegistrationId = registrationId
+                };
+
+                Db.UserPushRegistrations.Add(registration);
+                Db.SaveChanges();
+            }
         }
     }
 }

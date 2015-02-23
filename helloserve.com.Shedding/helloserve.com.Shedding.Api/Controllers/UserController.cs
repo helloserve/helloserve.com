@@ -39,7 +39,7 @@ namespace helloserve.com.Shedding.Api.Controllers
 
             try
             {
-                UserModel user = UserModel.Create(uniqueNumber, data.NotificationPeriod, data.PushNotificationId);
+                data.Create(ShedSession.GetSession(Request.Headers), uniqueNumber);
             }
             catch (InvalidOperationException)
             {
@@ -69,8 +69,7 @@ namespace helloserve.com.Shedding.Api.Controllers
 
             try
             {
-                ShedSession session = ShedSession.GetSession(Request.Headers);
-                data.Update(session);
+                data.Update(ShedSession.GetSession(Request.Headers));
             }
             catch (Exception ex)
             {

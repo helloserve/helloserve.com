@@ -32,5 +32,6 @@ namespace helloserve.com.Shedding.Entities
         public virtual DbSet<SheddingStage> SheddingStages { get; set; }
         public virtual DbSet<UserArea> UserAreas { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserPushRegistration> UserPushRegistrations { get; set; }
     }
 }

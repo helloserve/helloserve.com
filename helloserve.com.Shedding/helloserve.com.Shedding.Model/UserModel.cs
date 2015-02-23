@@ -12,16 +12,17 @@ namespace helloserve.com.Shedding.Model
         public int Id;
         public string UniqueNumber;
         public int? NotificationPeriod;
-        public string PushNotificationId;
 
-        public static UserModel Create(string uniqueNumber, int? notificationPeriod, string pushNotificationId)
+        public static UserModel Create(string uniqueNumber, int? notificationPeriod, string pushRegistrationId)
         {
             UserRepository repo = new UserRepository();
-            User entity = repo.Add(uniqueNumber, notificationPeriod, pushNotificationId);
+            User entity = repo.Add(uniqueNumber, notificationPeriod);
             if (entity == null)
                 throw new InvalidOperationException();
 
-            return entity.AsModel();
+            UserModel model = entity.AsModel();            
+            model.SetPushRegistrationId(pushRegistrationId);
+            return model;
         }
 
         public static UserModel Get(string phoneNumber)
@@ -31,10 +32,13 @@ namespace helloserve.com.Shedding.Model
             return entity.AsModel();
         }
 
-        public void Update()
+        public void Update(int? notificationPeriod, string pushRegistrationId)
         {
+            NotificationPeriod = notificationPeriod;
             UserRepository repo = new UserRepository();
-            User entity = repo.Update(Id, UniqueNumber, NotificationPeriod, PushNotificationId);
+            User entity = repo.Update(Id, UniqueNumber, NotificationPeriod);
+
+            SetPushRegistrationId(pushRegistrationId);
         }
 
         public void Delete()
@@ -44,6 +48,15 @@ namespace helloserve.com.Shedding.Model
 
             UserRepository userRepo = new UserRepository();
             userRepo.Delete(Id);
+        }
+
+        public void SetPushRegistrationId(string registrationId)
+        {
+            if (string.IsNullOrEmpty(registrationId))
+                return;
+
+            UserRepository userRepo = new UserRepository();
+            userRepo.AddPushRegistrationId(Id, registrationId);
         }
     }
 }

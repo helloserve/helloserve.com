@@ -63,7 +63,6 @@
           <Property Name="UniqueNumber" Type="nvarchar(max)" />
           <Property Name="NotificationPeriod" Type="int" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="PushNotificationId" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="UserArea">
           <Key>
@@ -72,6 +71,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="AreaId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPushRegistration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="PushRegistrationId" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK_Area_Authority">
           <End Role="Authority" Type="Self.Authority" Multiplicity="0..1" />
@@ -169,6 +176,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserPushRegistration_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserPushRegistration" Type="Self.UserPushRegistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPushRegistration">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TestModelStoreContainer">
           <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Authority" EntityType="Self.Authority" Schema="dbo" store:Type="Tables" />
@@ -177,6 +196,7 @@
           <EntitySet Name="SheddingStage" EntityType="Self.SheddingStage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserArea" EntityType="Self.UserArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPushRegistration" EntityType="Self.UserPushRegistration" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Area_Authority" Association="Self.FK_Area_Authority">
             <End Role="Authority" EntitySet="Authority" />
             <End Role="Area" EntitySet="Area" />
@@ -208,6 +228,10 @@
           <AssociationSet Name="FK_UserArea_User" Association="Self.FK_UserArea_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserArea" EntitySet="UserArea" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPushRegistration_User" Association="Self.FK_UserPushRegistration_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserPushRegistration" EntitySet="UserPushRegistration" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -411,6 +435,11 @@
             <End Role="User" EntitySet="Users" />
             <End Role="UserArea" EntitySet="UserAreas" />
           </AssociationSet>
+          <EntitySet Name="UserPushRegistrations" EntityType="TestModel.UserPushRegistration" />
+          <AssociationSet Name="FK_UserPushRegistration_User" Association="TestModel.FK_UserPushRegistration_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPushRegistration" EntitySet="UserPushRegistrations" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -420,8 +449,8 @@
           <Property Name="UniqueNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NotificationPeriod" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PushNotificationId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserAreas" Relationship="TestModel.FK_UserArea_User" FromRole="User" ToRole="UserArea" />
+          <NavigationProperty Name="UserPushRegistrations" Relationship="TestModel.FK_UserPushRegistration_User" FromRole="User" ToRole="UserPushRegistration" />
         </EntityType>
         <Association Name="FK_UserArea_User">
           <End Type="TestModel.User" Role="User" Multiplicity="1" />
@@ -431,6 +460,27 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="UserArea">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserPushRegistration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="PushRegistrationId" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="TestModel.FK_UserPushRegistration_User" FromRole="UserPushRegistration" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_UserPushRegistration_User">
+          <End Type="TestModel.User" Role="User" Multiplicity="1" />
+          <End Type="TestModel.UserPushRegistration" Role="UserPushRegistration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserPushRegistration">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -508,10 +558,18 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TestModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="PushNotificationId" ColumnName="PushNotificationId" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="NotificationPeriod" ColumnName="NotificationPeriod" />
                 <ScalarProperty Name="UniqueNumber" ColumnName="UniqueNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPushRegistrations">
+            <EntityTypeMapping TypeName="TestModel.UserPushRegistration">
+              <MappingFragment StoreEntitySet="UserPushRegistration">
+                <ScalarProperty Name="PushRegistrationId" ColumnName="PushRegistrationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

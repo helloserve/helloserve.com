@@ -14,8 +14,7 @@ namespace helloserve.com.Shedding.Model
             {
                 Id = entity.Id,
                 UniqueNumber = entity.UniqueNumber,
-                NotificationPeriod = entity.NotificationPeriod,
-                PushNotificationId = entity.PushNotificationId
+                NotificationPeriod = entity.NotificationPeriod
             };
         }
     }

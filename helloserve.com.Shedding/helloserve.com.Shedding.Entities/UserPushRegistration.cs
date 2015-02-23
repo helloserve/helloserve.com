@@ -12,20 +12,12 @@ namespace helloserve.com.Shedding.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class UserPushRegistration
     {
-        public User()
-        {
-            this.UserAreas = new HashSet<UserArea>();
-            this.UserPushRegistrations = new HashSet<UserPushRegistration>();
-        }
-    
         public int Id { get; set; }
-        public string UniqueNumber { get; set; }
-        public Nullable<int> NotificationPeriod { get; set; }
-        public System.DateTime CreatedDate { get; set; }
+        public int UserId { get; set; }
+        public string PushRegistrationId { get; set; }
     
-        public virtual ICollection<UserArea> UserAreas { get; set; }
-        public virtual ICollection<UserPushRegistration> UserPushRegistrations { get; set; }
+        public virtual User User { get; set; }
     }
 }
