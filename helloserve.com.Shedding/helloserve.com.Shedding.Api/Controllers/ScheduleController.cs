@@ -78,10 +78,10 @@ namespace helloserve.com.Shedding.Api.Controllers
         }
 
         /// <summary>
-        /// Retrieve the schedule data for a specific area.
+        /// Retrieve the schedule data for a specific area for the prevailing load shedding stage.
         /// </summary>
         /// <param name="area">The area id.</param>
-        /// <returns>Object detailing related schedule values.</returns>
+        /// <returns>Object detailing related schedule values; 405 - User not linked to requested area.</returns>
         [SessionFilter]
         [Route("{area:int}")]
         public ScheduleDetail Get(int area)
@@ -89,6 +89,11 @@ namespace helloserve.com.Shedding.Api.Controllers
             try
             {
                 return ScheduleModel.GetSchedule(Session.User.Id, area, null).AsDetail();
+            }
+            catch (InvalidOperationException ioex)
+            {
+                _log.Error(string.Format("Invalid Op - user {0} not linked to area area {1}, prevailing stage ", Session.User.Id, area), ioex);
+                throw new HttpResponseException(new HttpResponseMessage(System.Net.HttpStatusCode.MethodNotAllowed));
             }
             catch (Exception ex)
             {
@@ -98,11 +103,11 @@ namespace helloserve.com.Shedding.Api.Controllers
         }
 
         /// <summary>
-        /// Retrieve the schedule data for a specific area, for a specific stage.
+        /// Retrieve the schedule data for a specific area, for a specific load shedding stage.
         /// </summary>
         /// <param name="area">The area id.</param>
         /// <param name="stage">The stage id to view schedule data for a different stage than what is currently in effect.</param>
-        /// <returns>Object detailing related schedule values.</returns>
+        /// <returns>Object detailing related schedule values; 405 - User not linked to requested area.</returns>
         [SessionFilter]
         [Route("{area:int}/{stage:int}")]
         public ScheduleDetail Get(int area, int stage)
@@ -110,6 +115,11 @@ namespace helloserve.com.Shedding.Api.Controllers
             try
             {
                 return ScheduleModel.GetSchedule(Session.User.Id, area, stage).AsDetail();
+            }
+            catch (InvalidOperationException ioex)
+            {
+                _log.Error(string.Format("Invalid Op - user {0} not linked to area area {1}, stage {2}", Session.User.Id, area, stage), ioex);
+                throw new HttpResponseException(new HttpResponseMessage(System.Net.HttpStatusCode.MethodNotAllowed));
             }
             catch (Exception ex)
             {

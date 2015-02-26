@@ -25,7 +25,7 @@ namespace helloserve.com.Shedding.Model
         {
             ListRepository repo = new ListRepository();
             AuthorityModel authority = repo.GetAuthority(authorityId).AsAuthorityModel();
-            _log.Info(string.Format("Instantiating authority as '{0}'", authority.GetType().FullName)); 
+            _log.Info(string.Format("Instantiating authority as '{0}'", authority.GetType().FullName));
             return authority;
         }
 
@@ -75,6 +75,9 @@ namespace helloserve.com.Shedding.Model
 
         public virtual List<ScheduleCalendar> GetSchedule(int areaId, int stageId)
         {
+            if (stageId == 0)
+                return new List<ScheduleCalendar>();
+
             ScheduleRepository repo = new ScheduleRepository();
             return repo.GetScheduleCalendarTimes(areaId, stageId).ToList();
         }

@@ -32,7 +32,7 @@ namespace helloserve.com.Shedding.Model
             {
                 stageId = (int?)Cache.ModelCache.Get("EskomStage");
 
-                if (!stageId.HasValue)
+                if (!stageId.HasValue || stageId == 0)
                 {
                     SheddingStage? currentStage = authority.GetCurrentStage();
                     if (currentStage == null)

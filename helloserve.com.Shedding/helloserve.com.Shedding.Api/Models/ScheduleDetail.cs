@@ -27,7 +27,7 @@ namespace helloserve.com.Shedding.Api.Models
         /// </summary>
         public SheddingDetail CurrentShedding { get; set; }
         /// <summary>
-        /// A ascending list of future scheduled shedding on the selected(or currently in effect) stage.
+        /// A ascending list of future scheduled shedding on the selected (or currently in effect) stage.
         /// </summary>
         public List<SheddingDetail> FutureShedding { get; set; }
     }

@@ -61,13 +61,16 @@ namespace helloserve.com.Shedding.Model
         {
             AreaModel area = AreaModel.Get(areaId);
 
-            StageModel stage = StageModel.Get(stageId);
-            string stageCode = stage.Name.Replace(" ", "");
+            if (stageId > 0)
+            {
+                StageModel stage = StageModel.Get(stageId);
+                string stageCode = stage.Name.Replace(" ", "");
 
-            ScheduleItem[] schedules = GetScheduleFor(area.Code, stageCode);
+                ScheduleItem[] schedules = GetScheduleFor(area.Code, stageCode);
 
-            ScheduleRepository repo = new ScheduleRepository();
-            repo.SaveScheduleCalendarTimes(schedules.Select(s => s.AsScheduleCalendar(areaId, stageId)).ToList());            
+                ScheduleRepository repo = new ScheduleRepository();
+                repo.SaveScheduleCalendarTimes(schedules.Select(s => s.AsScheduleCalendar(areaId, stageId)).ToList());
+            }
         }
 
         private ScheduleItem[] GetScheduleFor(string areacode, string stagecode)
