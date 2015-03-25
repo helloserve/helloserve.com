@@ -7,71 +7,48 @@
     <title>@ViewBag.Title - helloserve Productions</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
     <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    <header role="banner" class="header">
+        <div class="level">
+            <div class="header-title">helloserve</div>
+            <div class="header-nav">
+                <nav>
+                    <ul class="nav-list">
+                        <li>ABOUT</li>
+                        <li>PROJECTS</li>
+                        <li>SERVICES</li>
+                        <li>BLOG</li>
                     </ul>
-                </div>
-            </div>
-        </div>*@
-    <div class="body-content">
-        <div class="page">
-            <div style="display:block; vertical-align:middle;">
-                <div style="display:inline-block; vertical-align:middle"><img src="" width="70px" height="70px" /></div>
-                <div style="display:inline-block; vertical-align:middle"><h1>helloserve.com</h1></div>
-            </div>
-            @RenderBody()
-            <div class="sideBar">
-                <div style="padding:2.5px;">
-                    <div class="feature-static">
-                        <a href="@(ViewBag.BaseUrl)">
-                            <div class="image-static"></div>
-                        </a>
-                        <div class="heading-static">                            
-                            <div class="heading" style="width:31%">@Html.ActionLink("News", "News", "Home")</div>
-                            <div class="heading" style="width:31%">@Html.ActionLink("Blogs", "Blogs", "Home")</div>
-                            <div class="heading" style="width:31%">@Html.ActionLink("Forums", "Index", "Forum")</div>
-                        </div>
-                    </div>
-                </div>
-                @foreach (helloserve.com.Web.Models.Data.FeatureDataModel feature in Model.Features.ListItems)
-                {
-                    <div style="padding:2.5px;">
-                        <a href="@(ViewBag.BaseUrl)Feature/@feature.GetUrlName">
-                            <div class="feature">
-                                <div class="image" @if (!string.IsNullOrEmpty(feature.ImageUrl)) { <text> style="background-image:url(@feature.ImageUrl)" </text>     }></div>
-                                <div class="heading-overlay">
-                                    <div class="heading">
-                                        @feature.Title
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                }
+                </nav>
             </div>
         </div>
-        <footer>
-            <div style="float:right; display:inline-block;">&copy; @DateTime.Now.Year - helloserve Productions</div>
-        </footer>
+    </header>
+    <div class="body-content">
+        <div class="preamble">
+             @RenderSection("preamble", required: false)
+        </div>
+        <div class="content">
+            @RenderBody()
+            <footer class="footer">
+                <div class="level">
+                    <div class="footer-title">&copy; @DateTime.Now.Year - helloserve</div>
+                    <div class="footer-nav">
+                        <nav class="footer-nav">
+                            <ul class="nav-list">
+                                <li>G+</li>
+                                <li>in</li>
+                                <li>T</li>
+                                <li>F</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
 </html>

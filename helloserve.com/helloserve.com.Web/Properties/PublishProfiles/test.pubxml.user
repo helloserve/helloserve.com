@@ -13,13 +13,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/29/2015 15:13:10</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>02/10/2015 10:41:26</publishTime>
+      <publishTime>03/25/2015 15:34:03</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>02/10/2015 10:41:26</publishTime>
+      <publishTime>03/25/2015 15:34:03</publishTime>
     </File>
     <File Include="bin/helloserve.com.Web.dll">
-      <publishTime>02/10/2015 10:41:23</publishTime>
+      <publishTime>03/25/2015 15:34:01</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>01/29/2015 15:13:10</publishTime>
@@ -60,8 +60,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/WebGrease.dll">
       <publishTime>01/29/2015 15:13:10</publishTime>
     </File>
+    <File Include="Content/images/placeholder-200x150.png">
+      <publishTime>02/10/2015 11:01:49</publishTime>
+    </File>
+    <File Include="Content/quill.base.css">
+      <publishTime>02/27/2015 08:27:39</publishTime>
+    </File>
+    <File Include="Content/quill.snow.css">
+      <publishTime>02/27/2015 08:27:39</publishTime>
+    </File>
     <File Include="Content/Site.css">
-      <publishTime>02/10/2015 10:39:32</publishTime>
+      <publishTime>03/25/2015 15:23:58</publishTime>
+    </File>
+    <File Include="Content/StyleSheet_Sidebar.css">
+      <publishTime>03/25/2015 07:45:02</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>01/29/2015 15:13:05</publishTime>
@@ -82,7 +94,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/29/2015 15:13:11</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>02/10/2015 10:41:24</publishTime>
+      <publishTime>03/25/2015 15:34:01</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.js">
       <publishTime>01/29/2015 15:13:08</publishTime>
@@ -108,8 +120,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>01/29/2015 15:13:10</publishTime>
     </File>
+    <File Include="Scripts/quill.js">
+      <publishTime>02/27/2015 08:27:30</publishTime>
+    </File>
+    <File Include="Scripts/quill.min.js">
+      <publishTime>02/27/2015 08:27:30</publishTime>
+    </File>
     <File Include="Scripts/_references.js">
-      <publishTime>01/29/2015 18:02:35</publishTime>
+      <publishTime>02/27/2015 08:27:30</publishTime>
+    </File>
+    <File Include="Views/Admin/Index.cshtml">
+      <publishTime>02/27/2015 08:38:42</publishTime>
+    </File>
+    <File Include="Views/Feature/Feature.cshtml">
+      <publishTime>02/27/2015 07:24:37</publishTime>
+    </File>
+    <File Include="Views/Feature/Index.cshtml">
+      <publishTime>02/13/2015 13:07:02</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>01/29/2015 15:13:05</publishTime>
@@ -117,14 +144,32 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>01/29/2015 15:13:05</publishTime>
     </File>
+    <File Include="Views/Home/ContentGroup.cshtml">
+      <publishTime>03/25/2015 15:30:18</publishTime>
+    </File>
+    <File Include="Views/Home/ContentGroupOct.cshtml">
+      <publishTime>02/17/2015 11:23:23</publishTime>
+    </File>
+    <File Include="Views/Home/ContentGroupTri.cshtml">
+      <publishTime>02/17/2015 11:21:41</publishTime>
+    </File>
+    <File Include="Views/Home/DisplayTemplates/ContentDataModel.cshtml">
+      <publishTime>03/25/2015 14:38:25</publishTime>
+    </File>
+    <File Include="Views/Home/DisplayTemplates/NewsDataModel.cshtml">
+      <publishTime>03/25/2015 14:38:03</publishTime>
+    </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>02/04/2015 08:29:56</publishTime>
+      <publishTime>03/25/2015 14:54:14</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>01/29/2015 15:13:05</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>02/10/2015 10:30:41</publishTime>
+      <publishTime>03/25/2015 14:55:01</publishTime>
+    </File>
+    <File Include="Views/Shared/_LayoutAdmin.cshtml">
+      <publishTime>02/27/2015 08:28:27</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>01/29/2015 15:13:05</publishTime>

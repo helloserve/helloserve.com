@@ -7,12 +7,13 @@ namespace helloserve.com.Web.Models.Data
 {
     public class FeatureDataModel : ContentDataModel
     {
-        public string FeatureId;
+        public int FeatureId;
         public string Blurp;
         public string ImageUrl;
 
-        public string GetUrlName {
-            get { return Title.Replace(" ", "-").Substring(0, Math.Min(150, Title.Length)).Trim(); }
+        public override bool IsId(int id)
+        {
+            return base.IsId(id) || (FeatureId == id);
         }
 
         public static CollectionViewModel MockList
@@ -23,13 +24,16 @@ namespace helloserve.com.Web.Models.Data
                 {
                     ListItems = new List<ContentDataModel>() {
                     new FeatureDataModel() {
+                        FeatureId = 1,
                         Title = "Main Feature",
                         Cut = "Blah Blah Blah",
                         CreatedDate = DateTime.Today,
                         Blurp = "The main feature as selected by the editor. This feature doesn't necessarily have higher precendence.",
+                        Content = "Main Content!",
                         ImageUrl = "http://www.helloserve.com/Thumb/71/Stingray_FeatureHeader.png"
                     },
                     new FeatureDataModel() {
+                        FeatureId = 2,
                         Title = "Secondary Feature",
                         Cut = "Blah Blah Blah Blah Blah",
                         CreatedDate = DateTime.Today,
@@ -37,6 +41,7 @@ namespace helloserve.com.Web.Models.Data
                         ImageUrl = "http://www.helloserve.com/Thumb/79/BadaChing_FeatureHeader.png"
                     },
                     new FeatureDataModel() {
+                        FeatureId = 3,
                         Title = "Third Feature",
                         Cut = "Blah Blah Blah",
                         CreatedDate = DateTime.Today,
@@ -44,6 +49,7 @@ namespace helloserve.com.Web.Models.Data
                         ImageUrl = "http://www.helloserve.com/Thumb/15/html5_FeatureHeader.jpg"
                     },
                     new FeatureDataModel() {
+                        FeatureId = 4,
                         Title = "Feature Four",
                         Cut = "Blah Blah Blah",
                         CreatedDate = DateTime.Today,
@@ -51,6 +57,7 @@ namespace helloserve.com.Web.Models.Data
                         ImageUrl = "http://www.helloserve.com/Thumb/11/LudumDare_FeatureHeader.png"
                     },
                     new FeatureDataModel() {
+                        FeatureId = 5,
                         Title = "The Fifth Element",
                         Cut = "So So So So So So So So",
                         CreatedDate = DateTime.Today,

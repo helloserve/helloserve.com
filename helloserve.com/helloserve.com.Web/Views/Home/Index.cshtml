@@ -4,21 +4,11 @@
     ViewBag.Title = "Home";
 }
 
-<div class="content">
-    <div class="row">
-        <div>
-            <h2>News</h2>
-            @Html.Partial("ContentGroupTri", Model.NewsItems)
-        </div>
-        <div>
-            <h2>Blogs</h2>
-            <div>
-
-            </div>
-        </div>
-        <div>
-            <h2>Features</h2>
-            @Html.Partial("ContentGroupOct", Model.Features)
-        </div>       
+@section preamble{
+    <div style="padding-top:5.5em; padding-bottom:2em; text-align:center">
+        A short section to describe the site
     </div>
-</div>
+}
+
+@Html.DisplayFor(m => m.NewsItem)
+@Html.Partial("ContentGroup", Model.Features)

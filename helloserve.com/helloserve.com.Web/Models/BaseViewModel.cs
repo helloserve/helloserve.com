@@ -10,7 +10,7 @@ namespace helloserve.com.Web.Models
     {
         public CollectionViewModel Features { get; set; }
 
-        public BaseViewModel()
+        public virtual void Load()
         {
             Features = FeatureDataModel.MockList;
         }

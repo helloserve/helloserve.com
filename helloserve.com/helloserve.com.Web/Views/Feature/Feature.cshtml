@@ -1,14 +1,12 @@
-﻿@model helloserve.com.Web.Models.BaseViewModel
+﻿@model helloserve.com.Web.Models.Data.FeatureDataModel
 @{
-    ViewBag.Title = "Feature Name";
+    ViewBag.Title = Model.Title;
 }
 
-<h2>Feature Name</h2>
+<h2>@Model.Title</h2>
 
 <div>
-    <p>Feature Description</p>
-
     <div>
-        @Html.Raw("Extended Description")
+        @Html.Raw(Model.Content)
     </div>
 </div>

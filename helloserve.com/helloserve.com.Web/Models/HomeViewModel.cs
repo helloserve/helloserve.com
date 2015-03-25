@@ -8,11 +8,12 @@ namespace helloserve.com.Web.Models
 {
     public class HomeViewModel : BaseViewModel
     {
-        public CollectionViewModel NewsItems { get; set; }        
+        public ContentDataModel NewsItem { get; set; }
 
-        public HomeViewModel()
+        public override void Load()
         {
-            NewsItems = NewsDataModel.MockList;
+            base.Load();
+            NewsItem = NewsDataModel.MockList.ListItems.FirstOrDefault();
         }
     }
 }
