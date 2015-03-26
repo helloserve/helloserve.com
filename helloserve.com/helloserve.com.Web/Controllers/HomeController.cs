@@ -15,5 +15,10 @@ namespace helloserve.com.Web.Controllers
             model.Load();
             return View(model);
         }
+
+        public ActionResult About()
+        {
+            return View();
+        }
     }
 }

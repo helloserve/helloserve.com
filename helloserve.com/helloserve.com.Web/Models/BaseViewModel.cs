@@ -8,11 +8,9 @@ namespace helloserve.com.Web.Models
 {
     public class BaseViewModel
     {
-        public CollectionViewModel Features { get; set; }
-
         public virtual void Load()
         {
-            Features = FeatureDataModel.MockList;
+
         }
     }
 }

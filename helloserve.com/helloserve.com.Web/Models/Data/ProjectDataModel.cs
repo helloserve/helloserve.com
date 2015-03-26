@@ -5,7 +5,7 @@ using System.Web;
 
 namespace helloserve.com.Web.Models.Data
 {
-    public class FeatureDataModel : ContentDataModel
+    public class ProjectDataModel : ContentDataModel
     {
         public int FeatureId;
         public string Blurp;
@@ -23,7 +23,7 @@ namespace helloserve.com.Web.Models.Data
                 return new CollectionViewModel()
                 {
                     ListItems = new List<ContentDataModel>() {
-                    new FeatureDataModel() {
+                    new ProjectDataModel() {
                         FeatureId = 1,
                         Title = "Main Feature",
                         Cut = "Blah Blah Blah",
@@ -32,7 +32,7 @@ namespace helloserve.com.Web.Models.Data
                         Content = "Main Content!",
                         ImageUrl = "http://www.helloserve.com/Thumb/71/Stingray_FeatureHeader.png"
                     },
-                    new FeatureDataModel() {
+                    new ProjectDataModel() {
                         FeatureId = 2,
                         Title = "Secondary Feature",
                         Cut = "Blah Blah Blah Blah Blah",
@@ -40,7 +40,7 @@ namespace helloserve.com.Web.Models.Data
                         Blurp = "The next in line of the main position.",
                         ImageUrl = "http://www.helloserve.com/Thumb/79/BadaChing_FeatureHeader.png"
                     },
-                    new FeatureDataModel() {
+                    new ProjectDataModel() {
                         FeatureId = 3,
                         Title = "Third Feature",
                         Cut = "Blah Blah Blah",
@@ -48,7 +48,7 @@ namespace helloserve.com.Web.Models.Data
                         Blurp = "Some random stuff, nothing to get excited about.",
                         ImageUrl = "http://www.helloserve.com/Thumb/15/html5_FeatureHeader.jpg"
                     },
-                    new FeatureDataModel() {
+                    new ProjectDataModel() {
                         FeatureId = 4,
                         Title = "Feature Four",
                         Cut = "Blah Blah Blah",
@@ -56,7 +56,7 @@ namespace helloserve.com.Web.Models.Data
                         Blurp = "Another project that's probably just dead, or never was to begin with.",
                         ImageUrl = "http://www.helloserve.com/Thumb/11/LudumDare_FeatureHeader.png"
                     },
-                    new FeatureDataModel() {
+                    new ProjectDataModel() {
                         FeatureId = 5,
                         Title = "The Fifth Element",
                         Cut = "So So So So So So So So",

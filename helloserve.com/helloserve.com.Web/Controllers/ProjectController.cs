@@ -8,13 +8,17 @@ using System.Web.Mvc;
 
 namespace helloserve.com.Web.Controllers
 {
-    public class FeatureController : BaseController
+    public class ProjectController : BaseController
     {
         // GET: Feature
         public ActionResult Index(string id)
         {
             if (string.IsNullOrEmpty(id))
-                return View(new BaseViewModel());
+            {
+                ProjectsViewModel model = new ProjectsViewModel();
+                model.Load();
+                return View(model);
+            }
             else
             {
                 int idValue;
@@ -27,28 +31,28 @@ namespace helloserve.com.Web.Controllers
 
         private ActionResult ById(int id)
         {
-            BaseViewModel baseModel = new BaseViewModel();
+            ProjectsViewModel baseModel = new ProjectsViewModel();
             baseModel.Load();
 
-            FeatureDataModel model = baseModel.Features.GetById(id) as FeatureDataModel;            
+            ProjectDataModel model = baseModel.Projects.GetById(id) as ProjectDataModel;            
             if (model == null)
-                model = new FeatureDataModel();
+                model = new ProjectDataModel();
             model.Load();
 
-            return View("Feature", model);
+            return View("Project", model);
         }
 
         private ActionResult ByName(string name)
         {
-            BaseViewModel baseModel = new BaseViewModel();
+            ProjectsViewModel baseModel = new ProjectsViewModel();
             baseModel.Load();
 
-            FeatureDataModel model = baseModel.Features.GetByName(name) as FeatureDataModel;
+            ProjectDataModel model = baseModel.Projects.GetByName(name) as ProjectDataModel;
             if (model == null)
-                model = new FeatureDataModel();
+                model = new ProjectDataModel();
             model.Load();
 
-            return View("Feature", model);
+            return View("Project", model);
         }
     }
 }

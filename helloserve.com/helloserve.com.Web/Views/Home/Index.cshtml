@@ -1,14 +1,14 @@
 ﻿@model helloserve.com.Web.Models.HomeViewModel
 
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "helloserve - Home";
 }
 
 @section preamble{
-    <div style="padding-top:5.5em; padding-bottom:2em; text-align:center">
+    <div style="padding:2em 0; text-align:center">
         A short section to describe the site
     </div>
 }
 
 @Html.DisplayFor(m => m.NewsItem)
-@Html.Partial("ContentGroup", Model.Features)
+@Html.Partial("ContentGroup", Model.Projects)

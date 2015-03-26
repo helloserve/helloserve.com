@@ -6,14 +6,13 @@ using System.Web;
 
 namespace helloserve.com.Web.Models
 {
-    public class HomeViewModel : ProjectsViewModel
+    public class ProjectsViewModel : BaseViewModel
     {
-        public ContentDataModel NewsItem { get; set; }
+        public CollectionViewModel Projects { get; set; }
 
         public override void Load()
         {
-            base.Load();
-            NewsItem = NewsDataModel.MockList.ListItems.FirstOrDefault();
+            Projects = ProjectDataModel.MockList;
         }
     }
 }

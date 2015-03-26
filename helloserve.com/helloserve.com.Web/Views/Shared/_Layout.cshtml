@@ -13,12 +13,12 @@
 <body>
     <header role="banner" class="header">
         <div class="level">
-            <div class="header-title">helloserve</div>
+            <div class="header-title">@Html.ActionLink("helloserve", "Index", "Home")</div>
             <div class="header-nav">
                 <nav>
                     <ul class="nav-list">
-                        <li>ABOUT</li>
-                        <li>PROJECTS</li>
+                        <li>@Html.ActionLink("ABOUT", "About", "Home")</li>
+                        <li>@Html.ActionLink("PROJECTS", "Index", "Project")</li>
                         <li>SERVICES</li>
                         <li>BLOG</li>
                     </ul>
