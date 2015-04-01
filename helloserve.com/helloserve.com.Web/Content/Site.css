@@ -13,6 +13,10 @@ body {
     background-color: #FFEDCC;
 }
 
+a {
+    text-decoration:none;
+}
+
 .body-content {
     height: 100%;
     padding-top:5em;
@@ -43,11 +47,19 @@ header, footer {
     background-color: #FFEDCC;
 }
 
+.header a {
+    color:black;
+}
+
 .footer {
     padding: 1.5em 0;
     background-color: black;
     color: white;
     height: auto;
+}
+
+.footer a{
+    color:white;
 }
 
 .header-title {
@@ -145,6 +157,21 @@ textarea {
 
 .third-width {
     width: 33.33%;
+}
+
+.content-title {
+    font-size:larger; 
+    font-weight:bold; 
+    padding:2px; 
+    display:inline; 
+    vertical-align:middle;
+}
+
+.content-title-detail {
+    font-size:small; 
+    display:inline; 
+    vertical-align:middle; 
+    padding-left:10px;
 }
 
 @media screen and (max-width: 703px) {

@@ -27,6 +27,16 @@ D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\Newtonsoft.Json.xml
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\System.Net.Http.Formatting.xml
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\System.Web.Http.xml
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\System.Web.Http.WebHost.xml
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\obj\Debug\helloserve.com.Web.csprojResolveAssemblyReference.cache
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\obj\Debug\helloserve.com.Web.dll
 D:\Dev\helloserve\helloserve.com\helloserve.com.Web\obj\Debug\helloserve.com.Web.pdb
-D:\Dev\helloserve\helloserve.com\helloserve.com.Web\obj\Debug\helloserve.com.Web.csprojResolveAssemblyReference.cache
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\EntityFramework.dll
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\EntityFramework.SqlServer.dll
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\EntityFramework.xml
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\EntityFramework.SqlServer.xml
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\helloserve.com.Entities.dll
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\helloserve.com.Model.dll
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\helloserve.com.Repository.dll
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\helloserve.com.Entities.pdb
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\helloserve.com.Model.pdb
+D:\Dev\helloserve\helloserve.com\helloserve.com.Web\bin\helloserve.com.Repository.pdb

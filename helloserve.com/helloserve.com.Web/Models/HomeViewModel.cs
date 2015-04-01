@@ -13,7 +13,7 @@ namespace helloserve.com.Web.Models
         public override void Load()
         {
             base.Load();
-            NewsItem = NewsDataModel.MockList.ListItems.FirstOrDefault();
+            NewsItem = Model.News.GetLatest().AsDataModel();
         }
     }
 }

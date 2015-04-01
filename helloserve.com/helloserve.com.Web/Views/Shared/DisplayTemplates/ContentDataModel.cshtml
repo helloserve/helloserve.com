@@ -1,26 +1,9 @@
 ﻿@model helloserve.com.Web.Models.Data.ContentDataModel
 
 <div class="content-block">
-    <div style="padding:1em;">
+    <div style="padding:2em;">
         <div style="display:table-cell; vertical-align:middle;">
-            <div style="font-size:larger; font-weight:bold; padding:2px; display:inline; vertical-align:middle;">@Model.Title</div>
-            <div style="font-size:x-small; display:inline; vertical-align:middle; padding-left:10px;">
-                @if (Model.CreatedDate == DateTime.Today)
-                {
-                    <text>Posted&nbsp;today</text>
-                }
-                else
-                {
-                    <text>Posted&nbsp;on&nbsp;@Model.CreatedDate.ToString("yyyy-MM-dd")</text>
-                }
-            </div>
-        </div>
-        <div class="content-hr"></div>
-        <div>
-            @Model.Cut
-        </div>
-        <div>
-            @Html.Raw(Model.Content)
+            <div class="content-title">@Model.Title</div>
         </div>
     </div>
 </div>

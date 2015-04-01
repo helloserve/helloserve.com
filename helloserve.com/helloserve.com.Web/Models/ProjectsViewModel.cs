@@ -12,7 +12,7 @@ namespace helloserve.com.Web.Models
 
         public override void Load()
         {
-            Projects = ProjectDataModel.MockList;
+            Projects = Model.Feature.GetAll().ToCollectionView();
         }
     }
 }

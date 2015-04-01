@@ -8,9 +8,11 @@ namespace helloserve.com.Web.Models.Data
     public class NewsDataModel : ContentDataModel
     {
         public int NewsId { get; set; }
-        public int? FeatureId { get; set; }
+        public int? ProjectId { get; set; }
 
         public string HeaderImageUrl { get; set; }
+
+        public ProjectDataModel Project { get; set; }
 
         public static CollectionViewModel MockList
         {

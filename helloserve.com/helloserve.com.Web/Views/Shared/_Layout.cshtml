@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - helloserve Productions</title>
+    <title>@(string.IsNullOrEmpty(ViewBag.Title) ? "" : string.Format("{0} - ", ViewBag.Title))helloserve</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -13,14 +13,14 @@
 <body>
     <header role="banner" class="header">
         <div class="level">
-            <div class="header-title">@Html.ActionLink("helloserve", "Index", "Home")</div>
+            <div class="header-title">@Html.ActionLink("helloserve", "index", "home")</div>
             <div class="header-nav">
                 <nav>
                     <ul class="nav-list">
-                        <li>@Html.ActionLink("ABOUT", "About", "Home")</li>
-                        <li>@Html.ActionLink("PROJECTS", "Index", "Project")</li>
+                        <li>@Html.ActionLink("ABOUT", "index", "about")</li>
+                        <li>@Html.ActionLink("PROJECTS", "index", "project")</li>
                         <li>SERVICES</li>
-                        <li>BLOG</li>
+                        <li>@Html.ActionLink("BLOG", "index", "blog")</li>
                     </ul>
                 </nav>
             </div>
@@ -38,10 +38,10 @@
                     <div class="footer-nav">
                         <nav class="footer-nav">
                             <ul class="nav-list">
-                                <li>G+</li>
-                                <li>in</li>
-                                <li>T</li>
-                                <li>F</li>
+                                <li><a href="https://plus.google.com/+Helloserve/">G+</a></li>
+                                <li><a href="http://za.linkedin.com/pub/henk-roux/5b/858/188">in</a></li>
+                                <li><a href="https://twitter.com/helloserve">T</a></li>
+                                <li><a href="https://www.facebook.com/helloserveproductions">F</a></li>
                             </ul>
                         </nav>
                     </div>

@@ -39,6 +39,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -121,17 +127,23 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\BlogViewModel.cs" />
     <Compile Include="Models\Data\CollectionViewModel.cs" />
     <Compile Include="Models\Data\ContentDataModel.cs" />
     <Compile Include="Models\Data\ProjectDataModel.cs" />
+    <Compile Include="Models\Extensions\NewsExtensions.cs" />
+    <Compile Include="Models\Extensions\ProjectExtensions.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\Data\NewsDataModel.cs" />
     <Compile Include="Models\ProjectsViewModel.cs" />
@@ -180,13 +192,19 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Home\DisplayTemplates\NewsDataModel.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\Blog\Index.cshtml" />
+    <Content Include="Views\Blog\DisplayTemplates\NewsDataModel.cshtml" />
+    <Content Include="Views\Project\DisplayTemplates\ContentDataModel.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\dump\" />
+    <Folder Include="Content\images\presentables\" />
+    <Folder Include="Views\Media\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -194,6 +212,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\helloserve.com.Entities\helloserve.com.Entities.csproj">
+      <Project>{08efbfa6-5225-4d56-986c-294559049cc4}</Project>
+      <Name>helloserve.com.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\helloserve.com.Model\helloserve.com.Model.csproj">
+      <Project>{1a9d44a5-fc86-4bb3-a068-3744f2796317}</Project>
+      <Name>helloserve.com.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

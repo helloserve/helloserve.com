@@ -1,0 +1,9 @@
+﻿@model helloserve.com.Web.Models.BlogViewModel
+@{
+    ViewBag.Title = "Blog";
+}
+
+@foreach (var blog in Model.BlogPosts)
+{
+    @Html.DisplayFor(m=>blog)
+}

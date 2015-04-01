@@ -9,6 +9,11 @@ namespace helloserve.com.Web.Models.Data
     {
         public List<ContentDataModel> ListItems { get; set; }
 
+        public virtual void Load()
+        {
+            ListItems = new List<ContentDataModel>();
+        }
+
         public ContentDataModel GetById(int id)
         {
             foreach (var item in ListItems)
