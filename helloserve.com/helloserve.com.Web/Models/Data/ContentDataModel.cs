@@ -11,15 +11,16 @@ namespace helloserve.com.Web.Models.Data
         public string Cut { get; set; }
         public string Content { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string ImageUrl { get; set; }
 
-        public virtual string GetUrlName
+        public virtual string UrlName
         {
             get { return Title.Replace(" ", "-").Substring(0, Math.Min(150, Title.Length)).Trim(); }
         }
 
         public virtual bool IsUrlName(string name)
         {
-            return GetUrlName == name;
+            return UrlName == name;
         }
 
         public virtual bool IsId(int id)

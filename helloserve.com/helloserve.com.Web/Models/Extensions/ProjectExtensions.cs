@@ -17,7 +17,7 @@ namespace helloserve.com.Web.Models
                 Content = model.ExtendedDescription,
                 CreatedDate = model.CreatedDate,
                 FeatureId = model.FeatureID,
-                ///ImageUrl = ...               
+                ImageUrl = Model.Media.Get(model.HeaderImageID).ImageUrl()
             };
         }
 

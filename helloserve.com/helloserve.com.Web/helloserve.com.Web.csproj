@@ -134,6 +134,7 @@
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Extensions\WebExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -142,6 +143,7 @@
     <Compile Include="Models\Data\CollectionViewModel.cs" />
     <Compile Include="Models\Data\ContentDataModel.cs" />
     <Compile Include="Models\Data\ProjectDataModel.cs" />
+    <Compile Include="Models\Extensions\MediaExtensions.cs" />
     <Compile Include="Models\Extensions\NewsExtensions.cs" />
     <Compile Include="Models\Extensions\ProjectExtensions.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
@@ -191,11 +193,10 @@
     <Content Include="Views\Home\ContentGroup.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
-    <Content Include="Views\Home\DisplayTemplates\NewsDataModel.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
-    <Content Include="Views\Blog\DisplayTemplates\NewsDataModel.cshtml" />
     <Content Include="Views\Project\DisplayTemplates\ContentDataModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\NewsDataModel.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -204,6 +205,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\dump\" />
     <Folder Include="Content\images\presentables\" />
+    <Folder Include="Views\Blog\DisplayTemplates\" />
+    <Folder Include="Views\Home\DisplayTemplates\" />
     <Folder Include="Views\Media\" />
   </ItemGroup>
   <ItemGroup>

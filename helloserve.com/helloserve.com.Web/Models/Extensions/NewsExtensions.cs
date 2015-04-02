@@ -18,8 +18,7 @@ namespace helloserve.com.Web.Models
                 Cut = model.Cut,
                 Content = model.Post,
                 CreatedDate = model.CreatedDate,
-                //HeaderImageUrl = model.HeaderImageID.AsImageUrl()
-
+                HeaderImageUrl = Model.Media.Get(model.HeaderImageID).ImageUrl(),
                 Project = model.FeatureID.HasValue ? Model.Feature.Get(model.FeatureID.Value).AsDataModel() : null
             };
         }

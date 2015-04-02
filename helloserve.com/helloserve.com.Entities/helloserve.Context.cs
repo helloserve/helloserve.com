@@ -35,7 +35,7 @@ namespace helloserve.com.Entities
         public virtual DbSet<ForumPost> ForumPosts { get; set; }
         public virtual DbSet<ForumTopic> ForumTopics { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
-        public virtual DbSet<Medium> Media { get; set; }
+        public virtual DbSet<Media> Medias { get; set; }
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<RelatedLink> RelatedLinks { get; set; }
         public virtual DbSet<Requirement> Requirements { get; set; }

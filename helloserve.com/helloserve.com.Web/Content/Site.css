@@ -14,12 +14,17 @@ body {
 }
 
 a {
-    text-decoration:none;
+    text-decoration: none;
+    color:#888888;
+}
+
+a:hover {
+    color:#CCCCCC;
 }
 
 .body-content {
     height: 100%;
-    padding-top:5em;
+    padding-top: 5em;
 }
 
 .level {
@@ -47,9 +52,13 @@ header, footer {
     background-color: #FFEDCC;
 }
 
-.header a {
-    color:black;
-}
+    .header a {
+        color: black;
+    }
+
+        .header a:hover {
+            color: #CCBEA3;
+        }
 
 .footer {
     padding: 1.5em 0;
@@ -58,9 +67,13 @@ header, footer {
     height: auto;
 }
 
-.footer a{
-    color:white;
-}
+    .footer a {
+        color: white;
+    }
+
+        .footer a:hover {
+            color: grey;
+        }
 
 .header-title {
     display: inline-block;
@@ -106,7 +119,7 @@ ul {
         padding-right: 2em;
     }
 
-.preamble {    
+.preamble {
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -144,11 +157,9 @@ textarea {
     width: 100%;
     height: 100%;
     /*border:1px dashed pink;*/
-}
-
-.content-hr {
-    margin: 10px 5px;
-    border-top: 1px solid black;
+    background-repeat: no-repeat; 
+    background-size : cover;
+    background-position:center;
 }
 
 .half-width {
@@ -160,18 +171,53 @@ textarea {
 }
 
 .content-title {
-    font-size:larger; 
-    font-weight:bold; 
-    padding:2px; 
-    display:inline; 
-    vertical-align:middle;
+    font-size: larger;
+    font-weight: bold;
+    padding: 2px;
+    display: inline;
+    vertical-align: middle;
 }
 
 .content-title-detail {
-    font-size:small; 
-    display:inline; 
-    vertical-align:middle; 
-    padding-left:10px;
+    font-size: small;
+    display: inline;
+    vertical-align: middle;
+    padding-left: 10px;
+}
+
+.content-hr {
+    margin: 10px 5px;
+    border-top: 1px solid;
+}
+
+.content-cut {
+}
+
+.content-white {
+    color: white;
+    border-color: white;
+}
+
+.info-heading {
+    padding: 1em 0 0.5em 0;
+    text-align: center;
+}
+
+.info {
+    padding-bottom: 4em;
+    text-align: center;
+}
+
+.jumbo {
+    font-size: 5em;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 1024px) {
+    .jumbo {
+        font-size: 2.5em;
+        font-weight: bold;
+    }
 }
 
 @media screen and (max-width: 703px) {
@@ -185,7 +231,11 @@ textarea {
     }
 
     .body-content {
-        padding-top:10.5em;
+        padding-top: 10.5em;
     }
 
+    .jumbo {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
 }

@@ -15,16 +15,22 @@
                 }
                 @if (Model.ProjectId.HasValue)
                 {
-                    <text>in <b>@Html.ActionLink(Model.Project.Title, null, "Project", new { id = Model.Project.GetUrlName }, null)</b></text>
+                    <text>in <b>@Html.ActionLink(Model.Project.Title, "Index", "Project", new { id = Model.Project.UrlName }, null)</b></text>
                 }
             </div>
         </div>
         <div class="content-hr"></div>
+        @if (!string.IsNullOrEmpty(Model.HeaderImageUrl))
+        {
+            <div style="text-align:center">
+                <img src="@Html.StaticlinkContent(Model.HeaderImageUrl)" alt="@Model.UrlName" />
+            </div>
+        }
         <div>
-            @Html.Raw(Model.Cut)
+            @Model.Cut
         </div>
         <div>
-            @Html.Raw(Model.Content)
+            @Html.Raw(Html.StaticlinkContent(Model.Content))
         </div>
     </div>
 </div>

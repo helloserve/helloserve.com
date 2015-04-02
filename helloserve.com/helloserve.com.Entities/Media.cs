@@ -12,9 +12,9 @@ namespace helloserve.com.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Medium
+    public partial class Media
     {
-        public Medium()
+        public Media()
         {
             this.FeatureMedias = new HashSet<FeatureMedia>();
             this.News = new HashSet<News>();

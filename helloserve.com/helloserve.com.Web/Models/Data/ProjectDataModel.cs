@@ -9,7 +9,6 @@ namespace helloserve.com.Web.Models.Data
     {
         public int FeatureId;
         public string Blurp;
-        public string ImageUrl;
 
         public override bool IsId(int id)
         {

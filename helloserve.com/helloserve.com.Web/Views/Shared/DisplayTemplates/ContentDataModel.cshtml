@@ -1,9 +1,9 @@
 ﻿@model helloserve.com.Web.Models.Data.ContentDataModel
 
-<div class="content-block">
-    <div style="padding:2em;">
+<div class="content-block" style="@if (!string.IsNullOrEmpty(Model.ImageUrl)) { <text>background-image:url(@Html.StaticlinkContent(Model.ImageUrl));</text> }">
+    <div style="padding:2em; background-color:rgba(0,0,0,0.5);">
         <div style="display:table-cell; vertical-align:middle;">
-            <div class="content-title">@Model.Title</div>
+            <div class="content-title content-white">@Model.Title</div>
         </div>
     </div>
 </div>

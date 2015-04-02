@@ -102,7 +102,7 @@
     <Compile Include="Log.cs">
       <DependentUpon>helloserve.tt</DependentUpon>
     </Compile>
-    <Compile Include="Medium.cs">
+    <Compile Include="Media.cs">
       <DependentUpon>helloserve.tt</DependentUpon>
     </Compile>
     <Compile Include="News.cs">

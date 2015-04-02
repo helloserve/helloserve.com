@@ -481,7 +481,7 @@
           <Property Name="FeatureID" Type="Int32" Nullable="false" />
           <Property Name="MediaID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Feature" Relationship="helloserveModel.FK_FeatureMedia_Feature" FromRole="FeatureMedia" ToRole="Feature" />
-          <NavigationProperty Name="Medium" Relationship="helloserveModel.FK_FeatureMedia_Media" FromRole="FeatureMedia" ToRole="Medium" />
+          <NavigationProperty Name="Media" Relationship="helloserveModel.FK_FeatureMedia_Media" FromRole="FeatureMedia" ToRole="Medium" />
         </EntityType>
         <EntityType Name="FeatureRequirement">
           <Key>
@@ -559,7 +559,7 @@
           <Property Name="Initiated" Type="DateTime" Precision="3" />
           <Property Name="ElapsedSeconds" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
-        <EntityType Name="Medium">
+        <EntityType Name="Media">
           <Key>
             <PropertyRef Name="MediaID" />
           </Key>
@@ -586,7 +586,7 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Feature" Relationship="helloserveModel.FK_News_Feature" FromRole="News" ToRole="Feature" />
-          <NavigationProperty Name="Medium" Relationship="helloserveModel.FK_News_Media" FromRole="News" ToRole="Medium" />
+          <NavigationProperty Name="Media" Relationship="helloserveModel.FK_News_Media" FromRole="News" ToRole="Medium" />
         </EntityType>
         <EntityType Name="RelatedLink">
           <Key>
@@ -644,7 +644,7 @@
           <EntitySet Name="ForumPosts" EntityType="Self.ForumPost" />
           <EntitySet Name="ForumTopics" EntityType="Self.ForumTopic" />
           <EntitySet Name="Logs" EntityType="Self.Log" />
-          <EntitySet Name="Media" EntityType="Self.Medium" />
+          <EntitySet Name="Media1" EntityType="helloserveModel.Media" />
           <EntitySet Name="News" EntityType="Self.News" />
           <EntitySet Name="RelatedLinks" EntityType="Self.RelatedLink" />
           <EntitySet Name="Requirements" EntityType="Self.Requirement" />
@@ -675,7 +675,7 @@
             <End Role="SellingPoint" EntitySet="SellingPoints" />
           </AssociationSet>
           <AssociationSet Name="FK_FeatureMedia_Media" Association="helloserveModel.FK_FeatureMedia_Media">
-            <End Role="Medium" EntitySet="Media" />
+            <End Role="Medium" EntitySet="Media1" />
             <End Role="FeatureMedia" EntitySet="FeatureMedias" />
           </AssociationSet>
           <AssociationSet Name="FK_FeatureRequirement_Requirement" Association="helloserveModel.FK_FeatureRequirement_Requirement">
@@ -703,7 +703,7 @@
             <End Role="ForumTopic" EntitySet="ForumTopics" />
           </AssociationSet>
           <AssociationSet Name="FK_News_Media" Association="helloserveModel.FK_News_Media">
-            <End Role="Medium" EntitySet="Media" />
+            <End Role="Medium" EntitySet="Media1" />
             <End Role="News" EntitySet="News" />
           </AssociationSet>
         </EntityContainer>
@@ -780,7 +780,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FeatureMedia_Media">
-          <End Type="helloserveModel.Medium" Role="Medium" Multiplicity="1" />
+          <End Type="helloserveModel.Media" Role="Medium" Multiplicity="1" />
           <End Type="helloserveModel.FeatureMedia" Role="FeatureMedia" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Medium">
@@ -864,7 +864,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_News_Media">
-          <End Type="helloserveModel.Medium" Role="Medium" Multiplicity="0..1" />
+          <End Type="helloserveModel.Media" Role="Medium" Multiplicity="0..1" />
           <End Type="helloserveModel.News" Role="News" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Medium">
@@ -1003,8 +1003,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Media">
-            <EntityTypeMapping TypeName="helloserveModel.Medium">
+          <EntitySetMapping Name="Media1">
+            <EntityTypeMapping TypeName="helloserveModel.Media">
               <MappingFragment StoreEntitySet="Media">
                 <ScalarProperty Name="MediaID" ColumnName="MediaID" />
                 <ScalarProperty Name="MediaType" ColumnName="MediaType" />

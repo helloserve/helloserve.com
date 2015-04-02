@@ -5,4 +5,6 @@ bin
 *.pdb
 *.exe
 *.user
+helloserve.com/helloserve.com.Web/Content/canvas
+helloserve.com/helloserve.com.Web/Content/media
 packages/

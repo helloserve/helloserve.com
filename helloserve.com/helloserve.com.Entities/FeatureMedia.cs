@@ -19,6 +19,6 @@ namespace helloserve.com.Entities
         public int MediaID { get; set; }
     
         public virtual Feature Feature { get; set; }
-        public virtual Medium Medium { get; set; }
+        public virtual Media Media { get; set; }
     }
 }

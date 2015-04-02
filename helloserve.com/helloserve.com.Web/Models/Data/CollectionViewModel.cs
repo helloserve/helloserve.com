@@ -29,7 +29,7 @@ namespace helloserve.com.Web.Models.Data
         {
             foreach (var item in ListItems)
             {
-                if (item.GetUrlName == name)
+                if (item.UrlName == name)
                     return item;
             }
 

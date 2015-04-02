@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="helloserveModel.ForumPost" Width="1.5" PointX="11" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="helloserveModel.ForumTopic" Width="1.5" PointX="14" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="helloserveModel.Log" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="helloserveModel.Medium" Width="1.5" PointX="3.75" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="helloserveModel.Media" Width="1.5" PointX="3.75" PointY="16.625" IsExpanded="true" />
         <EntityTypeShape EntityType="helloserveModel.News" Width="1.5" PointX="6" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="helloserveModel.RelatedLink" Width="1.5" PointX="3" PointY="22.875" IsExpanded="true" />
         <EntityTypeShape EntityType="helloserveModel.Requirement" Width="1.5" PointX="3.75" PointY="5" IsExpanded="true" />

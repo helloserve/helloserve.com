@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Base\BaseRepository.cs" />
     <Compile Include="FeatureRepository.cs" />
+    <Compile Include="MediaRepository.cs" />
     <Compile Include="NewsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

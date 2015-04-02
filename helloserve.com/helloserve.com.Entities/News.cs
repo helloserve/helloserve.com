@@ -24,6 +24,6 @@ namespace helloserve.com.Entities
         public System.DateTime ModifiedDate { get; set; }
     
         public virtual Feature Feature { get; set; }
-        public virtual Medium Medium { get; set; }
+        public virtual Media Media { get; set; }
     }
 }
