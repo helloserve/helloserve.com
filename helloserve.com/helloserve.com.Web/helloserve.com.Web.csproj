@@ -142,6 +142,7 @@
     <Compile Include="Models\BlogViewModel.cs" />
     <Compile Include="Models\Data\CollectionViewModel.cs" />
     <Compile Include="Models\Data\ContentDataModel.cs" />
+    <Compile Include="Models\Data\MediaDataModel.cs" />
     <Compile Include="Models\Data\ProjectDataModel.cs" />
     <Compile Include="Models\Extensions\MediaExtensions.cs" />
     <Compile Include="Models\Extensions\NewsExtensions.cs" />
@@ -189,7 +190,6 @@
     <Content Include="Views\Project\Index.cshtml" />
     <Content Include="Views\Project\Project.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ContentDataModel.cshtml" />
-    <Content Include="Views\Home\ContentGroupTri.cshtml" />
     <Content Include="Views\Home\ContentGroup.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
@@ -197,6 +197,8 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Project\DisplayTemplates\ContentDataModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\NewsDataModel.cshtml" />
+    <Content Include="Views\Admin\Projects.cshtml" />
+    <Content Include="Views\Admin\Blogs.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

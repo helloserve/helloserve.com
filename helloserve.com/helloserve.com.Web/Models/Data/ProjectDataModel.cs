@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +11,7 @@ namespace helloserve.com.Web.Models.Data
     {
         public int FeatureId;
         public string Blurp;
+        public string MediaFolder;
 
         public override bool IsId(int id)
         {
@@ -65,6 +68,43 @@ namespace helloserve.com.Web.Models.Data
                     }
                 }
                 };
+            }
+        }
+
+        public override string Controller
+        {
+            get
+            {
+                return "project";
+            }
+        }
+
+        private List<MediaDataModel> _media;
+        public List<MediaDataModel> Media
+        {
+            get
+            {
+
+                if (_media == null)
+                {
+                    _media = new List<MediaDataModel>();
+
+                    if (!string.IsNullOrEmpty(MediaFolder))
+                    {
+                        string physicalPath = System.Web.Hosting.HostingEnvironment.MapPath(System.Web.HttpRuntime.AppDomainAppVirtualPath);
+                        string[] mediaList = Directory.GetFiles(Path.Combine(physicalPath, "Content", "Media", MediaFolder), "*.*");
+                        foreach (string filename in mediaList)
+                        {
+                            _media.Add(new MediaDataModel()
+                            {
+                                Filename = filename,
+                                Url = Path.GetFileName(filename).ImageUrl(MediaFolder)
+                            });
+                        }
+                    }
+                }
+
+                return _media;
             }
         }
     }

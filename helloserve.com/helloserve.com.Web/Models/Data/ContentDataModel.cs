@@ -13,9 +13,14 @@ namespace helloserve.com.Web.Models.Data
         public DateTime CreatedDate { get; set; }
         public string ImageUrl { get; set; }
 
+        public virtual string Controller
+        {
+            get { return ""; }
+        }
+
         public virtual string UrlName
         {
-            get { return Title.Replace(" ", "-").Substring(0, Math.Min(150, Title.Length)).Trim(); }
+            get { return Title.Replace(" ", "-").Substring(0, Math.Min(150, Title.Length)).Trim().ToLower(); }
         }
 
         public virtual bool IsUrlName(string name)

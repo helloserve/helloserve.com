@@ -1,13 +1,11 @@
 ﻿@{
-    ViewBag.Title = "helloserve Production Admin";
+    ViewBag.Title = "helloserve Admin";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; ;
 }
 
 @section CustomLinks{
     <link rel="stylesheet" type="text/css" href="~/Content/quill.snow.css">
 }
-<h2>Admin</h2>
-
 <div class="editor">
     <div class="toolbar-container">
         <span class="ql-format-group">
@@ -105,7 +103,7 @@
             </select>
         </span><span class="ql-format-group"><span title="Link" class="ql-format-button ql-link"></span><span class="ql-format-separator"></span><span title="Image" class="ql-format-button ql-image"></span><span class="ql-format-separator"></span><span title="List" class="ql-format-button ql-list"></span></span>
     </div>
-    <div class="editor-container" style="background-color:white; height:500px;"></div>
+    <div class="editor-container" style="background-color:white; width:100%; height:500px;"></div>
 </div>
 
 @section scripts {

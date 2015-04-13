@@ -51,5 +51,13 @@ namespace helloserve.com.Web.Models.Data
                 };
             }
         }
+
+        public override string Controller
+        {
+            get
+            {
+                return "blog";
+            }
+        }
     }
 }

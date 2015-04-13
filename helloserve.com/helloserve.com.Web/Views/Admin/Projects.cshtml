@@ -1,0 +1,17 @@
+﻿@model helloserve.com.Web.Models.ProjectsViewModel
+@{
+    ViewBag.Title = "helloserve Admin - Projects";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Projects</h2>
+
+<div>
+    <div><a href="">Add</a></div>
+    @foreach (var project in Model.Projects.ListItems)
+    {
+        <div>
+            @(project.Title)
+        </div>
+    }
+</div>

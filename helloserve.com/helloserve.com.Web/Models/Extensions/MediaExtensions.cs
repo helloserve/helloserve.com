@@ -14,8 +14,16 @@ namespace helloserve.com.Web.Models
             if (media.MediaID == 0)
                 return string.Empty;
 
+            return media.FileName.ImageUrl();
+        }
+
+        public static string ImageUrl(this string filename, string mediaFolder = null)
+        {
             string mediaUrl = ConfigurationManager.AppSettings["mediaLocationUrl"];
-            return string.Format("/{0}{1}", mediaUrl, media.FileName);
+            if (string.IsNullOrEmpty(mediaFolder))
+                return string.Format("/{0}{1}", mediaUrl, filename);
+
+            return string.Format("/{0}{1}/{2}", mediaUrl, mediaFolder, filename);
         }
     }
 }

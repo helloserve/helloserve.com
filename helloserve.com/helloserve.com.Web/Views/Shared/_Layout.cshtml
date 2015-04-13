@@ -17,10 +17,9 @@
             <div class="header-nav">
                 <nav>
                     <ul class="nav-list">
-                        <li>@Html.ActionLink("ABOUT", "index", "about")</li>
-                        <li>@Html.ActionLink("PROJECTS", "index", "project")</li>
-                        <li>SERVICES</li>
-                        <li>@Html.ActionLink("BLOG", "index", "blog")</li>
+                        <li><a href="@(ViewBag.BaseUrl)about">ABOUT</a></li>
+                        <li><a href="@(ViewBag.BaseUrl)project">PROJECTS</a></li>
+                        <li><a href="@(ViewBag.BaseUrl)blog">BLOG</a></li>
                     </ul>
                 </nav>
             </div>

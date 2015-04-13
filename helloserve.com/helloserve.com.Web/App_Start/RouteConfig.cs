@@ -14,6 +14,12 @@ namespace helloserve.com.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Admin",
+                url: "Admin/{action}/{id}",
+                defaults: new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Media",
                 url: "Media/{id}",
                 defaults: new { controller = "Media", action = "Index", id = UrlParameter.Optional }
