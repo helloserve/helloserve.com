@@ -9,9 +9,7 @@ namespace helloserve.com.Web.Models.Data
     {
         public int NewsId { get; set; }
         public int? ProjectId { get; set; }
-
-        public string HeaderImageUrl { get; set; }
-
+        
         public ProjectDataModel Project { get; set; }
 
         public static CollectionViewModel MockList
@@ -36,7 +34,7 @@ namespace helloserve.com.Web.Models.Data
                         Cut = "No I messed this one up.",
                         //Content = "<p>Yes, you <b>confusing</b> opinion with a lack of facts.</p>",
                         CreatedDate = new DateTime(2015, 2, 14, 15, 5, 0),
-                        HeaderImageUrl = "http://www.helloserve.com/Media/75/construction.jpg"
+                        ImageUrl = "http://www.helloserve.com/Media/75/construction.jpg"
                     },
 
                     new NewsDataModel() {
@@ -45,7 +43,7 @@ namespace helloserve.com.Web.Models.Data
                         Cut = "Not relevant any more.",
                         //Content = "<p>Just go away now please</p>",
                         CreatedDate = new DateTime(2015, 2, 14, 15, 5, 0),
-                        HeaderImageUrl = "http://www.helloserve.com/Media/75/construction.jpg"
+                        ImageUrl = "http://www.helloserve.com/Media/75/construction.jpg"
                     },
                 }
                 };
@@ -58,6 +56,13 @@ namespace helloserve.com.Web.Models.Data
             {
                 return "blog";
             }
+        }
+
+        public override void Save()
+        {
+            base.Save();
+
+            Model.News.Save(this.AsModel());
         }
     }
 }

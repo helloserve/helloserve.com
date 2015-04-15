@@ -1,0 +1,32 @@
+﻿@model helloserve.com.Web.Models.Data.NewsDataModel
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("blog", "admin", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.NewsId)
+    @Html.HiddenFor(m => m.ProjectId)
+    @Html.HiddenFor(m => m.CreatedDate)
+
+    <div class="editor">
+        <div class="label">@Html.LabelFor(m => m.Title)</div><div class="field">@Html.EditorFor(m => m.Title)</div>
+    </div>
+
+    <div class="editor">
+        <div class="label">@Html.LabelFor(m => m.Cut)</div><div class="field">@Html.TextAreaFor(m => m.Cut, new { @class = "reduced" })</div>
+    </div>
+
+    <div class="editor">
+        <div class="label">@Html.LabelFor(m => m.Content)</div><div class="field">@Html.TextAreaFor(m => m.Content, new { @class = "full" })</div>
+    </div>
+
+    <div class="editor">
+        <div class="label">@Html.LabelFor(m => m.ImageId)</div><div class="field">@Html.EditorFor(m => m.ImageId)</div>
+    </div>
+
+    <div class="editor">
+        <div class="label"></div><div class="field"><input type="submit" value="Save" /></div>
+    </div>
+}

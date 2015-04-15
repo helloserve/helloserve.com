@@ -18,7 +18,8 @@ namespace helloserve.com.Web.Models
                 Cut = model.Cut,
                 Content = model.Post,
                 CreatedDate = model.CreatedDate,
-                HeaderImageUrl = Model.Media.Get(model.HeaderImageID).ImageUrl(),
+                ImageId = model.HeaderImageID,
+                ImageUrl = Model.Media.Get(model.HeaderImageID).ImageUrl(),
                 Project = model.FeatureID.HasValue ? Model.Feature.Get(model.FeatureID.Value).AsDataModel() : null
             };
         }
@@ -32,6 +33,20 @@ namespace helloserve.com.Web.Models
                 collection.ListItems.Add(item.AsDataModel());
             }
             return collection;
+        }
+
+        public static Model.News AsModel(this NewsDataModel dataModel)
+        {
+            return new Model.News()
+            {
+                NewsID = dataModel.NewsId,
+                FeatureID = dataModel.ProjectId,
+                Title = dataModel.Title,
+                Cut = dataModel.Cut,
+                Post = dataModel.Content,
+                CreatedDate = dataModel.CreatedDate,
+                HeaderImageID = dataModel.ImageId
+            };
         }
     }
 }

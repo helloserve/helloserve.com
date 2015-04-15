@@ -18,6 +18,7 @@ namespace helloserve.com.Web.Models
                 CreatedDate = model.CreatedDate,
                 FeatureId = model.FeatureID,
                 MediaFolder = model.MediaFolder,
+                ImageId = model.HeaderImageID,
                 ImageUrl = Model.Media.Get(model.HeaderImageID).ImageUrl()
             };
         }

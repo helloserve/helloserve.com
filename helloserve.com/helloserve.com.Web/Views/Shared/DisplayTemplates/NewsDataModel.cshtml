@@ -20,10 +20,10 @@
             </div>
         </div>
         <div class="content-hr"></div>
-        @if (!string.IsNullOrEmpty(Model.HeaderImageUrl))
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
         {
             <div style="text-align:center">
-                <img src="@Html.StaticlinkContent(Model.HeaderImageUrl)" alt="@Model.UrlName" />
+                <img src="@Html.StaticlinkContent(Model.ImageUrl)" alt="@Model.UrlName" />
             </div>
         }
         <div>

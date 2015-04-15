@@ -1,4 +1,5 @@
 ﻿using helloserve.com.Web.Models;
+using helloserve.com.Web.Models.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,24 @@ namespace helloserve.com.Web.Controllers
         {
             BlogViewModel model = new BlogViewModel();
             model.Load();
+            return View(model);
+        }
+
+        public ActionResult Blog(int? id)
+        {
+            NewsDataModel model = new NewsDataModel();
+            if (id.HasValue)
+                model = Model.News.Get(id.Value).AsDataModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Blog(NewsDataModel model)
+        {
+            model.Save();
+
             return View(model);
         }
     }

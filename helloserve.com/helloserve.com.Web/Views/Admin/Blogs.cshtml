@@ -7,11 +7,11 @@
 <h2>Blogs</h2>
 
 <div>
-    <div><a href="">Add</a></div>
+    <div>@Html.ActionLink("Add", "blog")</div>
     @foreach (var post in Model.BlogPosts.ListItems)
     {
         <div>
-            @(post.Title)
+            @Html.ActionLink(post.Title, "blog", new { id = (post as helloserve.com.Web.Models.Data.NewsDataModel).NewsId })
         </div>
     }
 </div>

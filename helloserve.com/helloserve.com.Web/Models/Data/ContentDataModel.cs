@@ -11,6 +11,7 @@ namespace helloserve.com.Web.Models.Data
         public string Cut { get; set; }
         public string Content { get; set; }
         public DateTime CreatedDate { get; set; }
+        public int? ImageId { get; set; }
         public string ImageUrl { get; set; }
 
         public virtual string Controller
@@ -31,6 +32,11 @@ namespace helloserve.com.Web.Models.Data
         public virtual bool IsId(int id)
         {
             return false;
+        }
+
+        public virtual void Save()
+        {
+
         }
     }
 }

@@ -126,7 +126,37 @@ ul {
 input,
 select,
 textarea {
-    max-width: 280px;
+    width:750px;
+    padding:0.25em;
+    border-radius:5px;
+    border:1px solid black;
+}
+
+.reduced {
+    width:750px;
+    max-width:1024px;
+    height:80px;    
+}
+
+.full {
+    width:750px;
+    max-width:1024px;
+    height:1000px;    
+}
+
+.editor {
+    padding:1em 0;
+}
+
+.editor .label {    
+    display:inline-block;
+    width:5%;
+    vertical-align:top;
+}
+
+.editor .field {
+    display:inline-block;
+    width:80%;
 }
 
 /* font-page blocks */
