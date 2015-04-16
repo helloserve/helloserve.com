@@ -23,6 +23,23 @@ namespace helloserve.com.Web.Controllers
             return View(model);
         }
 
+        public ActionResult Project(int? id)
+        {
+            ProjectDataModel model = new ProjectDataModel();
+            if (id.HasValue)
+                model = Model.Feature.Get(id.Value).AsDataModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Project(ProjectDataModel model)
+        {
+            model.Save();
+            return View(model);
+        }
+
         public ActionResult Blogs()
         {
             BlogViewModel model = new BlogViewModel();
@@ -36,6 +53,8 @@ namespace helloserve.com.Web.Controllers
             if (id.HasValue)
                 model = Model.News.Get(id.Value).AsDataModel();
 
+            model.LoadForEdit();
+
             return View(model);
         }
 
@@ -44,7 +63,13 @@ namespace helloserve.com.Web.Controllers
         public ActionResult Blog(NewsDataModel model)
         {
             model.Save();
+            model.LoadForEdit();
+            return View(model);
+        }
 
+        public ActionResult Media()
+        {
+            MediaViewModel model = new MediaViewModel();
             return View(model);
         }
     }

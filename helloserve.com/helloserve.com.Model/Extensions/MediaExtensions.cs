@@ -21,5 +21,15 @@ namespace helloserve.com.Model
                 DateAdded = entity.DateAdded
             };
         }
+
+        public static List<Media> ToModelList(this IEnumerable<Entities.Media> collection)
+        {
+            List<Media> list = new List<Media>();
+            foreach (Entities.Media entity in collection)
+            {
+                list.Add(entity.AsModel());
+            }
+            return list;
+        }
     }
 }

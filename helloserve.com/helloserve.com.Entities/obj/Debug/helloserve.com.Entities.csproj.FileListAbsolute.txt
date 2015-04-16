@@ -7,4 +7,3 @@ D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\bin\Debug\EntityFramewo
 D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\bin\Debug\EntityFramework.SqlServer.xml
 D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\obj\Debug\helloserve.com.Entities.dll
 D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\obj\Debug\helloserve.com.Entities.pdb
-D:\Dev\helloserve\helloserve.com\helloserve.com.Entities\obj\Debug\helloserve.com.Entities.csprojResolveAssemblyReference.cache

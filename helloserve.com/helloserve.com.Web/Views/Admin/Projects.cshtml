@@ -1,17 +1,17 @@
 ﻿@model helloserve.com.Web.Models.ProjectsViewModel
 @{
-    ViewBag.Title = "helloserve Admin - Projects";
+    ViewBag.Title = "Projects";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Projects</h2>
 
 <div>
-    <div><a href="">Add</a></div>
+    <div>@Html.ActionLink("Add", "project")</div>
     @foreach (var project in Model.Projects.ListItems)
     {
         <div>
-            @(project.Title)
+            @Html.ActionLink(project.Title, "project", new { id = (project as helloserve.com.Web.Models.Data.ProjectDataModel).FeatureId })
         </div>
     }
 </div>

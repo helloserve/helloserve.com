@@ -1,4 +1,9 @@
 ﻿@model helloserve.com.Web.Models.BaseViewModel
+
+@{
+    string backgroundColor = ViewBag.BackgroundColor ?? string.Empty;
+    string color = ViewBag.Color ?? string.Empty;
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +15,16 @@
     @Scripts.Render("~/bundles/jquery")
     <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
 </head>
-<body>
-    <header role="banner" class="header">
+<body style="background-color:@(backgroundColor)">
+    <header role="banner" class="header" style="background-color:@(backgroundColor); color:@(color)">
         <div class="level">
-            <div class="header-title">@Html.ActionLink("helloserve", "index", "home")</div>
+            <div class="header-title">@Html.ActionLink("helloserve", "index", "home", null, new { style = string.Format("color:{0};", color ) })</div>
             <div class="header-nav">
                 <nav>
                     <ul class="nav-list">
-                        <li><a href="@(ViewBag.BaseUrl)about">ABOUT</a></li>
-                        <li><a href="@(ViewBag.BaseUrl)project">PROJECTS</a></li>
-                        <li><a href="@(ViewBag.BaseUrl)blog">BLOG</a></li>
+                        <li><a href="@(ViewBag.BaseUrl)about" style="color:@(color);">ABOUT</a></li>
+                        <li><a href="@(ViewBag.BaseUrl)project" style="color:@(color)">PROJECTS</a></li>
+                        <li><a href="@(ViewBag.BaseUrl)blog" style="color:@(color)">BLOG</a></li>
                     </ul>
                 </nav>
             </div>
@@ -27,7 +32,7 @@
     </header>
     <div class="body-content">
         <div class="preamble">
-             @RenderSection("preamble", required: false)
+            @RenderSection("preamble", required: false)
         </div>
         <div class="content">
             @RenderBody()

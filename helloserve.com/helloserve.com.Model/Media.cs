@@ -20,5 +20,19 @@ namespace helloserve.com.Model
             MediaRepository repo = new MediaRepository();
             return repo.Get(mediaId.Value).AsModel();
         }
+
+        public static List<Media> GetAll()
+        {
+            MediaRepository repo = new MediaRepository();
+            return repo.GetAll().ToModelList();
+        }
+
+        public static Media Add(string relativePath, int width, int height)
+        {
+            MediaRepository repo = new MediaRepository();
+            int mediaType = 1;
+
+            return repo.Add(relativePath, mediaType, width, height).AsModel();
+        }
     }
 }

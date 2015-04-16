@@ -149,6 +149,7 @@
     <Compile Include="Models\Extensions\ProjectExtensions.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\Data\NewsDataModel.cs" />
+    <Compile Include="Models\MediaViewModel.cs" />
     <Compile Include="Models\ProjectsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -200,6 +201,8 @@
     <Content Include="Views\Admin\Projects.cshtml" />
     <Content Include="Views\Admin\Blogs.cshtml" />
     <Content Include="Views\Admin\Blog.cshtml" />
+    <Content Include="Views\Admin\Media.cshtml" />
+    <Content Include="Views\Admin\Project.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,9 +9,21 @@ namespace helloserve.com.Web.Models.Data
 {
     public class ProjectDataModel : ContentDataModel
     {
-        public int FeatureId;
-        public string Blurp;
-        public string MediaFolder;
+        public int FeatureId { get; set; }
+        public string Blurp { get; set; }
+        public string MediaFolder { get; set; }
+        public string CustomPage { get; set; }
+        public string Subdomain { get; set; }
+        public bool IsMainFeature { get; set; }
+        public string Color { get; set; }
+        public string BackgroundColor { get; set; }
+
+        public CollectionViewModel News { get; set; }
+
+        public void LoadForView()
+        {
+            News = Model.News.GetForFeature(FeatureId).ToCollectionView();
+        }
 
         public override bool IsId(int id)
         {
@@ -106,6 +118,13 @@ namespace helloserve.com.Web.Models.Data
 
                 return _media;
             }
+        }
+
+        public override void Save()
+        {
+            base.Save();
+
+            Model.Feature.Save(this.AsModel());
         }
     }
 }

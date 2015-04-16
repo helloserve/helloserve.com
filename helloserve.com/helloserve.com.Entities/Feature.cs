@@ -36,6 +36,8 @@ namespace helloserve.com.Entities
         public string IndieDBLink { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }
+        public string Color { get; set; }
+        public string BackgroundColor { get; set; }
     
         public virtual ICollection<Downloadable> Downloadables { get; set; }
         public virtual ICollection<FeatureMedia> FeatureMedias { get; set; }

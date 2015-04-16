@@ -6,8 +6,7 @@
 
 @using (Html.BeginForm("blog", "admin", FormMethod.Post))
 {
-    @Html.HiddenFor(m => m.NewsId)
-    @Html.HiddenFor(m => m.ProjectId)
+    @Html.HiddenFor(m => m.NewsId)    
     @Html.HiddenFor(m => m.CreatedDate)
 
     <div class="editor">
@@ -23,6 +22,10 @@
     </div>
 
     <div class="editor">
+        <div class="label">@Html.LabelFor(m => m.ProjectId)</div><div class="field">@Html.DropDownListFor(m => m.ProjectId, Model.Projects)</div>
+    </div>
+
+        <div class="editor">
         <div class="label">@Html.LabelFor(m => m.ImageId)</div><div class="field">@Html.EditorFor(m => m.ImageId)</div>
     </div>
 

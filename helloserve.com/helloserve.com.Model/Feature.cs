@@ -20,5 +20,18 @@ namespace helloserve.com.Model
             FeatureRepository repo = new FeatureRepository();
             return repo.Get(featureId).AsModel();
         }
+
+        public static void Save(Feature model)
+        {
+            if (model.CreatedDate == DateTime.MinValue)
+                model.CreatedDate = DateTime.UtcNow;
+
+            model.ModifiedDate = DateTime.UtcNow;
+
+            FeatureRepository repo = new FeatureRepository();
+            Entities.Feature entity = repo.Update(model.FeatureID, model.Name, model.Description, model.ExtendedDescription, model.CreatedDate, model.ModifiedDate, model.HeaderImageID, model.MediaFolder, model.Subdomain, model.CustomPage, model.IsMainFeature, model.Color, model.BackgroundColor);
+
+            model.FeatureID = entity.FeatureID;
+        }
     }
 }

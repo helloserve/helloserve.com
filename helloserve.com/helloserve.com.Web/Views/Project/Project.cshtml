@@ -2,10 +2,12 @@
 @{
     ViewBag.Title = Model.Title;
     bool hasMedia = Model.Media.Count > 0;
+    string backgroundColor = ViewBag.BackgroundColor ?? string.Empty;
+    string color = ViewBag.Color ?? string.Empty;
 }
 
 <div class="content-page" style="@if (hasMedia) { <text>height:auto;</text> } @if (!string.IsNullOrEmpty(Model.ImageUrl)) { <text>background-image:url(@Html.StaticlinkContent(Model.ImageUrl)); </text> }">
-    <div class="background-cover">
+    <div class="background-cover" style="background-color:@(backgroundColor.ToRgba(0.5)); color:@(color)">
         <div style="padding:2em;">
             <h2>@Model.Title</h2>
             <div style="width:100%">
@@ -28,3 +30,7 @@
         }
     </div>
 </div>
+@foreach (var item in Model.News.ListItems)
+{
+    @Html.DisplayFor(m => item);
+}

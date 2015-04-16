@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace helloserve.com.Web.Models.Data
 {
@@ -11,6 +12,13 @@ namespace helloserve.com.Web.Models.Data
         public int? ProjectId { get; set; }
         
         public ProjectDataModel Project { get; set; }
+
+        public List<SelectListItem> Projects;
+
+        public void LoadForEdit() {
+            Projects = Model.Feature.GetAll().Select(m => new SelectListItem() { Text = m.Name, Value = m.FeatureID.ToString(), Selected = m.FeatureID == ProjectId }).ToList();
+            Projects.Insert(0, new SelectListItem() { Text = string.Empty, Value = null, Selected = !ProjectId.HasValue });
+        }
 
         public static CollectionViewModel MockList
         {

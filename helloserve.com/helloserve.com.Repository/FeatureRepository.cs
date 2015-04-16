@@ -18,5 +18,35 @@ namespace helloserve.com.Repository
         {
             return GetAll().Single(f => f.FeatureID == featureId);
         }
+
+        public Feature Update(int featureId, string name, string description, string extended, DateTime createdDate, DateTime modifiedDate, int? headerImageId, string mediaFolder, string subdomain, string customPage, bool isMainFeature, string color, string backgroundColor)
+        {
+            Feature feature = Db.Features.SingleOrDefault(n => n.FeatureID == featureId);
+
+            if (feature == null)
+            {
+                feature = new Feature();
+                Db.Features.Add(feature);
+            }
+
+            feature.FeatureID = featureId;
+            feature.Name = name;
+            feature.Description = description;
+            feature.ExtendedDescription = extended;
+            feature.CreatedDate = createdDate;
+            feature.ModifiedDate = modifiedDate;
+            feature.HeaderImageID = headerImageId;
+            feature.MediaFolder = mediaFolder;
+            feature.Subdomain = subdomain;
+            feature.CustomPage = customPage;
+            feature.IsMainFeature = isMainFeature;
+            feature.Color = color;
+            feature.BackgroundColor = backgroundColor;
+
+            Db.SaveChanges();
+
+            return feature;
+        }
+
     }
 }

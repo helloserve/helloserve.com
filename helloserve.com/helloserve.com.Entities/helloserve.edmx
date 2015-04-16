@@ -42,6 +42,8 @@
           <Property Name="IndieDBLink" Type="nvarchar(max)" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="Color" Type="nvarchar" MaxLength="50" />
+          <Property Name="BackgroundColor" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="FeatureMedia">
           <Key>
@@ -472,6 +474,8 @@
           <NavigationProperty Name="News" Relationship="helloserveModel.FK_News_Feature" FromRole="Feature" ToRole="News" />
           <NavigationProperty Name="RelatedLinks" Relationship="helloserveModel.FK_RelatedLink_Feature" FromRole="Feature" ToRole="RelatedLink" />
           <NavigationProperty Name="SellingPoints" Relationship="helloserveModel.FK_SellingPoint_Feature" FromRole="Feature" ToRole="SellingPoint" />
+          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BackgroundColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FeatureMedia">
           <Key>
@@ -907,6 +911,8 @@
           <EntitySetMapping Name="Features">
             <EntityTypeMapping TypeName="helloserveModel.Feature">
               <MappingFragment StoreEntitySet="Feature">
+                <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IsMainFeature" ColumnName="IsMainFeature" />

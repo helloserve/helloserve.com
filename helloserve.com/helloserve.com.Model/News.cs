@@ -27,6 +27,15 @@ namespace helloserve.com.Model
             return repo.GetAll().Single(n => n.NewsID == id).AsModel();
         }
 
+        public static List<News> GetForFeature(int? featureId)
+        {
+            if (!featureId.HasValue)
+                return new List<News>();
+
+            NewsRepository repo = new NewsRepository();
+            return repo.GetAll().Where(n => n.FeatureID == featureId).ToModelList();
+        }
+
         public static void Save(News model)
         {
             if (model.CreatedDate == DateTime.MinValue)

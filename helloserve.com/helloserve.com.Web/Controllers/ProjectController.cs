@@ -38,6 +38,10 @@ namespace helloserve.com.Web.Controllers
             if (model == null)
                 model = new ProjectDataModel();
             model.Load();
+            model.LoadForView();
+
+            ViewBag.Color = model.Color;
+            ViewBag.BackgroundColor = model.BackgroundColor;            
 
             return View("Project", model);
         }
@@ -51,6 +55,10 @@ namespace helloserve.com.Web.Controllers
             if (model == null)
                 model = new ProjectDataModel();
             model.Load();
+            model.LoadForView();
+
+            ViewBag.Color = model.Color;
+            ViewBag.BackgroundColor = model.BackgroundColor;
 
             return View("Project", model);
         }

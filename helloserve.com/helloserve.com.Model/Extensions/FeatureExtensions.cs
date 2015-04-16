@@ -22,6 +22,8 @@ namespace helloserve.com.Model
                 Subdomain = entity.Subdomain,
                 CustomPage = entity.CustomPage,
                 IndieDBLink = entity.IndieDBLink,
+                Color = entity.Color,
+                BackgroundColor = entity.BackgroundColor,
                 CreatedDate = entity.CreatedDate,
                 ModifiedDate = entity.ModifiedDate
             };

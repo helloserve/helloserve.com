@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - helloserve Productions</title>
+    <title>@(string.IsNullOrEmpty(ViewBag.Title) ? "" : string.Format("{0} - ", ViewBag.Title))helloserve Admin</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -20,6 +20,7 @@
                     <ul class="nav-list">
                         <li><a href="@(ViewBag.BaseUrl)admin/projects">PROJECTS</a></li>
                         <li><a href="@(ViewBag.BaseUrl)admin/blogs">BLOGS</a></li>
+                        <li><a href="@(ViewBag.BaseUrl)admin/media">MEDIA</a></li>
                     </ul>
                 </nav>
             </div>
