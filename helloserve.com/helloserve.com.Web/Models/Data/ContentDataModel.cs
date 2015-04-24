@@ -23,6 +23,9 @@ namespace helloserve.com.Web.Models.Data
         {
             get
             {
+                if (string.IsNullOrEmpty(Title))
+                    return string.Empty;
+
                 string cleaned = Title.Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(",", "").Replace(".", "");
                 return cleaned.Substring(0, Math.Min(150, cleaned.Length)).Trim().ToLower();
             }
