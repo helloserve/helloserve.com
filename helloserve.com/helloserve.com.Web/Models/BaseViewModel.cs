@@ -8,7 +8,7 @@ namespace helloserve.com.Web.Models
 {
     public class BaseViewModel
     {
-        public virtual void Load()
+        public virtual void Load(object state = null)
         {
 
         }

@@ -15,12 +15,12 @@ body {
 
 a {
     text-decoration: none;
-    color:#888888;
+    color: #888888;
 }
 
-a:hover {
-    color:#CCCCCC;
-}
+    a:hover {
+        color: #CCCCCC;
+    }
 
 .body-content {
     height: 100%;
@@ -126,38 +126,38 @@ ul {
 input,
 select,
 textarea {
-    width:750px;
-    padding:0.25em;
-    border-radius:5px;
-    border:1px solid black;
+    width: 750px;
+    padding: 0.25em;
+    border-radius: 5px;
+    border: 1px solid black;
 }
 
 .reduced {
-    width:750px;
-    max-width:1024px;
-    height:80px;    
+    width: 750px;
+    max-width: 1024px;
+    height: 80px;
 }
 
 .full {
-    width:750px;
-    max-width:1024px;
-    height:1000px;    
+    width: 750px;
+    max-width: 1024px;
+    height: 1000px;
 }
 
 .editor {
-    padding:1em 0;
+    padding: 1em 0;
 }
 
-.editor .label {    
-    display:inline-block;
-    width:10%;
-    vertical-align:top;
-}
+    .editor .label {
+        display: inline-block;
+        width: 10%;
+        vertical-align: top;
+    }
 
-.editor .field {
-    display:inline-block;
-    width:80%;
-}
+    .editor .field {
+        display: inline-block;
+        width: 80%;
+    }
 
 /* font-page blocks */
 
@@ -187,9 +187,9 @@ textarea {
     width: 100%;
     height: 100%;
     /*border:1px dashed pink;*/
-    background-repeat: no-repeat; 
-    background-size : cover;
-    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .content-page {
@@ -200,9 +200,13 @@ textarea {
     width: 100%;
     height: 100%;
     /*border:1px dashed pink;*/
-    background-repeat: no-repeat; 
-    background-size : cover;
-    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.content-block img {
+    max-width: 1024px;
 }
 
 .half-width {
@@ -257,22 +261,32 @@ textarea {
 }
 
 .dark-cover {
-    background-color:rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.5);
 }
 
 .light-cover {
-    background-color:rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.5);
 }
 
 .background-cover {
-    background-color:rgba(255,237,204,0.5);
-    height:100%;
+    background-color: rgba(255,237,204,0.5);
+    height: 100%;
 }
 
 @media screen and (max-width: 1024px) {
     .jumbo {
         font-size: 2.5em;
         font-weight: bold;
+    }
+
+    .content-block img {
+        width:auto;
+        height:auto;
+        max-width: 100%;
+    }
+
+    iframe {
+        width: 100%;
     }
 }
 
@@ -293,5 +307,14 @@ textarea {
     .jumbo {
         font-size: 1.5em;
         font-weight: bold;
+    }
+
+    .content-block img {
+        width: 100%;
+        height:auto;
+    }
+
+    iframe {
+        width: 100%;
     }
 }

@@ -21,7 +21,11 @@ namespace helloserve.com.Web.Models.Data
 
         public virtual string UrlName
         {
-            get { return Title.Replace(" ", "-").Substring(0, Math.Min(150, Title.Length)).Trim().ToLower(); }
+            get
+            {
+                string cleaned = Title.Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(",", "").Replace(".", "");
+                return cleaned.Substring(0, Math.Min(150, cleaned.Length)).Trim().ToLower();
+            }
         }
 
         public virtual bool IsUrlName(string name)

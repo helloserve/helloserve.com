@@ -14,7 +14,7 @@ namespace helloserve.com.Repository
             return Db.News;
         }
 
-        public News Update(int newsId, int? featureId, string title, string cut, string post, DateTime createdDate, DateTime modifiedDate, int? headerImageId)
+        public News Update(int newsId, int? featureId, string title, string cut, string post, DateTime createdDate, DateTime modifiedDate, int? headerImageId, bool isPublished)
         {
             News news = Db.News.SingleOrDefault(n => n.NewsID == newsId);
 
@@ -31,6 +31,7 @@ namespace helloserve.com.Repository
             news.CreatedDate = createdDate;
             news.ModifiedDate = modifiedDate;
             news.HeaderImageID = headerImageId;
+            news.IsPublished = isPublished;
 
             Db.SaveChanges();
 

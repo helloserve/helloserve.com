@@ -13,10 +13,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/29/2015 15:13:10</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>04/16/2015 12:23:25</publishTime>
+      <publishTime>04/22/2015 17:00:38</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>04/16/2015 12:23:25</publishTime>
+      <publishTime>04/22/2015 17:00:38</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>02/06/2015 13:37:21</publishTime>
@@ -28,13 +28,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/16/2015 12:23:20</publishTime>
     </File>
     <File Include="bin/helloserve.com.Model.dll">
-      <publishTime>04/16/2015 12:23:20</publishTime>
+      <publishTime>04/22/2015 17:00:34</publishTime>
     </File>
     <File Include="bin/helloserve.com.Repository.dll">
-      <publishTime>04/16/2015 12:23:20</publishTime>
+      <publishTime>04/22/2015 17:00:34</publishTime>
     </File>
     <File Include="bin/helloserve.com.Web.dll">
-      <publishTime>04/16/2015 12:23:21</publishTime>
+      <publishTime>04/22/2015 17:00:35</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>01/29/2015 15:13:10</publishTime>
@@ -85,7 +85,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/27/2015 08:27:39</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>04/16/2015 11:55:32</publishTime>
+      <publishTime>04/22/2015 16:47:17</publishTime>
     </File>
     <File Include="Content/StyleSheet_Sidebar.css">
       <publishTime>03/25/2015 07:45:02</publishTime>
@@ -109,7 +109,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/27/2015 11:44:26</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>04/16/2015 12:23:22</publishTime>
+      <publishTime>04/22/2015 17:00:35</publishTime>
     </File>
     <File Include="Scripts/jquery-1.10.2.js">
       <publishTime>01/29/2015 15:13:08</publishTime>
@@ -147,6 +147,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/About/Index.cshtml">
       <publishTime>04/16/2015 09:55:21</publishTime>
     </File>
+    <File Include="Views/Admin/Authenticate.cshtml">
+      <publishTime>04/21/2015 12:18:34</publishTime>
+    </File>
     <File Include="Views/Admin/Blog.cshtml">
       <publishTime>04/16/2015 11:23:53</publishTime>
     </File>
@@ -154,7 +157,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/15/2015 14:18:26</publishTime>
     </File>
     <File Include="Views/Admin/Index.cshtml">
-      <publishTime>04/15/2015 14:16:11</publishTime>
+      <publishTime>04/21/2015 12:19:02</publishTime>
     </File>
     <File Include="Views/Admin/Media.cshtml">
       <publishTime>04/15/2015 14:38:53</publishTime>

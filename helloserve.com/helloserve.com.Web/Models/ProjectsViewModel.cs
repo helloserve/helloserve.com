@@ -10,7 +10,7 @@ namespace helloserve.com.Web.Models
     {
         public CollectionViewModel Projects { get; set; }
 
-        public override void Load()
+        public override void Load(object state = null)
         {
             Projects = Model.Feature.GetAll().ToCollectionView();
         }

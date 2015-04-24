@@ -22,6 +22,7 @@ namespace helloserve.com.Entities
         public Nullable<int> HeaderImageID { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }
+        public bool IsPublished { get; set; }
     
         public virtual Feature Feature { get; set; }
         public virtual Media Media { get; set; }

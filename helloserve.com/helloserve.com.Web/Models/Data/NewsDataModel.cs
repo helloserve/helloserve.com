@@ -10,6 +10,7 @@ namespace helloserve.com.Web.Models.Data
     {
         public int NewsId { get; set; }
         public int? ProjectId { get; set; }
+        public bool IsPublished { get; set; }
         
         public ProjectDataModel Project { get; set; }
 

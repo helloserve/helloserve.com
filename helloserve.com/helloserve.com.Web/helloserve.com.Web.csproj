@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Code\AdminSession.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -139,14 +140,17 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\BlogEditModel.cs" />
     <Compile Include="Models\BlogViewModel.cs" />
     <Compile Include="Models\Data\CollectionViewModel.cs" />
     <Compile Include="Models\Data\ContentDataModel.cs" />
     <Compile Include="Models\Data\MediaDataModel.cs" />
     <Compile Include="Models\Data\ProjectDataModel.cs" />
+    <Compile Include="Models\Data\UserDataModel.cs" />
     <Compile Include="Models\Extensions\MediaExtensions.cs" />
     <Compile Include="Models\Extensions\NewsExtensions.cs" />
     <Compile Include="Models\Extensions\ProjectExtensions.cs" />
+    <Compile Include="Models\Extensions\UserExtensions.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\Data\NewsDataModel.cs" />
     <Compile Include="Models\MediaViewModel.cs" />
@@ -162,6 +166,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <None Include="Properties\PublishProfiles\release.pubxml" />
     <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -203,6 +208,8 @@
     <Content Include="Views\Admin\Blog.cshtml" />
     <Content Include="Views\Admin\Media.cshtml" />
     <Content Include="Views\Admin\Project.cshtml" />
+    <Content Include="Views\Admin\Authenticate.cshtml" />
+    <Content Include="Views\Blog\Blog.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

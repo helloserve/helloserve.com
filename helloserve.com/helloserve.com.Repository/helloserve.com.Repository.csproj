@@ -52,6 +52,7 @@
     <Compile Include="MediaRepository.cs" />
     <Compile Include="NewsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\helloserve.com.Entities\helloserve.com.Entities.csproj">

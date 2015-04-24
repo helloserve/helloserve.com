@@ -20,7 +20,8 @@ namespace helloserve.com.Web.Models
                 CreatedDate = model.CreatedDate,
                 ImageId = model.HeaderImageID,
                 ImageUrl = Model.Media.Get(model.HeaderImageID).ImageUrl(),
-                Project = model.FeatureID.HasValue ? Model.Feature.Get(model.FeatureID.Value).AsDataModel() : null
+                Project = model.FeatureID.HasValue ? Model.Feature.Get(model.FeatureID.Value).AsDataModel() : null,
+                IsPublished = model.IsPublished
             };
         }
 
@@ -45,7 +46,8 @@ namespace helloserve.com.Web.Models
                 Cut = dataModel.Cut,
                 Post = dataModel.Content,
                 CreatedDate = dataModel.CreatedDate,
-                HeaderImageID = dataModel.ImageId
+                HeaderImageID = dataModel.ImageId,
+                IsPublished = dataModel.IsPublished
             };
         }
     }

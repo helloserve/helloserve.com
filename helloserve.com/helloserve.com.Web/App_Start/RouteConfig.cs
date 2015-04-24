@@ -15,26 +15,32 @@ namespace helloserve.com.Web
 
             routes.MapRoute(
                 name: "Admin",
-                url: "Admin/{action}/{id}",
-                defaults: new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
+                url: "admin/{action}/{id}",
+                defaults: new { controller = "admin", action = "index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "Media",
-                url: "Media/{id}",
-                defaults: new { controller = "Media", action = "Index", id = UrlParameter.Optional }
+                url: "media/{id}",
+                defaults: new { controller = "media", action = "index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "Project",
-                url: "Project/{id}",
-                defaults: new { controller = "Project", action = "Index", id = UrlParameter.Optional }
+                url: "project/{id}",
+                defaults: new { controller = "project", action = "index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Blog",
+                url: "blog/{id}",
+                defaults: new { controller = "blog", action = "index", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "home", action = "index", id = UrlParameter.Optional }
             );
         }
     }

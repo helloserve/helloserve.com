@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<div>
+    @Html.ActionLink("Link To", "Index", "Blog", new { Id = Model.UrlName }, null)
+</div>
+
 @using (Html.BeginForm("blog", "admin", FormMethod.Post))
 {
     @Html.HiddenFor(m => m.NewsId)    
@@ -25,11 +29,15 @@
         <div class="label">@Html.LabelFor(m => m.ProjectId)</div><div class="field">@Html.DropDownListFor(m => m.ProjectId, Model.Projects)</div>
     </div>
 
-        <div class="editor">
+    <div class="editor">
         <div class="label">@Html.LabelFor(m => m.ImageId)</div><div class="field">@Html.EditorFor(m => m.ImageId)</div>
     </div>
 
     <div class="editor">
+        <div class="label">@Html.LabelFor(m => m.IsPublished)</div><div class="field">@Html.EditorFor(m => m.IsPublished)</div>
+    </div>
+
+        <div class="editor">
         <div class="label"></div><div class="field"><input type="submit" value="Save" /></div>
     </div>
 }

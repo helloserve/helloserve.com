@@ -6,14 +6,15 @@ using System.Web;
 
 namespace helloserve.com.Web.Models
 {
-    public class HomeViewModel : ProjectsViewModel
+    public class BlogEditModel : BaseViewModel
     {
-        public ContentDataModel NewsItem { get; set; }
+        public CollectionViewModel BlogPosts { get; set; }
 
         public override void Load(object state = null)
         {
             base.Load();
-            NewsItem = Model.News.GetLatest().AsDataModel();
+
+            BlogPosts = Model.News.GetAll(isPublished: null).ToCollectionView();
         }
     }
 }

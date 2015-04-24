@@ -143,6 +143,7 @@
           <Property Name="HeaderImageID" Type="int" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsPublished" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="RelatedLink">
           <Key>
@@ -591,6 +592,7 @@
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Feature" Relationship="helloserveModel.FK_News_Feature" FromRole="News" ToRole="Feature" />
           <NavigationProperty Name="Media" Relationship="helloserveModel.FK_News_Media" FromRole="News" ToRole="Medium" />
+          <Property Name="IsPublished" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="RelatedLink">
           <Key>
@@ -1025,6 +1027,7 @@
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="helloserveModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
                 <ScalarProperty Name="NewsID" ColumnName="NewsID" />
                 <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />

@@ -10,11 +10,11 @@ namespace helloserve.com.Web.Models
     {
         public CollectionViewModel BlogPosts { get; set; }
 
-        public override void Load()
+        public override void Load(object state = null)
         {
-            base.Load();
+            base.Load(state);
 
-            BlogPosts = Model.News.GetAll().ToCollectionView();            
+            BlogPosts = Model.News.GetAll(isPublished: (bool?)state).ToCollectionView();
         }
     }
 }

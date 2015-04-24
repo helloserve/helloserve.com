@@ -8,9 +8,9 @@ namespace helloserve.com.Model
 {
     public static class NewsExtensions
     {
-        public static Model.News AsModel(this Entities.News entity)
+        public static News AsModel(this Entities.News entity)
         {
-            return new Model.News()
+            return new News()
             {
                 NewsID = entity.NewsID,
                 FeatureID = entity.FeatureID,
@@ -19,13 +19,14 @@ namespace helloserve.com.Model
                 Post = entity.Post,
                 HeaderImageID = entity.HeaderImageID,
                 CreatedDate = entity.CreatedDate,
-                ModifiedDate = entity.ModifiedDate
+                ModifiedDate = entity.ModifiedDate,
+                IsPublished = entity.IsPublished
             };
         }
 
-        public static List<Model.News> ToModelList(this IEnumerable<Entities.News> collection)
+        public static List<News> ToModelList(this IEnumerable<Entities.News> collection)
         {
-            List<Model.News> list = new List<News>();
+            List<News> list = new List<News>();
             foreach (var entity in collection)
             {
                 list.Add(entity.AsModel());
