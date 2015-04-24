@@ -155,6 +155,7 @@
     <Compile Include="Models\Data\NewsDataModel.cs" />
     <Compile Include="Models\MediaViewModel.cs" />
     <Compile Include="Models\ProjectsViewModel.cs" />
+    <Compile Include="Modules\CustomHeader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
