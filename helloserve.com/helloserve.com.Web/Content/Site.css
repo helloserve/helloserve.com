@@ -165,6 +165,7 @@ textarea {
     height: 100%;
     width: 100%;
     /*border:1px solid blue;*/
+    text-align: justify;
 }
 
 .content-group {
@@ -280,13 +281,17 @@ textarea {
     }
 
     .content-block img {
-        width:auto;
-        height:auto;
+        width: auto;
+        height: auto;
         max-width: 100%;
     }
 
     iframe {
         width: 100%;
+    }
+
+    .preamble {
+        text-align: justify;
     }
 }
 
@@ -311,10 +316,14 @@ textarea {
 
     .content-block img {
         width: 100%;
-        height:auto;
+        height: auto;
     }
 
     iframe {
         width: 100%;
+    }
+
+    .preamble {
+        text-align: justify;
     }
 }
