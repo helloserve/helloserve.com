@@ -3,6 +3,10 @@
 @{
     string backgroundColor = ViewBag.BackgroundColor ?? string.Empty;
     string color = ViewBag.Color ?? string.Empty;
+    string acolor = ViewBag.LinkColor ?? string.Empty;
+    string acolor_hover = ViewBag.LinkHoverColor ?? string.Empty;
+    string header_acolor = ViewBag.HeaderLinkColor ?? string.Empty;
+    string header_acolor_hover = ViewBag.HeaderLinkHoverColor ?? string.Empty;
 }
 <!DOCTYPE html>
 <html>
@@ -14,45 +18,79 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+    <style>
+
+        @if(!string.IsNullOrEmpty(header_acolor)) {
+            <text>
+            .header a {
+                color: @header_acolor;
+            }
+            </text>
+        }
+
+        @if(!string.IsNullOrEmpty(acolor)) {
+            <text>
+            .body-content a {
+                color: @acolor;
+            }
+            </text>
+        }
+
+        @if(!string.IsNullOrEmpty(header_acolor_hover)) {
+            <text>
+            .header a:hover {
+                color: @header_acolor_hover;
+            }
+            </text>
+        }
+
+        @if(!string.IsNullOrEmpty(acolor_hover)) {
+            <text>
+            .body-content a:hover {
+                color: @acolor_hover;
+            }
+            </text>
+        }
+    </style>
 </head>
-<body style="background-color:@(backgroundColor)">
-    <header role="banner" class="header" style="background-color:@(backgroundColor); color:@(color)">
-        <div class="level">
-            <div class="header-title">@Html.ActionLink("helloserve", "index", "home", null, new { style = string.Format("color:{0};", color ) })</div>
-            <div class="header-nav">
-                <nav>
-                    <ul class="nav-list">
-                        <li><a href="@(ViewBag.BaseUrl)about" style="color:@(color);">ABOUT</a></li>
-                        <li><a href="@(ViewBag.BaseUrl)project" style="color:@(color)">PROJECTS</a></li>
-                        <li><a href="@(ViewBag.BaseUrl)blog" style="color:@(color)">BLOG</a></li>
-                    </ul>
-                </nav>
+    <body style="background-color:@(backgroundColor)">
+        <header role="banner" class="header" style="background-color:@(backgroundColor); color:@(color)">
+            <div class="level">
+                <div class="header-title">@Html.ActionLink("helloserve", "index", "home", null, new { style = string.Format("color:{0};", color) })</div>
+                <div class="header-nav">
+                    <nav>
+                        <ul class="nav-list">
+                            <li><a href="@(ViewBag.BaseUrl)about" style="color:@(color);">ABOUT</a></li>
+                            <li><a href="@(ViewBag.BaseUrl)project" style="color:@(color)">PROJECTS</a></li>
+                            <li><a href="@(ViewBag.BaseUrl)blog" style="color:@(color)">BLOG</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        <div class="body-content">
+            <div class="preamble">
+                @RenderSection("preamble", required: false)
+            </div>
+            <div class="content">
+                @RenderBody()
+                <footer class="footer">
+                    <div class="level">
+                        <div class="footer-title">&copy; @DateTime.Now.Year - helloserve</div>
+                        <div class="footer-nav">
+                            <nav class="footer-nav">
+                                <ul class="nav-list">
+                                    <li><a href="https://plus.google.com/+Helloserve/">G+</a></li>
+                                    <li><a href="http://za.linkedin.com/pub/henk-roux/5b/858/188">in</a></li>
+                                    <li><a href="https://twitter.com/helloserve">T</a></li>
+                                    <li><a href="https://www.facebook.com/helloserveproductions">F</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
-    </header>
-    <div class="body-content">
-        <div class="preamble">
-            @RenderSection("preamble", required: false)
-        </div>
-        <div class="content">
-            @RenderBody()
-            <footer class="footer">
-                <div class="level">
-                    <div class="footer-title">&copy; @DateTime.Now.Year - helloserve</div>
-                    <div class="footer-nav">
-                        <nav class="footer-nav">
-                            <ul class="nav-list">
-                                <li><a href="https://plus.google.com/+Helloserve/">G+</a></li>
-                                <li><a href="http://za.linkedin.com/pub/henk-roux/5b/858/188">in</a></li>
-                                <li><a href="https://twitter.com/helloserve">T</a></li>
-                                <li><a href="https://www.facebook.com/helloserveproductions">F</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
-    @RenderSection("scripts", required: false)
-</body>
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

@@ -19,7 +19,7 @@ namespace helloserve.com.Repository
             return GetAll().Single(f => f.FeatureID == featureId);
         }
 
-        public Feature Update(int featureId, string name, string description, string extended, DateTime createdDate, DateTime modifiedDate, int? headerImageId, string mediaFolder, string subdomain, string customPage, bool isMainFeature, string color, string backgroundColor)
+        public Feature Update(int featureId, string name, string description, string extended, DateTime createdDate, DateTime modifiedDate, int? headerImageId, string mediaFolder, string subdomain, string customPage, bool isMainFeature, string color, string backgroundColor, string linkColor, string linkHoverColor, string headerLinkColor, string headerLinkHoverColor)
         {
             Feature feature = Db.Features.SingleOrDefault(n => n.FeatureID == featureId);
 
@@ -42,6 +42,10 @@ namespace helloserve.com.Repository
             feature.IsMainFeature = isMainFeature;
             feature.Color = color;
             feature.BackgroundColor = backgroundColor;
+            feature.LinkColor = linkColor;
+            feature.LinkHoverColor = linkHoverColor;
+            feature.HeaderLinkColor = headerLinkColor;
+            feature.HeaderLinkHoverColor = headerLinkHoverColor;
 
             Db.SaveChanges();
 

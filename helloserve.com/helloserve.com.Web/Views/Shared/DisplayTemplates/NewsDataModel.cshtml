@@ -27,7 +27,7 @@
             </div>
         }
         <div>
-            @Model.Cut
+            @Html.Raw(Html.StaticlinkContent(Model.Cut))
         </div>
         <div>
             @Html.Raw(Html.StaticlinkContent(Model.Content))

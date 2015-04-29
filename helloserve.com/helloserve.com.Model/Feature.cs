@@ -29,7 +29,7 @@ namespace helloserve.com.Model
             model.ModifiedDate = DateTime.UtcNow;
 
             FeatureRepository repo = new FeatureRepository();
-            Entities.Feature entity = repo.Update(model.FeatureID, model.Name, model.Description, model.ExtendedDescription, model.CreatedDate, model.ModifiedDate, model.HeaderImageID, model.MediaFolder, model.Subdomain, model.CustomPage, model.IsMainFeature, model.Color, model.BackgroundColor);
+            Entities.Feature entity = repo.Update(model.FeatureID, model.Name, model.Description, model.ExtendedDescription, model.CreatedDate, model.ModifiedDate, model.HeaderImageID, model.MediaFolder, model.Subdomain, model.CustomPage, model.IsMainFeature, model.Color, model.BackgroundColor, model.LinkColor, model.LinkHoverColor, model.HeaderLinkColor, model.HeaderLinkHoverColor);
 
             model.FeatureID = entity.FeatureID;
         }

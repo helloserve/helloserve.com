@@ -14,18 +14,27 @@ body {
 }
 
 a {
-    text-decoration: none;
-    color: #888888;
+    text-decoration:none;
+    color: black;
 }
 
     a:hover {
-        color: #CCCCCC;
+        color: #888888;
     }
 
 .body-content {
     height: 100%;
     padding-top: 5em;
 }
+
+    .body-content a {
+        text-decoration: none;
+        color: #888888;
+    }
+
+        .body-content a:hover {
+            color: #666666;
+        }
 
 .level {
     height: 100%;
@@ -52,14 +61,6 @@ header, footer {
     background-color: #FFEDCC;
 }
 
-    .header a {
-        color: black;
-    }
-
-        .header a:hover {
-            color: #CCBEA3;
-        }
-
 .footer {
     padding: 1.5em 0;
     background-color: black;
@@ -67,11 +68,11 @@ header, footer {
     height: auto;
 }
 
-    .footer a {
+    .body-content .footer a {
         color: white;
     }
 
-        .footer a:hover {
+        .body-content .footer a:hover {
             color: grey;
         }
 

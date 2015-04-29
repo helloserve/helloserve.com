@@ -40,8 +40,7 @@ namespace helloserve.com.Web.Controllers
             model.Load();
             model.LoadForView();
 
-            ViewBag.Color = model.Color;
-            ViewBag.BackgroundColor = model.BackgroundColor;            
+            SetColors(model);
 
             return View("Project", model);
         }
@@ -57,10 +56,22 @@ namespace helloserve.com.Web.Controllers
             model.Load();
             model.LoadForView();
 
-            ViewBag.Color = model.Color;
-            ViewBag.BackgroundColor = model.BackgroundColor;
+            SetColors(model);
 
             return View("Project", model);
+        }
+
+        protected override void SetColors(BaseViewModel model)
+        {
+            base.SetColors(model);
+
+            ProjectDataModel dataModel = model as ProjectDataModel;
+            ViewBag.Color = dataModel.Color;
+            ViewBag.BackgroundColor = dataModel.BackgroundColor;
+            ViewBag.LinkColor = dataModel.LinkColor;
+            ViewBag.LinkHoverColor = dataModel.LinkHoverColor;
+            ViewBag.HeaderLinkColor = dataModel.HeaderLinkColor ?? dataModel.LinkColor;
+            ViewBag.HeaderLinkHoverColor = dataModel.HeaderLinkHoverColor ?? dataModel.LinkHoverColor;
         }
     }
 }

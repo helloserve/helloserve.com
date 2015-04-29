@@ -1,4 +1,5 @@
-﻿using System;
+﻿using helloserve.com.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,11 @@ namespace helloserve.com.Web.Controllers
                 ViewBag.BaseUrl = string.Format("{0}://{1}/", Request.Url.Scheme, Request.Url.Host);
 
             base.OnActionExecuting(filterContext);
+        }
+
+        protected virtual void SetColors(BaseViewModel model)
+        {
+
         }
     }
 }

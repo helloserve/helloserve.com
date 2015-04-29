@@ -17,6 +17,10 @@ namespace helloserve.com.Web.Models.Data
         public bool IsMainFeature { get; set; }
         public string Color { get; set; }
         public string BackgroundColor { get; set; }
+        public string LinkColor { get; set; }
+        public string LinkHoverColor { get; set; }
+        public string HeaderLinkColor { get; set; }
+        public string HeaderLinkHoverColor { get; set; }
 
         public CollectionViewModel News { get; set; }
 

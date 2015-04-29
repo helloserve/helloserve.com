@@ -24,6 +24,10 @@ namespace helloserve.com.Model
                 IndieDBLink = entity.IndieDBLink,
                 Color = entity.Color,
                 BackgroundColor = entity.BackgroundColor,
+                LinkColor = entity.LinkColor,
+                LinkHoverColor = entity.LinkHoverColor,
+                HeaderLinkColor = entity.HeaderLinkColor,
+                HeaderLinkHoverColor = entity.HeaderLinkHoverColor,
                 CreatedDate = entity.CreatedDate,
                 ModifiedDate = entity.ModifiedDate
             };

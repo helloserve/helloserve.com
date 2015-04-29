@@ -38,6 +38,10 @@ namespace helloserve.com.Entities
         public System.DateTime ModifiedDate { get; set; }
         public string Color { get; set; }
         public string BackgroundColor { get; set; }
+        public string LinkColor { get; set; }
+        public string LinkHoverColor { get; set; }
+        public string HeaderLinkColor { get; set; }
+        public string HeaderLinkHoverColor { get; set; }
     
         public virtual ICollection<Downloadable> Downloadables { get; set; }
         public virtual ICollection<FeatureMedia> FeatureMedias { get; set; }

@@ -24,7 +24,11 @@ namespace helloserve.com.Web.Models
                 ImageId = model.HeaderImageID,
                 ImageUrl = Model.Media.Get(model.HeaderImageID).ImageUrl(),
                 Color = model.Color,
-                BackgroundColor = model.BackgroundColor
+                BackgroundColor = model.BackgroundColor,
+                LinkColor = model.LinkColor,
+                LinkHoverColor = model.LinkHoverColor,
+                HeaderLinkColor = model.HeaderLinkColor,
+                HeaderLinkHoverColor = model.HeaderLinkHoverColor
             };
         }
 
@@ -55,7 +59,11 @@ namespace helloserve.com.Web.Models
                 IsMainFeature = dataModel.IsMainFeature,
                 HeaderImageID = dataModel.ImageId,
                 Color = dataModel.Color,
-                BackgroundColor = dataModel.BackgroundColor
+                BackgroundColor = dataModel.BackgroundColor,
+                LinkColor = dataModel.LinkColor,
+                LinkHoverColor = dataModel.LinkHoverColor,
+                HeaderLinkColor = dataModel.HeaderLinkColor,
+                HeaderLinkHoverColor = dataModel.HeaderLinkHoverColor
             };
         }
     }

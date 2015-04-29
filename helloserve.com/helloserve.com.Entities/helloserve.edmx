@@ -44,6 +44,10 @@
           <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
           <Property Name="Color" Type="nvarchar" MaxLength="50" />
           <Property Name="BackgroundColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="LinkColor" Type="nvarchar" MaxLength="100" />
+          <Property Name="LinkHoverColor" Type="nvarchar" MaxLength="100" />
+          <Property Name="HeaderLinkColor" Type="nvarchar" MaxLength="100" />
+          <Property Name="HeaderLinkHoverColor" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="FeatureMedia">
           <Key>
@@ -477,6 +481,10 @@
           <NavigationProperty Name="SellingPoints" Relationship="helloserveModel.FK_SellingPoint_Feature" FromRole="Feature" ToRole="SellingPoint" />
           <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BackgroundColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LinkColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LinkHoverColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HeaderLinkColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HeaderLinkHoverColor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FeatureMedia">
           <Key>
@@ -913,6 +921,10 @@
           <EntitySetMapping Name="Features">
             <EntityTypeMapping TypeName="helloserveModel.Feature">
               <MappingFragment StoreEntitySet="Feature">
+                <ScalarProperty Name="HeaderLinkHoverColor" ColumnName="HeaderLinkHoverColor" />
+                <ScalarProperty Name="HeaderLinkColor" ColumnName="HeaderLinkColor" />
+                <ScalarProperty Name="LinkHoverColor" ColumnName="LinkHoverColor" />
+                <ScalarProperty Name="LinkColor" ColumnName="LinkColor" />
                 <ScalarProperty Name="BackgroundColor" ColumnName="BackgroundColor" />
                 <ScalarProperty Name="Color" ColumnName="Color" />
                 <ScalarProperty Name="FeatureID" ColumnName="FeatureID" />
