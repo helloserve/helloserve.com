@@ -246,37 +246,29 @@ namespace helloserve.com.Logger
         /// <summary>
         /// Creates an instance of the Logger class using the configuration from the web or app config file.
         /// </summary>
-        /// <param name="name">The name of the logger - used in the EventViewer logs for identification</param>
-        /// <returns>An instance of the Logger class</returns>
-        public static Logger GetLogger(string name)
-        {
-            LoggerConfig config = LoggerConfig.GetConfig();
-            if (config == null)
-                throw new ArgumentNullException("Could not load config");
-
-            List<BaseScribe> scribes = new List<BaseScribe>();
-            foreach (var scribe in config.Scribes)
-            {
-                scribes.Add((scribe as ScribeConfig).GetScribe());
-            }
-
-            Logger logger = new Logger(name, config.DumpInterval, config.ByteSizeLimit, scribes);
-            _loggers.Add(logger);
-            return logger;
-        }
-
-        /// <summary>
-        /// Creates an instance of the Logger class for you to take care of. Each instance maintains it's own cache.
-        /// </summary>
-        /// <param name="name">The name of the logger - used in EventViewer logs for identification.</param>
-        /// <param name="connectionString">The connection string for the permanent store (SQL Client only).</param>
-        /// <param name="tableName">The table names in the permanent store to whichthe logger should write.</param>
-        /// <param name="dumpInterval">The interval in seconds that the logger should attempt to dump to the permanent store. Optional, default is 30</param>
-        /// <param name="byteSizeLimit">The size limit (in bytes) that the logger should attempt to stick to. Optional, default is around 5MB</param>
         /// <returns>An instance of the Logger class</returns>
         public static Logger GetLogger(string name, int dumpInterval = 30, long byteSizeLimit = 5242880)
         {
-            Logger logger = new Logger(name, dumpInterval, byteSizeLimit, null);
+            Logger logger = null;
+            LoggerConfig config = LoggerConfig.GetConfig();
+            List<BaseScribe> scribes = new List<BaseScribe>();
+            if (config == null)
+            {
+                logger = new Logger(name, dumpInterval, byteSizeLimit, scribes);
+            }
+            else
+            {
+                if (config.Scribes != null)
+                {
+                    foreach (var scribe in config.Scribes)
+                    {
+                        scribes.Add((scribe as ScribeConfig).GetScribe());
+                    }
+                }
+
+                logger = new Logger(name, config.DumpInterval, config.ByteSizeLimit, scribes);
+            }
+
             _loggers.Add(logger);
             return logger;
         }
