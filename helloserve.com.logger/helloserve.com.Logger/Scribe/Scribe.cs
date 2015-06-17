@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace helloserve.com.Logger
+namespace helloserve.com.Logger.Scribe
 {
-    public abstract class Scribe : IDisposable
+    public abstract class BaseScribe : IDisposable
     {
         public abstract void ScribeElement(LogElement element);
 
@@ -20,7 +20,7 @@ namespace helloserve.com.Logger
     /// <summary>
     /// A basic scribe to write log elements via SqlClient
     /// </summary>
-    public sealed class SqlCommandScribe : Scribe
+    public sealed class SqlCommandScribe : BaseScribe
     {
         private SqlConnection _connection;
 
@@ -63,7 +63,7 @@ namespace helloserve.com.Logger
     /// <summary>
     /// A basic scribe to write log elements to a file
     /// </summary>
-    public sealed class FileScribe : Scribe
+    public sealed class FileScribe : BaseScribe
     {
         private class FileScribeLocker
         {
@@ -110,38 +110,51 @@ namespace helloserve.com.Logger
                 try
                 {
                     _fileInfo.Refresh();
-                    if (_fileInfo.Length > 3145728) //3 MB
+
+                    try
                     {
-                        FileInfo[] files = _fileInfo.Directory.GetFiles(string.Format("{0}*",_fileInfo.Name));
-                        int last = files.Length - 1;
-                        if (files.Length >= 10)
+                        if (_fileInfo.Length > MaxFileSize) //3 MB
                         {
-                            File.Delete(files[9].FullName);
-                            last--;
-                        }
-
-                        if (files.Length == 1)
-                        {
-                            string destName = _fileInfo.FullName.Replace(_fileInfo.Name, string.Format("{0}{1}", _fileInfo.Name, 1));
-                            File.Copy(_fileInfo.FullName, destName);
-                        }
-                        else
-                        {
-                            for (int i = last; i >= 0; i--)
+                            FileInfo[] files = _fileInfo.Directory.GetFiles(string.Format("{0}*", _fileInfo.Name));
+                            int last = files.Length - 1;
+                            if (files.Length >= RotationCount)
                             {
-                                string destName = files[i].FullName.Replace(files[i].Name, string.Format("{0}{1}", _fileInfo.Name, i + 1));
-                                File.Copy(files[i].FullName, destName, true);
+                                File.Delete(files[RotationCount - 1].FullName);
+                                last--;
                             }
-                        }
 
-                        File.WriteAllText(_fileInfo.FullName, string.Empty);
+                            if (files.Length == 1)
+                            {
+                                string destName = _fileInfo.FullName.Replace(_fileInfo.Name, string.Format("{0}{1}", _fileInfo.Name, 1));
+                                File.Copy(_fileInfo.FullName, destName);
+                            }
+                            else
+                            {
+                                for (int i = last; i >= 0; i--)
+                                {
+                                    string destName = files[i].FullName.Replace(files[i].Name, string.Format("{0}{1}", _fileInfo.Name, i + 1));
+                                    File.Copy(files[i].FullName, destName, true);
+                                }
+                            }
+
+                            File.Delete(_fileInfo.FullName);
+                        }
                     }
+                    catch { }
 
                     string line = element.Scribe(this);
-                    File.AppendAllText(_fileInfo.FullName, line, Encoding.UTF8);
+                    using (FileStream fs = File.Open(_fileInfo.FullName, FileMode.Append, FileAccess.Write))
+                    {
+                        byte[] content = UTF8Encoding.UTF8.GetBytes(line);
+                        fs.Write(content, 0, content.Length);
+                    }                    
                 }
                 catch { }
             }
         }
+
+        public long MaxFileSize { get; set; }
+
+        public int RotationCount { get; set; }
     }
 }

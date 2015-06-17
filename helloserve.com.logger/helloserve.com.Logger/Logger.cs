@@ -7,9 +7,11 @@ using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Reflection;
 using System.Data.SqlClient;
-using ALog.Config;
 using System.Collections.Concurrent;
 using System.Data.Common;
+using helloserve.com.Logger.Scribe;
+using helloserve.com.Logger.Config;
+using helloserve.com.Logger.Scribe.Config;
 
 namespace helloserve.com.Logger
 {
@@ -83,7 +85,7 @@ namespace helloserve.com.Logger
         /// </summary>
         /// <param name="connection">The scribe object that will use the output</param>
         /// <returns>An object that contains information to use saving the log</returns>
-        public virtual object Scribe(Scribe scribe)
+        public virtual object Scribe(BaseScribe scribe)
         {
             return this;
         }
@@ -93,7 +95,7 @@ namespace helloserve.com.Logger
         /// </summary>
         /// <param name="scribe">The SqlCommandScribe instance that will use the output</param>
         /// <returns>The SqlCommand object to use</returns>
-        public virtual SqlCommand Scribe(SqlCommandScribe scribe)
+        public virtual SqlCommand Scribe(Scribe.SqlCommandScribe scribe)
         {
             SqlParameter[] sqlParams = new SqlParameter[5];
             sqlParams[0] = new SqlParameter("@Level", Level.ToString());
@@ -119,12 +121,12 @@ namespace helloserve.com.Logger
         /// </summary>
         /// <param name="scribe">The FileScribe instance that will use the output</param>
         /// <returns>The line(s) of text to write to the log file</returns>
-        public virtual string Scribe(FileScribe scribe)
+        public virtual string Scribe(Scribe.FileScribe scribe)
         {
             StringBuilder blr = new StringBuilder();
             blr.Append(Timestamp.ToString(System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat));
             blr.Append("    ");
-            blr.Append(Level.ToString());
+            blr.Append(Level.ToString().PadRight(10));
             blr.Append(" ");
             blr.Append(Category.PadRight(20));
             blr.Append(Message);
@@ -234,6 +236,12 @@ namespace helloserve.com.Logger
     public class Logger : IDisposable
     {
         private static List<Logger> _loggers = new List<Logger>();
+        internal static string LoggerConfigName = "logger";
+
+        public void SetLoggerConfigName(string name)
+        {
+            LoggerConfigName = "logger";
+        }
 
         /// <summary>
         /// Creates an instance of the Logger class using the configuration from the web or app config file.
@@ -246,7 +254,13 @@ namespace helloserve.com.Logger
             if (config == null)
                 throw new ArgumentNullException("Could not load config");
 
-            Logger logger = new Logger(name, config.ConnectionString, config.DumpInterval, config.ByteSizeLimit);
+            List<BaseScribe> scribes = new List<BaseScribe>();
+            foreach (var scribe in config.Scribes)
+            {
+                scribes.Add((scribe as ScribeConfig).GetScribe());
+            }
+
+            Logger logger = new Logger(name, config.DumpInterval, config.ByteSizeLimit, scribes);
             _loggers.Add(logger);
             return logger;
         }
@@ -260,9 +274,9 @@ namespace helloserve.com.Logger
         /// <param name="dumpInterval">The interval in seconds that the logger should attempt to dump to the permanent store. Optional, default is 30</param>
         /// <param name="byteSizeLimit">The size limit (in bytes) that the logger should attempt to stick to. Optional, default is around 5MB</param>
         /// <returns>An instance of the Logger class</returns>
-        public static Logger GetLogger(string name, string connectionString, int dumpInterval = 30, long byteSizeLimit = 5242880)
+        public static Logger GetLogger(string name, int dumpInterval = 30, long byteSizeLimit = 5242880)
         {
-            Logger logger = new Logger(name, connectionString, dumpInterval, byteSizeLimit);
+            Logger logger = new Logger(name, dumpInterval, byteSizeLimit, null);
             _loggers.Add(logger);
             return logger;
         }
@@ -301,19 +315,17 @@ namespace helloserve.com.Logger
 
         private Cache _logCache;
         private ConcurrentDictionary<int, PerfLogElement> _perfCache;
-        private List<Scribe> _scribes;
+        private List<BaseScribe> _scribes;
         private string _logName;
-        private string _connectionString;
 
         private int _dumpInterval;
         private long _byteLimit;
 
         private Timer _clock;
 
-        Logger(string name, string connectionString, int dumpInterval, long byteLimit)
+        Logger(string name, int dumpInterval, long byteLimit, List<BaseScribe> scribes)
         {
             _logName = name;
-            _connectionString = connectionString;
 
             _dumpInterval = dumpInterval;
             _byteLimit = byteLimit;
@@ -323,9 +335,7 @@ namespace helloserve.com.Logger
 
             _perfCache = new ConcurrentDictionary<int, PerfLogElement>();
 
-            _scribes = new List<Scribe>();
-            _scribes.Add(new SqlCommandScribe(connectionString));
-            _scribes.Add(new FileScribe(@"C:\Logs\CounselConnect\Default.Log"));
+            _scribes = scribes;
 
             RestartClockThread();
         }
@@ -338,6 +348,14 @@ namespace helloserve.com.Logger
         void _logCache_DumpNow(object sender, EventArgs e)
         {
             Dump();
+        }
+
+        public void AddScribe(BaseScribe scribe)
+        {
+            if (_scribes == null)
+                _scribes = new List<BaseScribe>();
+
+            _scribes.Add(scribe);
         }
 
         #region STATE
@@ -397,7 +415,7 @@ namespace helloserve.com.Logger
             }
             catch (Exception ex)
             {
-                LogError(ex, element);
+                LogError(_logName, ex, element);
                 return false;
             }
 
@@ -430,7 +448,7 @@ namespace helloserve.com.Logger
             }
             catch (Exception ex)
             {
-                LogError(ex, element);
+                LogError(_logName, ex, element);
                 return -1;
             }
         }
@@ -478,7 +496,7 @@ namespace helloserve.com.Logger
             }
             catch (Exception ex)
             {
-                LogError(ex, new LogElement() { Message = "Performance Log for key " + key });
+                LogError(_logName, ex, new LogElement() { Message = "Performance Log for key " + key });
                 return false;
             }
         }
@@ -497,15 +515,11 @@ namespace helloserve.com.Logger
             try
             {
                 if (_perfCache != null && _perfCache.Keys.Count > 0)
-                    LogWarning(string.Format("There are still {0} unmonitored performance log entries in the cache", _perfCache.Keys.Count), new LogElement() { Category = "PerfMon", Message = "Performance Monitoring cache is not empty", Timestamp = DateTime.Now });
+                    LogWarning(_logName, string.Format("There are still {0} unmonitored performance log entries in the cache", _perfCache.Keys.Count), new LogElement() { Category = "PerfMon", Message = "Performance Monitoring cache is not empty", Timestamp = DateTime.Now });
 
                 if (_logCache != null)
                 {
-                    using (SqlConnection connection = new SqlConnection(_connectionString))
-                    {
-                        connection.Open();
-                        _logCache.Dump(_scribes);
-                    }
+                    _logCache.Dump(_scribes);
                 }
             }
             catch (ALogRethrowException ex)
@@ -514,18 +528,18 @@ namespace helloserve.com.Logger
             }
             catch (Exception ex)
             {
-                LogError(ex, new LogElement() { Category = "HLog", Message = string.Format("Error dumping to permanent store at '{0}'", _connectionString), Timestamp = DateTime.Now });
+                LogError(_logName, ex, new LogElement() { Category = "HLog", Message = "Error dumping to permanent stores", Timestamp = DateTime.Now });
             }
 
             _dumping = false;
         }
 
-        private void LogError(Exception ex, LogElement element)
+        internal static void LogError(string logName, Exception ex, LogElement element)
         {
             try
             {
                 StringBuilder msg = new StringBuilder();
-                msg.AppendLine(string.Format("HLog encountered an error for configuration '{0}':", _logName));
+                msg.AppendLine(string.Format("HLog encountered an error for configuration '{0}':", logName));
                 msg.AppendLine(string.Empty);
                 msg.AppendLine(element.Message);
                 msg.AppendLine(string.Empty);
@@ -534,26 +548,26 @@ namespace helloserve.com.Logger
                 msg.AppendLine(ex.StackTrace);
 
                 System.Diagnostics.EventLog log = new System.Diagnostics.EventLog("Application");
-                log.Source = "HLog - " + _logName;
+                log.Source = "HLog - " + logName;
                 log.WriteEntry(msg.ToString(), System.Diagnostics.EventLogEntryType.Error);
             }
             catch { }
         }
 
 
-        private void LogWarning(string message, LogElement element)
+        internal static void LogWarning(string logName, string message, LogElement element)
         {
             try
             {
                 StringBuilder msg = new StringBuilder();
-                msg.AppendLine(string.Format("HLog issued a warning for configuration '{0}':", _logName));
+                msg.AppendLine(string.Format("HLog issued a warning for configuration '{0}':", logName));
                 msg.AppendLine(string.Empty);
                 msg.AppendLine(element.Message);
                 msg.AppendLine(string.Empty);
                 msg.AppendLine(message);
 
                 System.Diagnostics.EventLog log = new System.Diagnostics.EventLog("Application");
-                log.Source = "HLog - " + _logName;
+                log.Source = "HLog - " + logName;
                 //log.ModifyOverflowPolicy(System.Diagnostics.OverflowAction.OverwriteAsNeeded, 0);
                 log.WriteEntry(msg.ToString(), System.Diagnostics.EventLogEntryType.Warning);
             }

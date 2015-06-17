@@ -1,27 +1,15 @@
-﻿using System;
+﻿using helloserve.com.Logger.Scribe;
+using helloserve.com.Logger.Scribe.Config;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
 
-namespace ALog.Config
+namespace helloserve.com.Logger.Config
 {
     public class LoggerConfig : ConfigurationSection
     {
-        [ConfigurationProperty("connectionString")]
-        public string ConnectionString
-        {
-            get { return (string)this["connectionString"]; }
-            set { this["connectionString"] = value; }
-        }
-
-        [ConfigurationProperty("tableName")]
-        public string TableName
-        {
-            get { return (string)this["tableName"]; }
-            set { this["tableName"] = value; }
-        }
-
         [ConfigurationProperty("dumpInterval", IsRequired = false, DefaultValue = 30)]
         public int DumpInterval
         {
@@ -30,15 +18,23 @@ namespace ALog.Config
         }
 
         [ConfigurationProperty("byteSizeLimit", IsRequired = false, DefaultValue = 5242880)]
-        public long ByteSizeLimit
+        public int ByteSizeLimit
         {
-            get { return (long)this["byteSizeLimit"]; }
+            get { return (int)this["byteSizeLimit"]; }
             set { this["byteSizeLimit"] = value; }
+        }
+
+        [ConfigurationProperty("scribes", IsRequired=true)]
+        [ConfigurationCollection(typeof(ScribesConfigCollection))]
+        public ScribesConfigCollection Scribes
+        {
+            get { return this["scribes"] as ScribesConfigCollection; }
+            set { this["scribes"] = value; }
         }
 
         public static LoggerConfig GetConfig()
         {
-            LoggerConfig config = ConfigurationManager.GetSection("LoggerConfig") as LoggerConfig;
+            LoggerConfig config = ConfigurationManager.GetSection(Logger.LoggerConfigName) as LoggerConfig;
             return config;
         }
     }

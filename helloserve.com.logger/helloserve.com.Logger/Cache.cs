@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
 using System.Reflection;
+using helloserve.com.Logger.Scribe;
 
 namespace helloserve.com.Logger
 {
@@ -134,7 +135,7 @@ namespace helloserve.com.Logger
             }
         }
 
-        internal void Dump(List<Scribe> scribes, string category = null)
+        internal void Dump(List<BaseScribe> scribes, string category = null)
         {
             if (_categories == null)
                 return;
@@ -160,9 +161,16 @@ namespace helloserve.com.Logger
 
             foreach (LogElement item in _allItems)
             {
-                foreach (Scribe scribe in scribes)
+                foreach (BaseScribe scribe in scribes)
                 {
-                    scribe.ScribeElement(item);
+                    try
+                    {
+                        scribe.ScribeElement(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogError(scribe.GetType().Name, ex, new LogElement() { Category = "Cache", Message = string.Format("Error dumping to scribe"), Timestamp = DateTime.Now });
+                    }
                 }
             }
 
