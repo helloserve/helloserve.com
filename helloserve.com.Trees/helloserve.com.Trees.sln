@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Trees.Core", "helloserve.com.Trees.Core\helloserve.com.Trees.Core.csproj", "{B59F6DE2-200D-467F-8FC9-3A257659DFD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Trees.Core.Tests", "helloserve.com.Trees.Core.Tests\helloserve.com.Trees.Core.Tests.csproj", "{42E02EB3-02F9-430A-A311-66732447DCA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B59F6DE2-200D-467F-8FC9-3A257659DFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B59F6DE2-200D-467F-8FC9-3A257659DFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B59F6DE2-200D-467F-8FC9-3A257659DFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B59F6DE2-200D-467F-8FC9-3A257659DFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42E02EB3-02F9-430A-A311-66732447DCA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42E02EB3-02F9-430A-A311-66732447DCA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42E02EB3-02F9-430A-A311-66732447DCA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42E02EB3-02F9-430A-A311-66732447DCA4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
