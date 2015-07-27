@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace helloserve.com.Web
 {
@@ -47,6 +50,30 @@ namespace helloserve.com.Web
             b = Convert.ToInt32(sb, 16);
 
             return string.Format("rgba({0}, {1}, {2}, {3})", r, g, b, a);
+        }
+
+        public static MvcHtmlString SVG(this HtmlHelper htmlHelper, string path, object htmlAttributes)
+        {
+            Dictionary<String, Object> attributes = new Dictionary<String, Object>();
+            var fullPath = HttpContext.Current.Server.MapPath(path);
+            var xmlDoc = new XmlDocument();
+            xmlDoc.Load(fullPath);
+            PropertyInfo[] properties = htmlAttributes.GetType().GetProperties();
+            foreach (PropertyInfo propertyInfo in properties)
+            {
+                if (xmlDoc.DocumentElement.Attributes[propertyInfo.Name] != null)
+                {
+                    xmlDoc.DocumentElement.Attributes[propertyInfo.Name].Value =
+                        (string)propertyInfo.GetValue(htmlAttributes, null);
+                }
+                else
+                {
+                    XmlAttribute xsiNil = xmlDoc.CreateAttribute(propertyInfo.Name);
+                    xsiNil.Value = (string)propertyInfo.GetValue(htmlAttributes, null);
+                    xmlDoc.DocumentElement.Attributes.Append(xsiNil);
+                }
+            }
+            return new MvcHtmlString(xmlDoc.OuterXml);
         }
     }
 }

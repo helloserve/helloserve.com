@@ -14,7 +14,7 @@ body {
 }
 
 a {
-    text-decoration:none;
+    text-decoration: none;
     color: black;
 }
 
@@ -68,13 +68,13 @@ header, footer {
     height: auto;
 }
 
-    .body-content .footer a {
-        color: white;
-    }
+.body-content .footer a {
+    color: white;
+}
 
-        .body-content .footer a:hover {
-            color: grey;
-        }
+    .body-content .footer a:hover {
+        color: grey;
+    }
 
 .header-title {
     display: inline-block;
@@ -273,6 +273,12 @@ textarea {
 .background-cover {
     background-color: rgba(255,237,204,0.5);
     height: 100%;
+}
+
+.svg_footer {
+    fill: #fff;
+    width: 1.5em;
+    height: 1.5em;
 }
 
 @media screen and (max-width: 1024px) {
