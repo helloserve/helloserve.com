@@ -17,6 +17,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/require.js")
     <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
     <style>
 
@@ -53,44 +54,46 @@
         }
     </style>
 </head>
-    <body style="background-color:@(backgroundColor)">
-        <header role="banner" class="header" style="background-color:@(backgroundColor); color:@(color)">
-            <div class="level">
-                <div class="header-title">@Html.ActionLink("helloserve", "index", "home", null, new { style = string.Format("color:{0};", color) })</div>
-                <div class="header-nav">
-                    <nav>
-                        <ul class="nav-list">
-                            <li><a href="@(ViewBag.BaseUrl)about" style="color:@(color);">ABOUT</a></li>
-                            <li><a href="@(ViewBag.BaseUrl)project" style="color:@(color)">PROJECTS</a></li>
-                            <li><a href="@(ViewBag.BaseUrl)blog" style="color:@(color)">BLOG</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div class="body-content">
-            <div class="preamble">
-                @RenderSection("preamble", required: false)
-            </div>
-            <div class="content">
-                @RenderBody()
-                <footer class="footer">
-                    <div class="level">
-                        <div class="footer-title">&copy; @DateTime.Now.Year - helloserve</div>
-                        <div class="footer-nav">
-                            <nav class="footer-nav">
-                                <ul class="nav-list">
-                                    <li><a href="https://plus.google.com/+Helloserve/">G+</a></li>
-                                    <li><a href="http://za.linkedin.com/pub/henk-roux/5b/858/188">in</a></li>
-                                    <li><a href="https://twitter.com/helloserve">T</a></li>
-                                    <li><a href="https://www.facebook.com/helloserveproductions">F</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </footer>
+<body style="background-color:@(backgroundColor)">
+    <header role="banner" class="header" style="background-color:@(backgroundColor); color:@(color)">
+        <div class="level">
+            <div class="header-title">@Html.ActionLink("helloserve", "index", "home", null, new { style = string.Format("color:{0};", color) })</div>
+            <div class="header-nav">
+                <nav>
+                    <ul class="nav-list">
+                        <li><a href="@(ViewBag.BaseUrl)about" style="color:@(color);">ABOUT</a></li>
+                        <li><a href="@(ViewBag.BaseUrl)project" style="color:@(color)">PROJECTS</a></li>
+                        <li><a href="@(ViewBag.BaseUrl)blog" style="color:@(color)">BLOG</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
-        @RenderSection("scripts", required: false)
-    </body>
+    </header>
+    <div class="body-content">
+        <div class="preamble">
+            @RenderSection("preamble", required: false)
+        </div>
+        <div class="content">
+            @RenderBody()
+            <footer class="footer">
+                <div class="level">
+                    <div class="footer-title">&copy; @DateTime.Now.Year - helloserve</div>
+                    <div class="footer-nav">
+                        <nav class="footer-nav">
+                            <ul class="nav-list">
+                                <li><a href="https://github.com/helloserve/">@Html.SVG("~/Content/gh.svg", htmlAttributes: new { @class = "svg_footer" })</a></li>
+                                <li><a href="https://plus.google.com/+Helloserve/">@Html.SVG("~/Content/g+.svg", htmlAttributes: new { @class = "svg_footer" })</a></li>
+                                <li><a href="http://za.linkedin.com/pub/henk-roux/5b/858/188">@Html.SVG("~/Content/in.svg", htmlAttributes: new { @class = "svg_footer" })</a></li>
+                                <li><a href="https://twitter.com/helloserve">@Html.SVG("~/Content/t.svg", htmlAttributes: new { @class = "svg_footer" })</a></li>
+                                <li><a href="https://www.facebook.com/helloserveproductions"><span>@Html.SVG("~/Content/f.svg", htmlAttributes: new { @class = "svg_footer" })</span></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="footer-title" style="font-size:smaller">Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/plainicon" title="Plainicon">Plainicon</a>, <a href="http://www.flaticon.com/authors/icomoon" title="Icomoon">Icomoon</a> and <a href="http://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
 </html>
