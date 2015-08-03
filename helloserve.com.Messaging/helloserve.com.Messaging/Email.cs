@@ -18,7 +18,7 @@ namespace helloserve.com.Messaging
 
         private Config.SmtpServer _server;
 
-        public Email(string smtpServer, int? port = null, string smtpUsername = null, string smtpPassword = null, bool smtpSsl = false)
+        public Email(string smtpServer, bool smtpSsl, int? port = null, string smtpUsername = null, string smtpPassword = null)
         {
             _server = new Config.SmtpServer()
             {
@@ -30,10 +30,10 @@ namespace helloserve.com.Messaging
             };
         }
 
-        public Email(string server, string configSection = "helloserve.com.Email")
+        public Email(string smtpServer, string configSection = "helloserve.com.Messaging")
         {
             Config.Email config = ConfigurationManager.GetSection(configSection) as Config.Email;
-            _server = config.Servers[server];
+            _server = config.SmtpServers[smtpServer];
         }
 
         public void SendEmail(System.Net.Mail.MailMessage message)

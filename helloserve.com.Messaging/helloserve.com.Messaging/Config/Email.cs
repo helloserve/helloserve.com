@@ -9,6 +9,13 @@ namespace helloserve.com.Messaging.Config
 {
     public class SmtpServer : ConfigurationElement
     {
+        [ConfigurationProperty("name", IsRequired = true)]
+        public string Name
+        {
+            get { return (string)this["name"]; }
+            set { this["name"] = value; }
+        }
+
         [ConfigurationProperty("address", IsRequired = false, DefaultValue = "localhost")]
         public string Address
         {
@@ -59,14 +66,14 @@ namespace helloserve.com.Messaging.Config
 
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return (element as SmtpServer).Address;
+            return (element as SmtpServer).Name;
         }
 
-        public new SmtpServer this[string server]
+        public new SmtpServer this[string name]
         {
             get
             {
-                return BaseGet(server) as SmtpServer;
+                return BaseGet(name) as SmtpServer;
             }
             set
             {
@@ -84,12 +91,12 @@ namespace helloserve.com.Messaging.Config
 
     public class Email : ConfigurationSection
     {
-        [ConfigurationProperty("servers", IsRequired = true)]
+        [ConfigurationProperty("smtpServers", IsRequired = true)]
         [ConfigurationCollection(typeof(SmtpServers))]
-        public SmtpServers Servers
+        public SmtpServers SmtpServers
         {
-            get { return this["servers"] as SmtpServers; }
-            set { this["servers"] = value; }
+            get { return this["smtpServers"] as SmtpServers; }
+            set { this["smtpServers"] = value; }
         }
     }
 }
