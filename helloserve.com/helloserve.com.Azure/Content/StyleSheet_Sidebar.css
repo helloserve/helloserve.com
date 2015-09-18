@@ -1,0 +1,277 @@
+﻿/* menu*/
+.sideBar {
+    position: absolute;
+    z-index: 1;
+    width: 85px;
+    overflow: hidden;
+    left: 0px;
+    top: 5em;
+    box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.2);
+    -webkit-animation: sideBarContract 0.25s;
+    animation: sideBarContract 0.2s;
+    background-color: white;
+    padding: 5px;
+}
+
+    .sideBar:hover {
+        -webkit-animation: sideBarExpand 0.25s;
+        animation: sideBarExpand 0.2s;
+        width: 315px;
+    }
+
+    .sideBar a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .sideBar .feature {
+        display: block;
+        vertical-align: middle;
+        height: 75px;
+        overflow: hidden;
+        padding: 3px;
+        -webkit-animation: featureContract 0.25s;
+        animation: featureContract 0.25s;
+    }
+
+        .sideBar .feature:hover {
+            height: 155px;
+            -webkit-animation: featureExpand 0.25s;
+            animation: featureExpand 0.25s;
+        }
+
+        .sideBar .feature .image {
+            z-index: -2;
+            position: relative;
+            top: 0px;
+            left: 0px;
+            width: 70px;
+            height: 70px;
+            overflow: hidden;
+            /*border: 1px solid black;*/
+            border-radius: 35px;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            background-image: url(images/placeholder-200x150.png);
+            background-position-x: center;
+            background-position-y: center;
+            background-repeat: no-repeat;
+            background-size: 300px 150px;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+            -webkit-animation: featureImageContract 0.3s;
+            animation: featureImageContract 0.3s;
+        }
+
+        .sideBar .feature:hover .image {
+            width: 300px;
+            height: 150px;
+            border-radius: 0px;
+            -webkit-animation: featureImageExpand 0.3s;
+            animation: featureImageExpand 0.3s;
+        }
+
+        .sideBar .feature .heading-overlay {
+            z-index: -1;
+            top: -150px;
+            left: 0px;
+            display: none;
+            position: relative;
+            width: 300px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            vertical-align: middle;
+        }
+
+        .sideBar .feature:hover .heading-overlay {
+            display: table-cell;
+        }
+
+        .sideBar .feature .heading-overlay .heading {
+            color: white;
+            font-weight: bold;
+            display: table-cell;
+            padding-left: 5px;
+        }
+
+    .sideBar .feature-static {
+        display: block;
+        vertical-align: middle;
+        height: 75px;
+		width: 300px;
+        overflow: hidden;
+        padding: 3px;
+	}
+
+	.sideBar .feature-static a {
+		color:black;
+	}
+	
+    .sideBar .image-static {
+            width: 70px;
+            height: 70px;
+            overflow: hidden;
+            /*border: 1px solid black;*/
+            border-radius: 35px;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            background-image: url(images/placeholder-200x150.png);
+            background-position-x: center;
+            background-position-y: center;
+            background-repeat: no-repeat;
+            background-size: 300px 150px;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+    }
+
+	.sideBar  .feature-static .heading-static {
+            display: inline-block;
+            vertical-align: middle;
+			color: black;
+			width:220px;
+    }
+	
+	/* .sideBar:hover .feature-static .heading-static {
+			display:table-cell;
+	} */
+	
+	.heading-static .heading {
+			display:inline-block;
+			text-align:center;
+	}
+	
+@-webkit-keyframes sideBarContract {
+    from {
+        width: 315px;
+    }
+
+    to {
+        width: 85px;
+    }
+}
+
+@keyframes sideBarContract {
+    from {
+        width: 315px;
+    }
+
+    to {
+        width: 85px;
+    }
+}
+
+@-webkit-keyframes sideBarExpand {
+    from {
+        width: 85px;
+    }
+
+    to {
+        width: 315px;
+    }
+}
+
+@keyframes sideBarExpand {
+    from {
+        width: 85px;
+    }
+
+    to {
+        width: 315px;
+    }
+}
+
+@-webkit-keyframes featureContract {
+    from {
+        height: 155px;
+    }
+
+    to {
+        height: 75px;
+    }
+}
+
+@keyframes featureContract {
+    from {
+        height: 155px;
+    }
+
+    to {
+        height: 75px;
+    }
+}
+
+@-webkit-keyframes featureExpand {
+    from {
+        height: 75px;
+    }
+
+    to {
+        height: 155px;
+    }
+}
+
+@keyframes featureExpand {
+    from {
+        height: 75px;
+    }
+
+    to {
+        height: 155px;
+    }
+}
+
+@-webkit-keyframes featureImageContract {
+    from {
+        width: 300px;
+        height: 150px;
+        border-radius: 0px;
+    }
+
+    to {
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+    }
+}
+
+@keyframes featureImageContract {
+    from {
+        width: 300px;
+        height: 150px;
+        border-radius: 0px;
+    }
+
+    to {
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+    }
+}
+
+@-webkit-keyframes featureImageExpand {
+    from {
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+    }
+
+    to {
+        width: 300px;
+        height: 150px;
+        border-radius: 0px;
+    }
+}
+
+@keyframes featureImageContract {
+    from {
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+    }
+
+    to {
+        width: 300px;
+        height: 150px;
+        border-radius: 0px;
+    }
+}

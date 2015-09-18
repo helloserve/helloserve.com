@@ -1,0 +1,17 @@
+﻿@model helloserve.com.Azure.Models.HomeViewModel
+
+@{
+    ViewBag.Title = null;
+}
+
+@section preamble{
+    <div class="info-heading jumbo">
+        Software development and a no. 10 socket
+    </div>
+    <div class="info">
+    My focus is on architecture, design, detail and adding value. My hobbies are DIY car maintenance and simulations. This is my personal project, ownership and for-contract website.
+</div>
+}
+
+@Html.DisplayFor(m => m.NewsItem)
+@Html.Partial("ContentGroup", Model.Projects)

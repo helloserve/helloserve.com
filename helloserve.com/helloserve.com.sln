@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Entities", "helloserve.com.Entities\helloserve.com.Entities.csproj", "{08EFBFA6-5225-4D56-986C-294559049CC4}"
 EndProject
@@ -10,6 +10,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Repository", "helloserve.com.Repository\helloserve.com.Repository.csproj", "{4B64E870-EFD4-4CF4-B328-F4D80BEB673D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Web", "helloserve.com.Web\helloserve.com.Web.csproj", "{5EAA3FE0-0D9D-47B0-95E4-BEC38E2E78E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Azure", "helloserve.com.Azure\helloserve.com.Azure.csproj", "{B8B1433A-0C08-4E72-8141-BB3E64BB2582}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{48343B95-06CB-4141-BD68-D72A5FCBB99F}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{A0C820C4-77E0-4395-8A33-D83A6FAB9E1A}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\helloservecomAzure-WAWS-dev.json = PublishScripts\Configurations\helloservecomAzure-WAWS-dev.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,8 +55,17 @@ Global
 		{5EAA3FE0-0D9D-47B0-95E4-BEC38E2E78E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5EAA3FE0-0D9D-47B0-95E4-BEC38E2E78E9}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{5EAA3FE0-0D9D-47B0-95E4-BEC38E2E78E9}.Test|Any CPU.Build.0 = Test|Any CPU
+		{B8B1433A-0C08-4E72-8141-BB3E64BB2582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B1433A-0C08-4E72-8141-BB3E64BB2582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B1433A-0C08-4E72-8141-BB3E64BB2582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B1433A-0C08-4E72-8141-BB3E64BB2582}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8B1433A-0C08-4E72-8141-BB3E64BB2582}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B1433A-0C08-4E72-8141-BB3E64BB2582}.Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A0C820C4-77E0-4395-8A33-D83A6FAB9E1A} = {48343B95-06CB-4141-BD68-D72A5FCBB99F}
 	EndGlobalSection
 EndGlobal

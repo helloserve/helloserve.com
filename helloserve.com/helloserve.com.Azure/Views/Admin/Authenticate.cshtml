@@ -1,0 +1,21 @@
+﻿@model helloserve.com.Azure.Models.Data.UserDataModel
+@{
+    ViewBag.Title = "Authenticate";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("authenticate", "admin", FormMethod.Post))
+{
+    <div class="editor">
+        <div class="label">@Html.LabelFor(m => m.Username)</div><div class="field">@Html.EditorFor(m => m.Username)</div>
+    </div>
+
+    <div class="editor">
+        <div class="label">@Html.LabelFor(m=>m.Password)</div><div class="field">@Html.PasswordFor(m => m.Password)</div>
+    </div>
+
+    <div class="editor">
+        <div class="label"></div><div class="field"><input type="submit" value="Login" /></div>
+    </div>
+
+}

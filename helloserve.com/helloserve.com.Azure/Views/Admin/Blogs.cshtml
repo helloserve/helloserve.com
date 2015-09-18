@@ -1,0 +1,17 @@
+﻿@model helloserve.com.Azure.Models.BlogEditModel
+@{
+    ViewBag.Title = "Blogs";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Blogs</h2>
+
+<div>
+    <div>@Html.ActionLink("Add", "blog")</div>
+    @foreach (var post in Model.BlogPosts.ListItems)
+    {
+        <div>
+            @Html.ActionLink(post.Title, "blog", new { id = (post as helloserve.com.Azure.Models.Data.NewsDataModel).NewsId })
+        </div>
+    }
+</div>
