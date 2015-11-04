@@ -15,7 +15,7 @@
     <AssemblyName>helloserve.com.Azure</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -274,7 +274,7 @@
     <Content Include="Views\Admin\Projects.cshtml" />
     <Content Include="Views\Blog\Blog.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
-    <Content Include="Views\Home\ContentGroup.cshtml" />
+    <Content Include="Views\Shared\ContentGroup.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Project\DisplayTemplates\ContentDataModel.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
@@ -285,13 +285,15 @@
     <Content Include="Views\Shared\DisplayTemplates\NewsDataModel.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Blog\DisplayTemplates\ContentDataModel.cshtml" />
+    <Content Include="Views\Shared\ContentGroupSmall.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ContentDataModelSmall.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\images\dump\" />
     <Folder Include="Content\images\presentables\" />
     <Folder Include="Content\media\" />
-    <Folder Include="Views\Blog\DisplayTemplates\" />
     <Folder Include="Views\Home\DisplayTemplates\" />
     <Folder Include="Views\Media\" />
   </ItemGroup>
@@ -330,7 +332,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63741</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63741/</IISUrl>
+          <IISUrl>http://localhost/helloserve.com.Azure</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

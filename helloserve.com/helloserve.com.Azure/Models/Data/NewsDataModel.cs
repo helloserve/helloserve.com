@@ -11,12 +11,48 @@ namespace helloserve.com.Azure.Models.Data
         public int NewsId { get; set; }
         public int? ProjectId { get; set; }
         public bool IsPublished { get; set; }
-        
+
         public ProjectDataModel Project { get; set; }
 
         public List<SelectListItem> Projects;
+        public CollectionViewModel AlternativeNewsItems { get; set; }
 
-        public void LoadForEdit() {
+        public override void Load(object state = null)
+        {
+            base.Load(state);
+
+            if (Project != null)
+            {
+                List<ContentDataModel> additionalContent = new List<ContentDataModel>();
+                BlogViewModel baseModel = state as BlogViewModel;
+                if (baseModel != null)
+                {
+                    int index = baseModel.BlogPosts.ListItems.IndexOf(this);
+                    int i = index - 1;
+                    while (i > 0 && additionalContent.Count == 0)
+                    {                        
+                        if ((baseModel.BlogPosts.ListItems[i] as NewsDataModel).ProjectId == this.ProjectId)
+                            additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
+                        i--;
+                    }
+
+                    i = index + 1;
+                    while (i < baseModel.BlogPosts.ListItems.Count && additionalContent.Count < 3)
+                    {
+                        if ((baseModel.BlogPosts.ListItems[i] as NewsDataModel).ProjectId == this.ProjectId)
+                            additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
+                        i++;
+                    }
+                }
+
+                AlternativeNewsItems = new CollectionViewModel();
+                AlternativeNewsItems.Load();
+                AlternativeNewsItems.ListItems.AddRange(additionalContent);
+            }
+        }
+
+        public void LoadForEdit()
+        {
             Projects = Model.Feature.GetAll().Select(m => new SelectListItem() { Text = m.Name, Value = m.FeatureID.ToString(), Selected = m.FeatureID == ProjectId }).ToList();
             Projects.Insert(0, new SelectListItem() { Text = string.Empty, Value = null, Selected = !ProjectId.HasValue });
         }

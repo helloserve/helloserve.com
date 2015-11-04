@@ -38,7 +38,7 @@ namespace helloserve.com.Azure.Controllers
             NewsDataModel model = baseModel.BlogPosts.GetById(id) as NewsDataModel;
             if (model == null)
                 model = new NewsDataModel();
-            model.Load();
+            model.Load(state: baseModel);
             return View("Blog", model);
         }
 
@@ -50,7 +50,7 @@ namespace helloserve.com.Azure.Controllers
             NewsDataModel model = baseModel.BlogPosts.GetByName(name) as NewsDataModel;
             if (model == null)
                 model = new NewsDataModel();
-            model.Load();
+            model.Load(state: baseModel);
             return View("Blog", model);
         }
     }
