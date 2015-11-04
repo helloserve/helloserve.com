@@ -9,6 +9,14 @@ namespace helloserve.com.Azure.Controllers
 {
     public class BaseController : Controller
     {
+        public BaseController()
+        {
+            ViewBag.InDebug = false;
+#if DEBUG
+            ViewBag.InDebug = true;
+#endif
+        }
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             if (Request.Url.Segments.Length >= 2 && Request.Url.Segments[1].Contains("helloserve"))
