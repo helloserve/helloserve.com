@@ -39,7 +39,7 @@ namespace helloserve.com.Azure.Controllers
                 model = new ProjectDataModel();
             model.Load();
             model.LoadForView();
-
+            model.ShowInIsolation = true;
             SetColors(model);
 
             return View("Project", model);
@@ -55,7 +55,7 @@ namespace helloserve.com.Azure.Controllers
                 model = new ProjectDataModel();
             model.Load();
             model.LoadForView();
-
+            model.ShowInIsolation = true;
             SetColors(model);
 
             return View("Project", model);

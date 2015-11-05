@@ -39,6 +39,7 @@ namespace helloserve.com.Azure.Controllers
             if (model == null)
                 model = new NewsDataModel();
             model.Load(state: baseModel);
+            model.ShowInIsolation = true;
             return View("Blog", model);
         }
 
@@ -51,6 +52,7 @@ namespace helloserve.com.Azure.Controllers
             if (model == null)
                 model = new NewsDataModel();
             model.Load(state: baseModel);
+            model.ShowInIsolation = true;
             return View("Blog", model);
         }
     }

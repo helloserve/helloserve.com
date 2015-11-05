@@ -14,6 +14,8 @@ namespace helloserve.com.Azure.Models.Data
         public int? ImageId { get; set; }
         public string ImageUrl { get; set; }
 
+        public bool ShowInIsolation { get; set; }
+
         public virtual string Controller
         {
             get { return ""; }

@@ -41,9 +41,12 @@
 {
     if (Model.AlternativeNewsItems == null || Model.AlternativeNewsItems.ListItems.Count == 0)
     {
-        <div style="height:18%">
-            @Html.DisplayFor(m => m.Project)
-        </div>
+        if (Model.ShowInIsolation)
+        {
+            <div style="height:18%">
+                @Html.DisplayFor(m => m.Project)
+            </div>
+        }
     }
     else
     {
