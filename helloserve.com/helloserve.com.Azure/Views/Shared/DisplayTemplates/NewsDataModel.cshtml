@@ -1,5 +1,10 @@
 ﻿@model helloserve.com.Azure.Models.Data.NewsDataModel
 
+@{
+    string pageUrl = ViewBag.BaseUrl + "blog/" + Model.UrlName;
+    string pageIdentifier = Model.NewsId.ToString();
+}
+
 <div class="content-container" style="height:auto">
     <div class="content-block">
         <div style="padding:2em">
@@ -63,4 +68,34 @@
             @Html.Partial("ContentGroupSmall", Model.AlternativeNewsItems)
         </div>
     }
+}
+
+@if (Model.ShowInIsolation)
+{
+    <div class="content-container">
+        <div style="padding:2em;">
+            <div id="disqus_thread"></div>
+            <script>
+                /**
+                * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                */
+
+                var disqus_config = function () {
+                    this.page.url = '@pageUrl'; // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = @pageIdentifier; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                };
+
+                (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+
+                    s.src = '//helloserve.disqus.com/embed.js';
+
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
 }
