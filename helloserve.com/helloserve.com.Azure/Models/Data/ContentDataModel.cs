@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using helloserve.com.Azure.Extensions;
 
 namespace helloserve.com.Azure.Models.Data
 {
@@ -28,7 +29,7 @@ namespace helloserve.com.Azure.Models.Data
                 if (string.IsNullOrEmpty(Title))
                     return string.Empty;
 
-                string cleaned = Title.Replace(" ", "-").Replace("?", "").Replace("!", "").Replace(",", "").Replace(".", "");
+                string cleaned = Title.ToUrlString();
                 return cleaned.Substring(0, Math.Min(150, cleaned.Length)).Trim().ToLower();
             }
         }

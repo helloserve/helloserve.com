@@ -44,6 +44,14 @@ namespace helloserve.com.Logger.Scribe.Config
                 if (elementName == "add")
                 {
                     config.FactoryDeserializeElement(reader, false);
+                    
+                    object[] keys = BaseGetAllKeys();
+                    for (int i = 0; i < keys.Length; i++)
+                    {
+                        if ((string)keys[i] == (string)GetElementKey(config))
+                            return true;
+                    }
+
                     BaseAdd(config);
                 }
                 if (elementName == "remove")

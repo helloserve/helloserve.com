@@ -1,5 +1,6 @@
 ﻿using helloserve.com.Azure.Models;
 using helloserve.com.Azure.Models.Data;
+using helloserve.com.Azure.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace helloserve.com.Azure.Controllers
             BlogViewModel baseModel = new BlogViewModel();
             baseModel.Load();
 
-            NewsDataModel model = baseModel.BlogPosts.GetByName(name) as NewsDataModel;
+            NewsDataModel model = baseModel.BlogPosts.GetByName(name.ToUrlString()) as NewsDataModel;
             if (model == null)
                 model = new NewsDataModel();
             model.Load(state: baseModel);

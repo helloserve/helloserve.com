@@ -302,6 +302,11 @@ a:hover .svg_footer {
 }
 
 @media screen and (max-width: 703px) {
+    .header {
+        position:relative;
+        padding-top: 0.5em;
+    }
+
     nav {
         display: block;
     }
@@ -312,7 +317,7 @@ a:hover .svg_footer {
     }
 
     .body-content {
-        padding-top: 10.5em;
+        padding-top: 0.5em;
     }
 
     .jumbo {
