@@ -21,34 +21,35 @@ namespace helloserve.com.Azure.Models.Data
         {
             base.Load(state);
 
-            if (Project != null)
+            List<ContentDataModel> additionalContent = new List<ContentDataModel>();
+            BlogViewModel baseModel = state as BlogViewModel;
+            if (baseModel != null)
             {
-                List<ContentDataModel> additionalContent = new List<ContentDataModel>();
-                BlogViewModel baseModel = state as BlogViewModel;
-                if (baseModel != null)
+                int index = baseModel.BlogPosts.ListItems.IndexOf(this);
+                int i = index - 1;
+                while (i > 0 && additionalContent.Count == 0)
                 {
-                    int index = baseModel.BlogPosts.ListItems.IndexOf(this);
-                    int i = index - 1;
-                    while (i > 0 && additionalContent.Count == 0)
-                    {                        
-                        if ((baseModel.BlogPosts.ListItems[i] as NewsDataModel).ProjectId == this.ProjectId)
-                            additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
-                        i--;
-                    }
-
-                    i = index + 1;
-                    while (i < baseModel.BlogPosts.ListItems.Count && additionalContent.Count < 3)
-                    {
-                        if ((baseModel.BlogPosts.ListItems[i] as NewsDataModel).ProjectId == this.ProjectId)
-                            additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
-                        i++;
-                    }
+                    if ((baseModel.BlogPosts.ListItems[i] as NewsDataModel).ProjectId == this.ProjectId)
+                        additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
+                    else
+                        additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
+                    i--;
                 }
 
-                AlternativeNewsItems = new CollectionViewModel();
-                AlternativeNewsItems.Load();
-                AlternativeNewsItems.ListItems.AddRange(additionalContent);
+                i = index + 1;
+                while (i < baseModel.BlogPosts.ListItems.Count && additionalContent.Count < 3)
+                {
+                    if ((baseModel.BlogPosts.ListItems[i] as NewsDataModel).ProjectId == this.ProjectId)
+                        additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
+                    else
+                        additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
+                    i++;
+                }
             }
+
+            AlternativeNewsItems = new CollectionViewModel();
+            AlternativeNewsItems.Load();
+            AlternativeNewsItems.ListItems.AddRange(additionalContent);
         }
 
         public void LoadForEdit()

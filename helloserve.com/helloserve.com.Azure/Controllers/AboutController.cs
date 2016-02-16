@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace helloserve.com.Azure.Controllers
 {
-    public class AboutController : Controller
+    public class AboutController : BaseController
     {
         // GET: About
         public ActionResult Index()

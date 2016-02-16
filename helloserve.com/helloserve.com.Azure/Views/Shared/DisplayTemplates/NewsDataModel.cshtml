@@ -42,32 +42,35 @@
     </div>
 </div>
 
-@if (Model.Project != null)
+@if (Model.AlternativeNewsItems == null || Model.AlternativeNewsItems.ListItems.Count == 0)
 {
-    if (Model.AlternativeNewsItems == null || Model.AlternativeNewsItems.ListItems.Count == 0)
+    if (Model.ShowInIsolation && Model.Project != null)
     {
-        if (Model.ShowInIsolation)
-        {
-            <div style="height:18%">
-                @Html.DisplayFor(m => m.Project)
-            </div>
-        }
+        <div style="height:18%">
+            @Html.DisplayFor(m => m.Project)
+        </div>
     }
-    else
-    {
-        <div class="content-container" style="width:100%; height:2em">
-            <div class="content-block" style="height:100%; background-color:black!important">
-                <div style="padding: 0.25em 2em; ">
-                    <div class="content-white" style="display:table-cell">
-                        Other posts in <a href="@(ViewBag.BaseUrl)@(Model.Controller)/@(Model.UrlName)">@Model.Project.Title</a>
-                    </div>
+}
+else
+{
+    <div class="content-container" style="width:100%; height:2em">
+        <div class="content-block" style="height:100%; background-color:black!important">
+            <div style="padding: 0.25em 2em; ">
+                <div class="content-white" style="display:table-cell">
+                    @if (Model.Project == null)
+                    {
+                        <text>Recently on helloserve</text>   
+                    }
+                    else {
+                        <text>Other posts in <a href="@(ViewBag.BaseUrl)@(Model.Controller)/@(Model.UrlName)">@Model.Project.Title</a></text>
+                    }
                 </div>
             </div>
         </div>
-        <div class="content-container" style="height:18%">
-            @Html.Partial("ContentGroupSmall", Model.AlternativeNewsItems)
-        </div>
-    }
+    </div>
+    <div class="content-container" style="height:18%">
+        @Html.Partial("ContentGroupSmall", Model.AlternativeNewsItems)
+    </div>
 }
 
 @if (Model.ShowInIsolation)
