@@ -2,7 +2,7 @@
 
 <div class="content-container" style="height:100%">
     <div class="content-block" style="@if (!string.IsNullOrEmpty(Model.ImageUrl)) { <text>background-image:url(@Html.StaticlinkContent(Model.ImageUrl));</text> }">
-        <div style="padding:2em">
+        <div class="text-on-any-background" style="padding:2em">
             <div style="display:table-cell; vertical-align:middle;">
                 <div class="content-title"><a href="@(ViewBag.BaseUrl)@(Model.Controller)/@(Model.UrlName)">@Model.Title</a></div>
             </div>
