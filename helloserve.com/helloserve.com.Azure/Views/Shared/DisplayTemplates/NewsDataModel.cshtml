@@ -59,9 +59,10 @@ else
                 <div class="content-white" style="display:table-cell">
                     @if (Model.Project == null)
                     {
-                        <text>Recently on helloserve</text>   
+                        <text>Recently on helloserve</text>
                     }
-                    else {
+                    else
+                    {
                         <text>Other posts in <a href="@(ViewBag.BaseUrl)@(Model.Controller)/@(Model.UrlName)">@Model.Project.Title</a></text>
                     }
                 </div>

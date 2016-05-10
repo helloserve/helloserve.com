@@ -21,6 +21,11 @@ namespace helloserve.com.Azure
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/prismScript").Include(
+                      "~/Scripts/prism.js"));
+            bundles.Add(new StyleBundle("~/prismStyle").Include(
+                      "~/Content/prism.css"));
         }
     }
 }

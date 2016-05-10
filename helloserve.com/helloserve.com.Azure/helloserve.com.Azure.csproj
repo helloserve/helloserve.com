@@ -225,6 +225,7 @@
     <Content Include="Content\gh.svg" />
     <Content Include="Content\images\placeholder-200x150.png" />
     <Content Include="Content\in.svg" />
+    <Content Include="Content\prism.css" />
     <Content Include="Content\quill.base.css" />
     <Content Include="Content\quill.snow.css" />
     <Content Include="Content\Site.css" />
@@ -251,6 +252,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\quill.js" />
     <Content Include="Scripts\quill.min.js" />
     <Content Include="Scripts\require.js" />
