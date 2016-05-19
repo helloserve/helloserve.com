@@ -30,7 +30,7 @@ namespace helloserve.com.Messaging
             };
         }
 
-        public Email(string smtpServer, string configSection = "helloserve.com.Messaging")
+        public Email(string smtpServer, string configSection = "messaging")
         {
             Config.Email config = ConfigurationManager.GetSection(configSection) as Config.Email;
             _server = config.SmtpServers[smtpServer];
