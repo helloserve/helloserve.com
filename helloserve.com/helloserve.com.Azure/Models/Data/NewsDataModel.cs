@@ -21,29 +21,48 @@ namespace helloserve.com.Azure.Models.Data
         {
             base.Load(state);
 
-            List<ContentDataModel> additionalContent = new List<ContentDataModel>();
+            List<ContentDataModel> relatedContent = new List<ContentDataModel>();
+            List<ContentDataModel> unrelatedContent = new List<ContentDataModel>();
             BlogViewModel baseModel = state as BlogViewModel;
             if (baseModel != null)
             {
                 int index = baseModel.BlogPosts.ListItems.IndexOf(this);
                 int i = index - 1;
-                while (i > 0 && additionalContent.Count == 0)
+                while (i > 0)
                 {
                     if ((baseModel.BlogPosts.ListItems[i] as NewsDataModel).ProjectId == this.ProjectId)
-                        additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
+                        relatedContent.Add(baseModel.BlogPosts.ListItems[i]);
                     else
-                        additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
+                        unrelatedContent.Add(baseModel.BlogPosts.ListItems[i]);
                     i--;
                 }
 
                 i = index + 1;
-                while (i < baseModel.BlogPosts.ListItems.Count && additionalContent.Count < 3)
+                while (i < baseModel.BlogPosts.ListItems.Count)
                 {
                     if ((baseModel.BlogPosts.ListItems[i] as NewsDataModel).ProjectId == this.ProjectId)
-                        additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
+                        relatedContent.Add(baseModel.BlogPosts.ListItems[i]);
                     else
-                        additionalContent.Add(baseModel.BlogPosts.ListItems[i]);
+                        unrelatedContent.Add(baseModel.BlogPosts.ListItems[i]);
                     i++;
+                }
+            }
+
+            List<ContentDataModel> additionalContent = new List<ContentDataModel>();
+            int j = 0;
+            while (j < 3 && additionalContent.Count < 3 && j < relatedContent.Count)
+            {
+                additionalContent.Add(relatedContent[j]);
+                j++;
+            }
+
+            if (additionalContent.Count < 3)
+            {
+                j = 0;
+                while (additionalContent.Count < 3 && j < unrelatedContent.Count)
+                {
+                    additionalContent.Add(unrelatedContent[j]);
+                    j++;
                 }
             }
 

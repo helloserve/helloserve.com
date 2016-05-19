@@ -3,4 +3,8 @@
     ViewBag.Title = Model.Title;
 }
 
+@section headTags {
+    @Styles.Render("~/prismStyle")
+    @Scripts.Render("~/prismScript")
+}
 @Html.DisplayFor(m => Model)
