@@ -40,7 +40,7 @@ namespace helloserve.com.Azure.Models
         {
             return new Model.News()
             {
-                NewsID = dataModel.NewsId,
+                NewsID = dataModel.NewsId.GetValueOrDefault(),
                 FeatureID = dataModel.ProjectId,
                 Title = dataModel.Title,
                 Cut = dataModel.Cut,

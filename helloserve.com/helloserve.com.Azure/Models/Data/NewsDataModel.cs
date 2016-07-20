@@ -8,7 +8,7 @@ namespace helloserve.com.Azure.Models.Data
 {
     public class NewsDataModel : ContentDataModel
     {
-        public int NewsId { get; set; }
+        public int? NewsId { get; set; }
         public int? ProjectId { get; set; }
         public bool IsPublished { get; set; }
 
@@ -127,7 +127,10 @@ namespace helloserve.com.Azure.Models.Data
         {
             base.Save();
 
-            Model.News.Save(this.AsModel());
+            Model.News model = this.AsModel();
+            Model.News.Save(model);
+
+            this.NewsId = model.NewsID;
         }
     }
 }

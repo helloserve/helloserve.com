@@ -10,7 +10,11 @@
 
 @using (Html.BeginForm("blog", "admin", FormMethod.Post))
 {
-    @Html.HiddenFor(m => m.NewsId)    
+    if (Model.NewsId.HasValue)
+    {
+        @Html.HiddenFor(m => m.NewsId)
+    }
+
     @Html.HiddenFor(m => m.CreatedDate)
 
     <div class="editor">
@@ -37,7 +41,7 @@
         <div class="label">@Html.LabelFor(m => m.IsPublished)</div><div class="field">@Html.EditorFor(m => m.IsPublished)</div>
     </div>
 
-        <div class="editor">
+    <div class="editor">
         <div class="label"></div><div class="field"><input type="submit" value="Save" /></div>
     </div>
 }
