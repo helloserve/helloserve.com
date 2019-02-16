@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
+using helloserve.com.Domain.Models;
 
-namespace helloserve.com.Domain.Interfaces
+namespace helloserve.com.Domain
 {
     public interface IBlogDatabaseAdaptor
     {
+        Task<Blog> Read(string title);
     }
 }

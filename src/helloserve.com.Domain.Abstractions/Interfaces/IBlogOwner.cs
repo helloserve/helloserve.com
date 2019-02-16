@@ -1,4 +1,4 @@
-﻿namespace helloserve.com.Domain.Interfaces
+﻿namespace helloserve.com.Domain
 {
     public interface IBlogOwner
     {

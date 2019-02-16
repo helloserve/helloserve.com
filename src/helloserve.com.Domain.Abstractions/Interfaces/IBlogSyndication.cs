@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace helloserve.com.Domain.Interfaces
+﻿namespace helloserve.com.Domain
 {
     public interface IBlogSyndication
     {

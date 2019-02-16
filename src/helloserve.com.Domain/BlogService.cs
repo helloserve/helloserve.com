@@ -1,13 +1,20 @@
 ﻿using helloserve.com.Domain.Models;
-using System;
+using System.Threading.Tasks;
 
 namespace helloserve.com.Domain
 {
     public class BlogService
     {
-        public Blog GetByName(string name)
+        readonly IBlogDatabaseAdaptor _dbAdaptor;
+
+        public BlogService(IBlogDatabaseAdaptor dbAdaptor)
         {
-            throw new NotImplementedException();
+            _dbAdaptor = dbAdaptor;
+        }
+
+        public async Task<Blog> Read(string title)
+        {
+            return await _dbAdaptor.Read(title);
         }
     }
 }
