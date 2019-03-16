@@ -1,10 +1,20 @@
-obj
-bin
-*.suo
+# Build Results
+[Oo]bj/
+[Bb]in/
+[Dd]ebug/
 *.dll
 *.pdb
-*.exe
-*.user
-helloserve.com/helloserve.com.Web/Content/canvas
-helloserve.com/helloserve.com.Web/Content/media
 packages/
+Backup/
+UpgradeLog.htm
+.sonarqube
+
+# User-specific files
+*.suo
+*.user
+.vs/
+.nuget/
+*.lock.json
+
+# Old website
+helloserve.com/

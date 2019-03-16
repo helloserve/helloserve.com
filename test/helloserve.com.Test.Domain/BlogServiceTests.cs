@@ -77,5 +77,55 @@ namespace helloserve.com.Test.Domain
             //act/assert
             await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => Service.Create(blog));
         }
+
+        [TestMethod]
+        public async Task Publish_IsPublished_MarkedTrue()
+        {
+            //arrange
+            string title = "hello_test";
+            Blog blog = new Blog() { Title = "Hello Test!" };
+            _dbAdaptorMock.Setup(x => x.Read(title))
+                .ReturnsAsync(blog);
+
+            //act
+            await Service.Publish(title);
+
+            //assert
+            Assert.IsTrue(blog.IsPublished);
+        }
+
+        [TestMethod]
+        public async Task Publish_NoDate_IsSet()
+        {
+            //arrange
+            string title = "hello_test";
+            DateTime expectedDate = DateTime.Today;
+            Blog blog = new Blog() { Title = "Hello Test!" };
+            _dbAdaptorMock.Setup(x => x.Read(title))
+                .ReturnsAsync(blog);
+
+            //act
+            await Service.Publish(title);
+
+            //assert
+            Assert.AreEqual(expectedDate, blog.PublishDate);
+        }
+
+        [TestMethod]
+        public async Task Publish_DateSet_IsNotSet()
+        {
+            //arrange
+            string title = "hello_test";
+            DateTime expectedDate = DateTime.Today.AddDays(-2);
+            Blog blog = new Blog() { Title = "Hello Test!", PublishDate = expectedDate };
+            _dbAdaptorMock.Setup(x => x.Read(title))
+                .ReturnsAsync(blog);
+
+            //act
+            await Service.Publish(title);
+
+            //assert
+            Assert.AreEqual(expectedDate, blog.PublishDate);
+        }
     }
 }

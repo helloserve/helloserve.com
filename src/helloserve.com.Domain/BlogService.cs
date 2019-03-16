@@ -47,5 +47,14 @@ namespace helloserve.com.Domain
             title = title.ToLower();
             return title;
         }
+
+        public async Task Publish(string title)
+        {
+            var blog = await _dbAdaptor.Read(title);
+
+            blog.IsPublished = true;
+
+            Validate(blog);
+        }
     }
 }
