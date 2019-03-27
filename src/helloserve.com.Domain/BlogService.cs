@@ -1,4 +1,7 @@
 ﻿using helloserve.com.Domain.Models;
+using helloserve.com.Domain.Syndication;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,10 +11,18 @@ namespace helloserve.com.Domain
     public class BlogService
     {
         readonly IBlogDatabaseAdaptor _dbAdaptor;
+        readonly IBlogSyndicationQueue _blogSyndicationQueue;
+        readonly IBlogSyndicationFactory _blogSyndicationFactory;
+        readonly BlogSyndicationOptionCollection _syndicationCollection;
+        readonly ILogger _logger;
 
-        public BlogService(IBlogDatabaseAdaptor dbAdaptor)
+        public BlogService(IBlogDatabaseAdaptor dbAdaptor, IBlogSyndicationQueue blogSyndicationQueue, IBlogSyndicationFactory blogSyndicationFactory, IOptionsMonitor<BlogSyndicationOptionCollection> syndicationCollectionOptions, ILoggerFactory loggerFactory)
         {
             _dbAdaptor = dbAdaptor;
+            _blogSyndicationQueue = blogSyndicationQueue;
+            _blogSyndicationFactory = blogSyndicationFactory;
+            _syndicationCollection = syndicationCollectionOptions.CurrentValue;
+            _logger = loggerFactory?.CreateLogger<BlogService>();
         }
 
         public async Task<Blog> Read(string title)
@@ -55,6 +66,19 @@ namespace helloserve.com.Domain
             blog.IsPublished = true;
 
             Validate(blog);
+
+            if (_syndicationCollection == null || _syndicationCollection.Count == 0)
+            {
+                _logger?.LogWarning("No syndications configured for processing");
+            }
+            else
+            {
+                _syndicationCollection.ForEach(x =>
+                {
+                    IBlogSyndication syndication = _blogSyndicationFactory.GetInstance(x.Provider);
+                    _blogSyndicationQueue.Enqueue(syndication);
+                });
+            }
         }
     }
 }

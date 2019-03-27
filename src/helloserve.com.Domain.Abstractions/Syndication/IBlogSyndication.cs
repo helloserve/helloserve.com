@@ -1,4 +1,4 @@
-﻿namespace helloserve.com.Domain
+﻿namespace helloserve.com.Domain.Syndication
 {
     public interface IBlogSyndication
     {
