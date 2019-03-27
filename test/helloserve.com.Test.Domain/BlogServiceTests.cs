@@ -2,10 +2,12 @@ using helloserve.com.Domain;
 using helloserve.com.Domain.Models;
 using helloserve.com.Domain.Syndication;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Collections;
 using System.Threading.Tasks;
 
 namespace helloserve.com.Test.Domain
@@ -18,13 +20,13 @@ namespace helloserve.com.Test.Domain
         readonly Mock<IBlogSyndicationFactory> _blogSyndicationFactoryMock = new Mock<IBlogSyndicationFactory>();
         readonly Mock<IOptionsMonitor<BlogSyndicationOptionCollection>> _blogSyndicationOptionsMock = new Mock<IOptionsMonitor<BlogSyndicationOptionCollection>>();
         readonly Mock<ILoggerFactory> _loggerFactoryMock = new Mock<ILoggerFactory>();
-        readonly Mock<ILogger> _logger = new Mock<ILogger>();
+        readonly Mock<ILogger> _loggerMock = new Mock<ILogger>();
 
         public BlogService Service => new BlogService(_dbAdaptorMock.Object, _blogSyndicationQueueMock.Object, _blogSyndicationFactoryMock.Object, _blogSyndicationOptionsMock.Object, _loggerFactoryMock.Object);
 
         public BlogServiceTests()
         {
-            _loggerFactoryMock.Setup(x => x.CreateLogger(It.IsAny<string>())).Returns(_logger.Object);
+            _loggerFactoryMock.Setup(x => x.CreateLogger(It.IsAny<string>())).Returns(_loggerMock.Object);
         }
 
         [TestMethod]
@@ -140,6 +142,31 @@ namespace helloserve.com.Test.Domain
 
             //assert
             Assert.AreEqual(expectedDate, blog.PublishDate);
+        }
+
+        [TestMethod]
+        public async Task Publish_EnqueueSyndications_NullOrNoSyndications_Logs()
+        {
+            //arrange
+            string title = "hello_test";
+            Blog blog = new Blog() { Title = "Hello Test!" };
+            _dbAdaptorMock.Setup(x => x.Read(title))
+                .ReturnsAsync(blog);
+            _blogSyndicationOptionsMock.SetupGet(x => x.CurrentValue)
+                .Returns((BlogSyndicationOptionCollection)null);
+
+            //act
+            await Service.Publish(title);
+
+            //re-arrange
+            _blogSyndicationOptionsMock.SetupGet(x => x.CurrentValue)
+                .Returns(new BlogSyndicationOptionCollection() { });
+
+            //act
+            await Service.Publish(title);
+
+            //assert
+            _loggerMock.Verify(x => x.Log(LogLevel.Warning, It.IsAny<EventId>(), It.IsAny<object>(), It.IsAny<Exception>(), It.IsAny<Func<object, Exception, string>>()), Times.Exactly(2));
         }
 
         [TestMethod]
