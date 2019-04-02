@@ -67,6 +67,13 @@ namespace helloserve.com.Domain
 
             Validate(blog);
 
+            //TODO save
+
+            Syndicate(blog);
+        }
+
+        private void Syndicate(Blog blog)
+        {
             if (_syndicationCollection == null || _syndicationCollection.Count == 0)
             {
                 _logger?.LogWarning("No syndications configured for processing");
@@ -76,6 +83,7 @@ namespace helloserve.com.Domain
                 _syndicationCollection.ForEach(x =>
                 {
                     IBlogSyndication syndication = _blogSyndicationFactory.GetInstance(x.Provider);
+                    syndication.Blog = blog;
                     _blogSyndicationQueue.Enqueue(syndication);
                 });
             }

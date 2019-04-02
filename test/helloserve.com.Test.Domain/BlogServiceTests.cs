@@ -194,6 +194,7 @@ namespace helloserve.com.Test.Domain
             _blogSyndicationFactoryMock.Verify(x => x.GetInstance("RSS"));
             _blogSyndicationFactoryMock.Verify(x => x.GetInstance("Twitter"));
             _blogSyndicationQueueMock.Verify(x => x.Enqueue(syndicationMock.Object), Times.Exactly(2));
+            syndicationMock.VerifySet(x => x.Blog = blog, Times.Exactly(2));
         }
     }
 }
