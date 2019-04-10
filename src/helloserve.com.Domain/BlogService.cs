@@ -1,7 +1,5 @@
 ﻿using helloserve.com.Domain.Models;
 using helloserve.com.Domain.Syndication;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,18 +9,12 @@ namespace helloserve.com.Domain
     public class BlogService
     {
         readonly IBlogDatabaseAdaptor _dbAdaptor;
-        readonly IBlogSyndicationQueue _blogSyndicationQueue;
-        readonly IBlogSyndicationFactory _blogSyndicationFactory;
-        readonly BlogSyndicationOptionCollection _syndicationCollection;
-        readonly ILogger _logger;
+        readonly IBlogSyndicationService _blogSyndicationService;
 
-        public BlogService(IBlogDatabaseAdaptor dbAdaptor, IBlogSyndicationQueue blogSyndicationQueue, IBlogSyndicationFactory blogSyndicationFactory, IOptionsMonitor<BlogSyndicationOptionCollection> syndicationCollectionOptions, ILoggerFactory loggerFactory)
+        public BlogService(IBlogDatabaseAdaptor dbAdaptor, IBlogSyndicationService blogSyndicationService)
         {
             _dbAdaptor = dbAdaptor;
-            _blogSyndicationQueue = blogSyndicationQueue;
-            _blogSyndicationFactory = blogSyndicationFactory;
-            _syndicationCollection = syndicationCollectionOptions.CurrentValue;
-            _logger = loggerFactory?.CreateLogger<BlogService>();
+            _blogSyndicationService = blogSyndicationService;
         }
 
         public async Task<Blog> Read(string title)
@@ -69,24 +61,7 @@ namespace helloserve.com.Domain
 
             //TODO save
 
-            Syndicate(blog);
-        }
-
-        private void Syndicate(Blog blog)
-        {
-            if (_syndicationCollection == null || _syndicationCollection.Count == 0)
-            {
-                _logger?.LogWarning("No syndications configured for processing");
-            }
-            else
-            {
-                _syndicationCollection.ForEach(x =>
-                {
-                    IBlogSyndication syndication = _blogSyndicationFactory.GetInstance(x.Provider);
-                    syndication.Blog = blog;
-                    _blogSyndicationQueue.Enqueue(syndication);
-                });
-            }
+            await _blogSyndicationService.Syndicate(blog);
         }
     }
 }
