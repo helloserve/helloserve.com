@@ -1,9 +1,11 @@
 using helloserve.com.Domain;
 using helloserve.com.Domain.Models;
 using helloserve.com.Domain.Syndication;
+using helloserve.com.Domain.Syndication.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace helloserve.com.Test.Domain
@@ -91,7 +93,7 @@ namespace helloserve.com.Test.Domain
                 .ReturnsAsync(blog);
 
             //act
-            await Service.Publish(title);
+            await Service.Publish(title, null);
 
             //assert
             Assert.IsTrue(blog.IsPublished);
@@ -109,7 +111,7 @@ namespace helloserve.com.Test.Domain
                 .ReturnsAsync(blog);
 
             //act
-            await Service.Publish(title);
+            await Service.Publish(title, null);
 
             //assert
             Assert.AreEqual(expectedDate, blog.PublishDate);
@@ -126,7 +128,7 @@ namespace helloserve.com.Test.Domain
                 .ReturnsAsync(blog);
 
             //act
-            await Service.Publish(title);
+            await Service.Publish(title, null);
 
             //assert
             Assert.AreEqual(expectedDate, blog.PublishDate);
@@ -138,14 +140,19 @@ namespace helloserve.com.Test.Domain
             //arrange
             string title = "hello_test";
             Blog blog = new Blog() { Title = "Hello Test!" };
+            List<SyndicationText> syndicationTexts = new List<SyndicationText>()
+            {
+                new SyndicationText() { Name = "Twitter", Text = "Hello #World!" },
+                new SyndicationText() { Name = "Facebook", Text = "Today I write Hello World!" },
+            };
             _dbAdaptorMock.Setup(x => x.Read(title))
                 .ReturnsAsync(blog);
 
             //act
-            await Service.Publish(title);
+            await Service.Publish(title, syndicationTexts);
 
             //assert
-            _blogSyndicationServiceMock.Verify(x => x.Syndicate(blog));
+            _blogSyndicationServiceMock.Verify(x => x.Syndicate(blog, syndicationTexts));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using helloserve.com.Domain.Models;
 using helloserve.com.Domain.Syndication;
+using helloserve.com.Domain.Syndication.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -51,7 +52,7 @@ namespace helloserve.com.Domain
             return title;
         }
 
-        public async Task Publish(string title)
+        public async Task Publish(string title, IEnumerable<SyndicationText> syndicationTexts)
         {
             var blog = await _dbAdaptor.Read(title);
 
@@ -61,7 +62,7 @@ namespace helloserve.com.Domain
 
             await _dbAdaptor.Save(blog);
 
-            await _blogSyndicationService.Syndicate(blog);
+            await _blogSyndicationService.Syndicate(blog, syndicationTexts);
         }
     }
 }
