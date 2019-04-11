@@ -2,6 +2,8 @@
 using helloserve.com.Domain.Syndication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace helloserve.com.Domain.Syndication
@@ -29,13 +31,16 @@ namespace helloserve.com.Domain.Syndication
             }
             else
             {
-                _syndicationCollection.ForEach(async x =>
-                {
-                    IBlogSyndication syndication = _blogSyndicationFactory.GetInstance(x.Provider);
-                    syndication.Blog = blog;
-                    await _blogSyndicationQueue.Enqueue(syndication);
-                });
+                IEnumerable<Task> syndicationTasks = _syndicationCollection.Select(t => SyndicateItem(t, blog));
+                await Task.WhenAll(syndicationTasks);
             }
+        }
+
+        private async Task SyndicateItem(BlogSyndicationOption option, Blog blog)
+        {
+            IBlogSyndication syndication = _blogSyndicationFactory.GetInstance(option.Provider);
+            syndication.Blog = blog;
+            await _blogSyndicationQueue.Enqueue(syndication);
         }
     }
 }

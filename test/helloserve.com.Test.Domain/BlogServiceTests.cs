@@ -95,6 +95,7 @@ namespace helloserve.com.Test.Domain
 
             //assert
             Assert.IsTrue(blog.IsPublished);
+            _dbAdaptorMock.Verify(x => x.Save(blog));
         }
 
         [TestMethod]
@@ -144,7 +145,6 @@ namespace helloserve.com.Test.Domain
             await Service.Publish(title);
 
             //assert
-            _dbAdaptorMock.Verify(x => x.Save(blog));
             _blogSyndicationServiceMock.Verify(x => x.Syndicate(blog));
         }
     }
