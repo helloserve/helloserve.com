@@ -40,7 +40,7 @@ namespace helloserve.com.Test.Domain
             await Service.Create(blog);
 
             //assert
-            _dbAdaptorMock.Verify(x => x.Create(blog));
+            _dbAdaptorMock.Verify(x => x.Save(blog));
             Assert.AreEqual("hello_test", blog.Key);
         }
 
@@ -144,6 +144,7 @@ namespace helloserve.com.Test.Domain
             await Service.Publish(title);
 
             //assert
+            _dbAdaptorMock.Verify(x => x.Save(blog));
             _blogSyndicationServiceMock.Verify(x => x.Syndicate(blog));
         }
     }

@@ -28,7 +28,7 @@ namespace helloserve.com.Domain
 
             blog.Key = AsUrlTitle(blog.Title);
 
-            await _dbAdaptor.Create(blog);
+            await _dbAdaptor.Save(blog);
         }
 
         private void Validate(Blog blog)
@@ -59,7 +59,7 @@ namespace helloserve.com.Domain
 
             Validate(blog);
 
-            //TODO save
+            await _dbAdaptor.Save(blog);
 
             await _blogSyndicationService.Syndicate(blog);
         }
