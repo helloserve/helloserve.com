@@ -39,18 +39,21 @@ namespace helloserve.com.Domain.Syndication
 
         private async Task SyndicateItem(SyndicationText text, Blog blog)
         {
-            try
+            await Task.Run(() =>
             {
-                BlogSyndicationOption config = _syndicationCollection.Single(o => o.Provider == text.Name);
-                IBlogSyndication syndication = _blogSyndicationFactory.GetInstance(config.Provider);
-                syndication.Blog = blog;
-                syndication.Config = config;
-                await _blogSyndicationQueue.Enqueue(syndication);
-            }
-            catch(InvalidOperationException ex)
-            {
-                _logger?.LogError(ex, $"Config for provider '{text.Name}' not valid.");
-            }
+                try
+                {
+                    BlogSyndicationOption config = _syndicationCollection.Single(o => o.Provider == text.Name);
+                    IBlogSyndication syndication = _blogSyndicationFactory.GetInstance(config.Provider);
+                    syndication.Blog = blog;
+                    syndication.Config = config;
+                    _blogSyndicationQueue.Enqueue(syndication);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    _logger?.LogError(ex, $"Config for provider '{text.Name}' not valid.");
+                }
+            });
         }
     }
 }

@@ -120,9 +120,9 @@ namespace helloserve.com.Test.Domain.Syndication
 
             _loggerMock.Verify(x => x.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<object>(), It.IsAny<Exception>(), It.IsAny<Func<object, Exception, string>>()));
             var state = _loggerMock.Invocations[0].Arguments[2] as IReadOnlyList<KeyValuePair<string, object>>;
-            Assert.IsTrue(((string)state[0].Value).Contains("Twitter"));
-            state = _loggerMock.Invocations[1].Arguments[2] as IReadOnlyList<KeyValuePair<string, object>>;
             Assert.IsTrue(((string)state[0].Value).Contains("Instagram"));
+            state = _loggerMock.Invocations[1].Arguments[2] as IReadOnlyList<KeyValuePair<string, object>>;
+            Assert.IsTrue(((string)state[0].Value).Contains("Twitter"));
         }
     }
 }
