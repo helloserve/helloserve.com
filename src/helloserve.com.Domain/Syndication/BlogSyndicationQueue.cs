@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace helloserve.com.Domain.Syndication
 {
@@ -6,19 +7,22 @@ namespace helloserve.com.Domain.Syndication
     {
         readonly ConcurrentQueue<IBlogSyndication> _queue = new ConcurrentQueue<IBlogSyndication>();
 
-        public IBlogSyndication Dequeue()
+        public async Task<IBlogSyndication> DequeueAsync()
         {
-            if (_queue.TryDequeue(out IBlogSyndication blogSyndication))
+            return await Task.Run(() =>
             {
-                return blogSyndication;
-            }
+                if (_queue.TryDequeue(out IBlogSyndication blogSyndication))
+                {
+                    return blogSyndication;
+                }
 
-            return null;
+                return null;
+            });
         }
 
-        public void Enqueue(IBlogSyndication blogSyndication)
+        public async Task EnqueueAsync(IBlogSyndication blogSyndication)
         {
-            _queue.Enqueue(blogSyndication);
+            await Task.Run(() => _queue.Enqueue(blogSyndication));
         }
     }
 }

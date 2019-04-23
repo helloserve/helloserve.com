@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,7 +19,19 @@ namespace helloserve.com.Domain.Syndication
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            IBlogSyndication syndicationItem = _queue.Dequeue();
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                IBlogSyndication syndicationItem = await _queue.DequeueAsync();
+                _logger?.LogInformation($"Dequeue IBlogSyndication for title '{syndicationItem?.Blog?.Title}'");
+                try
+                {
+                    await syndicationItem?.ProcessAsync();
+                }
+                catch (Exception ex)
+                {
+                    _logger?.LogError(ex, $"Error occured processing IBlogSyndication for title '{syndicationItem?.Blog?.Title}'");
+                }
+            }
         }
     }
 }

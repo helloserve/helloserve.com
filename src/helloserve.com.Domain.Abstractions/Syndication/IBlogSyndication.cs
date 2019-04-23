@@ -1,4 +1,5 @@
 ﻿using helloserve.com.Domain.Models;
+using System.Threading.Tasks;
 
 namespace helloserve.com.Domain.Syndication
 {
@@ -6,5 +7,6 @@ namespace helloserve.com.Domain.Syndication
     {
         Blog Blog { get; set; }
         BlogSyndicationOption Config { get; set; }
+        Task ProcessAsync();
     }
 }

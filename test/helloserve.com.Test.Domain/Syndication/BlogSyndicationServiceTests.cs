@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace helloserve.com.Test.Domain.Syndication
@@ -56,7 +57,7 @@ namespace helloserve.com.Test.Domain.Syndication
             //assert
             _blogSyndicationFactoryMock.Verify(x => x.GetInstance("Twitter"));
             _blogSyndicationFactoryMock.Verify(x => x.GetInstance("Facebook"));
-            _blogSyndicationQueueMock.Verify(x => x.Enqueue(syndicationMock.Object), Times.Exactly(2));
+            _blogSyndicationQueueMock.Verify(x => x.EnqueueAsync(syndicationMock.Object), Times.Exactly(2));
             syndicationMock.VerifySet(x => x.Blog = blog, Times.Exactly(2));
             syndicationMock.VerifySet(x => x.Config = syndicationConfig[1]);
             syndicationMock.VerifySet(x => x.Config = syndicationConfig[2]);
@@ -114,15 +115,14 @@ namespace helloserve.com.Test.Domain.Syndication
 
             //assert
             _blogSyndicationFactoryMock.Verify(x => x.GetInstance("Facebook"));
-            _blogSyndicationQueueMock.Verify(x => x.Enqueue(syndicationMock.Object));
+            _blogSyndicationQueueMock.Verify(x => x.EnqueueAsync(syndicationMock.Object));
             syndicationMock.VerifySet(x => x.Blog = blog);
             syndicationMock.VerifySet(x => x.Config = syndicationConfig[2]);
 
             _loggerMock.Verify(x => x.Log(LogLevel.Error, It.IsAny<EventId>(), It.IsAny<object>(), It.IsAny<Exception>(), It.IsAny<Func<object, Exception, string>>()));
             var state = _loggerMock.Invocations[0].Arguments[2] as IReadOnlyList<KeyValuePair<string, object>>;
-            Assert.IsTrue(((string)state[0].Value).Contains("Instagram"));
-            state = _loggerMock.Invocations[1].Arguments[2] as IReadOnlyList<KeyValuePair<string, object>>;
-            Assert.IsTrue(((string)state[0].Value).Contains("Twitter"));
+            Assert.IsTrue(_loggerMock.Invocations.Any(x => ((string)(x.Arguments[2] as IReadOnlyList<KeyValuePair<string, object>>)[0].Value).Contains("Instagram")));
+            Assert.IsTrue(_loggerMock.Invocations.Any(x => ((string)(x.Arguments[2] as IReadOnlyList<KeyValuePair<string, object>>)[0].Value).Contains("Twitter")));
         }
     }
 }

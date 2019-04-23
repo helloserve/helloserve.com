@@ -47,7 +47,7 @@ namespace helloserve.com.Domain.Syndication
                     IBlogSyndication syndication = _blogSyndicationFactory.GetInstance(config.Provider);
                     syndication.Blog = blog;
                     syndication.Config = config;
-                    _blogSyndicationQueue.Enqueue(syndication);
+                    _blogSyndicationQueue.EnqueueAsync(syndication);
                 }
                 catch (InvalidOperationException ex)
                 {

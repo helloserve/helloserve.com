@@ -1,6 +1,7 @@
 ﻿using helloserve.com.Domain.Syndication;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Threading.Tasks;
 
 namespace helloserve.com.Test.Domain.Syndication
 {
@@ -8,15 +9,15 @@ namespace helloserve.com.Test.Domain.Syndication
     public class BlogSyndicationQueueTests
     {
         [TestMethod]
-        public void Enqueue_Verify()
+        public async Task EnqueueAsync_DequeueAsync_Verify()
         {
             //arrange
             var expected = new Mock<IBlogSyndication>();
             var queue = new BlogSyndicationQueue();
 
             //act
-            queue.Enqueue(expected.Object);
-            var actual = queue.Dequeue();
+            await queue.EnqueueAsync(expected.Object);
+            var actual = await queue.DequeueAsync();
 
             //assert
             Assert.IsNotNull(actual);

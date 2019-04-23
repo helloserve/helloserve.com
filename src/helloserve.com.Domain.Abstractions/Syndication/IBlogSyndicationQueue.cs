@@ -1,8 +1,10 @@
-﻿namespace helloserve.com.Domain.Syndication
+﻿using System.Threading.Tasks;
+
+namespace helloserve.com.Domain.Syndication
 {
     public interface IBlogSyndicationQueue
     {
-        void Enqueue(IBlogSyndication blogSyndication);
-        IBlogSyndication Dequeue();
+        Task EnqueueAsync(IBlogSyndication blogSyndication);
+        Task<IBlogSyndication> DequeueAsync();
     }
 }
