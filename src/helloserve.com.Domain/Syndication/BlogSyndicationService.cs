@@ -24,7 +24,7 @@ namespace helloserve.com.Domain.Syndication
             _logger = loggerFactory?.CreateLogger<BlogSyndicationService>();
         }
 
-        public async Task Syndicate(Blog blog, IEnumerable<SyndicationText> syndicationTexts)
+        public async Task SyndicateAsync(Blog blog, IEnumerable<SyndicationText> syndicationTexts)
         {
             if (_syndicationCollection == null || _syndicationCollection.Count == 0)
             {

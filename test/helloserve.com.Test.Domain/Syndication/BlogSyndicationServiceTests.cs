@@ -52,7 +52,7 @@ namespace helloserve.com.Test.Domain.Syndication
                 .Returns(syndicationMock.Object);
 
             //act
-            await Service.Syndicate(blog, syndicationTexts);
+            await Service.SyndicateAsync(blog, syndicationTexts);
 
             //assert
             _blogSyndicationFactoryMock.Verify(x => x.GetInstance("Twitter"));
@@ -73,14 +73,14 @@ namespace helloserve.com.Test.Domain.Syndication
                 .Returns((BlogSyndicationOptionCollection)null);
 
             //act
-            await Service.Syndicate(blog, null);
+            await Service.SyndicateAsync(blog, null);
 
             //re-arrange
             _blogSyndicationOptionsMock.SetupGet(x => x.CurrentValue)
                 .Returns(new BlogSyndicationOptionCollection() { });
 
             //act
-            await Service.Syndicate(blog, null);
+            await Service.SyndicateAsync(blog, null);
 
             //assert
             _loggerMock.Verify(x => x.Log(LogLevel.Warning, It.IsAny<EventId>(), It.IsAny<object>(), It.IsAny<Exception>(), It.IsAny<Func<object, Exception, string>>()), Times.Exactly(2));
@@ -111,7 +111,7 @@ namespace helloserve.com.Test.Domain.Syndication
                 .Returns(syndicationMock.Object);
 
             //act
-            await Service.Syndicate(blog, syndicationTexts);
+            await Service.SyndicateAsync(blog, syndicationTexts);
 
             //assert
             _blogSyndicationFactoryMock.Verify(x => x.GetInstance("Facebook"));

@@ -62,7 +62,7 @@ namespace helloserve.com.Domain
 
             await _dbAdaptor.Save(blog);
 
-            await _blogSyndicationService.Syndicate(blog, syndicationTexts);
+            await _blogSyndicationService.SyndicateAsync(blog, syndicationTexts);
         }
     }
 }

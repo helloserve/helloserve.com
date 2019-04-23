@@ -152,7 +152,7 @@ namespace helloserve.com.Test.Domain
             await Service.Publish(title, syndicationTexts);
 
             //assert
-            _blogSyndicationServiceMock.Verify(x => x.Syndicate(blog, syndicationTexts));
+            _blogSyndicationServiceMock.Verify(x => x.SyndicateAsync(blog, syndicationTexts));
         }
     }
 }

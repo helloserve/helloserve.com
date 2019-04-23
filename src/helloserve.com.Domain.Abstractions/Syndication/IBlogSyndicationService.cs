@@ -7,6 +7,6 @@ namespace helloserve.com.Domain.Syndication
 {
     public interface IBlogSyndicationService
     {
-        Task Syndicate(Blog blog, IEnumerable<SyndicationText> syndicationTexts);
+        Task SyndicateAsync(Blog blog, IEnumerable<SyndicationText> syndicationTexts);
     }
 }
