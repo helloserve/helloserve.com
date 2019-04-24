@@ -1,0 +1,10 @@
+@page "/blogs/{title}"
+
+<h1>@Title</h1>
+
+<p>Body</p>
+
+@functions {
+    [Parameter]
+    private string Title { get; set; } = "fantastic";
+}

@@ -15,6 +15,3 @@ UpgradeLog.htm
 .vs/
 .nuget/
 *.lock.json
-
-# Old website
-helloserve.com/
