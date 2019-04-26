@@ -4,6 +4,11 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <LangVersion>7.3</LangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <Configurations>Debug;Release;UITest</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UITest|AnyCPU'">
+    <DefineConstants>TRACE;UITEST</DefineConstants>
   </PropertyGroup>
 
 </Project>

@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>helloserve.com.Domain</RootNamespace>
+    <Configurations>Debug;Release;UITest</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using helloserve.com.Data;
+using helloserve.com.Adaptors;
 
 namespace helloserve.com
 {
@@ -21,6 +22,9 @@ namespace helloserve.com
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+#if UITEST
+            services.AddSingleton<IBlogServiceAdaptor, MockBlogServiceAdaptor>();
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

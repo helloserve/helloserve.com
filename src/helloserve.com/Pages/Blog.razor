@@ -1,10 +1,22 @@
 @page "/blogs/{title}"
+@using helloserve.com.Adaptors
+@using helloserve.com.Models
+@inject IBlogServiceAdaptor ServiceAdaptor
 
-<h1>@Title</h1>
+<h1>@Model.Title</h1>
 
-<p>Body</p>
+@((MarkupString)Model.Content)
+
+<div>Footer section</div>
 
 @functions {
     [Parameter]
     private string Title { get; set; } = "fantastic";
+
+    BlogView Model;
+
+    protected override async Task OnInitAsync()
+    {
+        Model = await ServiceAdaptor.GetBlog(Title);
+    }
 }
