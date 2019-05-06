@@ -5,6 +5,6 @@ namespace helloserve.com.Adaptors
 {
     public interface IBlogServiceAdaptor
     {
-        Task<BlogView> GetBlog(string title);
+        Task<BlogView> Read(string title);
     }
 }

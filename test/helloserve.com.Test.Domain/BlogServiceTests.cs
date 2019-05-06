@@ -16,7 +16,7 @@ namespace helloserve.com.Test.Domain
         readonly Mock<IBlogDatabaseAdaptor> _dbAdaptorMock = new Mock<IBlogDatabaseAdaptor>();
         readonly Mock<IBlogSyndicationService> _blogSyndicationServiceMock = new Mock<IBlogSyndicationService>();
 
-        public BlogService Service => new BlogService(_dbAdaptorMock.Object, _blogSyndicationServiceMock.Object);
+        public IBlogService Service => new BlogService(_dbAdaptorMock.Object, _blogSyndicationServiceMock.Object);
 
         [TestMethod]
         public async Task Read_HasModel()

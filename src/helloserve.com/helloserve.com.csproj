@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -10,5 +10,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UITest|AnyCPU'">
     <DefineConstants>TRACE;UITEST</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.0" />
+    <PackageReference Include="Markdig" Version="0.16.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\helloserve.com.Domain\helloserve.com.Domain.csproj" />
+  </ItemGroup>
 
 </Project>

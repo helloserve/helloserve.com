@@ -1,11 +1,29 @@
-﻿using helloserve.com.Models;
+﻿using helloserve.com.Domain;
+using helloserve.com.Mappers;
+using helloserve.com.Models;
 using System.Threading.Tasks;
 
 namespace helloserve.com.Adaptors
 {
+    public class BlogServiceAdaptor : IBlogServiceAdaptor
+    {
+        readonly IBlogService _service;
+
+        public BlogServiceAdaptor(IBlogService service)
+        {
+            _service = service;
+        }
+
+        public async Task<BlogView> Read(string title)
+        {
+            Domain.Models.Blog blog = await _service.Read(title);
+            return Config.Mapper.Map<BlogView>(blog);
+        }
+    }
+
     public class MockBlogServiceAdaptor : IBlogServiceAdaptor
     {
-        public async Task<BlogView> GetBlog(string title)
+        public async Task<BlogView> Read(string title)
         {
             return await Task.FromResult(new BlogView()
             {

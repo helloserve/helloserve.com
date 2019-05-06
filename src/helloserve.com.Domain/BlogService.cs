@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace helloserve.com.Domain
 {
-    public class BlogService
+    public class BlogService : IBlogService
     {
         readonly IBlogDatabaseAdaptor _dbAdaptor;
         readonly IBlogSyndicationService _blogSyndicationService;

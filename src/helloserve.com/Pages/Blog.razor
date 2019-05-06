@@ -17,6 +17,6 @@
 
     protected override async Task OnInitAsync()
     {
-        Model = await ServiceAdaptor.GetBlog(Title);
+        Model = await ServiceAdaptor.Read(Title);
     }
 }
