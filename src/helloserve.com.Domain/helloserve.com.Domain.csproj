@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Moq" Version="4.10.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="3.0.0-preview4.19216.2" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.0.0-preview5.19227.9" />
   </ItemGroup>
 
   <ItemGroup>
