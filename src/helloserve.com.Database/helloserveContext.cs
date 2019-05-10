@@ -7,6 +7,11 @@ namespace helloserve.com.Database
     {
         public helloserveContext(DbContextOptions options) : base(options) { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+
         public DbSet<Blog> Blogs { get; set; }
     }
 }

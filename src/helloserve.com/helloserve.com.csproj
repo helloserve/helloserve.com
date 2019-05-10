@@ -5,6 +5,7 @@
     <LangVersion>7.3</LangVersion>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <Configurations>Debug;Release;UITest</Configurations>
+    <UserSecretsId>9f3d19ed-f162-44d5-a8fc-52fb45ff3c55</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='UITest|AnyCPU'">
@@ -17,7 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\helloserve.com.Database\helloserve.com.Database.csproj" />
     <ProjectReference Include="..\helloserve.com.Domain\helloserve.com.Domain.csproj" />
+    <ProjectReference Include="..\helloserve.com.Repository\helloserve.com.Repository.csproj" />
   </ItemGroup>
 
 </Project>

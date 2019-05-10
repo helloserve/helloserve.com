@@ -1,7 +1,6 @@
 using helloserve.com.Database;
 using helloserve.com.Domain;
 using helloserve.com.Domain.Models;
-using helloserve.com.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -14,7 +13,21 @@ namespace helloserve.com.Test.Repository
     [TestClass]
     public class BlogRepositoryTests
     {
+        readonly IServiceCollection _services = new ServiceCollection();
+        private IServiceProvider _serviceProvider;        
         readonly Mock<IhelloserveContext> _contextMock = new Mock<IhelloserveContext>();
+
+        public IBlogDatabaseAdaptor Repository => _serviceProvider.GetService<IBlogDatabaseAdaptor>();
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            _services
+                .AddTransient(s => _contextMock.Object)
+                .AddRepositories();
+
+            _serviceProvider = _services.BuildServiceProvider();
+        }
 
         [TestMethod]
         public async Task Read_Verify()
@@ -27,12 +40,11 @@ namespace helloserve.com.Test.Repository
                 new Database.Entities.Blog() { Key = title },
                 new Database.Entities.Blog() { Key = "key2" }
             };
-            IBlogDatabaseAdaptor adaptor = new BlogRepository(_contextMock.Object);
             _contextMock.SetupGet(x => x.Blogs)
                 .Returns(blogs.AsDbSetMock().Object);
 
             //act
-            Blog result = await adaptor.Read(title);
+            Blog result = await Repository.Read(title);
 
             //assert
             Assert.IsNotNull(result);

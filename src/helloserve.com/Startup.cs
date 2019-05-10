@@ -10,11 +10,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using helloserve.com.Data;
 using helloserve.com.Adaptors;
+using helloserve.com.Database;
+using Microsoft.Extensions.Configuration;
 
 namespace helloserve.com
 {
     public class Startup
     {
+        IConfiguration Configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -24,7 +33,12 @@ namespace helloserve.com
             services.AddSingleton<WeatherForecastService>();
 #if UITEST
             services.AddSingleton<IBlogServiceAdaptor, MockBlogServiceAdaptor>();
+#else
+            services.AddTransient<IBlogServiceAdaptor, BlogServiceAdaptor>();
 #endif
+            services.AddDomainServices();
+            services.AddRepositories();
+            services.AddhelloserveContext(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

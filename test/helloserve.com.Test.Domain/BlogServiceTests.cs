@@ -2,6 +2,7 @@ using helloserve.com.Domain;
 using helloserve.com.Domain.Models;
 using helloserve.com.Domain.Syndication;
 using helloserve.com.Domain.Syndication.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -13,10 +14,23 @@ namespace helloserve.com.Test.Domain
     [TestClass]
     public class BlogServiceTests
     {
+        readonly IServiceCollection _services = new ServiceCollection();
+        private IServiceProvider _serviceProvider;
         readonly Mock<IBlogDatabaseAdaptor> _dbAdaptorMock = new Mock<IBlogDatabaseAdaptor>();
         readonly Mock<IBlogSyndicationService> _blogSyndicationServiceMock = new Mock<IBlogSyndicationService>();
 
-        public IBlogService Service => new BlogService(_dbAdaptorMock.Object, _blogSyndicationServiceMock.Object);
+        public IBlogService Service => _serviceProvider.GetService<IBlogService>();
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            _services
+                .AddTransient(s => _dbAdaptorMock.Object)
+                .AddTransient(s => _blogSyndicationServiceMock.Object)
+                .AddDomainServices();
+
+            _serviceProvider = _services.BuildServiceProvider();
+        }
 
         [TestMethod]
         public async Task Read_HasModel()
