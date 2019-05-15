@@ -3,11 +3,18 @@
 @using helloserve.com.Models
 @inject IBlogServiceAdaptor ServiceAdaptor
 
-<h1>@Model.Title</h1>
+@if (Model == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h1>@Model.Title</h1>
 
-@((MarkupString)Model.Content)
+    @((MarkupString)Model.Content)
 
-<div>Footer section</div>
+    <div>Footer section</div>
+}
 
 @functions {
     [Parameter]
