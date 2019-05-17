@@ -1,8 +1,11 @@
 ﻿using helloserve.com.Adaptors;
 using helloserve.com.Domain;
 using helloserve.com.Domain.Models;
+using helloserve.com.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace helloserve.com.Test.Adaptors
@@ -10,25 +13,46 @@ namespace helloserve.com.Test.Adaptors
     [TestClass]
     public class BlogServiceAdaptorTests
     {
+        readonly Mock<IBlogService> _serviceMock = new Mock<IBlogService>();
+        IBlogServiceAdaptor _adaptor => new BlogServiceAdaptor(_serviceMock.Object);
+
         [TestMethod]
-        public async Task GetBlog_Verify()
+        public async Task Read_Verify()
         {
             //arrange
             string title = "test-title";
             string content = "content";
             Blog blog = new Blog() { Title = title, Content = content };
-            Mock<IBlogService> serviceMock = new Mock<IBlogService>();
-            serviceMock.Setup(x => x.Read(title))
+            _serviceMock.Setup(x => x.Read(title))
                 .ReturnsAsync(blog);
-            IBlogServiceAdaptor adaptor = new BlogServiceAdaptor(serviceMock.Object);
 
             //act
-            Models.BlogView result = await adaptor.Read(title);
+            BlogView result = await _adaptor.Read(title);
 
             //assert
-            serviceMock.Verify(x => x.Read(title));
+            _serviceMock.Verify(x => x.Read(title));
             Assert.AreEqual(blog.Title, result.Title);
             Assert.AreEqual("<p>content</p>\n", result.Content);
+        }
+
+        [TestMethod]
+        public async Task ReadAll_Verify()
+        {
+            //arrange
+            List<Blog> blogs = new List<Blog>()
+            {
+                new Blog(),
+                new Blog(),
+                new Blog()
+            };
+            _serviceMock.Setup(x => x.ReadAll())
+                .ReturnsAsync(blogs);
+
+            //act
+            IEnumerable<BlogItemView> result = await _adaptor.ReadAll();
+
+            //assert
+            Assert.AreEqual(3, result.Count());
         }
     }
 }

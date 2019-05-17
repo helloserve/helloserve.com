@@ -1,21 +1,39 @@
 @page "/blogs"
+@using helloserve.com.Adaptors
+@using helloserve.com.Models
+@inject IBlogServiceAdaptor ServiceAdaptor
 
-<h1>Blogs</h1>
+@if (_blogItems == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        @foreach (var item in _blogItems)
+        {
+        <p>
+            <div>
+                <NavLink class="nav-link" href="@AsUrl(item.Key)">
+                    <div class="heading">@item.Title</div>
+                </NavLink>
+                <div class="heading-notation">@item.PublishDate.ToShortDateString()</div>
+            </div>
+        </p>
+        }
+    </div>
+}
 
-<ul>
-    <li>
-        <NavLink class="nav-link" href="blogs/title-1">
-            Title 1
-        </NavLink>
-    </li>
-    <li>
-        <NavLink class="nav-link" href="blogs/title-2">
-            Title 2
-        </NavLink>
-    </li>
-    <li>
-        <NavLink class="nav-link" href="blogs/title-3">
-            Title 3
-        </NavLink>
-    </li>
-</ul>
+@functions {
+    private IEnumerable<BlogItemView> _blogItems;
+
+    protected override async Task OnInitAsync()
+    {
+        _blogItems = await ServiceAdaptor.ReadAll();
+    }
+
+    private string AsUrl(string key)
+    {
+        return $"blogs/{key}";
+    }
+}

@@ -25,9 +25,9 @@ namespace helloserve.com.Test.Domain
         public void Initialize()
         {
             _services
+                .AddDomainServices()
                 .AddTransient(s => _dbAdaptorMock.Object)
-                .AddTransient(s => _blogSyndicationServiceMock.Object)
-                .AddDomainServices();
+                .AddTransient(s => _blogSyndicationServiceMock.Object);
 
             _serviceProvider = _services.BuildServiceProvider();
         }

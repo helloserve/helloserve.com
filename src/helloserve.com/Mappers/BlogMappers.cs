@@ -11,6 +11,7 @@ namespace helloserve.com.Mappers
         {
             public BlogConfig()
             {
+                CreateMap<Blog, BlogItemView>();
                 CreateMap<Blog, BlogView>()
                     .ForMember(x => x.Content, opt => opt.MapFrom(blog => blog.Content.AsHtml()));
             }

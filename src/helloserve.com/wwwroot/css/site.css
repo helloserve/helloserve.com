@@ -96,6 +96,16 @@ app {
     color: red;
 }
 
+.heading {
+    font-size:1.25em;
+    font-weight:bold;
+}
+
+.heading-notation {
+    font-size:0.75em;
+    padding:0rem 1rem;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row {
         display: none;
