@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace helloserve.com.Database
 {
-    public class helloserveContext : DbContext, IhelloserveContext
+    public class helloserveContext : DbContext
     {
         public helloserveContext(DbContextOptions options) : base(options) { }
 

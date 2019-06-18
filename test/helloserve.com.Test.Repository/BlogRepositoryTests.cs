@@ -1,6 +1,7 @@
 using helloserve.com.Database;
 using helloserve.com.Domain;
 using helloserve.com.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -16,24 +17,31 @@ namespace helloserve.com.Test.Repository
     {
         readonly IServiceCollection _services = new ServiceCollection();
         private IServiceProvider _serviceProvider;        
-        readonly Mock<IhelloserveContext> _contextMock = new Mock<IhelloserveContext>();
+        private DbContextOptions<helloserveContext> _options;
 
         public IBlogDatabaseAdaptor Repository => _serviceProvider.GetService<IBlogDatabaseAdaptor>();
 
         [TestInitialize]
         public void Initialize()
         {
-            _services
-                .AddTransient(s => _contextMock.Object)
-                .AddRepositories();
+            _services.AddTransient(sp => new helloserveContext(_options)); //sets up for injection
+            _services.AddRepositories();
 
             _serviceProvider = _services.BuildServiceProvider();
+        }
+
+        private void ArrangeDatabase(string name)
+        {
+            _options = new DbContextOptionsBuilder<helloserveContext>()
+                .UseInMemoryDatabase(name)
+                .Options;
         }
 
         [TestMethod]
         public async Task Read_Verify()
         {
             //arrange
+            ArrangeDatabase("Read_Verify");
             string title = "title";
             var blogs = new List<Database.Entities.Blog>()
             {
@@ -41,22 +49,25 @@ namespace helloserve.com.Test.Repository
                 new Database.Entities.Blog() { Key = title },
                 new Database.Entities.Blog() { Key = "key2" }
             };
-            _contextMock.SetupGet(x => x.Blogs)
-                .Returns(blogs.AsDbSetMock().Object);
+            using (var context = new helloserveContext(_options))
+            {
+                await context.Blogs.AddRangeAsync(blogs);
+                await context.SaveChangesAsync();
+            }
 
             //act
             Blog result = await Repository.Read(title);
 
             //assert
             Assert.IsNotNull(result);
-            _contextMock.Verify(x => x.Blogs);
             Assert.AreEqual(title, result.Key);
         }
 
         [TestMethod]
-        public async Task GetListing_Verify()
+        public async Task ReadListing_Verify()
         {
             //arrange
+            ArrangeDatabase("ReadListing_Verify");
             string key = "key";
             string title = "title";
             var blogs = new List<Database.Entities.Blog>()
@@ -65,11 +76,14 @@ namespace helloserve.com.Test.Repository
                 new Database.Entities.Blog() { Key = key, Title = title },
                 new Database.Entities.Blog() { Key = "key2", Title = "title2" }
             };
-            _contextMock.SetupGet(x => x.Blogs)
-                .Returns(blogs.AsDbSetMock().Object);
+            using (var context = new helloserveContext(_options))
+            {
+                await context.Blogs.AddRangeAsync(blogs);
+                await context.SaveChangesAsync();
+            }
 
             //act
-            IEnumerable<BlogListing> listings = await Repository.GetListings();
+            IEnumerable<BlogListing> listings = await Repository.ReadListings();
 
             //arrange
             Assert.IsTrue(listings.Count() == 3);

@@ -8,6 +8,6 @@ namespace helloserve.com.Domain
     {
         Task<Blog> Read(string title);
         Task Save(Blog blog);
-        Task<IEnumerable<BlogListing>> GetListings();
+        Task<IEnumerable<BlogListing>> ReadListings();
     }
 }

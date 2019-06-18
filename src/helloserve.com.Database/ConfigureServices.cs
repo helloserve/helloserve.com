@@ -15,7 +15,6 @@ namespace helloserve.com.Database
                         sqlOptions.EnableRetryOnFailure(2);
                     });
             });
-            services.AddTransient<IhelloserveContext, helloserveContext>();
             return services;
         }
     }

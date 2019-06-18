@@ -12,9 +12,9 @@ namespace helloserve.com.Repository
 {
     public class BlogRepository : IBlogDatabaseAdaptor
     {
-        readonly IhelloserveContext _context;
+        readonly helloserveContext _context;
 
-        public BlogRepository(IhelloserveContext context)
+        public BlogRepository(helloserveContext context)
         {
             _context = context;
         }
@@ -35,7 +35,7 @@ namespace helloserve.com.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<BlogListing>> GetListings()
+        public async Task<IEnumerable<BlogListing>> ReadListings()
         {
             return (await _context.Blogs
                 .Select(x => new Database.Queries.BlogListing() { Key = x.Key, Title = x.Title })
