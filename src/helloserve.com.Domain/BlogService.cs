@@ -65,9 +65,9 @@ namespace helloserve.com.Domain
             await _blogSyndicationService.SyndicateAsync(blog, syndicationTexts);
         }
 
-        public Task<IEnumerable<Blog>> ReadAll()
+        public async Task<IEnumerable<BlogListing>> ReadAll()
         {
-            throw new NotImplementedException();
+            return await _dbAdaptor.ReadListings();
         }
     }
 }

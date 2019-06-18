@@ -70,10 +70,11 @@ namespace helloserve.com.Test.Repository
             ArrangeDatabase("ReadListing_Verify");
             string key = "key";
             string title = "title";
+            DateTime publishedDate = new DateTime(2019, 6, 18, 10, 47, 0);
             var blogs = new List<Database.Entities.Blog>()
             {
-                new Database.Entities.Blog() { Key = "key1", Title = "title1" },
-                new Database.Entities.Blog() { Key = key, Title = title },
+                new Database.Entities.Blog() { Key = "key1", Title = "title1", PublishDate = publishedDate },
+                new Database.Entities.Blog() { Key = key, Title = title, PublishDate = DateTime.Today },
                 new Database.Entities.Blog() { Key = "key2", Title = "title2" }
             };
             using (var context = new helloserveContext(_options))
@@ -89,6 +90,8 @@ namespace helloserve.com.Test.Repository
             Assert.IsTrue(listings.Count() == 3);
             Assert.IsTrue(listings.Any(x => x.Key == key));
             Assert.IsTrue(listings.Any(x => x.Title == title));
+            Assert.IsTrue(listings.Any(x => x.PublishDate == publishedDate));
+            Assert.IsTrue(listings.Any(x => x.PublishDate == null));
         }
     }
 }

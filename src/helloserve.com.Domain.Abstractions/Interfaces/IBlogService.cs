@@ -10,6 +10,6 @@ namespace helloserve.com.Domain
         Task<Blog> Read(string title);
         Task Create(Blog blog);
         Task Publish(string title, IEnumerable<SyndicationText> syndicationTexts);
-        Task<IEnumerable<Blog>> ReadAll();
+        Task<IEnumerable<BlogListing>> ReadAll();
     }
 }

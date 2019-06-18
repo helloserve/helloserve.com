@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace helloserve.com.Test.Domain
@@ -167,6 +168,27 @@ namespace helloserve.com.Test.Domain
 
             //assert
             _blogSyndicationServiceMock.Verify(x => x.SyndicateAsync(blog, syndicationTexts));
+        }
+
+        [TestMethod]
+        public async Task ReadAll_Verify()
+        {
+            //arrange
+            List<BlogListing> listing = new List<BlogListing>()
+            {
+                new BlogListing() { Key = "key1", Title = "title1" },
+                new BlogListing() { Key = "key2", Title = "title2" },
+                new BlogListing() { Key = "key3", Title = "title3" },
+            };
+            _dbAdaptorMock.Setup(x => x.ReadListings())
+                .ReturnsAsync(listing);
+
+            //act
+            IEnumerable<BlogListing> result = await Service.ReadAll();
+
+            //assert
+            Assert.AreEqual(result, listing);
+            Assert.AreEqual(3, result.Count());
         }
     }
 }
