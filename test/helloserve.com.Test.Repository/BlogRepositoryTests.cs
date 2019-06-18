@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace helloserve.com.Test.Repository
@@ -50,6 +51,30 @@ namespace helloserve.com.Test.Repository
             Assert.IsNotNull(result);
             _contextMock.Verify(x => x.Blogs);
             Assert.AreEqual(title, result.Key);
+        }
+
+        [TestMethod]
+        public async Task GetListing_Verify()
+        {
+            //arrange
+            string key = "key";
+            string title = "title";
+            var blogs = new List<Database.Entities.Blog>()
+            {
+                new Database.Entities.Blog() { Key = "key1", Title = "title1" },
+                new Database.Entities.Blog() { Key = key, Title = title },
+                new Database.Entities.Blog() { Key = "key2", Title = "title2" }
+            };
+            _contextMock.SetupGet(x => x.Blogs)
+                .Returns(blogs.AsDbSetMock().Object);
+
+            //act
+            IEnumerable<BlogListing> listings = await Repository.GetListings();
+
+            //arrange
+            Assert.IsTrue(listings.Count() == 3);
+            Assert.IsTrue(listings.Any(x => x.Key == key));
+            Assert.IsTrue(listings.Any(x => x.Title == title));
         }
     }
 }

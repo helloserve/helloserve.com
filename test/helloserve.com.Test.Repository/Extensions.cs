@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace helloserve.com.Test.Repository
@@ -31,14 +28,14 @@ namespace helloserve.com.Test.Repository
             mockSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
 
-            //mockSet.Setup(x => x.Add(It.IsAny<T>())).Callback<T>(p => { (collection as List<T>).Add(p); });
-            //mockSet.Setup(x => x.Remove(It.IsAny<T>())).Callback<T>(p => (collection as List<T>).Remove(p));
+            mockSet.Setup(x => x.Add(It.IsAny<T>())).Callback<T>(p => { (collection as List<T>).Add(p); });
+            mockSet.Setup(x => x.Remove(It.IsAny<T>())).Callback<T>(p => (collection as List<T>).Remove(p));
 
             //mockSet.Setup(x => x.AddRange(It.IsAny<IEnumerable<T>>())).Callback<IEnumerable<T>>(p => collection.AddRange(p));
 
-            //mockSet.Setup(x => x.AddAsync(It.IsAny<T>(), It.IsAny<CancellationToken>())).Callback<T, CancellationToken>((p, t) => { (list as List<T>).Add(p); })
+            //mockSet.Setup(x => x.AddAsync(It.IsAny<T>(), It.IsAny<CancellationToken>())).Callback<T, CancellationToken>((p, t) => { (collection as List<T>).Add(p); })
             //    .ReturnsAsync<T, CancellationToken, DbSet<T>, EntityEntry<T>>((p, t) => null);
-            //mockSet.Setup(x => x.AddRangeAsync(It.IsAny<IEnumerable<T>>(), It.IsAny<CancellationToken>())).Callback<IEnumerable<T>, CancellationToken>((p, t) => list.AddRange(p))
+            //mockSet.Setup(x => x.AddRangeAsync(It.IsAny<IEnumerable<T>>(), It.IsAny<CancellationToken>())).Callback<IEnumerable<T>, CancellationToken>((p, t) => collection.AddRange(p))
             //    .Returns<T, CancellationToken>((p, t) => Task.FromResult(0));
 
             return mockSet;

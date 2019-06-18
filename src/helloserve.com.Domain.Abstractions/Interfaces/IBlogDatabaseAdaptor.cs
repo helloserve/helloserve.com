@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using helloserve.com.Domain.Models;
 
 namespace helloserve.com.Domain
@@ -7,5 +8,6 @@ namespace helloserve.com.Domain
     {
         Task<Blog> Read(string title);
         Task Save(Blog blog);
+        Task<IEnumerable<BlogListing>> GetListings();
     }
 }

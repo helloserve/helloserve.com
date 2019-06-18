@@ -4,13 +4,15 @@ using helloserve.com.Domain.Models;
 using helloserve.com.Repository.Mappers;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace helloserve.com.Repository
 {
     public class BlogRepository : IBlogDatabaseAdaptor
     {
-        IhelloserveContext _context;
+        readonly IhelloserveContext _context;
 
         public BlogRepository(IhelloserveContext context)
         {
@@ -31,6 +33,14 @@ namespace helloserve.com.Repository
         public Task Save(Blog blog)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<BlogListing>> GetListings()
+        {
+            return (await _context.Blogs
+                .Select(x => new Database.Queries.BlogListing() { Key = x.Key, Title = x.Title })
+                .ToListAsync())
+                .Map();
         }
     }
 }
