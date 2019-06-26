@@ -27,6 +27,11 @@ namespace helloserve.com.Adaptors
             var items = await _service.ReadAll();
             return Config.Mapper.Map<IEnumerable<BlogItemView>>(items);
         }
+
+        public async Task Submit(BlogCreate blog)
+        {
+            await _service.Create(Config.Mapper.Map<Domain.Models.Blog>(blog));
+        }
     }
 
     public class MockBlogServiceAdaptor : IBlogServiceAdaptor
@@ -59,6 +64,11 @@ public void QuotedBlockMethod {
                 new BlogItemView() { Title = "Here is another entry!!", Key = "here_is_another_entry" },
                 new BlogItemView() { Title = "What different types of heading variations are there?", Key = "what_different_types_of_heading_variations_are_there" }
             });
+        }
+
+        public Task Submit(BlogCreate blog)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

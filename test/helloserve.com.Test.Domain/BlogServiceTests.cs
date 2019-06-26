@@ -62,7 +62,7 @@ namespace helloserve.com.Test.Domain
         }
 
         [TestMethod]
-        public async Task Create_NullDate_IsSet()
+        public async Task Create_NullDate_NotSet()
         {
             //arrange
             Blog blog = new Blog() { Title = "Hello Test!", PublishDate = null };
@@ -71,7 +71,7 @@ namespace helloserve.com.Test.Domain
             await Service.Create(blog);
 
             //assert
-            Assert.AreEqual(DateTime.Today, blog.PublishDate);
+            Assert.IsNull(blog.PublishDate);
         }
 
         [TestMethod]

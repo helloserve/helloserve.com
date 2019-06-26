@@ -22,6 +22,20 @@ namespace helloserve.com.Test.Mappers
         }
 
         [TestMethod]
+        public void BlogConfig_CreateBlog()
+        {
+            //arrange
+            BlogCreate blog = new BlogCreate() { Title = "title", Content = "content" };
+
+            //act
+            Blog result = Config.Mapper.Map<Blog>(blog);
+
+            //assert
+            Assert.IsNotNull(result);
+            Assert.IsNull(result.Key);
+        }
+
+        [TestMethod]
         public void AsHtml_Transformed()
         {
             //arrange

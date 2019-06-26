@@ -38,7 +38,7 @@ namespace helloserve.com.Repository
         public async Task<IEnumerable<BlogListing>> ReadListings()
         {
             return (await _context.Blogs
-                .Select(x => new Database.Queries.BlogListing() { Key = x.Key, Title = x.Title })
+                .Select(x => new Database.Queries.BlogListing() { Key = x.Key, Title = x.Title, PublishDate = x.PublishDate })
                 .ToListAsync())
                 .Map();
         }

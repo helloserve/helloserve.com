@@ -106,6 +106,13 @@ app {
     padding:0rem 1rem;
 }
 
+.textarea-content {
+    height:1000px;
+    min-width:90%;
+    text-align:justify;
+    font-family:'Fira Code', 'Courier New'
+}
+
 @media (max-width: 767.98px) {
     .main .top-row {
         display: none;

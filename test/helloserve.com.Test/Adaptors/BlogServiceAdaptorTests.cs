@@ -54,5 +54,18 @@ namespace helloserve.com.Test.Adaptors
             //assert
             Assert.AreEqual(3, result.Count());
         }
+
+        [TestMethod]
+        public async Task Submit_Verify()
+        {
+            //arrange
+            BlogCreate blog = new BlogCreate();
+
+            //act
+            await _adaptor.Submit(blog);
+
+            //assert
+            _serviceMock.Verify(x => x.Create(It.IsAny<Blog>()));
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace helloserve.com.Adaptors
     {
         Task<BlogView> Read(string title);
         Task<IEnumerable<BlogItemView>> ReadAll();
+        Task Submit(BlogCreate blog);
     }
 }

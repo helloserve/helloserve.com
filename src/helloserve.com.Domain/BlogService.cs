@@ -25,19 +25,24 @@ namespace helloserve.com.Domain
 
         public async Task Create(Blog blog)
         {
-            Validate(blog);
+            ValidateSave(blog);
 
             blog.Key = AsUrlTitle(blog.Title);
 
             await _dbAdaptor.Save(blog);
         }
 
-        private void Validate(Blog blog)
+        private void ValidateSave(Blog blog)
         {
             if (string.IsNullOrEmpty(blog.Title))
             {
                 throw new ArgumentNullException(nameof(blog.Title));
             }
+        }
+
+        private void ValidatePublish(Blog blog)
+        {
+            ValidateSave(blog);
 
             blog.PublishDate = blog.PublishDate ?? DateTime.Today;
         }
@@ -58,7 +63,7 @@ namespace helloserve.com.Domain
 
             blog.IsPublished = true;
 
-            Validate(blog);
+            ValidatePublish(blog);
 
             await _dbAdaptor.Save(blog);
 
