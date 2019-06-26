@@ -6,6 +6,6 @@ namespace helloserve.com.Domain.Models
     {
         public string Title { get; set; }
         public string Key { get; set; }
-        public DateTime PublishDate { get; set; }
+        public DateTime? PublishDate { get; set; }
     }
 }
