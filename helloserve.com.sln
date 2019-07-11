@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "helloserve.com.Repository",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{44CF10DC-6EED-4FAC-8683-F409EB914C8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "helloserve.com.Database", "src\helloserve.com.Database\helloserve.com.Database.csproj", "{B6247083-CE69-4FFD-BC5B-64BDFD09671B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "helloserve.com.Database", "src\helloserve.com.Database\helloserve.com.Database.csproj", "{B6247083-CE69-4FFD-BC5B-64BDFD09671B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

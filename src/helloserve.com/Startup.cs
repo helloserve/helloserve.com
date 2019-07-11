@@ -1,17 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using helloserve.com.Adaptors;
+using helloserve.com.Auth;
+using helloserve.com.Data;
+using helloserve.com.Database;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using helloserve.com.Data;
-using helloserve.com.Adaptors;
-using helloserve.com.Database;
-using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace helloserve.com
 {
@@ -28,7 +31,39 @@ namespace helloserve.com
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(options => { options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme; })
+                .AddCookie()
+                .AddGoogle(googleOptions =>
+                {
+                    googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
+                    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                    googleOptions.CallbackPath = "/auth/signincompleted";
+                    googleOptions.Events.OnCreatingTicket = (context) =>
+                    {
+                        string pictureUrl = context.User.GetProperty("picture").GetString();
+                        context.Identity.AddClaim(new Claim("picture", pictureUrl));
+                        return Task.CompletedTask;
+                    };
+                });
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicy(new List<IAuthorizationRequirement>() { new helloserveAuthorizationRequirement() }, new List<string>() { helloserveAuthorizationHandlerDefaults.AuthorizationPolicy });
+            });
+            services.AddScoped<IAuthorizationHandler, helloserveAuthorizationHandler>();
+
+            // Setup HttpClient for server side in a client side compatible fashion
+            services.AddScoped<HttpClient>(s =>
+            {
+                // Creating the URI helper needs to wait until the JS Runtime is initialized, so defer it.
+                var uriHelper = s.GetRequiredService<IUriHelper>();
+                return new HttpClient
+                {
+                    BaseAddress = new Uri(uriHelper.GetBaseUri())
+                };
+            });
+
             services.AddRazorPages();
+            services.AddControllers();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
 #if UITEST
@@ -59,9 +94,11 @@ namespace helloserve.com
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

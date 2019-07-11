@@ -1,4 +1,4 @@
-@page "/"
+﻿@page "/"
 @namespace helloserve.com.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
@@ -24,6 +24,7 @@
 <body>
     <app>@(await Html.RenderComponentAsync<App>())</app>
 
+    <script src="~/js/authPopup.js"></script>
     <script src="_framework/blazor.server.js"></script>
 </body>
 </html>

@@ -15,6 +15,8 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="Markdig" Version="0.16.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.0.0-preview6.19307.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0-preview5.19227.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,6 +29,10 @@
     <ProjectReference Include="..\helloserve.com.Database\helloserve.com.Database.csproj" />
     <ProjectReference Include="..\helloserve.com.Domain\helloserve.com.Domain.csproj" />
     <ProjectReference Include="..\helloserve.com.Repository\helloserve.com.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Admin\" />
   </ItemGroup>
 
 </Project>

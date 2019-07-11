@@ -4,38 +4,49 @@
 @using helloserve.com.Models
 @inject IBlogServiceAdaptor ServiceAdaptor
 
-@if (Model == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <EditForm Model="@Model" OnValidSubmit="Submit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <p>
-            <label for="title">Title:</label>
-            <InputText Id="title" bind-Value="@Model.Title" />
-        </p>
-        <p>
-            <label for="isPublished">Is Published:</label>
-            <InputCheckbox Id="isPublished" bind-Value="@Model.IsPublished" />
-        </p>
-        <p>
-            <label for="publishDate">Publish Date:</label>
-            <InputDate Id="publishDate" bind-Value="@Model.PublishDate" />
-        </p>
-        <p>
-            <label for="content">Content:</label>
-        </p>
-        <p>
-            <InputTextArea Id="content" bind-Value="@Model.Content" Class="textarea-content" />
-        </p>
-        <p>
-            <button type="submit">Submit</button>
-        </p>
-    </EditForm>
-}
+<AuthorizeView>
+    <Authorized>
+        @if (Model == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <EditForm Model="@Model" OnValidSubmit="Submit">
+                <ChildContent Context="editContext">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <p>
+                        <label for="title">Title:</label>
+                        <InputText Id="title" bind-Value="@Model.Title" />
+                    </p>
+                    <p>
+                        <label for="isPublished">Is Published:</label>
+                        <InputCheckbox Id="isPublished" bind-Value="@Model.IsPublished" />
+                    </p>
+                    <p>
+                        <label for="publishDate">Publish Date:</label>
+                        <InputDate T="System.DateTime?" Id="publishDate" bind-Value="@Model.PublishDate" />
+                    </p>
+                    <p>
+                        <label for="content">Content:</label>
+                    </p>
+                    <p>
+                        <InputTextArea Id="content" bind-Value="@Model.Content" Class="textarea-content" />
+                    </p>
+                    <p>
+                        <button type="submit">Submit</button>
+                    </p>
+                </ChildContent>
+            </EditForm>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <NavLink class="nav-link" href="admin">
+            <span class="oi oi-login" aria-hidden="true"></span> Login
+        </NavLink>
+    </NotAuthorized>
+</AuthorizeView>
 
 @functions {
     [Parameter]
