@@ -1,9 +1,7 @@
 using helloserve.com.Adaptors;
-using helloserve.com.Auth;
 using helloserve.com.Data;
 using helloserve.com.Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -11,10 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace helloserve.com
 {
@@ -94,12 +89,15 @@ namespace helloserve.com
             app.UseStaticFiles();
 
             app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
+                endpoints.MapControllers();
                 endpoints.MapFallbackToPage("/_Host");
             });
         }

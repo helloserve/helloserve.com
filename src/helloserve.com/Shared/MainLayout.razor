@@ -1,8 +1,8 @@
 ﻿@inherits LayoutComponentBase
+@using System.Net.Http
+@using helloserve.com.Auth
 @inject HttpClient HttpClient
 @inject IJSRuntime JSRuntime
-@using helloserve.com.Auth
-@using Microsoft.JSInterop
 
 <div class="sidebar">
     <NavMenu />
@@ -21,6 +21,16 @@
     </AuthorizeView>
 
     <div class="top-row px-4">
+        <AuthorizeView>
+            <Authorized>
+                @if (userState != null)
+                {
+                    <span>@userState.DisplayName</span>
+                    <span>&nbsp;</span>
+                    <button class="btn btn-info" onclick="@SignOut">Sign Out</button>
+                }
+            </Authorized>
+        </AuthorizeView>
         <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank" class="ml-md-auto">About</a>
     </div>
 
@@ -29,16 +39,16 @@
     </div>
 </div>
 
-@functions{
+@functions {
     [CascadingParameter] Task<AuthenticationState> authStateTask { get; set; }
-
-    private List<TaskCompletionSource<bool>> pendingSignInFlows = new List<TaskCompletionSource<bool>>();
-    UserState userState = new UserState();
+    UserState userState;
 
     protected override async Task OnInitAsync()
     {
-        var authState = await authStateTask;
-        if (authState.User != null)
+        AuthenticationState authState = await authStateTask;
+        userState = UserState.LoggedOutState;
+
+        if (authState.User != null && authState.User.Identity != null)
         {
             userState.DisplayName = authState.User.Identity.Name;
             userState.PictureUrl = authState.User.FindFirst("picture")?.Value;
@@ -52,21 +62,7 @@
         userState = null;
         StateHasChanged();
 
-        userState = await HttpClient.PutJsonAsync<UserState>("auth/signout", null);
+        userState = await HttpClient.PutJsonAsync<UserState>("user/signout", null);
         StateHasChanged();
     }
-
-    [JSInvokable]
-    public void OnSignInStateChanged(UserState newUserState)
-    {
-        userState = newUserState;
-        StateHasChanged();
-
-        foreach (var tcs in pendingSignInFlows)
-        {
-            tcs.SetResult(newUserState.IsLoggedIn);
-        }
-        pendingSignInFlows.Clear();
-    }
-
 }

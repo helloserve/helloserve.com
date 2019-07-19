@@ -1,0 +1,52 @@
+﻿@inherits LayoutComponentBase
+@layout MainLayout
+@using Microsoft.JSInterop
+@using helloserve.com.Auth
+@inject IJSRuntime JSRuntime
+
+@if (userState == null) // Retrieving the login state
+{
+    <text>Loading...</text>
+}
+else if (userState.IsLoggedIn)
+{
+    @Body
+}
+else
+{
+    <div class="main">
+        <h2>You're signed out</h2>
+        <p>To continue, please sign in.</p>
+        <button class="btn btn-danger" onclick="@SignIn">Sign in</button>
+    </div>
+}
+
+@functions {
+    [CascadingParameter] Task<AuthenticationState> authStateTask { get; set; }
+    UserState userState;
+
+    protected override async Task OnInitAsync()
+    {
+        AuthenticationState authState = await authStateTask;
+        userState = UserState.LoggedOutState;
+
+        if (authState.User != null && authState.User.Identity != null)
+        {
+            userState.DisplayName = authState.User.Identity.Name;
+            //userState.PictureUrl = authState.User.FindFirst("picture")?.Value;
+            userState.IsLoggedIn = authState.User.Identity.IsAuthenticated;
+        }
+    }
+
+    public async Task SignIn()
+    {
+        await JSRuntime.InvokeAsync<object>("openLoginPopup", DotNetObjectRef.Create(this));
+    }
+
+    [JSInvokable]
+    public void OnSignInStateChanged(UserState userState)
+    {
+        this.userState = userState;
+        StateHasChanged();
+    }
+}
