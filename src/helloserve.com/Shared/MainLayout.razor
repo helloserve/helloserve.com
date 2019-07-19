@@ -4,43 +4,30 @@
 @using helloserve.com.Auth
 @using Microsoft.JSInterop
 
-@if (userState == null) // Retrieving the login state
-{
-    <text>Loading...</text>
-}
-else
-{
-    <div class="sidebar">
-        <NavMenu />
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+<div class="main">
+
+    <AuthorizeView>
+        <Authorized>
+            <span><img src="@userState.PictureUrl" width="32" height="32" /></span>
+            <span>&nbsp;</span>
+            <span>
+                <button class="btn btn-info" onclick="@SignOut">Sign out</button>
+            </span>
+        </Authorized>
+    </AuthorizeView>
+
+    <div class="top-row px-4">
+        <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank" class="ml-md-auto">About</a>
     </div>
 
-    <div class="main">
-        <div class="top-row px-4">
-            <span>@userState.IsLoggedIn</span>
-            <AuthorizeView>
-                <Authorized>
-                    <span><img src="@userState.PictureUrl" width="32" height="32" /></span>
-                    <span>&nbsp;</span>
-                    <span>@userState.DisplayName</span>
-                    <span>&nbsp;</span>
-                    <span>
-                        <button class="btn btn-info" onclick="@SignOut">Sign out</button>
-                    </span>
-                </Authorized>
-                <NotAuthorized>
-                    <span>
-                        <button class="btn btn-danger" onclick="@SignIn">Sign in</button>
-                    </span>
-                </NotAuthorized>
-            </AuthorizeView>
-            <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank" class="ml-md-auto">About</a>
-        </div>
-
-        <div class="content px-4">
-            @Body
-        </div>
+    <div class="content px-4">
+        @Body
     </div>
-}
+</div>
 
 @functions{
     [CascadingParameter] Task<AuthenticationState> authStateTask { get; set; }
@@ -57,11 +44,6 @@ else
             userState.PictureUrl = authState.User.FindFirst("picture")?.Value;
             userState.IsLoggedIn = authState.User.Identity.IsAuthenticated;
         }
-    }
-
-    public async Task SignIn()
-    {
-        await JSRuntime.InvokeAsync<object>("openLoginPopup", DotNetObjectRef.Create(this));
     }
 
     public async Task SignOut()
@@ -86,4 +68,5 @@ else
         }
         pendingSignInFlows.Clear();
     }
+
 }
