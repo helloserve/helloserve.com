@@ -33,7 +33,7 @@ else
         if (authState.User != null && authState.User.Identity != null)
         {
             userState.DisplayName = authState.User.Identity.Name;
-            //userState.PictureUrl = authState.User.FindFirst("picture")?.Value;
+            userState.PictureUrl = authState.User.FindFirst("picture")?.Value;
             userState.IsLoggedIn = authState.User.Identity.IsAuthenticated;
         }
     }

@@ -9,26 +9,14 @@
 </div>
 
 <div class="main">
-
-    <AuthorizeView>
-        <Authorized>
-            <span><img src="@userState.PictureUrl" width="32" height="32" /></span>
-            <span>&nbsp;</span>
-            <span>
-                <button class="btn btn-info" onclick="@SignOut">Sign out</button>
-            </span>
-        </Authorized>
-    </AuthorizeView>
-
     <div class="top-row px-4">
         <AuthorizeView>
             <Authorized>
-                @if (userState != null)
-                {
-                    <span>@userState.DisplayName</span>
-                    <span>&nbsp;</span>
-                    <button class="btn btn-info" onclick="@SignOut">Sign Out</button>
-                }
+                <span><img src="@userState.PictureUrl" width="32" height="32" /></span>
+                <span>&nbsp;</span>
+                <span>
+                    <button class="btn btn-info" onclick="@SignOut">Sign out</button>
+                </span>
             </Authorized>
         </AuthorizeView>
         <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank" class="ml-md-auto">About</a>
