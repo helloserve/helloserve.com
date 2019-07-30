@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  db:
+    image: helloservedb
+    build:
+      context: db/
+      dockerfile: 'Dockerfile'
+    environment:
+      - env_database_name=helloserve
+      - env_login_user=helloserve
+      - env_login_name=helloserve
+      - env_login_password=helloserve
+      - SA_PASSWORD=Passw0rd
+    ports:
+      - 44444:1433
+  flyway:
+    image: helloserveflyway
+    build:
+      context: db/
+      dockerfile: 'Dockerfile.flyway'
+    command: -url="jdbc:sqlserver://db;databaseName=helloserve" -user=sa -password=Passw0rd -baselineOnMigrate=true -connectRetries=20 migrate
+    volumes:
+      - ./db/Scripts:/flyway/sql/migrate
+    depends_on:
+        - db 
