@@ -1,5 +1,6 @@
 ﻿using helloserve.com.Auth;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -11,12 +12,15 @@ namespace helloserve.com.Test.Auth
     public class helloserveAuthorizationTests
     {
         [DataTestMethod]
-        [DataRow("<hardcoded email address>", true, false)]
+        [DataRow("test@test.com", true, false)]
         [DataRow("<a different email address>", false, true)]
         public async Task HandleAsync_Verify(string email, bool succeeded, bool failed)
         {
             //arrange
-            helloserveAuthorizationHandler handler = new helloserveAuthorizationHandler();
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("Users:0", "test@test.com") })
+                .Build();
+            helloserveAuthorizationHandler handler = new helloserveAuthorizationHandler(configuration);
             IEnumerable<ClaimsIdentity> identities = new List<ClaimsIdentity>()
             {
                 new ClaimsIdentity(new List<Claim>()

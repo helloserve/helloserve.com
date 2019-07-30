@@ -8,17 +8,20 @@
 {
     <text>Loading...</text>
 }
-else if (userState.IsLoggedIn)
-{
-    @Body
-}
 else
 {
-    <div class="main">
-        <h2>You're signed out</h2>
-        <p>To continue, please sign in.</p>
-        <button class="btn btn-danger" onclick="@SignIn">Sign in</button>
-    </div>
+    <AuthorizeView>
+        <Authorized>
+            @Body
+        </Authorized>
+        <NotAuthorized>
+            <div class="main">
+                <h2>You're signed out</h2>
+                <p>To continue, please sign in.</p>
+                <button class="btn btn-danger" onclick="@SignIn">Sign in</button>
+            </div>
+        </NotAuthorized>
+    </AuthorizeView>
 }
 
 @functions {

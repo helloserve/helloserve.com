@@ -21,10 +21,12 @@ namespace helloserve.com
     public class Startup
     {
         IConfiguration Configuration;
+        IWebHostEnvironment Environment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -37,7 +39,7 @@ namespace helloserve.com
                 {
                     googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
                     googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                    googleOptions.CallbackPath = "/auth/signincompleted";
+                    googleOptions.CallbackPath = "/auth/signincomplete";
                     googleOptions.Events.OnCreatingTicket = (context) =>
                     {
                         string pictureUrl = context.User.GetProperty("picture").GetString();

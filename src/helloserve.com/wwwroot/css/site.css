@@ -1,7 +1,7 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: Tahoma, Arial, sans-serif;
 }
 
 app {
@@ -16,6 +16,12 @@ app {
     align-items: center;
 }
 
+    .top-row img {
+        margin:5px;
+        width: 32px;
+        height: 32px;
+    }
+
 .main {
     flex: 1;
 }
@@ -26,7 +32,7 @@ app {
     }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    background-color: #ffedcc;
 }
 
     .sidebar .top-row {
@@ -46,11 +52,11 @@ app {
 
 .nav-item {
     font-size: 0.9rem;
-    padding-bottom: 0.5rem;
 }
 
-    .nav-item:first-of-type {
-        padding-top: 1rem;
+    .nav-item img {
+        width:20px;
+        height:20px;
     }
 
     .nav-item:last-of-type {
@@ -58,8 +64,7 @@ app {
     }
 
     .nav-item a {
-        color: #d7d7d7;
-        border-radius: 4px;
+        color: black;
         height: 3rem;
         display: flex;
         align-items: center;
@@ -67,13 +72,12 @@ app {
     }
 
         .nav-item a.active {
-            background-color: rgba(255,255,255,0.25);
-            color: white;
+            color: black;
         }
 
         .nav-item a:hover {
-            background-color: rgba(255,255,255,0.1);
-            color: white;
+            color: black;
+            background-color: rgba(0, 0, 0, 0.2);
         }
 
 .content {
@@ -97,20 +101,20 @@ app {
 }
 
 .heading {
-    font-size:1.25em;
-    font-weight:bold;
+    font-size: 1.25em;
+    font-weight: bold;
 }
 
 .heading-notation {
-    font-size:0.75em;
-    padding:0rem 1rem;
+    font-size: 0.75em;
+    padding: 0rem 1rem;
 }
 
 .textarea-content {
-    height:1000px;
-    min-width:90%;
-    text-align:justify;
-    font-family:'Fira Code', 'Courier New'
+    height: 1000px;
+    min-width: 90%;
+    text-align: justify;
+    font-family: 'Fira Code', 'Courier New'
 }
 
 @media (max-width: 767.98px) {
@@ -125,7 +129,7 @@ app {
     }
 
     .sidebar {
-        width: 250px;
+        width: 150px;
         height: 100vh;
         position: sticky;
         top: 0;

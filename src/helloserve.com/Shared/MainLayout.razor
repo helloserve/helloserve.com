@@ -9,18 +9,17 @@
 </div>
 
 <div class="main">
-    <div class="top-row px-4">
-        <AuthorizeView>
-            <Authorized>
+    <AuthorizeView>
+        <Authorized>
+            <div class="top-row px-4">
                 <span><img src="@userState.PictureUrl" width="32" height="32" /></span>
                 <span>&nbsp;</span>
                 <span>
                     <button class="btn btn-info" onclick="@SignOut">Sign out</button>
                 </span>
-            </Authorized>
-        </AuthorizeView>
-        <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank" class="ml-md-auto">About</a>
-    </div>
+            </div>
+        </Authorized>
+    </AuthorizeView>
 
     <div class="content px-4">
         @Body

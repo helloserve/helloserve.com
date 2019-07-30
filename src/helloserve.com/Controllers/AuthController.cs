@@ -29,7 +29,7 @@ namespace helloserve.com.Controllers
         }
 
         [Authorize]
-        [HttpGet("auth/signincompleted")]
+        [HttpGet("auth/signincomplete")]
         public IActionResult SignInCompleted()
         {
             var userState = GetUser();

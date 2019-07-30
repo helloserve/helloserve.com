@@ -1,5 +1,5 @@
-<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">helloserve.com</a>
+<div class="top-row navbar navbar-dark">
+    <a class="navbar-brand" href="">helloserve</a>
     <button class="navbar-toggler" onclick="@ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -7,25 +7,44 @@
 
 <div class="@NavMenuCssClass" onclick="@ToggleNavMenu">
     <ul class="nav flex-column">
-        <li class="nav-item px-3">
+        <li class="nav-item">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
-        <li class="nav-item px-3">
+        <li class="nav-item">
             <NavLink class="nav-link" href="blogs">
                 <span class="oi oi-book" aria-hidden="true"></span> Blogs
             </NavLink>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
+        <AuthorizeView>
+            <Authorized>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="admin/blogs">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Add Blog
+                    </NavLink>
+                </li>
+            </Authorized>
+        </AuthorizeView>
+        <li class="nav-item">
+            <a class="nav-link" href="https://github.com/helloserve/">
+                <span class="oi"><img src="images/gh.svg" /></span> Github
+            </a>
         </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
+        <li class="nav-item">
+            <a class="nav-link" href="http://za.linkedin.com/pub/henk-roux/5b/858/188">
+                <span class="oi"><img src="images/in.svg" /></span> LinkedIn
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://twitter.com/helloserve">
+                <span class="oi"><img src="images/t.svg" /></span> Twitter
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="https://www.facebook.com/helloserveproductions">
+                <span class="oi"><img src="images/f.svg" /></span> Facebook
+            </a>
         </li>
     </ul>
 </div>
