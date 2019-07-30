@@ -56,6 +56,27 @@ namespace helloserve.com.Test.Adaptors
         }
 
         [TestMethod]
+        public async Task Edit_Verify()
+        {
+            //arrange
+            string title = "title";
+            Blog blog = new Blog()
+            {
+                Title = "Title",
+                Key = title
+            };
+            _serviceMock.Setup(x => x.Read(title))
+                .ReturnsAsync(blog);
+
+            //act
+            BlogCreate result = await _adaptor.Edit(title);
+
+            //assert
+            Assert.IsNotNull(result);
+            _serviceMock.Verify(x => x.Read(title));
+        }
+
+        [TestMethod]
         public async Task Submit_Verify()
         {
             //arrange

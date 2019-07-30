@@ -93,5 +93,59 @@ namespace helloserve.com.Test.Repository
             Assert.IsTrue(listings.Any(x => x.PublishDate == publishDate));
             Assert.IsTrue(listings.Any(x => x.PublishDate == null));
         }
+
+        [TestMethod]
+        public async Task Save_Create_Verify()
+        {
+            //arrange
+            ArrangeDatabase("Save_Create_Verify");
+            Blog blog = new Blog()
+            {
+                Title = "This is a title!",
+                Key = "this_is_a_title",
+                Content = "content"
+            };
+
+            //act
+            await Repository.Save(blog);
+
+            //assert
+            using (var context = new helloserveContext(_options))
+            {
+                Assert.IsTrue(context.Blogs.Any(x => x.Key == blog.Key));
+            }
+        }
+
+        [TestMethod]
+        public async Task Save_Update_Verify()
+        {
+            //arrange
+            ArrangeDatabase("Save_Update_Verify");
+            Blog blog = new Blog()
+            {
+                Title = "This is a title!",
+                Key = "this_is_a_title",
+                Content = "content"
+            };
+            var blogs = new List<Database.Entities.Blog>()
+            {
+                new Database.Entities.Blog() { Key = blog.Key, Title = "title1", Content = "before" },
+                new Database.Entities.Blog() { Key = "key2", Title = "title2" }
+            };
+            using (var context = new helloserveContext(_options))
+            {
+                await context.Blogs.AddRangeAsync(blogs);
+                await context.SaveChangesAsync();
+            }
+
+            //act
+            await Repository.Save(blog);
+
+            //assert
+            using (var context = new helloserveContext(_options))
+            {
+                Assert.IsTrue(context.Blogs.Any(x => x.Key == blog.Key && x.Content == blog.Content && x.Title == blog.Title));
+            }
+        }
     }
 }

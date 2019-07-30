@@ -17,7 +17,16 @@ else
                 <NavLink class="nav-link" href="@AsUrl(item.Key)">
                     <div class="heading">@item.Title</div>
                 </NavLink>
-                <div class="heading-notation">@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</div>
+                <div class="heading-notation">
+                    <span>@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</span>
+                    <AuthorizeView>
+                        <Authorized>
+                            <NavLink href="@AsAdminUrl(item.Key)">
+                                <span class="oi oi-pencil"></span>
+                            </NavLink>
+                        </Authorized>
+                    </AuthorizeView>
+                </div>
             </div>
         </p>
         }
@@ -35,5 +44,10 @@ else
     private string AsUrl(string key)
     {
         return $"blogs/{key}";
+    }
+
+    private string AsAdminUrl(string key)
+    {
+        return $"admin/blogs/{key}";
     }
 }

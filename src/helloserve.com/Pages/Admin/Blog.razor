@@ -11,46 +11,76 @@
 }
 else
 {
-    <EditForm Model="@Model" OnValidSubmit="Submit">
+    <div class="blog-edit">
+        <EditForm Model="@Model" OnValidSubmit="Submit">
             <DataAnnotationsValidator />
             <ValidationSummary />
-            <p>
-                <label for="title">Title:</label>
-                <InputText Id="title" @bind-Value="@Model.Title" />
-            </p>
-            <p>
-                <label for="isPublished">Is Published:</label>
-                <InputCheckbox Id="isPublished" @bind-Value="@Model.IsPublished" />
-            </p>
-            <p>
-                <label for="publishDate">Publish Date:</label>
-                <InputDate T="System.DateTime?" Id="publishDate" @bind-Value="@Model.PublishDate" />
-            </p>
-            <p>
-                <label for="content">Content:</label>
-            </p>
-            <p>
-                <InputTextArea Id="content" @bind-Value="@Model.Content" Class="textarea-content" />
-            </p>
-            <p>
-                <button type="submit">Submit</button>
-            </p>
-    </EditForm>
+            <div class="edit-fields">
+                <p>
+                    <div>
+                        <label for="title">Title</label>
+                    </div>
+                    <div>
+                        <InputText Id="title" @bind-Value="@Model.Title"/>
+                    </div>
+                </p>
+                <p>
+                    <div>
+                        <label for="isPublished">Is Published</label>
+                    </div>
+                    <div>
+                        <InputCheckbox Id="isPublished" @bind-Value="@Model.IsPublished"/>
+                    </div>
+                </p>
+                <p>
+                    <div>
+                        <label for="publishDate">Publish Date</label>
+                    </div>
+                    <div>
+                        <InputDate T="System.DateTime?" Id="publishDate" @bind-Value="@Model.PublishDate"/>
+                    </div>
+                </p>
+                <p>
+                    <div>
+                        <label for="content">Content</label>
+                    </div>
+                    <div>
+                        <InputTextArea Id="content" @bind-Value="@Model.Content" Class="textarea-content"/>
+                    </div>
+                </p>
+            </div>
+            <div class="edit-actions">
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+                <div>
+                    <label>@(HasChanged ? "Changed!" : string.Empty) </label>
+                </div>
+            </div>
+        </EditForm>
+    </div>
 }
 
 @functions {
     [Parameter]
-    private string Title { get; set; } = "new title";
+    private string Title { get; set; } = null;
 
     BlogCreate Model;
+    bool HasChanged = false;
 
     protected override async Task OnInitAsync()
     {
-        Model = new BlogCreate(); //await ServiceAdaptor.Read(Title);
+        Model = await ServiceAdaptor.Edit(Title);
+        if (Model == null)
+        {
+            Model = new BlogCreate();
+        }
     }
 
     async Task Submit()
     {
         await ServiceAdaptor.Submit(Model);
+        HasChanged = false;
+        StateHasChanged();
     }
 }

@@ -30,9 +30,18 @@ namespace helloserve.com.Repository
             return await _context.Blogs.SingleOrDefaultAsync(x => x.Key == title);
         }
 
-        public Task Save(Blog blog)
+        public async Task Save(Blog blog)
         {
-            throw new NotImplementedException();
+            Database.Entities.Blog dbBlog = (await _context.Blogs.Where(x => x.Key == blog.Key).ToListAsync()).SingleOrDefault();
+
+            if (dbBlog == null)
+            {
+                dbBlog = new Database.Entities.Blog();
+                dbBlog.Key = blog.Key;
+                _context.Blogs.Add(dbBlog);
+            }
+            blog.MapOnto(dbBlog);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<BlogListing>> ReadListings()

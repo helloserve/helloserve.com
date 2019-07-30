@@ -11,9 +11,18 @@ else
 {
     <h1>@Model.Title</h1>
 
-    @((MarkupString)Model.Content)
+    <div>
+        <span>Published on @Model.PublishDate?.ToShortDateString()</span>
+        <AuthorizeView>
+            <Authorized>
+                <NavLink href="@AsAdminUrl(Model.Key)">
+                    <span class="oi oi-pencil"></span>
+                </NavLink>
+            </Authorized>
+        </AuthorizeView>
+    </div>
 
-    <div>Footer section</div>
+    @((MarkupString)Model.Content)
 }
 
 @functions {
@@ -25,5 +34,10 @@ else
     protected override async Task OnInitAsync()
     {
         Model = await ServiceAdaptor.Read(Title);
+    }
+
+    private string AsAdminUrl(string key)
+    {
+        return $"admin/blogs/{key}";
     }
 }

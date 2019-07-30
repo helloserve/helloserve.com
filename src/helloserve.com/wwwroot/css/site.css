@@ -110,8 +110,29 @@ app {
     padding: 0rem 1rem;
 }
 
+.blog-edit {
+
+}
+
+.edit-fields {
+    padding:1em;
+    display: inline-grid;
+    width: 70%;
+}
+
+.edit-fields input {
+    width:90%;
+}
+
+.edit-actions {
+    padding:1em;
+    display:inline-grid;
+    width:25%;
+    height:100%;
+}
+
 .textarea-content {
-    height: 1000px;
+    height: 500px;
     min-width: 90%;
     text-align: justify;
     font-family: 'Fira Code', 'Courier New'
