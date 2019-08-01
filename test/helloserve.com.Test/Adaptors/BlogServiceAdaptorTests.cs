@@ -86,7 +86,20 @@ namespace helloserve.com.Test.Adaptors
             await _adaptor.Submit(blog);
 
             //assert
-            _serviceMock.Verify(x => x.Create(It.IsAny<Blog>()));
+            _serviceMock.Verify(x => x.CreateUpdate(It.IsAny<Blog>()));
+        }
+
+        [TestMethod]
+        public async Task Publish_Verify()
+        {
+            //arrange
+            string title = "test title";
+
+            //act
+            await _adaptor.Publish(title);
+
+            //assert
+            _serviceMock.Verify(x => x.Publish(title, It.IsAny<IEnumerable<Domain.Syndication.Models.SyndicationText>>()));
         }
     }
 }

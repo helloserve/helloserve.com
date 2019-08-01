@@ -35,7 +35,12 @@ namespace helloserve.com.Adaptors
 
         public async Task Submit(BlogCreate blog)
         {
-            await _service.Create(Config.Mapper.Map<Domain.Models.Blog>(blog));
+            await _service.CreateUpdate(Config.Mapper.Map<Domain.Models.Blog>(blog));
+        }
+
+        public async Task Publish(string title)
+        {
+            await _service.Publish(title, new List<Domain.Syndication.Models.SyndicationText>());
         }
     }
 
@@ -77,6 +82,11 @@ public void QuotedBlockMethod {
         }
 
         public Task Submit(BlogCreate blog)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task Publish(string title)
         {
             throw new System.NotImplementedException();
         }

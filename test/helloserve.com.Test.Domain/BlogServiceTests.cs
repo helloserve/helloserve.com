@@ -48,13 +48,13 @@ namespace helloserve.com.Test.Domain
         }
 
         [TestMethod]
-        public async Task Create_Verify()
+        public async Task CreateUpdate_Verify()
         {
             //arrange
             Blog blog = new Blog() { Title = "Hello Test!" };
 
             //act
-            await Service.Create(blog);
+            await Service.CreateUpdate(blog);
 
             //assert
             _dbAdaptorMock.Verify(x => x.Save(blog));
@@ -62,40 +62,40 @@ namespace helloserve.com.Test.Domain
         }
 
         [TestMethod]
-        public async Task Create_NullDate_NotSet()
+        public async Task CreateUpdate_NullDate_NotSet()
         {
             //arrange
             Blog blog = new Blog() { Title = "Hello Test!", PublishDate = null };
 
             //act
-            await Service.Create(blog);
+            await Service.CreateUpdate(blog);
 
             //assert
             Assert.IsNull(blog.PublishDate);
         }
 
         [TestMethod]
-        public async Task Create_HasDate_NotSet()
+        public async Task CreateUpdate_HasDate_NotSet()
         {
             //arrange
             DateTime expectedPublishDate = DateTime.Today.AddDays(-4);
             Blog blog = new Blog() { Title = "Hello Test!", PublishDate = expectedPublishDate };
 
             //act
-            await Service.Create(blog);
+            await Service.CreateUpdate(blog);
 
             //assert
             Assert.AreEqual(expectedPublishDate, blog.PublishDate);
         }
 
         [TestMethod]
-        public async Task Create_TitleIsNull_Throws()
+        public async Task CreateUpdate_TitleIsNull_Throws()
         {
             //arrange
             Blog blog = new Blog();
 
             //act/assert
-            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => Service.Create(blog));
+            await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => Service.CreateUpdate(blog));
         }
 
         [TestMethod]

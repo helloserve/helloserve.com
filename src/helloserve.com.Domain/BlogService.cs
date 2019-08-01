@@ -23,7 +23,7 @@ namespace helloserve.com.Domain
             return await _dbAdaptor.Read(title);
         }
 
-        public async Task Create(Blog blog)
+        public async Task CreateUpdate(Blog blog)
         {
             ValidateSave(blog);
 

@@ -8,7 +8,7 @@ namespace helloserve.com.Domain
     public interface IBlogService
     {
         Task<Blog> Read(string title);
-        Task Create(Blog blog);
+        Task CreateUpdate(Blog blog);
         Task Publish(string title, IEnumerable<SyndicationText> syndicationTexts);
         Task<IEnumerable<BlogListing>> ReadAll();
     }
