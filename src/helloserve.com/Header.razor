@@ -1,0 +1,22 @@
+﻿
+<title>helloserve.com - @PageState.Current.Title</title>
+<meta property="og:type" content="article">
+<meta property="og:title" content="@PageState.Current.Title">
+<meta property="og:description" content="@PageState.Current.Description">
+
+<meta property="og:image" content="">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:description" content="">
+
+@functions {
+    protected override async Task OnInitAsync()
+    {
+        PageState.Current.OnStateChange += HandleOnStateChange;
+    }
+
+    void HandleOnStateChange(object sender, EventArgs e)
+    {
+        StateHasChanged();
+    }
+}

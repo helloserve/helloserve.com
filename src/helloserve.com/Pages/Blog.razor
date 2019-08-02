@@ -1,6 +1,7 @@
 @page "/blogs/{title}"
 @using helloserve.com.Adaptors
 @using helloserve.com.Models
+@using helloserve.com
 @inject IBlogServiceAdaptor ServiceAdaptor
 
 @if (Model == null)
@@ -34,6 +35,8 @@ else
     protected override async Task OnInitAsync()
     {
         Model = await ServiceAdaptor.Read(Title);
+        PageState.Reset();
+        PageState.Current.Title = Model.Title;
     }
 
     private string AsAdminUrl(string key)
