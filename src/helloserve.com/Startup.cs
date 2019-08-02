@@ -20,13 +20,11 @@ namespace helloserve.com
 {
     public class Startup
     {
-        IConfiguration Configuration;
-        IWebHostEnvironment Environment;
+        readonly IConfiguration Configuration;
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            Environment = environment;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -102,9 +100,15 @@ namespace helloserve.com
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGet("content/{*file}", context =>
+                {
+                    string file = context.Request.RouteValues["file"].ToString();
+                    context.Response.Redirect($"/{file}", true);
+                    return Task.CompletedTask;
+                });
+
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
-                endpoints.MapControllers();
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
