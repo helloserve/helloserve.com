@@ -1,6 +1,5 @@
 using helloserve.com.Adaptors;
 using helloserve.com.Auth;
-using helloserve.com.Data;
 using helloserve.com.Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -65,12 +64,13 @@ namespace helloserve.com
             services.AddRazorPages();
             services.AddControllers();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
 #if UITEST
             services.AddSingleton<IBlogServiceAdaptor, MockBlogServiceAdaptor>();
 #else
             services.AddTransient<IBlogServiceAdaptor, BlogServiceAdaptor>();
 #endif
+            services.AddScoped<IPageState, PageState>();
+
             services.AddDomainServices();
             services.AddRepositories();
             services.AddhelloserveContext(Configuration);

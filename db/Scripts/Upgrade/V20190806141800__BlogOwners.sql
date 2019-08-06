@@ -1,0 +1,14 @@
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'BlogOwners')
+CREATE TABLE BlogOwners
+(
+    BlogOwnerId INT NOT NULL IDENTITY(1,1),
+    BlogKey NVARCHAR(250) NOT NULL,
+    OwnerId INT NOT NULL,
+    OwnerType NVARCHAR(50) NOT NULL,
+    CONSTRAINT PK_BlogOwners PRIMARY KEY (BlogOwnerId) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE name = 'FK_BlogOwners_Blogs')
+ALTER TABLE BlogOwners
+ADD CONSTRAINT FK_BLogOwners_Blogs FOREIGN KEY (BlogKey) REFERENCES Blogs ([Key]) ON UPDATE NO ACTION ON DELETE NO ACTION
+GO

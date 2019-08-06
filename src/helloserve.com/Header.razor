@@ -1,8 +1,8 @@
-﻿
-<title>helloserve.com - @PageState.Current.Title</title>
+﻿@inject IPageState PageState
+<title>helloserve.com@(string.IsNullOrEmpty(PageState.Title) ? null : $" - {PageState.Title}")</title>
 <meta property="og:type" content="article">
-<meta property="og:title" content="@PageState.Current.Title">
-<meta property="og:description" content="@PageState.Current.Description">
+<meta property="og:title" content="@PageState.Title">
+<meta property="og:description" content="@PageState.Description">
 
 <meta property="og:image" content="">
 
@@ -12,7 +12,7 @@
 @functions {
     protected override async Task OnInitAsync()
     {
-        PageState.Current.OnStateChange += HandleOnStateChange;
+        PageState.OnStateChange += HandleOnStateChange;
     }
 
     void HandleOnStateChange(object sender, EventArgs e)

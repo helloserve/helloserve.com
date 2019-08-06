@@ -3,6 +3,7 @@
 @using helloserve.com.Models
 @using helloserve.com
 @inject IBlogServiceAdaptor ServiceAdaptor
+@inject IPageState PageState
 
 @if (Model == null)
 {
@@ -35,8 +36,9 @@ else
     protected override async Task OnInitAsync()
     {
         Model = await ServiceAdaptor.Read(Title);
-        PageState.Reset();
-        PageState.Current.Title = Model.Title;
+
+        PageState.Title = Model.Title;
+        PageState.StateChanged();
     }
 
     private string AsAdminUrl(string key)

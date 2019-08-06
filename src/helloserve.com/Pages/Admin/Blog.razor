@@ -4,6 +4,7 @@
 @using helloserve.com.Adaptors
 @using helloserve.com.Models
 @inject IBlogServiceAdaptor ServiceAdaptor
+@inject IPageState PageState
 
 @if (Model == null)
 {
@@ -21,7 +22,7 @@ else
                         <label for="title">Title</label>
                     </div>
                     <div>
-                        <InputText Id="title" @bind-Value="@Model.Title"/>
+                        <InputText Id="title" @bind-Value="@Model.Title" />
                     </div>
                 </p>
                 <p>
@@ -29,7 +30,7 @@ else
                         <label for="isPublished">Is Published</label>
                     </div>
                     <div>
-                        <InputCheckbox Id="isPublished" @bind-Value="@Model.IsPublished"/>
+                        <InputCheckbox Id="isPublished" @bind-Value="@Model.IsPublished" />
                     </div>
                 </p>
                 <p>
@@ -37,7 +38,7 @@ else
                         <label for="publishDate">Publish Date</label>
                     </div>
                     <div>
-                        <InputDate T="System.DateTime?" Id="publishDate" @bind-Value="@Model.PublishDate"/>
+                        <InputDate T="System.DateTime?" Id="publishDate" @bind-Value="@Model.PublishDate" />
                     </div>
                 </p>
                 <p>
@@ -45,7 +46,7 @@ else
                         <label for="content">Content</label>
                     </div>
                     <div>
-                        <InputTextArea Id="content" @bind-Value="@Model.Content" Class="textarea-content"/>
+                        <InputTextArea Id="content" @bind-Value="@Model.Content" Class="textarea-content" />
                     </div>
                 </p>
             </div>
@@ -69,6 +70,9 @@ else
 
     protected override async Task OnInitAsync()
     {
+        PageState.Title = "Edit Blog";
+        PageState.StateChanged();
+
         Model = await ServiceAdaptor.Edit(Title);
         if (Model == null)
         {

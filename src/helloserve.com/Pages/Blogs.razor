@@ -2,43 +2,46 @@
 @using helloserve.com.Adaptors
 @using helloserve.com.Models
 @inject IBlogServiceAdaptor ServiceAdaptor
+@inject IPageState PageState
 
-@if (_blogItems == null)
+@if (blogItems == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
     <div>
-        @foreach (var item in _blogItems)
+        @foreach (var item in blogItems)
         {
-        <p>
-            <div>
-                <NavLink class="nav-link" href="@AsUrl(item.Key)">
-                    <div class="heading">@item.Title</div>
-                </NavLink>
-                <div class="heading-notation">
-                    <span>@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</span>
-                    <AuthorizeView>
-                        <Authorized>
-                            <NavLink href="@AsAdminUrl(item.Key)">
-                                <span class="oi oi-pencil"></span>
-                            </NavLink>
-                        </Authorized>
-                    </AuthorizeView>
+            <p>
+                <div>
+                    <NavLink class="nav-link" href="@AsUrl(item.Key)">
+                        <div class="heading">@item.Title</div>
+                    </NavLink>
+                    <div class="heading-notation">
+                        <span>@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</span>
+                        <AuthorizeView>
+                            <Authorized>
+                                <NavLink href="@AsAdminUrl(item.Key)">
+                                    <span class="oi oi-pencil"></span>
+                                </NavLink>
+                            </Authorized>
+                        </AuthorizeView>
+                    </div>
                 </div>
-            </div>
-        </p>
+            </p>
         }
     </div>
 }
 
 @functions {
-    private IEnumerable<BlogItemView> _blogItems;
+    private IEnumerable<BlogItemView> blogItems;
 
     protected override async Task OnInitAsync()
     {
-        _blogItems = await ServiceAdaptor.ReadAll();
+        PageState.Title = "Blogs";
+        PageState.StateChanged();
+        blogItems = await ServiceAdaptor.ReadAll();
     }
 
     private string AsUrl(string key)

@@ -2,58 +2,25 @@
 
 namespace helloserve.com
 {
-    public class PageState
+    public class PageState : IPageState
     {
-        public static PageState Current { get; internal set; }
-
-        static PageState()
-        {
-            Current = PageState.Default;
-        }
-
-        public static void Reset()
-        {
-            PageState prev = Current;
-            Current = PageState.Default;
-            Current.OnStateChange = prev.OnStateChange;
-            Current.StateChanged();
-        }
-
-        static PageState Default => new PageState()
-        {            
-            Title = "helloserve.com",
-            Description = string.Empty
-        };
-
         private string title;
-        public string Title {
-            get
-            {
-                return title;
-            }
-            set
-            {
-                title = value;
-                StateChanged();
-            }
-        }
+        public string Title { get; set; }
 
-        private string description;
-        public string Description
-        {
-            get { return description; }
-            set
-            {
-                description = value;
-                StateChanged();
-            }
-        }
+        public string Description { get; set; }
 
         public event EventHandler OnStateChange;
 
-        private void StateChanged()
+        public void StateChanged()
         {
             OnStateChange?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void Reset()
+        {
+            Title = string.Empty;
+            Description = string.Empty;
+            StateChanged();
         }
     }
 }
