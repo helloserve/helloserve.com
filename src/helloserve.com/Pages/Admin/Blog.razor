@@ -50,7 +50,36 @@ else
                     </div>
                 </p>
             </div>
-            <div class="edit-actions">
+            <div class="edit-fields edit-actions">
+                <div>
+                    <p>
+                        <span>Open Graph Properties</span>
+                    </p>
+                    <p>
+                        <div>
+                            <label for="title">Description</label>
+                        </div>
+                        <div>
+                            <InputTextArea Id="content" @bind-Value="@Model.Description" Class="textarea-content-small" />
+                        </div>
+                    </p>
+                    <p>
+                        <div>
+                            <label for="title">Image Url</label>
+                        </div>
+                        <div>
+                            <InputText Id="title" @bind-Value="@Model.ImageUrl" />
+                        </div>
+                    </p>
+                    <p>
+                        <div>
+                            <label for="title">Type</label>
+                        </div>
+                        <div>
+                            <InputText Id="title" @bind-Value="@Model.Type" />
+                        </div>
+                    </p>
+                </div>
                 <div>
                     <button type="submit">Submit</button>
                 </div>

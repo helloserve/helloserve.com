@@ -1,10 +1,10 @@
 ﻿@inject IPageState PageState
 <title>helloserve.com@(string.IsNullOrEmpty(PageState.Title) ? null : $" - {PageState.Title}")</title>
-<meta property="og:type" content="article">
+<meta property="og:type" content="@PageState.Type">
 <meta property="og:title" content="@PageState.Title">
 <meta property="og:description" content="@PageState.Description">
-
-<meta property="og:image" content="">
+<meta property="og:image" content="@PageState.ImageUrl">
+<meta property="og:locale" content="en-ZA">
 
 <meta name="twitter:card" content="summary">
 <meta name="twitter:description" content="">

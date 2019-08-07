@@ -89,6 +89,7 @@ blockquote {
 
 .content {
     padding-top: 1.1rem;
+    text-align:justify;
 }
 
 .navbar-toggler {
@@ -143,6 +144,17 @@ blockquote {
     min-width: 90%;
     text-align: justify;
     font-family: 'Fira Code', 'Courier New'
+}
+
+.textarea-content-small {
+    height: 80px;
+    min-width: 90%;
+    text-align: justify;    
+}
+
+p code {
+    font-size:100%;
+    font-family: 'Fira Code', 'Courier New';
 }
 
 @media (max-width: 767.98px) {

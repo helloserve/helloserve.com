@@ -6,6 +6,8 @@ namespace helloserve.com
     {
         string Title { get; set; }
         string Description { get; set; }
+        string ImageUrl { get; set; }
+        string Type { get; set; }
 
         event EventHandler OnStateChange;
         void StateChanged();

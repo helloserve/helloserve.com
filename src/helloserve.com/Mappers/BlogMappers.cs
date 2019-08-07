@@ -67,6 +67,19 @@ namespace helloserve.com.Mappers
                 new Style("Keyword")
                 {
                     Foreground = ColorCode.Styling.Color.DodgerBlue
+                },
+
+                new Style("HTML Element ScopeName")
+                {
+                    Foreground = ColorCode.Styling.Color.DodgerBlue
+                },
+                new Style("HTML Attribute ScopeName")
+                {
+                    Foreground = ColorCode.Styling.Color.DodgerBlue
+                },
+                new Style("HTML Attribute Value")
+                {
+                    Foreground = ColorCode.Styling.Color.Tomato
                 }
             };
         }

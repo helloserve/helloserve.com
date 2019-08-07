@@ -38,6 +38,9 @@ else
         Model = await ServiceAdaptor.Read(Title);
 
         PageState.Title = Model.Title;
+        PageState.Description = Model.Description;
+        PageState.ImageUrl = Model.ImageUrl;
+        PageState.Type = Model.Type;
         PageState.StateChanged();
     }
 

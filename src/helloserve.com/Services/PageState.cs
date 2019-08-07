@@ -9,6 +9,10 @@ namespace helloserve.com
 
         public string Description { get; set; }
 
+        public string ImageUrl { get; set; }
+
+        public string Type { get; set; }
+
         public event EventHandler OnStateChange;
 
         public void StateChanged()
@@ -20,6 +24,8 @@ namespace helloserve.com
         {
             Title = string.Empty;
             Description = string.Empty;
+            ImageUrl = string.Empty;
+            Type = string.Empty;
             StateChanged();
         }
     }
