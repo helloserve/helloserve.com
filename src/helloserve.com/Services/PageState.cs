@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace helloserve.com
 {
     public class PageState : IPageState
     {
-        private string title;
+        public PageState()
+        {
+            MetaCollection = new List<MetaCollection>();
+        }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -12,6 +17,7 @@ namespace helloserve.com
         public string ImageUrl { get; set; }
 
         public string Type { get; set; }
+        public List<MetaCollection> MetaCollection { get; set; }
 
         public event EventHandler OnStateChange;
 
@@ -26,6 +32,7 @@ namespace helloserve.com
             Description = string.Empty;
             ImageUrl = string.Empty;
             Type = string.Empty;
+            MetaCollection = new List<MetaCollection>();
             StateChanged();
         }
     }

@@ -6,6 +6,15 @@
 <meta property="og:image" content="@PageState.ImageUrl">
 <meta property="og:locale" content="en-ZA">
 
+@foreach (MetaCollection meta in PageState.MetaCollection)
+{
+    <!--@(meta.ProviderSource)--> 
+    @foreach ((string,string) tag in meta.MetaTags)
+    {
+        <meta property="@tag.Item1" content="@tag.Item2" >
+    }    
+}
+
 <meta name="twitter:card" content="summary">
 <meta name="twitter:description" content="">
 
