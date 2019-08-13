@@ -48,6 +48,7 @@ namespace helloserve.com.Repository
         {
             return (await _context.Blogs
                 .Select(x => new Database.Queries.BlogListing() { Key = x.Key, Title = x.Title, PublishDate = x.PublishDate })
+                .OrderByDescending(x => x.PublishDate)
                 .ToListAsync())
                 .Map();
         }
