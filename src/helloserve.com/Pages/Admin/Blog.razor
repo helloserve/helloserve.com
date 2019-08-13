@@ -1,5 +1,5 @@
-@page "/admin/blogs/"
-@page "/admin/blogs/{title}"
+@page "/admin/blogs_blazor/"
+@page "/admin/blogs_blazor/{title}"
 @layout LoginLayout
 @using helloserve.com.Adaptors
 @using helloserve.com.Models
@@ -52,6 +52,14 @@ else
             </div>
             <div class="edit-fields edit-actions">
                 <div>
+                    <p>
+                        <div>
+                        <label for="key">Key</label>
+                        </div>
+                        <div>
+                            <InputText Id="key" @bind-value="@Model.Key" />
+                        </div>
+                    </p>
                     <p>
                         <span>Open Graph Properties</span>
                     </p>

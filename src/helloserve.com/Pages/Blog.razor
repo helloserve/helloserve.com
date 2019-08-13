@@ -1,4 +1,5 @@
 @page "/blogs/{title}"
+@page "/blog/{title}"
 @using helloserve.com.Adaptors
 @using helloserve.com.Models
 @using helloserve.com
@@ -13,7 +14,7 @@ else
 {
     <h1>@Model.Title</h1>
 
-    <div>
+    <p>
         <span>Published on @Model.PublishDate?.ToShortDateString()</span>
         <AuthorizeView>
             <Authorized>
@@ -22,7 +23,7 @@ else
                 </NavLink>
             </Authorized>
         </AuthorizeView>
-    </div>
+    </p>
 
     @((MarkupString)Model.Content)
 }

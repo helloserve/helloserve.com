@@ -4,6 +4,10 @@ html, body {
     font-family: Tahoma, Arial, sans-serif;
 }
 
+a {
+    color:darkorange;
+}
+
 app {
     position: relative;
     display: flex;
@@ -12,9 +16,11 @@ app {
 
 blockquote {
     border-style: solid;
-    border-color: lightgray;
+    border-color: darkorange;
     border-width: 0px 0px 0px 3px;
-    padding: 0.5em 0.0em 0.01em 0.5em;
+    padding-left: 0.5em;
+    margin: 0.5rem 0.5rem 1rem 0.5rem;
+    color: #454545;
 }
 
 .top-row {
@@ -113,19 +119,49 @@ blockquote {
     font-weight: bold;
 }
 
-.heading-notation {
-    font-size: 0.75em;
-    padding: 0rem 1rem;
-}
-
 .blog-edit {
 
 }
 
 .edit-fields {
-    padding:1em;
+    padding: 1em;
     display: inline-grid;
     width: 70%;
+}
+
+.blog-listing {
+    padding:1rem;
+}
+
+.blog-listing:hover {
+    background-color:#efefef;
+}
+
+.blog-listing-image {
+    display:inline-table;
+}
+
+.blog-listing-image img {
+    max-width:150px;
+}
+
+.blog-listing-content {
+    display:inline-table;
+}
+
+.blog-listing-heading {
+    display:block;
+}
+
+.blog-listing-notation {
+    display:block;
+    font-size: 0.75em;
+    padding: 0rem 1rem;
+}
+
+.blog-listing-description {
+    display:block;
+    margin-top:0.5rem;
 }
 
 .edit-fields input {
@@ -142,14 +178,13 @@ blockquote {
 .textarea-content {
     height: 500px;
     min-width: 90%;
-    text-align: justify;
     font-family: 'Fira Code', 'Courier New'
 }
 
 .textarea-content-small {
     height: 80px;
     min-width: 90%;
-    text-align: justify;    
+    font-family: 'Fira Code', 'Courier New'
 }
 
 p code {
@@ -157,9 +192,37 @@ p code {
     font-family: 'Fira Code', 'Courier New';
 }
 
+pre {
+    margin:0;
+}
+
+.editor-colors {
+    background:#efefef;
+    padding:0.5rem;
+    margin-bottom:1rem;
+    overflow:auto;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row {
         display: none;
+    }
+
+    blockquote {
+        margin-left:0.25rem;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .blog-listing-image {
+        display: block;
+        text-align:center;
+    }
+
+    .blog-listing-content {
+        display:block;
     }
 }
 

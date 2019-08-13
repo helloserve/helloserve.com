@@ -3,7 +3,6 @@ using helloserve.com.Domain;
 using helloserve.com.Domain.Models;
 using helloserve.com.Repository.Mappers;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,7 +46,14 @@ namespace helloserve.com.Repository
         public async Task<IEnumerable<BlogListing>> ReadListings()
         {
             return (await _context.Blogs
-                .Select(x => new Database.Queries.BlogListing() { Key = x.Key, Title = x.Title, PublishDate = x.PublishDate })
+                .Select(x => new Database.Queries.BlogListing()
+                {
+                    Key = x.Key,
+                    Title = x.Title,
+                    PublishDate = x.PublishDate,
+                    Description = x.Description,
+                    ImageUrl = x.ImageUrl
+                })
                 .OrderByDescending(x => x.PublishDate)
                 .ToListAsync())
                 .Map();

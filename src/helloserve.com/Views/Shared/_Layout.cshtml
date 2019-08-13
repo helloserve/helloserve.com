@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<html>
+<head>
+    <environment include="Development">
+        <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="/css/bootstrap/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
+    </environment>
+    <link href="/css/site.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="sidebar">
+        @(await Html.RenderComponentAsync<helloserve.com.Shared.NavMenu>())
+    </div>
+
+    <div class="main">
+        @*<AuthorizeView>
+            <Authorized>
+                <div class="top-row px-4">
+                    <span><img src="@userState.PictureUrl" width="32" height="32" /></span>
+                    <span>&nbsp;</span>
+                    <span>
+                        <button class="btn btn-info" onclick="@SignOut">Sign out</button>
+                    </span>
+                </div>
+            </Authorized>
+        </AuthorizeView>*@
+
+        <div class="content px-4">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
+
+
+

@@ -2,6 +2,7 @@ using helloserve.com.Adaptors;
 using helloserve.com.Auth;
 using helloserve.com.Database;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
@@ -46,7 +47,7 @@ namespace helloserve.com
                 });
             services.AddAuthorization(options =>
             {
-                options.DefaultPolicy = new AuthorizationPolicy(new List<IAuthorizationRequirement>() { new helloserveAuthorizationRequirement() }, new List<string>() { helloserveAuthorizationHandlerDefaults.AuthorizationPolicy });
+                options.DefaultPolicy = new AuthorizationPolicy(new List<IAuthorizationRequirement>() { new helloserveAuthorizationRequirement() }, new List<string>() { CookieAuthenticationDefaults.AuthenticationScheme, GoogleDefaults.AuthenticationScheme });
             });
             services.AddScoped<IAuthorizationHandler, helloserveAuthorizationHandler>();
 
@@ -108,6 +109,7 @@ namespace helloserve.com
                 });
 
                 endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

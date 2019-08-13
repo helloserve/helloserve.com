@@ -13,23 +13,31 @@ else
     <div>
         @foreach (var item in blogItems)
         {
-            <p>
-                <div>
+        <div class="blog-listing">
+            <div class="blog-listing-image">
+                <img src="@item.ImageUrl"/>
+            </div>
+            <div class="blog-listing-content">
+                <div class="blog-listing-heading">
                     <NavLink class="nav-link" href="@AsUrl(item.Key)">
                         <div class="heading">@item.Title</div>
                     </NavLink>
-                    <div class="heading-notation">
-                        <span>@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</span>
-                        <AuthorizeView>
-                            <Authorized>
-                                <NavLink href="@AsAdminUrl(item.Key)">
-                                    <span class="oi oi-pencil"></span>
-                                </NavLink>
-                            </Authorized>
-                        </AuthorizeView>
-                    </div>
                 </div>
-            </p>
+                <div class="blog-listing-notation">
+                    <span>@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</span>
+                    <AuthorizeView>
+                        <Authorized>
+                            <NavLink href="@AsAdminUrl(item.Key)">
+                                <span class="oi oi-pencil"></span>
+                            </NavLink>
+                        </Authorized>
+                    </AuthorizeView>
+                </div>
+                <div class="blog-listing-description">
+                    @item.Description
+                </div>
+            </div>
+        </div>
         }
     </div>
 }

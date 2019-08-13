@@ -35,9 +35,4 @@ namespace helloserve.com.Auth
     {
 
     }
-
-    public class helloserveAuthorizationHandlerDefaults
-    {
-        public const string AuthorizationPolicy = "helloserve";
-    }
 }

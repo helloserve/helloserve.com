@@ -58,7 +58,21 @@ namespace helloserve.com.Test.Domain
 
             //assert
             _dbAdaptorMock.Verify(x => x.Save(blog));
-            Assert.AreEqual("hello_test", blog.Key);
+            Assert.AreEqual("hello-test", blog.Key);
+        }
+
+        [TestMethod]
+        public async Task CreateUpdate_HasKey_Verify()
+        {
+            //arrange
+            Blog blog = new Blog() { Key = "key", Title = "Hello Test!" };
+
+            //act
+            await Service.CreateUpdate(blog);
+
+            //assert
+            _dbAdaptorMock.Verify(x => x.Save(blog));
+            Assert.AreEqual("key", blog.Key);
         }
 
         [TestMethod]

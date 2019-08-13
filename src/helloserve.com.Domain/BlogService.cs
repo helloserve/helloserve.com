@@ -27,7 +27,7 @@ namespace helloserve.com.Domain
         {
             ValidateSave(blog);
 
-            blog.Key = AsUrlTitle(blog.Title);
+            blog.Key ??= AsUrlTitle(blog.Title);
 
             await _dbAdaptor.Save(blog);
         }
@@ -49,10 +49,10 @@ namespace helloserve.com.Domain
 
         private string AsUrlTitle(string title)
         {
-            new List<string>() { "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", ".", ",", "?", "'", "\"", "~", "+", "-", ":" }
+            new List<string>() { "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", ".", ",", "?", "'", "\"", "~", "+", ":" }
                 .ForEach(x => title = title.Replace(x, string.Empty));
 
-            title = title.Replace(" ", "_");
+            title = title.Replace(" ", "-");
             title = title.ToLower();
             return title;
         }

@@ -5,6 +5,7 @@ namespace helloserve.com.Models
 {
     public class BlogCreate
     {
+        public string Key { get; set; }
         [Required]
         public string Title { get; set; }
         public string Content { get; set; }
