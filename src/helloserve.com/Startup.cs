@@ -108,6 +108,20 @@ namespace helloserve.com
                     return Task.CompletedTask;
                 });
 
+                endpoints.MapGet("blog/{*title}", context =>
+                {
+                    string title = context.Request.RouteValues["title"]?.ToString();
+                    context.Response.Redirect($"/blogs/{title}", true);
+                    return Task.CompletedTask;
+                });
+
+                endpoints.MapGet("project/{*title}", context =>
+                {
+                    string title = context.Request.RouteValues["title"]?.ToString();
+                    context.Response.Redirect($"/projects/{title}", true);
+                    return Task.CompletedTask;
+                });
+
                 endpoints.MapControllers();
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapBlazorHub();

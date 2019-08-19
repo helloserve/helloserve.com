@@ -3,12 +3,13 @@
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+This website is currently being reconstructed using .NET Core 3.0 and (server side) Blazor. Follow the build log in my blog series on software design and development.
 
 @functions { 
 
     protected override async Task OnInitAsync()
     {
         PageState.Reset();
+        PageState.StateChanged();
     }
 }

@@ -1,55 +1,11 @@
 ﻿@inherits LayoutComponentBase
-@using System.Net.Http
-@using helloserve.com.Auth
-@inject HttpClient HttpClient
-@inject IJSRuntime JSRuntime
 
 <div class="sidebar">
     <NavMenu />
 </div>
 
 <div class="main">
-    <AuthorizeView>
-        <Authorized>
-            <div class="top-row px-4">
-                <span><img src="@userState.PictureUrl" width="32" height="32" /></span>
-                <span>&nbsp;</span>
-                <span>
-                    <button class="btn btn-info" onclick="@SignOut">Sign out</button>
-                </span>
-            </div>
-        </Authorized>
-    </AuthorizeView>
-
     <div class="content px-4">
         @Body
     </div>
 </div>
-
-@functions {
-    [CascadingParameter] Task<AuthenticationState> authStateTask { get; set; }
-    UserState userState;
-
-    protected override async Task OnInitAsync()
-    {
-        AuthenticationState authState = await authStateTask;
-        userState = UserState.LoggedOutState;
-
-        if (authState.User != null && authState.User.Identity != null)
-        {
-            userState.DisplayName = authState.User.Identity.Name;
-            userState.PictureUrl = authState.User.FindFirst("picture")?.Value;
-            userState.IsLoggedIn = authState.User.Identity.IsAuthenticated;
-        }
-    }
-
-    public async Task SignOut()
-    {
-        // Transition to "loading" state synchronously, then asynchronously update
-        userState = null;
-        StateHasChanged();
-
-        userState = await HttpClient.PutJsonAsync<UserState>("user/signout", null);
-        StateHasChanged();
-    }
-}

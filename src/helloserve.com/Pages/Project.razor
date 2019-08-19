@@ -1,0 +1,20 @@
+@page "/projects/{title}"
+@inject IPageState PageState
+
+<h1>@Title</h1>
+
+<p>
+    Still under development.
+</p>
+
+@functions {
+    [Parameter]
+    private string Title { get; set; } = "featured!";
+
+    protected override async Task OnInitAsync()
+    {
+        PageState.Reset();
+        PageState.Title = Title;
+        PageState.StateChanged();
+    }
+}

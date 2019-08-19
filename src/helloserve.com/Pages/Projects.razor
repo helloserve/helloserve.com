@@ -1,0 +1,16 @@
+@page "/projects"
+@inject IPageState PageState
+
+<h1>Projects</h1>
+<div>
+    This section is still under development, so check back here after part 30 or so of my software design and development piece.
+</div>
+
+@functions {
+    protected override async Task OnInitAsync()
+    {
+        PageState.Reset();
+        PageState.Title = "Projects";
+        PageState.StateChanged();
+    }
+}

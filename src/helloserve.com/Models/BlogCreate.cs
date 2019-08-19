@@ -9,7 +9,9 @@ namespace helloserve.com.Models
         [Required]
         public string Title { get; set; }
         public string Content { get; set; }
+        [Display(Name ="Is Published")]
         public bool IsPublished { get; set; }
+        [Display(Name = "Published Date")]
         public DateTime? PublishDate { get; set; }
 
         public string Description { get; set; }

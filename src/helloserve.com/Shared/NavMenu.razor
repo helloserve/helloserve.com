@@ -1,16 +1,35 @@
+@using System.Net.Http
+@using helloserve.com.Auth
+@inject HttpClient HttpClient
+@inject IJSRuntime JSRuntime
+
 <CascadingAuthenticationState>
     <div class="top-row navbar navbar-dark">
-        <a class="navbar-brand" href="">helloserve</a>
+        <div>
+            <a class="navbar-brand" href="/">helloserve</a>
+        </div>
+        <AuthorizeView>
+            <Authorized>
+                <div>
+                    <span><img src="@context.User.FindFirst("picture")?.Value" width="32" height="32" /></span>
+                    <span>&nbsp;</span>
+                    <span>
+                        <button class="btn btn-info" onclick="@SignOut">Sign out</button>
+                    </span>
+                </div>
+            </Authorized>
+        </AuthorizeView>
         <button class="navbar-toggler" onclick="@ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
+
     </div>
 
     <div class="@NavMenuCssClass" onclick="@ToggleNavMenu">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                <NavLink class="nav-link" href="/about">
+                    <span class="oi oi-info" aria-hidden="true"></span> About
                 </NavLink>
             </li>
             <li class="nav-item">
@@ -27,6 +46,11 @@
                     </li>
                 </Authorized>
             </AuthorizeView>
+            <li class="nav-item">
+                <NavLink class="nav-link" href="/projects">
+                    <span class="oi oi-code" aria-hidden="true"></span> Projects
+                </NavLink>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" href="https://github.com/helloserve/">
                     <span class="oi"><img src="/images/gh.svg" /></span> Github
@@ -59,5 +83,11 @@
     void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    public async Task SignOut()
+    {
+        await HttpClient.PutJsonAsync<UserState>("user/signout", null);
+        StateHasChanged();
     }
 }

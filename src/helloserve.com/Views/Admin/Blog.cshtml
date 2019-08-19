@@ -1,11 +1,94 @@
-﻿@model  helloserve.com.Models.BlogCreate
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model helloserve.com.Models.BlogCreate
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div>
-    <h1>@Model.Title</h1>
-    <p>Edit me!</p>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<div class="blog-edit">
+    <form asp-action="blogs" asp-controller="admin" method="post">
+        <div class="edit-fields">
+            <p>
+                <div>
+                    <label asp-for="Title"></label>
+                    <span asp-validation-for="Title"></span>
+                </div>
+                <div>
+                    <input type="text" asp-for="Title" />
+                </div>
+            </p>
+            <p>
+                <div>
+                    <label asp-for="IsPublished"></label>
+                    <span asp-validation-for="IsPublished"></span>
+                </div>
+                <div>
+                    <input type="checkbox" asp-for="IsPublished"/>
+                </div>
+            </p>
+            <p>
+                <div>
+                    <label asp-for="PublishDate"></label>
+                    <span asp-validation-for="PublishDate"></span>
+                </div>
+                <div>
+                    <input type="date" asp-for="PublishDate"/>
+                </div>
+            </p>
+            <p>
+                <div>
+                    <label asp-for="Content"></label>
+                    <span asp-validation-for="Content"></span>
+                </div>
+                <div>
+                    <textarea asp-for="Content" class="textarea-content"></textarea>
+                </div>
+            </p>
+        </div>
+        <div class="edit-fields edit-actions">
+            <div>
+                <p>
+                    <div>
+                        <label asp-for="Key"></label>
+                        <span asp-validation-for="Key"></span>
+                    </div>
+                    <div>
+                        <input type="text" asp-for="Key"/>
+                    </div>
+                </p>
+                <h2>
+                    <span>Open Graph Properties</span>
+                </h2>
+                <p>
+                    <div>
+                        <label asp-for="Description"></label>
+                        <span asp-validation-for="Description"></span>
+                    </div>
+                    <div>
+                        <textarea asp-for="Description" class="textarea-content-small"></textarea>
+                    </div>
+                </p>
+                <p>
+                    <div>
+                        <label asp-for="ImageUrl"></label>
+                        <span asp-validation-for="ImageUrl"></span>
+                    </div>
+                    <div>
+                        <input type="text" asp-for="ImageUrl"/>
+                    </div>
+                </p>
+                <p>
+                    <div>
+                        <label asp-for="Type"></label>
+                        <span asp-validation-for="Type"></span>
+                    </div>
+                    <div>
+                        <input type="text" asp-for="Type" />
+                    </div>
+                </p>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
 </div>

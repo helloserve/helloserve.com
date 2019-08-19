@@ -1,9 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <html>
 <head>
@@ -20,28 +15,17 @@
     <link href="/css/site.css" rel="stylesheet" />
 </head>
 <body>
-
-    <div class="sidebar">
-        @(await Html.RenderComponentAsync<helloserve.com.Shared.NavMenu>())
-    </div>
-
-    <div class="main">
-        @*<AuthorizeView>
-            <Authorized>
-                <div class="top-row px-4">
-                    <span><img src="@userState.PictureUrl" width="32" height="32" /></span>
-                    <span>&nbsp;</span>
-                    <span>
-                        <button class="btn btn-info" onclick="@SignOut">Sign out</button>
-                    </span>
-                </div>
-            </Authorized>
-        </AuthorizeView>*@
-
-        <div class="content px-4">
-            @RenderBody()
+    <app>
+        <div class="sidebar">
+            @(await Html.RenderComponentAsync<helloserve.com.Shared.NavMenu>())
         </div>
-    </div>
+
+        <div class="main">
+            <div class="content px-4">
+                @RenderBody()
+            </div>
+        </div>
+    </app>
 </body>
 </html>
 
