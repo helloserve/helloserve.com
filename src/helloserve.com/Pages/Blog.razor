@@ -11,20 +11,22 @@
 }
 else
 {
-    <h1>@Model.Title</h1>
+    <div class="blog-content">
+        <h1>@Model.Title</h1>
 
-    <p>
-        <span>Published on @Model.PublishDate?.ToShortDateString()</span>
-        <AuthorizeView>
-            <Authorized>
-                <NavLink href="@AsAdminUrl(Model.Key)">
-                    <span class="oi oi-pencil"></span>
-                </NavLink>
-            </Authorized>
-        </AuthorizeView>
-    </p>
+        <p>
+            <span>Published on @Model.PublishDate?.ToShortDateString()</span>
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink href="@AsAdminUrl(Model.Key)">
+                        <span class="oi oi-pencil"></span>
+                    </NavLink>
+                </Authorized>
+            </AuthorizeView>
+        </p>
 
-    @((MarkupString)Model.Content)
+        @((MarkupString)Model.Content)
+    </div>
 }
 
 @functions {

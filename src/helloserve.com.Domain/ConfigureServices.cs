@@ -1,6 +1,8 @@
 ﻿using helloserve.com.Domain;
 using helloserve.com.Domain.Syndication;
+using Microsoft.Extensions.Configuration;
 using Moq;
+using System;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -9,7 +11,14 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
             return services
-                .AddTransient<IBlogService, BlogService>()
+                .AddTransient<IBlogService, BlogService>();
+        }
+
+        public static IServiceCollection AddSyndicationServices(this IServiceCollection services, IConfiguration syndicationConfiguration)
+        {
+            services.Configure<BlogSyndicationOptionCollection>(syndicationConfiguration);
+
+            return services
                 .AddTransient<IBlogSyndicationService, BlogSyndicationService>()
                 .AddSingleton<IBlogSyndicationQueue, BlogSyndicationQueue>()
                 .AddTransient(s => new Mock<IBlogSyndicationFactory>().Object);

@@ -9,7 +9,7 @@ namespace helloserve.com
         string Description { get; set; }
         string ImageUrl { get; set; }
         string Type { get; set; }
-        List<MetaCollection> MetaCollection { get; }
+        IEnumerable<MetaCollection> MetaCollection { get; }
 
         event EventHandler OnStateChange;
         void StateChanged();

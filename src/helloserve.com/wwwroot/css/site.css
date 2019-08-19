@@ -206,6 +206,12 @@ pre {
     color: firebrick;
 }
 
+.blog-content img {
+    text-align:center;
+    width:100%;
+    max-width:1000px;
+}
+
 @media (max-width: 767.98px) {
     .main .top-row {
         display: none;
@@ -213,10 +219,6 @@ pre {
 
     blockquote {
         margin-left: 0.25rem;
-    }
-
-    img {
-        width: 100%;
     }
 
     .blog-listing-image {

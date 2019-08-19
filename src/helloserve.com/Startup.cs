@@ -1,6 +1,7 @@
 using helloserve.com.Adaptors;
 using helloserve.com.Auth;
 using helloserve.com.Database;
+using helloserve.com.Domain.Syndication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
@@ -71,8 +72,10 @@ namespace helloserve.com
             services.AddTransient<IBlogServiceAdaptor, BlogServiceAdaptor>();
 #endif
             services.AddScoped<IPageState, PageState>();
+            services.Configure<DomainOptions>(Configuration.GetSection("Domain"));
 
             services.AddDomainServices();
+            services.AddSyndicationServices(Configuration.GetSection("Syndication"));
             services.AddRepositories();
             services.AddhelloserveContext(Configuration);
         }

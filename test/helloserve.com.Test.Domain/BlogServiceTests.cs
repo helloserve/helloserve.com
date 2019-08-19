@@ -2,6 +2,7 @@ using helloserve.com.Domain;
 using helloserve.com.Domain.Models;
 using helloserve.com.Domain.Syndication;
 using helloserve.com.Domain.Syndication.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -27,6 +28,7 @@ namespace helloserve.com.Test.Domain
         {
             _services
                 .AddDomainServices()
+                .AddSyndicationServices(new ConfigurationBuilder().Build())
                 .AddTransient(s => _dbAdaptorMock.Object)
                 .AddTransient(s => _blogSyndicationServiceMock.Object);
 
