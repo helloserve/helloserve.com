@@ -18,7 +18,7 @@ else
             <div class="main">
                 <h2>You're signed out</h2>
                 <p>To continue, please sign in.</p>
-                <button class="btn btn-danger" onclick="@SignIn">Sign in</button>
+                <button class="btn btn-danger" @onclick="SignIn">Sign in</button>
             </div>
         </NotAuthorized>
     </AuthorizeView>
@@ -28,7 +28,7 @@ else
     [CascadingParameter] Task<AuthenticationState> authStateTask { get; set; }
     UserState userState;
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         AuthenticationState authState = await authStateTask;
         userState = UserState.LoggedOutState;
@@ -43,7 +43,7 @@ else
 
     public async Task SignIn()
     {
-        await JSRuntime.InvokeAsync<object>("openLoginPopup", DotNetObjectRef.Create(this));
+        await JSRuntime.InvokeAsync<object>("openLoginPopup", DotNetObjectReference.Create(this));
     }
 
     [JSInvokable]

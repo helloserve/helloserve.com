@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace helloserve.com.Models
 {
@@ -11,5 +12,9 @@ namespace helloserve.com.Models
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public string Type { get; set; }
+
+        public string AdminUrl => $"admin/blogs/{Key}";
+
+        public IEnumerable<MetaCollection> MetaCollection { get; set; }
     }
 }

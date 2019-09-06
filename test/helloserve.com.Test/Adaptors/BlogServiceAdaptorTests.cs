@@ -2,6 +2,7 @@
 using helloserve.com.Domain;
 using helloserve.com.Domain.Models;
 using helloserve.com.Models;
+using Microsoft.AspNetCore.Components;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace helloserve.com.Test.Adaptors
     public class BlogServiceAdaptorTests
     {
         readonly Mock<IBlogService> _serviceMock = new Mock<IBlogService>();
-        IBlogServiceAdaptor _adaptor => new BlogServiceAdaptor(_serviceMock.Object);
+        IBlogServiceAdaptor adaptor => new BlogServiceAdaptor(_serviceMock.Object);
 
         [TestMethod]
         public async Task Read_Verify()
@@ -27,7 +28,7 @@ namespace helloserve.com.Test.Adaptors
                 .ReturnsAsync(blog);
 
             //act
-            BlogView result = await _adaptor.Read(title);
+            BlogView result = await adaptor.Read(title);
 
             //assert
             _serviceMock.Verify(x => x.Read(title));
@@ -39,19 +40,21 @@ namespace helloserve.com.Test.Adaptors
         public async Task ReadAll_Verify()
         {
             //arrange
+            bool authenticated = true;
             List<Blog> blogs = new List<Blog>()
             {
                 new Blog(),
                 new Blog(),
                 new Blog()
             };
-            _serviceMock.Setup(x => x.ReadAll())
+            _serviceMock.Setup(x => x.ReadAll(1, 3, authenticated))
                 .ReturnsAsync(blogs);
 
             //act
-            IEnumerable<BlogItemView> result = await _adaptor.ReadAll();
+            IEnumerable<BlogItemView> result = await adaptor.ReadAll(1, 3, authenticated);
 
             //assert
+            _serviceMock.Verify(x => x.ReadAll(1, 3, authenticated));
             Assert.AreEqual(3, result.Count());
         }
 
@@ -69,7 +72,7 @@ namespace helloserve.com.Test.Adaptors
                 .ReturnsAsync(blog);
 
             //act
-            BlogCreate result = await _adaptor.Edit(title);
+            BlogCreate result = await adaptor.Edit(title);
 
             //assert
             Assert.IsNotNull(result);
@@ -83,7 +86,7 @@ namespace helloserve.com.Test.Adaptors
             BlogCreate blog = new BlogCreate();
 
             //act
-            await _adaptor.Submit(blog);
+            await adaptor.Submit(blog);
 
             //assert
             _serviceMock.Verify(x => x.CreateUpdate(It.IsAny<Blog>()));
@@ -96,7 +99,7 @@ namespace helloserve.com.Test.Adaptors
             string title = "test title";
 
             //act
-            await _adaptor.Publish(title);
+            await adaptor.Publish(title);
 
             //assert
             _serviceMock.Verify(x => x.Publish(title, It.IsAny<IEnumerable<Domain.Syndication.Models.SyndicationText>>()));

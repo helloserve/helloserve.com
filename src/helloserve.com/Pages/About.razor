@@ -1,16 +1,6 @@
 @page "/about"
-@inject IPageState PageState
 
 <h1>About</h1>
 <div>
     I'm a software developer, hobbyist and petrolhead. I like stuff like technical architecture and software design, manual gearboxes and simulators.'
 </div>
-
-@functions {
-    protected override async Task OnInitAsync()
-    {
-        PageState.Reset();
-        PageState.Title = "About";
-        PageState.StateChanged();
-    }
-}

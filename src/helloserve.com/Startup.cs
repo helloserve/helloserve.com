@@ -1,7 +1,7 @@
 using helloserve.com.Adaptors;
 using helloserve.com.Auth;
 using helloserve.com.Database;
-using helloserve.com.Domain.Syndication;
+using helloserve.com.Shared;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
@@ -56,10 +56,10 @@ namespace helloserve.com
             services.AddScoped<HttpClient>(s =>
             {
                 // Creating the URI helper needs to wait until the JS Runtime is initialized, so defer it.
-                var uriHelper = s.GetRequiredService<IUriHelper>();
+                var uriHelper = s.GetRequiredService<NavigationManager>();
                 return new HttpClient
                 {
-                    BaseAddress = new Uri(uriHelper.GetBaseUri())
+                    BaseAddress = new Uri(uriHelper.BaseUri)
                 };
             });
 
@@ -71,9 +71,9 @@ namespace helloserve.com
 #else
             services.AddTransient<IBlogServiceAdaptor, BlogServiceAdaptor>();
 #endif
-            services.AddScoped<IPageState, PageState>();
             services.Configure<DomainOptions>(Configuration.GetSection("Domain"));
 
+            services.AddTransient<IPageState, PageStateModel>();
             services.AddDomainServices();
             services.AddSyndicationServices(Configuration.GetSection("Syndication"));
             services.AddRepositories();
@@ -125,9 +125,9 @@ namespace helloserve.com
                     return Task.CompletedTask;
                 });
 
+                endpoints.MapBlazorHub();
                 endpoints.MapControllers();
                 endpoints.MapDefaultControllerRoute();
-                endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
         }

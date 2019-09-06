@@ -2,7 +2,6 @@
 @using helloserve.com.Adaptors
 @using helloserve.com.Models
 @inject IBlogServiceAdaptor ServiceAdaptor
-@inject IPageState PageState
 
 @if (blogItems == null)
 {
@@ -40,16 +39,24 @@ else
         </div>
         }
     </div>
+    <div style="text-align:center">
+        <button @onclick="Previous" class="page"><span class="oi oi-arrow-thick-left"></span></button>
+        <span>Page @PageNo</span>
+        <button @onclick="Next" class="page"><span class="oi oi-arrow-thick-right"></span></button>
+    </div>
 }
 
 @functions {
     private IEnumerable<BlogItemView> blogItems;
 
-    protected override async Task OnInitAsync()
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthStateTask { get; set; }
+
+    public int PageNo { get; set; } = 1;
+
+    protected override async Task OnInitializedAsync()
     {
-        PageState.Title = "Blogs";
-        PageState.StateChanged();
-        blogItems = await ServiceAdaptor.ReadAll();
+        blogItems = await LoadBlogs();
     }
 
     private string AsUrl(string key)
@@ -60,5 +67,32 @@ else
     private string AsAdminUrl(string key)
     {
         return $"admin/blogs/{key}";
+    }
+
+    private async Task Previous()
+    {
+        if (PageNo > 1)
+            PageNo--;
+        blogItems = await LoadBlogs();        
+        StateHasChanged();
+    }
+
+    private async Task Next()
+    {
+        PageNo++;
+        var items = await LoadBlogs();
+        if (items.Count() == 0)
+        {
+            PageNo--;
+            return;
+        }
+        blogItems = items;
+        StateHasChanged();
+    }
+
+    private async Task<IEnumerable<BlogItemView>> LoadBlogs()
+    {
+        AuthenticationState authState = await AuthStateTask;
+        return await ServiceAdaptor.ReadAll(PageNo, 10, authState?.User?.Identity?.IsAuthenticated ?? false);
     }
 }

@@ -14,18 +14,18 @@
                     <span><img src="@context.User.FindFirst("picture")?.Value" width="32" height="32" /></span>
                     <span>&nbsp;</span>
                     <span>
-                        <button class="btn btn-info" onclick="@SignOut">Sign out</button>
+                        <button class="btn btn-info" @onclick="SignOut">Sign out</button>
                     </span>
                 </div>
             </Authorized>
         </AuthorizeView>
-        <button class="navbar-toggler" onclick="@ToggleNavMenu">
+        <button class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
 
     </div>
 
-    <div class="@NavMenuCssClass" onclick="@ToggleNavMenu">
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
         <ul class="nav flex-column">
             <li class="nav-item">
                 <NavLink class="nav-link" href="/about">

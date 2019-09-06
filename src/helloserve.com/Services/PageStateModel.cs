@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace helloserve.com
 {
-    public class PageState : IPageState
+    public class PageStateModel : IPageState
     {
         readonly DomainOptions _domainOptions;
-        public PageState(IOptions<DomainOptions> domainOptions, IOptions<BlogSyndicationOptionCollection> syndicationOptions)
+        public PageStateModel(IOptions<DomainOptions> domainOptions, IOptions<BlogSyndicationOptionCollection> syndicationOptions)
         {
             _domainOptions = domainOptions.Value;
 
@@ -17,7 +17,7 @@ namespace helloserve.com
                 .Select(x => new MetaCollection()
                 {
                     ProviderSource = x.Provider,
-                    MetaTags = x.MetaTags.Select(t=>(t.Key.Replace("_", ":"), t.Value)).ToList()
+                    MetaTags = x.MetaTags.Select(t => (t.Key.Replace("_", ":"), t.Value)).ToList()
                 });
         }
 

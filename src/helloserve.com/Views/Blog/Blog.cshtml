@@ -1,0 +1,69 @@
+﻿@model helloserve.com.Models.BlogView
+@using helloserve.com
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string pageUrl = $"{ViewBag.Host}blogs/{Model.Key}";
+    string pageIdentifier = $"helloserve.com_{Model.Key}";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@section header {
+    <title>helloserve - @Model.Title</title>
+    <meta property="og:type" content="@Model.Type">
+    <meta property="og:title" content="@Model.Title">
+    <meta property="og:description" content="@Model.Description">
+    <meta property="og:image" content="@ViewBag.Host@Model.ImageUrl">
+    <meta property="og:locale" content="en-ZA">
+
+    @foreach (MetaCollection meta in Model.MetaCollection)
+    {
+        <!--@(meta.ProviderSource)-->
+        @foreach ((string, string) tag in meta.MetaTags)
+        {
+            <meta property="@tag.Item1" content="@tag.Item2">
+        }
+    }
+}
+
+<div class="blog-content">
+    <h1>@Model.Title</h1>
+
+    <p>
+        <span>Published on @Model.PublishDate?.ToShortDateString()</span>
+        @if (Context.User.Identity.IsAuthenticated)
+        {
+            <a href="@Model.AdminUrl">
+                <span class="oi oi-pencil"></span>
+            </a>
+        }
+    </p>
+
+    @(Html.Raw(Model.Content))
+</div>
+
+<div class="comment-container">
+    <div style="padding:2em;">
+        <div id="disqus_thread"></div>
+        <script>
+                /**
+                * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                */
+
+                var disqus_config = function () {
+                    this.page.url = '@pageUrl'; // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = @pageIdentifier; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                };
+
+                (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+
+                    s.src = '//helloserve.disqus.com/embed.js';
+
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </div>
+</div>

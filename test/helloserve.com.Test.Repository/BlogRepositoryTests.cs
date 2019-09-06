@@ -4,7 +4,6 @@ using helloserve.com.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,9 +72,17 @@ namespace helloserve.com.Test.Repository
             DateTime publishDate = new DateTime(2019, 6, 18, 10, 47, 0);
             var blogs = new List<Database.Entities.Blog>()
             {
-                new Database.Entities.Blog() { Key = "key1", Title = "title1", PublishDate = publishDate },
-                new Database.Entities.Blog() { Key = key, Title = title, PublishDate = DateTime.Today },
-                new Database.Entities.Blog() { Key = "key2", Title = "title2" }
+                new Database.Entities.Blog() { Key = "key1", Title = "title1", IsPublished = true, PublishDate = publishDate },
+                new Database.Entities.Blog() { Key = key, Title = title, IsPublished = true, PublishDate = DateTime.Today },
+                new Database.Entities.Blog() { Key = "key2", Title = "title2" },
+                new Database.Entities.Blog() { Key = "key3", Title = "title3", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key4", Title = "title4", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key5", Title = "title5", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key6", Title = "title6", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key7", Title = "title7", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key8", Title = "title8", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key9", Title = "title9", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key10", Title = "title10", IsPublished = true }
             };
             using (var context = new helloserveContext(_options))
             {
@@ -84,14 +91,114 @@ namespace helloserve.com.Test.Repository
             }
 
             //act
-            IEnumerable<BlogListing> listings = await Repository.ReadListings();
+            IEnumerable<BlogListing> listings = await Repository.ReadListings(1, 3);
 
-            //arrange
+            //assert
             Assert.IsTrue(listings.Count() == 3);
             Assert.IsTrue(listings.Any(x => x.Key == key));
+            Assert.IsTrue(listings.Any(x => x.Key == "key1"));
+            Assert.IsTrue(listings.Any(x => x.Key == "key3"));
             Assert.IsTrue(listings.Any(x => x.Title == title));
             Assert.IsTrue(listings.Any(x => x.PublishDate == publishDate));
             Assert.IsTrue(listings.Any(x => x.PublishDate == null));
+
+            //act page 2
+            listings = await Repository.ReadListings(2, 3);
+
+            //assert
+            Assert.IsTrue(listings.Count() == 3);
+            Assert.IsTrue(listings.Any(x => x.Key == "key4"));
+            Assert.IsTrue(listings.Any(x => x.Key == "key5"));
+            Assert.IsTrue(listings.Any(x => x.Key == "key6"));
+
+            //act page 3
+            listings = await Repository.ReadListings(3, 3);
+
+            //assert
+            Assert.IsTrue(listings.Count() == 3);
+            Assert.IsTrue(listings.Any(x => x.Key == "key7"));
+            Assert.IsTrue(listings.Any(x => x.Key == "key8"));
+            Assert.IsTrue(listings.Any(x => x.Key == "key9"));
+
+            //act page 4
+            listings = await Repository.ReadListings(4, 3);
+
+            //assert
+            Assert.IsTrue(listings.Count() == 1);
+            Assert.IsTrue(listings.Any(x => x.Key == "key10"));
+        }
+
+        [TestMethod]
+        public async Task ReadListing__IncludeUnpublished_Verify()
+        {
+            //arrange
+            ArrangeDatabase("ReadListing_IncludeUnpublished_Verify");
+            string key = "key";
+            string title = "title";
+            DateTime publishDate = new DateTime(2019, 6, 18, 10, 47, 0);
+            var blogs = new List<Database.Entities.Blog>()
+            {
+                new Database.Entities.Blog() { Key = "key1", Title = "title1", IsPublished = true, PublishDate = publishDate },
+                new Database.Entities.Blog() { Key = key, Title = title, IsPublished = true, PublishDate = DateTime.Today },
+                new Database.Entities.Blog() { Key = "key2", Title = "title2" },
+                new Database.Entities.Blog() { Key = "key3", Title = "title3", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key4", Title = "title4", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key5", Title = "title5", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key6", Title = "title6" },
+                new Database.Entities.Blog() { Key = "key7", Title = "title7", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key8", Title = "title8", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key9", Title = "title9", IsPublished = true },
+                new Database.Entities.Blog() { Key = "key10", Title = "title10", IsPublished = true }
+            };
+            using (var context = new helloserveContext(_options))
+            {
+                await context.Blogs.AddRangeAsync(blogs);
+                await context.SaveChangesAsync();
+            }
+
+            //act
+            IEnumerable<BlogListing> listings = await Repository.ReadListings(1, 3, publishedOnly: false);
+
+            //assert
+            Assert.IsTrue(listings.Count() == 5);
+            Assert.IsTrue(listings.First().Key == "key2");
+            Assert.IsTrue(listings.Skip(1).First().Key == "key6");
+            Assert.IsTrue(listings.Any(x => x.Key == key));
+            Assert.IsTrue(listings.Any(x => x.Key == "key1"));
+            Assert.IsTrue(listings.Any(x => x.Key == "key3"));
+            Assert.IsTrue(listings.Any(x => x.Title == title));
+            Assert.IsTrue(listings.Any(x => x.PublishDate == publishDate));
+            Assert.IsTrue(listings.Any(x => x.PublishDate == null));
+
+            //act page 2
+            listings = await Repository.ReadListings(2, 3, publishedOnly: false);
+
+            //assert
+            Assert.IsTrue(listings.Count() == 5);
+            Assert.IsTrue(listings.First().Key == "key2");
+            Assert.IsTrue(listings.Skip(1).First().Key == "key6");
+            Assert.IsTrue(listings.Any(x => x.Key == "key4"));
+            Assert.IsTrue(listings.Any(x => x.Key == "key5"));
+            Assert.IsTrue(listings.Any(x => x.Key == "key7"));
+
+            //act page 3
+            listings = await Repository.ReadListings(3, 3, publishedOnly: false);
+
+            //assert
+            Assert.IsTrue(listings.Count() == 5);
+            Assert.IsTrue(listings.First().Key == "key2");
+            Assert.IsTrue(listings.Skip(1).First().Key == "key6");
+            Assert.IsTrue(listings.Any(x => x.Key == "key8"));
+            Assert.IsTrue(listings.Any(x => x.Key == "key9"));
+            Assert.IsTrue(listings.Any(x => x.Key == "key10"));
+
+            //act page 4
+            listings = await Repository.ReadListings(4, 3, publishedOnly: false);
+
+            //assert
+            Assert.IsTrue(listings.Count() == 2);
+            Assert.IsTrue(listings.First().Key == "key2");
+            Assert.IsTrue(listings.Skip(1).First().Key == "key6");
         }
 
         [TestMethod]
@@ -110,10 +217,8 @@ namespace helloserve.com.Test.Repository
             await Repository.Save(blog);
 
             //assert
-            using (var context = new helloserveContext(_options))
-            {
-                Assert.IsTrue(context.Blogs.Any(x => x.Key == blog.Key));
-            }
+            using var context = new helloserveContext(_options);
+            Assert.IsTrue(context.Blogs.Any(x => x.Key == blog.Key));
         }
 
         [TestMethod]

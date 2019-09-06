@@ -2,6 +2,15 @@
 
 <html>
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="~/" />
+    <meta name="robots" content="index, follow">
+    <meta name="audience" content="Public">
+    <meta name="Language" content="en">
+    <meta name="Country" content="ZA">
+    <meta property="og:locale" content="en_US">
+    @RenderSection("header", false)
     <environment include="Development">
         <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
     </environment>
@@ -17,7 +26,7 @@
 <body>
     <app>
         <div class="sidebar">
-            @(await Html.RenderComponentAsync<helloserve.com.Shared.NavMenu>())
+            @(await Html.RenderComponentAsync<helloserve.com.Shared.NavMenu>(RenderMode.ServerPrerendered))
         </div>
 
         <div class="main">
@@ -26,6 +35,7 @@
             </div>
         </div>
     </app>
+    <script src="_framework/blazor.server.js"></script>
     <environment exclude="Development">
         <script>
             (function (i, s, o, g, r, a, m) {

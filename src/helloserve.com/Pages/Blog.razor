@@ -1,9 +1,8 @@
-@page "/blogs/{title}"
+@page "/blogs-old/{title}"
 @using helloserve.com.Adaptors
 @using helloserve.com.Models
 @using helloserve.com
 @inject IBlogServiceAdaptor ServiceAdaptor
-@inject IPageState PageState
 
 @if (Model == null)
 {
@@ -31,19 +30,13 @@ else
 
 @functions {
     [Parameter]
-    private string Title { get; set; } = "fantastic";
+    public string Title { get; set; } = "fantastic";
 
     BlogView Model;
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         Model = await ServiceAdaptor.Read(Title);
-
-        PageState.Title = Model.Title;
-        PageState.Description = Model.Description;
-        PageState.ImageUrl = Model.ImageUrl;
-        PageState.Type = Model.Type;
-        PageState.StateChanged();
     }
 
     private string AsAdminUrl(string key)

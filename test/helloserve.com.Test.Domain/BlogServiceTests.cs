@@ -190,21 +190,37 @@ namespace helloserve.com.Test.Domain
         public async Task ReadAll_Verify()
         {
             //arrange
+            bool authenticated = true;
             List<BlogListing> listing = new List<BlogListing>()
             {
                 new BlogListing() { Key = "key1", Title = "title1" },
                 new BlogListing() { Key = "key2", Title = "title2" },
                 new BlogListing() { Key = "key3", Title = "title3" },
             };
-            _dbAdaptorMock.Setup(x => x.ReadListings())
+            _dbAdaptorMock.Setup(x => x.ReadListings(1, 3, false))
                 .ReturnsAsync(listing);
 
             //act
-            IEnumerable<BlogListing> result = await Service.ReadAll();
+            IEnumerable<BlogListing> result = await Service.ReadAll(1, 3, authenticated);
 
             //assert
+            _dbAdaptorMock.Verify(x => x.ReadListings(1, 3, false));
             Assert.AreEqual(result, listing);
             Assert.AreEqual(3, result.Count());
+        }
+
+        [TestMethod]
+        public async Task ReadAll_NoUser_Verify()
+        {
+            //arrange
+            bool authenticated = false;
+            List<BlogListing> listing = new List<BlogListing>();
+
+            //act
+            IEnumerable<BlogListing> result = await Service.ReadAll(1, 3, authenticated);
+
+            //assert
+            _dbAdaptorMock.Verify(x => x.ReadListings(1, 3, true));
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using helloserve.com.Domain;
 using helloserve.com.Mappers;
 using helloserve.com.Models;
+using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace helloserve.com.Adaptors
@@ -22,9 +24,9 @@ namespace helloserve.com.Adaptors
             return viewModel;
         }
 
-        public async Task<IEnumerable<BlogItemView>> ReadAll()
+        public async Task<IEnumerable<BlogItemView>> ReadAll(int page, int count, bool isAuthenticated)
         {
-            var items = await _service.ReadAll();
+            var items = await _service.ReadAll(page, count, isAuthenticated);
             return Config.Mapper.Map<IEnumerable<BlogItemView>>(items);
         }
 
@@ -65,7 +67,7 @@ public void QuotedBlockMethod {
             });
         }
 
-        public async Task<IEnumerable<BlogItemView>> ReadAll()
+        public async Task<IEnumerable<BlogItemView>> ReadAll(int page, int count, bool isAuthenticated)
         {
             return await Task.FromResult(new List<BlogItemView>()
             {

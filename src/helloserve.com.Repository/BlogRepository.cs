@@ -35,17 +35,33 @@ namespace helloserve.com.Repository
 
             if (dbBlog == null)
             {
-                dbBlog = new Database.Entities.Blog();
-                dbBlog.Key = blog.Key;
+                dbBlog = new Database.Entities.Blog
+                {
+                    Key = blog.Key
+                };
                 _context.Blogs.Add(dbBlog);
             }
             blog.MapOnto(dbBlog);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<BlogListing>> ReadListings()
+        public async Task<IEnumerable<BlogListing>> ReadListings(int page, int count, bool publishedOnly = true)
         {
-            return (await _context.Blogs
+            var listing = await _context.Blogs
+                .Where(x => x.IsPublished)
+                .OrderByDescending(x => x.PublishDate)
+                .Skip((page - 1) * count)
+                .Take(count)
+                .ToListAsync();
+
+            if (!publishedOnly)
+            {
+                listing.InsertRange(0, await _context.Blogs
+                    .Where(x => !x.IsPublished)
+                    .ToListAsync());
+            }
+
+            return listing
                 .Select(x => new Database.Queries.BlogListing()
                 {
                     Key = x.Key,
@@ -54,8 +70,6 @@ namespace helloserve.com.Repository
                     Description = x.Description,
                     ImageUrl = x.ImageUrl
                 })
-                .OrderByDescending(x => x.PublishDate)
-                .ToListAsync())
                 .Map();
         }
     }

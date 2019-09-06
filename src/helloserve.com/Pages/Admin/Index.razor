@@ -1,15 +1,6 @@
 ﻿@page "/admin"
 @layout LoginLayout
-@inject IPageState PageState
 
 <h1>Hello, administrator!</h1>
 
 Welcome to your new app.
-
-@functions { 
-    protected override async Task OnInitAsync()
-    {
-        PageState.Title = "Admin";
-        PageState.StateChanged();
-    }
-}

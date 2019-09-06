@@ -198,7 +198,8 @@ pre {
     background: #efefef;
     padding: 0.5rem;
     margin-bottom: 1rem;
-    overflow: auto;
+    width:100%;
+    overflow:auto;
 }
 
 .field-validation-error {
@@ -228,6 +229,10 @@ pre {
 
     .blog-listing-content {
         display: block;
+    }
+
+    .page {
+        font-size: 3rem;
     }
 }
 
@@ -262,3 +267,4 @@ pre {
         display: block;
     }
 }
+

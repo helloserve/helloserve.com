@@ -44,7 +44,7 @@ namespace helloserve.com.Domain
         {
             ValidateSave(blog);
 
-            blog.PublishDate = blog.PublishDate ?? DateTime.Today;
+            blog.PublishDate ??= DateTime.Today;
         }
 
         private string AsUrlTitle(string title)
@@ -70,9 +70,9 @@ namespace helloserve.com.Domain
             await _blogSyndicationService.SyndicateAsync(blog, syndicationTexts);
         }
 
-        public async Task<IEnumerable<BlogListing>> ReadAll()
+        public async Task<IEnumerable<BlogListing>> ReadAll(int page, int count, bool isAuthenticated)
         {
-            return await _dbAdaptor.ReadListings();
+            return await _dbAdaptor.ReadListings(page, count, publishedOnly: !isAuthenticated);
         }
     }
 }
