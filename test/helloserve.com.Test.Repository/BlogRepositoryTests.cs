@@ -129,6 +129,39 @@ namespace helloserve.com.Test.Repository
         }
 
         [TestMethod]
+        public async Task ReadListing_ForOwner_Verify()
+        {
+            //arrange
+            ArrangeDatabase("ReadListing_ForOwner_Verify");
+            string key = "key";
+            string title = "title";
+            string ownerKey = "owner";
+            DateTime publishDate = new DateTime(2019, 6, 18, 10, 47, 0);
+            var blogs = new List<Database.Entities.Blog>()
+            {
+                new Database.Entities.Blog() { Key = "key1", Title = "title1", IsPublished = true, PublishDate = publishDate },
+                new Database.Entities.Blog() { Key = key, Title = title, IsPublished = true, PublishDate = DateTime.Today },
+                new Database.Entities.Blog() { Key = "key2", Title = "title2" }
+            };
+            var blogOwners = new List<Database.Entities.BlogOwner>()
+            {
+                new Database.Entities.BlogOwner() { BlogKey = key, OwnerType = "Project", OwnerKey = ownerKey }
+            };
+            using (var context = new helloserveContext(_options))
+            {
+                await context.Blogs.AddRangeAsync(blogs);
+                await context.BlogOwners.AddRangeAsync(blogOwners);
+                await context.SaveChangesAsync();
+            }
+
+            //act
+            IEnumerable<BlogListing> listings = await Repository.ReadListings(1, 3, blogOwnerKey: ownerKey);
+            //assert
+            Assert.IsTrue(listings.Count() == 1);
+            Assert.IsTrue(listings.Any(x => x.Key == key));
+        }
+
+        [TestMethod]
         public async Task ReadListing__IncludeUnpublished_Verify()
         {
             //arrange

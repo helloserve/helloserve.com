@@ -41,20 +41,21 @@ namespace helloserve.com.Test.Adaptors
         {
             //arrange
             bool authenticated = true;
+            string ownerKey = "owner";
             List<Blog> blogs = new List<Blog>()
             {
                 new Blog(),
                 new Blog(),
                 new Blog()
             };
-            _serviceMock.Setup(x => x.ReadAll(1, 3, authenticated))
+            _serviceMock.Setup(x => x.ReadAll(1, 3, ownerKey, authenticated))
                 .ReturnsAsync(blogs);
 
             //act
-            IEnumerable<BlogItemView> result = await adaptor.ReadAll(1, 3, authenticated);
+            IEnumerable<BlogItemView> result = await adaptor.ReadAll(1, 3, ownerKey, authenticated);
 
             //assert
-            _serviceMock.Verify(x => x.ReadAll(1, 3, authenticated));
+            _serviceMock.Verify(x => x.ReadAll(1, 3, ownerKey, authenticated));
             Assert.AreEqual(3, result.Count());
         }
 

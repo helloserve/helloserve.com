@@ -4,7 +4,7 @@ services:
   db:
     image: helloservedb
     build:
-      context: db/
+      context: ./db/
       dockerfile: 'Dockerfile'
     environment:
       - env_database_name=helloserve
@@ -17,7 +17,7 @@ services:
   flyway:
     image: helloserveflyway
     build:
-      context: db/
+      context: ./db/
       dockerfile: 'Dockerfile.flyway'
     command: -url="jdbc:sqlserver://db;databaseName=helloserve" -user=sa -password=Passw0rd -baselineOnMigrate=true -connectRetries=20 migrate
     volumes:

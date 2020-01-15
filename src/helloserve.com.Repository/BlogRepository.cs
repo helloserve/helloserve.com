@@ -45,9 +45,17 @@ namespace helloserve.com.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<BlogListing>> ReadListings(int page, int count, bool publishedOnly = true)
+        public async Task<IEnumerable<BlogListing>> ReadListings(int page, int count, string blogOwnerKey = null, bool publishedOnly = true)
         {
-            var listing = await _context.Blogs
+            var source = (
+                    from b in _context.Blogs
+                    join bo in _context.BlogOwners on b.Key equals bo.BlogKey into bo_G
+                    from bo_L in bo_G.DefaultIfEmpty()
+                    where (!string.IsNullOrEmpty(blogOwnerKey) && bo_L.OwnerKey == blogOwnerKey) || string.IsNullOrEmpty(blogOwnerKey)
+                    select b
+                );
+
+            var listing = await source
                 .Where(x => x.IsPublished)
                 .OrderByDescending(x => x.PublishDate)
                 .Skip((page - 1) * count)
@@ -56,7 +64,7 @@ namespace helloserve.com.Repository
 
             if (!publishedOnly)
             {
-                listing.InsertRange(0, await _context.Blogs
+                listing.InsertRange(0, await source
                     .Where(x => !x.IsPublished)
                     .ToListAsync());
             }

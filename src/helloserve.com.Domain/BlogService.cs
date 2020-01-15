@@ -70,9 +70,9 @@ namespace helloserve.com.Domain
             await _blogSyndicationService.SyndicateAsync(blog, syndicationTexts);
         }
 
-        public async Task<IEnumerable<BlogListing>> ReadAll(int page, int count, bool isAuthenticated)
+        public async Task<IEnumerable<BlogListing>> ReadAll(int page, int count, string ownerKey, bool isAuthenticated)
         {
-            return await _dbAdaptor.ReadListings(page, count, publishedOnly: !isAuthenticated);
+            return await _dbAdaptor.ReadListings(page, count, blogOwnerKey: ownerKey, publishedOnly: !isAuthenticated);
         }
     }
 }

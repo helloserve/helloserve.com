@@ -1,16 +1,16 @@
-FROM microsoft/mssql-server-linux
+FROM mcr.microsoft.com/mssql/server
 
 ENV ACCEPT_EULA Y
 
 # copy from host to container
-COPY ./entrypoint.sh entrypoint.sh
+COPY ./setup.sh setup.sh
 COPY ./create.sh create.sh
 COPY ./script.sql script.sql
 
-RUN chmod +x ./entrypoint.sh
-RUN chmod +x ./create.sh
+# RUN sudo chmod +x ./setup.sh
+# RUN sudo chmod +x ./create.sh
 
-ENTRYPOINT ./entrypoint.sh
+ENTRYPOINT ./setup.sh
 
-# build command: docker build -t l10ndb -e database_name=l10n -e login_user=l10n -e login_name=l10n -e login_password=l10n -e sa_password=Passw0rd .
-# run command: docker run --name l10ndb -p 44402:1433 l10ndb
+# build command: docker build -t helloservedb -e database_name=helloserve -e login_user=helloserve -e login_name=helloserve -e login_password=helloserve -e sa_password=Passw0rd .
+# run command: docker run --name helloservedb -p 44402:1433 helloservedb

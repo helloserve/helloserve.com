@@ -191,20 +191,21 @@ namespace helloserve.com.Test.Domain
         {
             //arrange
             bool authenticated = true;
+            string ownerKey = "owner";
             List<BlogListing> listing = new List<BlogListing>()
             {
                 new BlogListing() { Key = "key1", Title = "title1" },
                 new BlogListing() { Key = "key2", Title = "title2" },
                 new BlogListing() { Key = "key3", Title = "title3" },
             };
-            _dbAdaptorMock.Setup(x => x.ReadListings(1, 3, false))
+            _dbAdaptorMock.Setup(x => x.ReadListings(1, 3, ownerKey, false))
                 .ReturnsAsync(listing);
 
             //act
-            IEnumerable<BlogListing> result = await Service.ReadAll(1, 3, authenticated);
+            IEnumerable<BlogListing> result = await Service.ReadAll(1, 3, ownerKey, authenticated);
 
             //assert
-            _dbAdaptorMock.Verify(x => x.ReadListings(1, 3, false));
+            _dbAdaptorMock.Verify(x => x.ReadListings(1, 3, ownerKey, false));
             Assert.AreEqual(result, listing);
             Assert.AreEqual(3, result.Count());
         }
@@ -214,13 +215,14 @@ namespace helloserve.com.Test.Domain
         {
             //arrange
             bool authenticated = false;
+            string ownerKey = "owner";
             List<BlogListing> listing = new List<BlogListing>();
 
             //act
-            IEnumerable<BlogListing> result = await Service.ReadAll(1, 3, authenticated);
+            IEnumerable<BlogListing> result = await Service.ReadAll(1, 3, ownerKey, authenticated);
 
             //assert
-            _dbAdaptorMock.Verify(x => x.ReadListings(1, 3, true));
+            _dbAdaptorMock.Verify(x => x.ReadListings(1, 3, ownerKey, true));
         }
     }
 }

@@ -1,0 +1,100 @@
+﻿@using helloserve.com.Adaptors
+@using helloserve.com.Models
+@inject IBlogServiceAdaptor ServiceAdaptor
+
+@if (blogItems == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        @foreach (var item in blogItems)
+        {
+            <div class="blog-listing">
+                <div class="blog-listing-image">
+                    <img src="@item.ImageUrl" />
+                </div>
+                <div class="blog-listing-content">
+                    <div class="blog-listing-heading">
+                        <NavLink class="nav-link" href="@AsUrl(item.Key)">
+                            <div class="heading">@item.Title</div>
+                        </NavLink>
+                    </div>
+                    <div class="blog-listing-notation">
+                        <span>@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</span>
+                        <AuthorizeView>
+                            <Authorized>
+                                <NavLink href="@AsAdminUrl(item.Key)">
+                                    <span class="oi oi-pencil"></span>
+                                </NavLink>
+                            </Authorized>
+                        </AuthorizeView>
+                    </div>
+                    <div class="blog-listing-description">
+                        @item.Description
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div style="text-align:center">
+        <button @onclick="Previous" class="page"><span class="oi oi-arrow-thick-left"></span></button>
+        <span>Page @PageNo</span>
+        <button @onclick="Next" class="page"><span class="oi oi-arrow-thick-right"></span></button>
+    </div>
+}
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthStateTask { get; set; }
+
+    [CascadingParameter(Name = "OwnerKey")] string OwnerKey { get; set; }
+
+    private IEnumerable<BlogItemView> blogItems { get; set; }
+
+    public int PageNo { get; set; } = 1;
+
+    protected override async Task OnInitializedAsync()
+    {
+        blogItems = await LoadBlogs();
+    }
+
+    private string AsUrl(string key)
+    {
+        return $"blogs/{key}";
+    }
+
+    private string AsAdminUrl(string key)
+    {
+        return $"admin/blogs/{key}";
+    }
+
+    private async Task Previous()
+    {
+        if (PageNo > 1)
+            PageNo--;
+        blogItems = await LoadBlogs();
+        StateHasChanged();
+    }
+
+    private async Task Next()
+    {
+        PageNo++;
+        var items = await LoadBlogs();
+        if (items.Count() == 0)
+        {
+            PageNo--;
+            return;
+        }
+        blogItems = items;
+        StateHasChanged();
+    }
+
+    private async Task<IEnumerable<BlogItemView>> LoadBlogs()
+    {
+        AuthenticationState authState = await AuthStateTask;
+        return await ServiceAdaptor.ReadAll(PageNo, 10, OwnerKey, authState?.User?.Identity?.IsAuthenticated ?? false);
+    }
+
+}

@@ -9,9 +9,13 @@ namespace helloserve.com.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<BlogOwner>()
+                .HasKey(x => new { x.BlogKey, x.OwnerKey});
+
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogOwner> BlogOwners { get; set; }
     }
 }

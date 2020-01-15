@@ -1,12 +1,36 @@
 @page "/projects/{title}"
+@layout Shared.ProjectLayout
 
-<h1>@Title</h1>
+@if (CustomPageType == null)
+{
+    <h1>@Title</h1>
 
-<p>
-    Still under development.
-</p>
+    <p>
+        There doesn't seem to be a project by that name here.
+    </p>
+}
+else
+{
+    <CascadingValue Name="OwnerKey" Value="@Title">
+        @CreateDynamicComponent()
+    </CascadingValue>
+}
 
-@functions {
+@code {
     [Parameter]
     public string Title { get; set; } = "featured!";
+
+    public Type CustomPageType;
+
+    protected override Task OnInitializedAsync()
+    {
+        CustomPageType = this.GetType().Assembly.GetTypes().Where(t => t.Name == Title).FirstOrDefault();
+        return base.OnInitializedAsync();
+    }
+
+    RenderFragment CreateDynamicComponent() => builder =>
+    {
+        builder.OpenComponent(0, CustomPageType);
+        builder.CloseComponent();
+    };
 }
