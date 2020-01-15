@@ -1,7 +1,6 @@
 using helloserve.com.Adaptors;
 using helloserve.com.Auth;
 using helloserve.com.Database;
-using helloserve.com.Shared;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
