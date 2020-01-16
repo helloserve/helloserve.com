@@ -4,10 +4,8 @@
 @inject IJSRuntime JSRuntime
 
 <CascadingAuthenticationState>
-    <div class="top-row navbar navbar-dark">
-        <div>
-            <a class="navbar-brand" href="/">helloserve</a>
-        </div>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-helloserve text-dark">
+        <a class="navbar-brand" href="/">helloserve</a>
         <AuthorizeView>
             <Authorized>
                 <div>
@@ -23,56 +21,55 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-    </div>
-
-    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <NavLink class="nav-link" href="/about">
-                    <span class="oi oi-info" aria-hidden="true"></span> About
-                </NavLink>
-            </li>
-            <li class="nav-item">
-                <NavLink class="nav-link" href="/blogs">
-                    <span class="oi oi-book" aria-hidden="true"></span> Blogs
-                </NavLink>
-            </li>
-            <AuthorizeView>
-                <Authorized>
-                    <li class="nav-item">
-                        <NavLink class="nav-link" href="/admin/blogs">
-                            <span class="oi oi-plus" aria-hidden="true"></span> Add Blog
-                        </NavLink>
-                    </li>
-                </Authorized>
-            </AuthorizeView>
-            <li class="nav-item">
-                <NavLink class="nav-link" href="/projects">
-                    <span class="oi oi-code" aria-hidden="true"></span> Projects
-                </NavLink>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://github.com/helloserve/">
-                    <span class="oi"><img src="/images/gh.svg" /></span> Github
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="http://za.linkedin.com/pub/henk-roux/5b/858/188">
-                    <span class="oi"><img src="/images/in.svg" /></span> LinkedIn
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://twitter.com/helloserve">
-                    <span class="oi"><img src="/images/t.svg" /></span> Twitter
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://www.facebook.com/helloserveproductions">
-                    <span class="oi"><img src="/images/f.svg" /></span> Facebook
-                </a>
-            </li>
-        </ul>
-    </div>
+        <div class="navbar-collapse @NavMenuCssClass" @onclick="ToggleNavMenu">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/about">
+                        <span class="oi oi-info" aria-hidden="true"></span> About
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/blogs">
+                        <span class="oi oi-book" aria-hidden="true"></span> Blogs
+                    </NavLink>
+                </li>
+                <AuthorizeView>
+                    <Authorized>
+                        <li class="nav-item">
+                            <NavLink class="nav-link" href="/admin/blogs">
+                                <span class="oi oi-plus" aria-hidden="true"></span> Add Blog
+                            </NavLink>
+                        </li>
+                    </Authorized>
+                </AuthorizeView>
+                <li class="nav-item">
+                    <NavLink class="nav-link" href="/projects">
+                        <span class="oi oi-code" aria-hidden="true"></span> Projects
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/helloserve/">
+                        <img src="/images/gh.svg" class="nav-svg"/> Github
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="http://za.linkedin.com/pub/henk-roux/5b/858/188">
+                        <img src="/images/in.svg" /> LinkedIn
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://twitter.com/helloserve">
+                        <img src="/images/t.svg" /> Twitter
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://www.facebook.com/helloserveproductions">
+                        <img src="/images/f.svg" /> Facebook
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </CascadingAuthenticationState>
 
 @functions {

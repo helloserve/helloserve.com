@@ -8,40 +8,50 @@
 }
 else
 {
-    <div>
+    <div class="container-fluid">
         @foreach (var item in blogItems)
         {
-            <div class="blog-listing">
-                <div class="blog-listing-image">
-                    <img src="@item.ImageUrl" />
-                </div>
-                <div class="blog-listing-content">
-                    <div class="blog-listing-heading">
+            <div class="container-fluid m-3" style="@ListingStyle(item)">
+                <div class="d-inline-flex mt-3" style="background-color:rgba(255,255,255,0.7)">
+                    <div class="container-fluid">
                         <NavLink class="nav-link" href="@AsUrl(item.Key)">
-                            <div class="heading">@item.Title</div>
+                            <h4 class="h-helloserve">@item.Title</h4>
                         </NavLink>
-                    </div>
-                    <div class="blog-listing-notation">
-                        <span>@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</span>
-                        <AuthorizeView>
-                            <Authorized>
-                                <NavLink href="@AsAdminUrl(item.Key)">
-                                    <span class="oi oi-pencil"></span>
-                                </NavLink>
-                            </Authorized>
-                        </AuthorizeView>
-                    </div>
-                    <div class="blog-listing-description">
-                        @item.Description
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-auto">
+                                    <h6>@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</h6>
+                                </div>
+                                <div class="col-md-auto">
+                                    <AuthorizeView>
+                                        <Authorized>
+                                            <NavLink href="@AsAdminUrl(item.Key)">
+                                                <span class="oi oi-pencil"></span>
+                                            </NavLink>
+                                        </Authorized>
+                                    </AuthorizeView>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        @item.Description
+                                    </p>
+                                    <p>
+                                        <NavLink href="@AsUrl(item.Key)">
+                                            <button class="btn btn-helloserve">Read More...</button>
+                                        </NavLink>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         }
     </div>
-    <div style="text-align:center">
-        <button @onclick="Previous" class="page"><span class="oi oi-arrow-thick-left"></span></button>
+    <div class="m-3 text-center">
+        <button @onclick="Previous" class="btn btn-dark btn-lg page"><span class="oi oi-chevron-left"></span></button>
         <span>Page @PageNo</span>
-        <button @onclick="Next" class="page"><span class="oi oi-arrow-thick-right"></span></button>
+        <button @onclick="Next" class="btn btn-dark btn-lg page"><span class="oi oi-chevron-right"></span></button>
     </div>
 }
 
@@ -50,6 +60,7 @@ else
     private Task<AuthenticationState> AuthStateTask { get; set; }
 
     [CascadingParameter(Name = "OwnerKey")] string OwnerKey { get; set; }
+    [CascadingParameter(Name = "PageSize")] int PageSize { get; set; } = 10;
 
     private IEnumerable<BlogItemView> blogItems { get; set; }
 
@@ -58,6 +69,16 @@ else
     protected override async Task OnInitializedAsync()
     {
         blogItems = await LoadBlogs();
+    }
+
+    private string ListingStyle(BlogItemView item)
+    {
+        if (string.IsNullOrEmpty(item.ImageUrl))
+        {
+            return string.Empty;
+        }
+
+        return $"min-height:20rem; background-image:url({item.ImageUrl}); background-size: auto 100%; background-repeat:no-repeat;";
     }
 
     private string AsUrl(string key)
@@ -94,7 +115,7 @@ else
     private async Task<IEnumerable<BlogItemView>> LoadBlogs()
     {
         AuthenticationState authState = await AuthStateTask;
-        return await ServiceAdaptor.ReadAll(PageNo, 10, OwnerKey, authState?.User?.Identity?.IsAuthenticated ?? false);
+        return await ServiceAdaptor.ReadAll(PageNo, PageSize, OwnerKey, authState?.User?.Identity?.IsAuthenticated ?? false);
     }
 
 }

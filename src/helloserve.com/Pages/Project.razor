@@ -1,5 +1,4 @@
 @page "/projects/{title}"
-@layout Shared.ProjectLayout
 
 @if (CustomPageType == null)
 {
@@ -12,7 +11,9 @@
 else
 {
     <CascadingValue Name="OwnerKey" Value="@Title">
-        @CreateDynamicComponent()
+        <CascadingValue Name="PageSize" Value="5">
+            @CreateDynamicComponent()
+        </CascadingValue>
     </CascadingValue>
 }
 
