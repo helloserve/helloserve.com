@@ -7,7 +7,9 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            return services.AddTransient<IBlogDatabaseAdaptor, BlogRepository>();
+            return services
+                .AddTransient<IBlogDatabaseAdaptor, BlogRepository>()
+                .AddTransient<IProjectDatabaseAdaptor, ProjectRepository>();
         }
     }
 }

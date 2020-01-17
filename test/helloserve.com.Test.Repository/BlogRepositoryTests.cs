@@ -1,8 +1,6 @@
 using helloserve.com.Database;
 using helloserve.com.Domain;
 using helloserve.com.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -12,35 +10,13 @@ using System.Threading.Tasks;
 namespace helloserve.com.Test.Repository
 {
     [TestClass]
-    public class BlogRepositoryTests
+    public class BlogRepositoryTests : RepositoryTests<IBlogDatabaseAdaptor>
     {
-        readonly IServiceCollection _services = new ServiceCollection();
-        private IServiceProvider _serviceProvider;        
-        private DbContextOptions<helloserveContext> _options;
-
-        public IBlogDatabaseAdaptor Repository => _serviceProvider.GetService<IBlogDatabaseAdaptor>();
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            _services.AddTransient(sp => new helloserveContext(_options)); //sets up for injection
-            _services.AddRepositories();
-
-            _serviceProvider = _services.BuildServiceProvider();
-        }
-
-        private void ArrangeDatabase(string name)
-        {
-            _options = new DbContextOptionsBuilder<helloserveContext>()
-                .UseInMemoryDatabase(name)
-                .Options;
-        }
-
         [TestMethod]
         public async Task Read_Verify()
         {
             //arrange
-            ArrangeDatabase("Read_Verify");
+            ArrangeDatabase("BlogRepository_Read_Verify");
             string title = "title";
             var blogs = new List<Database.Entities.Blog>()
             {
@@ -48,7 +24,7 @@ namespace helloserve.com.Test.Repository
                 new Database.Entities.Blog() { Key = title },
                 new Database.Entities.Blog() { Key = "key2" }
             };
-            using (var context = new helloserveContext(_options))
+            using (var context = new helloserveContext(Options))
             {
                 await context.Blogs.AddRangeAsync(blogs);
                 await context.SaveChangesAsync();
@@ -66,7 +42,7 @@ namespace helloserve.com.Test.Repository
         public async Task ReadListing_Verify()
         {
             //arrange
-            ArrangeDatabase("ReadListing_Verify");
+            ArrangeDatabase("BlogRepository_ReadListing_Verify");
             string key = "key";
             string title = "title";
             DateTime publishDate = new DateTime(2019, 6, 18, 10, 47, 0);
@@ -84,7 +60,7 @@ namespace helloserve.com.Test.Repository
                 new Database.Entities.Blog() { Key = "key9", Title = "title9", IsPublished = true },
                 new Database.Entities.Blog() { Key = "key10", Title = "title10", IsPublished = true }
             };
-            using (var context = new helloserveContext(_options))
+            using (var context = new helloserveContext(Options))
             {
                 await context.Blogs.AddRangeAsync(blogs);
                 await context.SaveChangesAsync();
@@ -132,7 +108,7 @@ namespace helloserve.com.Test.Repository
         public async Task ReadListing_ForOwner_Verify()
         {
             //arrange
-            ArrangeDatabase("ReadListing_ForOwner_Verify");
+            ArrangeDatabase("BlogRepository_ReadListing_ForOwner_Verify");
             string key = "key";
             string title = "title";
             string ownerKey = "owner";
@@ -147,7 +123,7 @@ namespace helloserve.com.Test.Repository
             {
                 new Database.Entities.BlogOwner() { BlogKey = key, OwnerType = "Project", OwnerKey = ownerKey }
             };
-            using (var context = new helloserveContext(_options))
+            using (var context = new helloserveContext(Options))
             {
                 await context.Blogs.AddRangeAsync(blogs);
                 await context.BlogOwners.AddRangeAsync(blogOwners);
@@ -165,7 +141,7 @@ namespace helloserve.com.Test.Repository
         public async Task ReadListing__IncludeUnpublished_Verify()
         {
             //arrange
-            ArrangeDatabase("ReadListing_IncludeUnpublished_Verify");
+            ArrangeDatabase("BlogRepository_ReadListing_IncludeUnpublished_Verify");
             string key = "key";
             string title = "title";
             DateTime publishDate = new DateTime(2019, 6, 18, 10, 47, 0);
@@ -183,7 +159,7 @@ namespace helloserve.com.Test.Repository
                 new Database.Entities.Blog() { Key = "key9", Title = "title9", IsPublished = true },
                 new Database.Entities.Blog() { Key = "key10", Title = "title10", IsPublished = true }
             };
-            using (var context = new helloserveContext(_options))
+            using (var context = new helloserveContext(Options))
             {
                 await context.Blogs.AddRangeAsync(blogs);
                 await context.SaveChangesAsync();
@@ -238,7 +214,7 @@ namespace helloserve.com.Test.Repository
         public async Task Save_Create_Verify()
         {
             //arrange
-            ArrangeDatabase("Save_Create_Verify");
+            ArrangeDatabase("BlogRepository_Save_Create_Verify");
             Blog blog = new Blog()
             {
                 Title = "This is a title!",
@@ -250,7 +226,7 @@ namespace helloserve.com.Test.Repository
             await Repository.Save(blog);
 
             //assert
-            using var context = new helloserveContext(_options);
+            using var context = new helloserveContext(Options);
             Assert.IsTrue(context.Blogs.Any(x => x.Key == blog.Key));
         }
 
@@ -258,7 +234,7 @@ namespace helloserve.com.Test.Repository
         public async Task Save_Update_Verify()
         {
             //arrange
-            ArrangeDatabase("Save_Update_Verify");
+            ArrangeDatabase("BlogRepository_Save_Update_Verify");
             Blog blog = new Blog()
             {
                 Title = "This is a title!",
@@ -270,7 +246,7 @@ namespace helloserve.com.Test.Repository
                 new Database.Entities.Blog() { Key = blog.Key, Title = "title1", Content = "before" },
                 new Database.Entities.Blog() { Key = "key2", Title = "title2" }
             };
-            using (var context = new helloserveContext(_options))
+            using (var context = new helloserveContext(Options))
             {
                 await context.Blogs.AddRangeAsync(blogs);
                 await context.SaveChangesAsync();
@@ -280,7 +256,7 @@ namespace helloserve.com.Test.Repository
             await Repository.Save(blog);
 
             //assert
-            using (var context = new helloserveContext(_options))
+            using (var context = new helloserveContext(Options))
             {
                 Assert.IsTrue(context.Blogs.Any(x => x.Key == blog.Key && x.Content == blog.Content && x.Title == blog.Title));
             }

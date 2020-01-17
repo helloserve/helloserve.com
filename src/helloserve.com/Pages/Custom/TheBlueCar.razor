@@ -1,6 +1,10 @@
-﻿<div class="jumbotron bg-bluecar">
+﻿@using helloserve.com.Models
+
+<div class="jumbotron bg-bluecar">
     <div class="container">
-        <h4 class="display-4">The Blue Car</h4>
+        <h2 class="display-2">The Blue Car</h2>
+
+        <p class="display-4">@project.Description</p>
 
         <p>Affectionally referred to by its colour, this 1989 Eunos Roadster is my first project car, and has a significant bond with our family.</p>
 
@@ -14,11 +18,13 @@
         <p>The series of blog posts chronicles my ownership of the car and covers the rather mundane to some pretty technical detail. It's not a how-to guide (or at least, is not intended to be).</p>
     </div>
 
-    <BlogItems></BlogItems>
+    <CascadingValue Name="OwnerKey" Value="@project.Key">
+        <BlogItems></BlogItems>
+    </CascadingValue>
 
 </div>
 
 
 @code {
-
+    [CascadingParameter(Name = "Owner")] ProjectView project { get; set; }
 }

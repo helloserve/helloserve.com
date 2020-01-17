@@ -11,6 +11,7 @@ namespace helloserve.com.Repository.Mappers
             MapperConfiguration config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<BlogConfig>();
+                cfg.AddProfile<ProjectConfig>();
             });
 
             Mapper = config.CreateMapper();

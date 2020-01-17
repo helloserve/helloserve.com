@@ -1,16 +1,27 @@
 @page "/projects/{title}"
+@using helloserve.com.Models
+@using helloserve.com.Adaptors
+@inject IProjectServiceAdaptor ServiceAdaptor
 
-@if (CustomPageType == null)
+@if (customPageType == null)
 {
-    <h1>@Title</h1>
-
-    <p>
-        There doesn't seem to be a project by that name here.
-    </p>
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h2 class="display-2">@project.Name</h2>
+        </div>
+        <div class="container text-center">
+            <img src="@project.ImageUrl" style="max-width:80%;"/>
+        </div>
+    </div>    
+    <div class="container">
+        <p>
+            @project.Description
+        </p>
+    </div>
 }
 else
 {
-    <CascadingValue Name="OwnerKey" Value="@Title">
+    <CascadingValue Name="Owner" Value="@project">
         <CascadingValue Name="PageSize" Value="5">
             @CreateDynamicComponent()
         </CascadingValue>
@@ -21,17 +32,21 @@ else
     [Parameter]
     public string Title { get; set; } = "featured!";
 
-    public Type CustomPageType;
+    private ProjectView project { get; set; }
+    private Type customPageType { get; set; }
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        CustomPageType = this.GetType().Assembly.GetTypes().Where(t => t.Name == Title).FirstOrDefault();
-        return base.OnInitializedAsync();
+        project = await ServiceAdaptor.Read(Title);
+        if (project != null && !string.IsNullOrEmpty(project.ComponentPage))
+        {
+            customPageType = this.GetType().Assembly.GetTypes().Where(t => t.Name == project.ComponentPage).FirstOrDefault();
+        }
     }
 
     RenderFragment CreateDynamicComponent() => builder =>
     {
-        builder.OpenComponent(0, CustomPageType);
+        builder.OpenComponent(0, customPageType);
         builder.CloseComponent();
     };
 }

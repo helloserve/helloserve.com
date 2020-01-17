@@ -65,14 +65,11 @@ namespace helloserve.com
             services.AddRazorPages();
             services.AddControllers();
             services.AddServerSideBlazor();
-#if UITEST
-            services.AddSingleton<IBlogServiceAdaptor, MockBlogServiceAdaptor>();
-#else
-            services.AddTransient<IBlogServiceAdaptor, BlogServiceAdaptor>();
-#endif
+
             services.Configure<DomainOptions>(Configuration.GetSection("Domain"));
 
             services.AddTransient<IPageState, PageStateModel>();
+            services.AddAdaptors();
             services.AddDomainServices();
             services.AddSyndicationServices(Configuration.GetSection("Syndication"));
             services.AddRepositories();

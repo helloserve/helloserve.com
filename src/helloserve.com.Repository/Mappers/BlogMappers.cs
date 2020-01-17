@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace helloserve.com.Repository.Mappers
 {

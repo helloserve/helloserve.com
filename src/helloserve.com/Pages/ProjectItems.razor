@@ -1,0 +1,78 @@
+﻿@using helloserve.com.Adaptors
+@using helloserve.com.Models
+@inject IProjectServiceAdaptor ServiceAdaptor
+
+@if (projectItems == null)
+{
+<p><em>Loading...</em></p>
+}
+else
+{
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var item in projectItems)
+        {
+        <div class="col-lg">
+            <div class="container-fluid m-3" style="@ListingStyle(item)">
+                <div class="d-inline-flex mt-3 mb-3" style="background-color:rgba(255,255,255,0.7)">
+                    <div class="container-fluid">
+                        <NavLink class="nav-link" href="@AsUrl(item.Key)">
+                            <h4 class="h-helloserve">@item.Name</h4>
+                        </NavLink>
+                        <div class="container-fluid">
+                            <p>
+                                @item.Description
+                            </p>
+                            <p>
+                                <NavLink href="@AsUrl(item.Key)">
+                                    <button class="btn btn-helloserve">Read More...</button>
+                                </NavLink>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+}
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthStateTask { get; set; }
+
+    private IEnumerable<ProjectItemView> projectItems { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        projectItems = await LoadProjects();
+    }
+
+    private string ListingStyle(ProjectItemView item)
+    {
+        if (string.IsNullOrEmpty(item.ImageUrl))
+        {
+            return string.Empty;
+        }
+
+        return $"min-height:20rem; background-image:url({item.ImageUrl}); background-size: auto 100%; background-repeat:no-repeat;";
+    }
+
+    private string AsUrl(string key)
+    {
+        return $"projects/{key}";
+    }
+
+    private string AsAdminUrl(string key)
+    {
+        return $"admin/projects/{key}";
+    }
+
+    private async Task<IEnumerable<ProjectItemView>> LoadProjects()
+    {
+        AuthenticationState authState = await AuthStateTask;
+        return await ServiceAdaptor.ReadAllActive();
+    }
+
+}
