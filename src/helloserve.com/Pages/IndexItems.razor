@@ -1,0 +1,72 @@
+﻿@using helloserve.com.Services
+@using helloserve.com.Models
+@inject IIndexPageLoader Loader
+
+@if (indexItems == null)
+{
+<p><em>Loading...</em></p>
+}
+else
+{
+<CascadingValue Value=@MainItem>
+    <IndexItemMain></IndexItemMain>
+</CascadingValue>
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var item in indexItems.Skip(1))
+        {
+            <div class="col-lg">
+                <div class="container-fluid m-3" style="@ListingStyle(item)">
+                    <div class="d-inline-flex mt-3 mb-3" style="background-color:rgba(255,255,255,0.7)">
+                        <div class="container-fluid">
+                            <NavLink class="nav-link" href="@item.Url">
+                                <h4 class="h-helloserve">@item.Title</h4>
+                            </NavLink>
+                            <div class="container-fluid">
+                                <p>
+                                    @((MarkupString)item.Content)
+                                </p>
+                                <p>
+                                    <NavLink href="@item.Url">
+                                        <button class="btn btn-helloserve">More...</button>
+                                    </NavLink>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+}
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthStateTask { get; set; }
+
+    private List<IndexPageItem> indexItems { get; set; }
+
+    private IndexPageItem MainItem => indexItems.FirstOrDefault();
+
+    protected override async Task OnInitializedAsync()
+    {
+        indexItems = await LoadItems();
+    }
+
+    private string ListingStyle(IndexPageItem item)
+    {
+        if (string.IsNullOrEmpty(item.ImageUrl))
+        {
+            return string.Empty;
+        }
+
+        return $"min-height:40rem; background-image:url({item.ImageUrl}); background-size: auto 100%; background-repeat:no-repeat;";
+    }
+
+    private async Task<List<IndexPageItem>> LoadItems()
+    {
+        AuthenticationState authState = await AuthStateTask;
+        return (await Loader.GetIndexPageItems()).ToList();
+    }
+}

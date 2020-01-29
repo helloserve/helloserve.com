@@ -1,0 +1,52 @@
+﻿@using helloserve.com.Services
+@using helloserve.com.Models
+@inject IIndexPageLoader Loader
+
+@if (Item == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<div class="container-fluid">
+    <div class="container-fluid">
+        <NavLink class="nav-link" href="@Item.Url">
+            <h4 class="h-helloserve">@Item.Title</h4>
+        </NavLink>
+    </div>
+    @if (!string.IsNullOrEmpty(Item.ImageUrl))
+    {
+        <div class="container text-center">
+            <img style="max-height:40rem; max-width:80%" src="@Item.ImageUrl" />
+        </div>
+    }
+    <div class="container-fluid">
+        <p>
+            @((MarkupString)Item.Content)
+        </p>
+        <p>
+            <NavLink href="@Item.Url">
+                <button class="btn btn-helloserve">Read More...</button>
+            </NavLink>
+        </p>
+    </div>
+</div>
+}
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthStateTask { get; set; }
+
+    [CascadingParameter]
+    private IndexPageItem Item { get; set; }
+
+    private string ListingStyle(IndexPageItem item)
+    {
+        if (string.IsNullOrEmpty(item.ImageUrl))
+        {
+            return string.Empty;
+        }
+
+        return $"min-height:40rem; background-image:url({item.ImageUrl}); background-size: auto 100%; background-repeat:no-repeat;";
+    }
+}
