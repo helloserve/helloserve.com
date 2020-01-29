@@ -7,5 +7,6 @@ namespace helloserve.com.Domain
     public interface IProjectService
     {
         Task<IEnumerable<Project>> ReadAllActive();
+        Task<Project> Read(string key);
     }
 }

@@ -69,6 +69,7 @@ namespace helloserve.com
             services.Configure<DomainOptions>(Configuration.GetSection("Domain"));
 
             services.AddTransient<IPageState, PageStateModel>();
+            services.AddPageServices();
             services.AddAdaptors();
             services.AddDomainServices();
             services.AddSyndicationServices(Configuration.GetSection("Syndication"));

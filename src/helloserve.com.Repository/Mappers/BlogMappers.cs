@@ -23,6 +23,11 @@ namespace helloserve.com.Repository.Mappers
             return Config.Mapper.Map<Domain.Models.Blog>(entity);
         }
 
+        public static IEnumerable<Domain.Models.Blog> Map(this IEnumerable<Database.Entities.Blog> collection)
+        {
+            return Config.Mapper.Map<IEnumerable<Domain.Models.Blog>>(collection);
+        }
+
         public static void MapOnto(this Domain.Models.Blog model, Database.Entities.Blog entity)
         {
             Config.Mapper.Map(model, entity);

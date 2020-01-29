@@ -1,18 +1,28 @@
 @page "/blogs-old/{title}"
 @using helloserve.com.Adaptors
 @using helloserve.com.Models
-@using helloserve.com
 @inject IBlogServiceAdaptor ServiceAdaptor
 
 @if (Model == null)
 {
-    <p><em>Loading...</em></p>
+    <div class="container">
+        <p>Loading...</p>
+    </div>
 }
 else
 {
-    <div class="blog-content">
-        <h1>@Model.Title</h1>
-
+    <div class="jumbotron">
+        <div class="container">
+            <h2 class="display-2">@Model.Title</h2>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+        <div class="container text-center">
+            <img style="max-width:90%" src="@Model.ImageUrl"/>
+        </div>
+        }
+    </div>
+    <div class="container blog-content">
         <p>
             <span>Published on @Model.PublishDate?.ToShortDateString()</span>
             <AuthorizeView>

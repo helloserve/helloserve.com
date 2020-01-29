@@ -60,7 +60,7 @@ namespace helloserve.com.Test.Repository
                 new Database.Entities.Blog() { Key = "key9", Title = "title9", IsPublished = true },
                 new Database.Entities.Blog() { Key = "key10", Title = "title10", IsPublished = true }
             };
-            using (var context = new helloserveContext(Options))
+            using (var context = Context)
             {
                 await context.Blogs.AddRangeAsync(blogs);
                 await context.SaveChangesAsync();
@@ -123,7 +123,7 @@ namespace helloserve.com.Test.Repository
             {
                 new Database.Entities.BlogOwner() { BlogKey = key, OwnerType = "Project", OwnerKey = ownerKey }
             };
-            using (var context = new helloserveContext(Options))
+            using (var context = Context)
             {
                 await context.Blogs.AddRangeAsync(blogs);
                 await context.BlogOwners.AddRangeAsync(blogOwners);
@@ -159,7 +159,7 @@ namespace helloserve.com.Test.Repository
                 new Database.Entities.Blog() { Key = "key9", Title = "title9", IsPublished = true },
                 new Database.Entities.Blog() { Key = "key10", Title = "title10", IsPublished = true }
             };
-            using (var context = new helloserveContext(Options))
+            using (var context = Context)
             {
                 await context.Blogs.AddRangeAsync(blogs);
                 await context.SaveChangesAsync();
@@ -226,7 +226,7 @@ namespace helloserve.com.Test.Repository
             await Repository.Save(blog);
 
             //assert
-            using var context = new helloserveContext(Options);
+            using var context = Context;
             Assert.IsTrue(context.Blogs.Any(x => x.Key == blog.Key));
         }
 
@@ -246,7 +246,7 @@ namespace helloserve.com.Test.Repository
                 new Database.Entities.Blog() { Key = blog.Key, Title = "title1", Content = "before" },
                 new Database.Entities.Blog() { Key = "key2", Title = "title2" }
             };
-            using (var context = new helloserveContext(Options))
+            using (var context = Context)
             {
                 await context.Blogs.AddRangeAsync(blogs);
                 await context.SaveChangesAsync();
@@ -256,10 +256,41 @@ namespace helloserve.com.Test.Repository
             await Repository.Save(blog);
 
             //assert
-            using (var context = new helloserveContext(Options))
+            using (var context = Context)
             {
                 Assert.IsTrue(context.Blogs.Any(x => x.Key == blog.Key && x.Content == blog.Content && x.Title == blog.Title));
             }
+        }
+
+        [TestMethod]
+        public async Task Read_Latest_Verify()
+        {
+            //arrange
+            ArrangeDatabase("BlogRepository_Read_Latest_Verify");
+            var blogs = new List<Database.Entities.Blog>()
+            {
+                new Database.Entities.Blog() { Key = "key1", IsPublished = true, PublishDate = DateTime.Now },
+                new Database.Entities.Blog() { Key = "key2", IsPublished = false, PublishDate = null },
+                new Database.Entities.Blog() { Key = "key3", IsPublished = false, PublishDate = DateTime.Now.AddDays(-2) },
+                new Database.Entities.Blog() { Key = "key4", IsPublished = true, PublishDate = DateTime.Now.AddDays(-4) },
+                new Database.Entities.Blog() { Key = "key5", IsPublished = true, PublishDate = DateTime.Now.AddDays(-5) }
+            };
+            using (var context = Context)
+            {
+                context.Blogs.AddRange(blogs);
+                await context.SaveChangesAsync();
+            }
+
+            //act
+            var result = await Repository.ReadLatest(2);
+
+            //assert
+            Assert.AreEqual(2, result.Count());
+            Assert.IsTrue(result.Any(x => x.Key == "key1"));
+            Assert.IsTrue(result.Any(x => x.Key == "key4"));
+            Assert.IsFalse(result.Any(x => x.Key == "key2"));
+            Assert.IsFalse(result.Any(x => x.Key == "key3"));
+            Assert.IsFalse(result.Any(x => x.Key == "key5"));
         }
     }
 }

@@ -11,5 +11,6 @@ namespace helloserve.com.Adaptors
         Task<BlogCreate> Edit(string title);
         Task Submit(BlogCreate blog);
         Task Publish(string title);
+        Task<IEnumerable<BlogView>> ReadLatest(int count);
     }
 }

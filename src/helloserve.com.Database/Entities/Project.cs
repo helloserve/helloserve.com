@@ -14,5 +14,7 @@ namespace helloserve.com.Database.Entities
 
         public string Description { get; set; }
         public string ImageUrl { get; set; }
+        [Required]
+        public int SortOrder { get; set; }
     }
 }

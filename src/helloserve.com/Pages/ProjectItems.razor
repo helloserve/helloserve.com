@@ -13,7 +13,7 @@ else
         @foreach (var item in projectItems)
         {
         <div class="col-lg">
-            <div class="container-fluid m-3" style="@ListingStyle(item)">
+            <div class="container-fluid" style="@ListingStyle(item)">
                 <div class="d-inline-flex mt-3 mb-3" style="background-color:rgba(255,255,255,0.7)">
                     <div class="container-fluid">
                         <NavLink class="nav-link" href="@AsUrl(item.Key)">

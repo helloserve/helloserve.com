@@ -17,6 +17,7 @@ namespace helloserve.com.Test.Domain
                 .AddTransient(s => _repositoryMock.Object);
         }
 
+        [TestMethod]
         public async Task ReadAllActive_Verify()
         {
             //arrange
@@ -26,6 +27,19 @@ namespace helloserve.com.Test.Domain
 
             //assert
             _repositoryMock.Verify(x => x.ReadAll());
+        }
+
+        [TestMethod]
+        public async Task Read_Verify()
+        {
+            //arrange
+            string key = "key";
+
+            //act
+            await Service.Read(key);
+
+            //assert
+            _repositoryMock.Verify(x => x.Read(key));
         }
     }
 }

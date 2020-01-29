@@ -74,5 +74,10 @@ namespace helloserve.com.Domain
         {
             return await _dbAdaptor.ReadListings(page, count, blogOwnerKey: ownerKey, publishedOnly: !isAuthenticated);
         }
+
+        public async Task<IEnumerable<Blog>> ReadLatest(int count)
+        {
+            return await _dbAdaptor.ReadLatest(count);
+        }
     }
 }

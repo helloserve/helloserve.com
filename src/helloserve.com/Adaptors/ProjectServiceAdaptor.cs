@@ -1,5 +1,6 @@
-﻿using helloserve.com.Models;
-using System;
+﻿using helloserve.com.Domain;
+using helloserve.com.Mappers;
+using helloserve.com.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,14 +8,21 @@ namespace helloserve.com.Adaptors
 {
     public class ProjectServiceAdaptor : IProjectServiceAdaptor
     {
-        public Task<ProjectView> Read(string key)
+        readonly IProjectService _service;
+
+        public ProjectServiceAdaptor(IProjectService service)
         {
-            throw new NotImplementedException();
+            _service = service;
         }
 
-        public Task<IEnumerable<ProjectItemView>> ReadAllActive()
+        public async Task<ProjectView> Read(string key)
         {
-            throw new NotImplementedException();
+            return (await _service.Read(key)).Map();
+        }
+
+        public async Task<IEnumerable<ProjectItemView>> ReadAllActive()
+        {
+            return (await _service.ReadAllActive()).Map();
         }
     }
 

@@ -25,9 +25,18 @@
     }
 }
 
-<div class="blog-content">
-    <h1>@Model.Title</h1>
-
+<div class="jumbotron">
+    <div class="container">
+        <h2 class="display-2">@Model.Title</h2>
+    </div>
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <div class="container-fluid text-center">
+            <img style="max-width:90%" src="@Model.ImageUrl" />
+        </div>
+    }
+</div>
+<div class="container-fluid blog-content">
     <p>
         <span>Published on @Model.PublishDate?.ToShortDateString()</span>
         @if (Context.User.Identity.IsAuthenticated)
@@ -40,7 +49,6 @@
 
     @(Html.Raw(Model.Content))
 </div>
-
 <div class="comment-container">
     <div style="padding:2em;">
         <div id="disqus_thread"></div>

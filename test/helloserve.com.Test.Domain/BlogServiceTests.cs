@@ -214,5 +214,18 @@ namespace helloserve.com.Test.Domain
             //assert
             _dbAdaptorMock.Verify(x => x.ReadListings(1, 3, ownerKey, true));
         }
+
+        [TestMethod]
+        public async Task ReadLatest_Verify()
+        {
+            //arrange
+            int count = 5;
+
+            //act
+            await Service.ReadLatest(count);
+
+            //assert
+            _dbAdaptorMock.Verify(x => x.ReadLatest(count));
+        }
     }
 }

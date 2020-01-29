@@ -9,5 +9,6 @@ namespace helloserve.com.Domain
         Task<Blog> Read(string title);
         Task Save(Blog blog);
         Task<IEnumerable<BlogListing>> ReadListings(int page, int count, string blogOwnerKey = null, bool publishedOnly = true);
+        Task<IEnumerable<Blog>> ReadLatest(int count);
     }
 }

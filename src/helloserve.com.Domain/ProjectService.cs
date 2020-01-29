@@ -13,6 +13,11 @@ namespace helloserve.com.Domain
             _repository = repository;
         }
 
+        public async Task<Project> Read(string key)
+        {
+            return await _repository.Read(key);
+        }
+
         public async Task<IEnumerable<Project>> ReadAllActive()
         {
             return await _repository.ReadAll();

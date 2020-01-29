@@ -15,6 +15,11 @@ namespace helloserve.com.Repository.Mappers
     }
     public static class ProjectMapper
     {
+        public static Domain.Models.Project Map(this Database.Entities.Project entity)
+        {
+            return Config.Mapper.Map<Domain.Models.Project>(entity);
+        }
+
         public static IEnumerable<Domain.Models.Project> Map(this IEnumerable<Database.Entities.Project> collection)
         {
             return Config.Mapper.Map<IEnumerable<Domain.Models.Project>>(collection);

@@ -16,6 +16,7 @@ namespace helloserve.com.Test.Repository
         public DbContextOptions<helloserveContext> Options;
 
         public TRepository Repository => ServiceProvider.GetService<TRepository>();
+        public helloserveContext Context => new helloserveContext(Options);
 
         protected RepositoryTests()
         {

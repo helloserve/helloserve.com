@@ -110,5 +110,18 @@ namespace helloserve.com.Test.Adaptors
             //assert
             _serviceMock.Verify(x => x.Publish(title, It.IsAny<IEnumerable<Domain.Syndication.Models.SyndicationText>>()));
         }
+
+        [TestMethod]
+        public async Task ReadLatest_Verify()
+        {
+            //arrange
+            int count = 5;
+
+            //act
+            await Adaptor.ReadLatest(count);
+
+            //assert
+            _serviceMock.Verify(x => x.ReadLatest(count));
+        }
     }
 }

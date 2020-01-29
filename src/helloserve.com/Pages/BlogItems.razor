@@ -8,47 +8,45 @@
 }
 else
 {
-    <div class="container-fluid">
-        @foreach (var item in blogItems)
-        {
-            <div class="container-fluid m-3" style="@ListingStyle(item)">
-                <div class="d-inline-flex mt-3" style="background-color:rgba(255,255,255,0.7)">
+    @foreach (var item in blogItems)
+    {
+        <div class="container-fluid" style="@ListingStyle(item)">
+            <div class="d-inline-flex mt-3" style="background-color:rgba(255,255,255,0.7)">
+                <div class="container-fluid">
+                    <NavLink class="nav-link" href="@AsUrl(item.Key)">
+                        <h4 class="h-helloserve">@item.Title</h4>
+                    </NavLink>
                     <div class="container-fluid">
-                        <NavLink class="nav-link" href="@AsUrl(item.Key)">
-                            <h4 class="h-helloserve">@item.Title</h4>
-                        </NavLink>
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-auto">
-                                    <h6>@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</h6>
-                                </div>
-                                <div class="col-md-auto">
-                                    <AuthorizeView>
-                                        <Authorized>
-                                            <NavLink href="@AsAdminUrl(item.Key)">
-                                                <span class="oi oi-pencil"></span>
-                                            </NavLink>
-                                        </Authorized>
-                                    </AuthorizeView>
-                                </div>
-                                <div class="col">
-                                    <p>
-                                        @item.Description
-                                    </p>
-                                    <p>
-                                        <NavLink href="@AsUrl(item.Key)">
-                                            <button class="btn btn-helloserve">Read More...</button>
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <h6>@(item.PublishDate == null ? "Not Published" : item.PublishDate.Value.ToShortDateString())</h6>
+                            </div>
+                            <div class="col-md-auto">
+                                <AuthorizeView>
+                                    <Authorized>
+                                        <NavLink href="@AsAdminUrl(item.Key)">
+                                            <span class="oi oi-pencil"></span>
                                         </NavLink>
-                                    </p>
-                                </div>
+                                    </Authorized>
+                                </AuthorizeView>
+                            </div>
+                            <div class="col">
+                                <p>
+                                    @item.Description
+                                </p>
+                                <p>
+                                    <NavLink href="@AsUrl(item.Key)">
+                                        <button class="btn btn-helloserve">Read More...</button>
+                                    </NavLink>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        }
-    </div>
-    <div class="m-3 text-center">
+        </div>
+    }
+    <div class="container p-3 text-center">
         <button @onclick="Previous" class="btn btn-dark btn-lg page"><span class="oi oi-chevron-left"></span></button>
         <span>Page @PageNo</span>
         <button @onclick="Next" class="btn btn-dark btn-lg page"><span class="oi oi-chevron-right"></span></button>

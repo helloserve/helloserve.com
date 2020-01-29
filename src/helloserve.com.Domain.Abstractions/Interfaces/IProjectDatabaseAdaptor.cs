@@ -7,5 +7,6 @@ namespace helloserve.com.Domain
     public interface IProjectDatabaseAdaptor
     {
         Task<IEnumerable<Project>> ReadAll();
+        Task<Project> Read(string key);
     }
 }

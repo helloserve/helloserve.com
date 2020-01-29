@@ -18,10 +18,20 @@ namespace helloserve.com.Repository
             _context = context;
         }
 
+        public async Task<Project> Read(string key)
+        {
+            var result = await _context.Projects
+                .Where(p => p.Key == key)
+                .SingleOrDefaultAsync();
+
+            return result.Map();
+        }
+
         public async Task<IEnumerable<Project>> ReadAll()
         {
             var result = await _context.Projects
                 .Where(p => p.IsActive)
+                .OrderBy(p => p.SortOrder)
                 .ToListAsync();
 
             return result.Map();

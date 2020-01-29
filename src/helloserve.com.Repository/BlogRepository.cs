@@ -80,5 +80,17 @@ namespace helloserve.com.Repository
                 })
                 .Map();
         }
+
+        public async Task<IEnumerable<Blog>> ReadLatest(int count)
+        {
+            var source = await (from b in _context.Blogs
+                                where b.IsPublished
+                                orderby b.PublishDate descending
+                                select b)
+                .Take(count)
+                .ToListAsync();
+
+            return source.Map();
+        }
     }
 }
