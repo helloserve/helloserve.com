@@ -16,6 +16,7 @@ namespace helloserve.com.Mappers
                 CreateMap<BlogListing, BlogItemView>();
                 CreateMap<Blog, BlogView>()
                     .ForMember(x => x.Content, opt => opt.MapFrom(blog => blog.Content.AsHtml()))
+                    .ForMember(x => x.Type, opt => opt.MapFrom((b, bv) => b.Type ?? "article"))
                     .ForMember(x => x.MetaCollection, opt => opt.Ignore());
                 CreateMap<Blog, BlogCreate>()
                     .ReverseMap();

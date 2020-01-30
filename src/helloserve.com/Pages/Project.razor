@@ -1,4 +1,4 @@
-@page "/projects/{title}"
+@page "/projects-blazor/{title}"
 @using helloserve.com.Models
 @using helloserve.com.Adaptors
 @inject IProjectServiceAdaptor ServiceAdaptor
@@ -13,7 +13,7 @@ else if (customPageType == null)
 {
     <div class="jumbotron">
         <div class="container text-center">
-            <h2 class="display-2">@project.Name</h2>
+            <h3 class="display-3">@project.Name</h3>
         </div>
         <div class="container text-center">
             <img src="@project.ImageUrl" style="max-width:80%;"/>

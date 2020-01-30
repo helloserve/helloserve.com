@@ -6,14 +6,4 @@
     @RenderSection("meta", false)
 }
 
-<app>
-    <div class="sidebar">
-        @(await Html.RenderComponentAsync<helloserve.com.Shared.NavMenu>(RenderMode.ServerPrerendered))
-    </div>
-
-    <div class="main">
-        <div class="content px-4">
-            @RenderBody()
-        </div>
-    </div>
-</app>
+@RenderBody()

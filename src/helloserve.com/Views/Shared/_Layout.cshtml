@@ -24,7 +24,13 @@
     <link href="css/site.css" rel="stylesheet" />
 </head>
 <body>
-    @RenderBody()
+    <app>
+        @(await Html.RenderComponentAsync<helloserve.com.Shared.NavMenu>(RenderMode.ServerPrerendered))
+        <main role="main" class="mt-5">
+            @RenderBody()
+        </main>
+    </app>
+
     <script src="~/js/authPopup.js"></script>
     <script src="_framework/blazor.server.js"></script>
     <environment exclude="Development">

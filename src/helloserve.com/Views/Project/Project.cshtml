@@ -1,16 +1,17 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model helloserve.com.Models.BlogView
+@model helloserve.com.Models.ProjectView
 @using helloserve.com
+@using helloserve.com.Pages
 @{
     Layout = "~/Views/Shared/_Layout_View.cshtml";
-    string pageUrl = $"{ViewBag.Host}blogs/{Model.Key}";
+    string pageUrl = $"{ViewBag.Host}projects/{Model.Key}";
     string pageIdentifier = $"helloserve-com-{Model.Key}";
 }
 
 @section meta {
-    <title>helloserve - @Model.Title</title>
+    <title>helloserve - @Model.Name</title>
     <meta property="og:type" content="@Model.Type">
-    <meta property="og:title" content="@Model.Title">
+    <meta property="og:title" content="@Model.Name">
     <meta property="og:description" content="@Model.Description">
     <meta property="og:image" content="@ViewBag.Host@Model.ImageUrl">
     <meta property="og:locale" content="en-ZA">
@@ -25,30 +26,27 @@
     }
 }
 
+@if (Model.ComponentPage == null)
+{
 <div class="jumbotron">
-    <div class="container">
-        <h3 class="display-3">@Model.Title</h3>
+    <div class="container text-center">
+        <h3 class="display-3">@Model.Name</h3>
     </div>
-    @if (!string.IsNullOrEmpty(Model.ImageUrl))
-    {
-        <div class="container-fluid text-center">
-            <img style="max-width:90%" src="@Model.ImageUrl" />
-        </div>
-    }
+    <div class="container text-center">
+        <img src="@Model.ImageUrl" style="max-width:80%;" />
+    </div>
 </div>
-<div class="container-fluid blog-content">
+<div class="container">
     <p>
-        <span>Published on @Model.PublishDate?.ToShortDateString()</span>
-        @if (Context.User.Identity.IsAuthenticated)
-        {
-            <a href="@Model.AdminUrl">
-                <span class="oi oi-pencil"></span>
-            </a>
-        }
+        @Model.Description
     </p>
-
-    @(Html.Raw(Model.Content))
 </div>
+}
+else
+{
+    @(await Html.RenderComponentAsync<ProjectCustom>(RenderMode.ServerPrerendered, new ProjectCustom.Parameters() { Project = Model, PageSize = 5 }))
+}
+
 <div class="comment-container">
     <div style="padding:2em;">
         <div id="disqus_thread"></div>

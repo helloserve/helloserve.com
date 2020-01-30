@@ -1,4 +1,4 @@
-@page "/blogs-old/{title}"
+@page "/blogs-blazor/{title}"
 @using helloserve.com.Adaptors
 @using helloserve.com.Models
 @inject IBlogServiceAdaptor ServiceAdaptor
@@ -13,7 +13,7 @@ else
 {
     <div class="jumbotron">
         <div class="container">
-            <h2 class="display-2">@Model.Title</h2>
+            <h3 class="display-3">@Model.Title</h3>
         </div>
         @if (!string.IsNullOrEmpty(Model.ImageUrl))
         {

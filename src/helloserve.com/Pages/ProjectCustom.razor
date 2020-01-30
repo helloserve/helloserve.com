@@ -1,0 +1,48 @@
+@using helloserve.com.Models
+
+@if (Project == null)
+{
+    <div class="container">
+        <p>Loading...</p>
+    </div>
+}
+else
+{
+    <CascadingAuthenticationState>
+        <CascadingValue Name="Owner" Value="@Project">
+            <CascadingValue Name="PageSize" Value="5">
+                @CreateDynamicComponent()
+            </CascadingValue>
+        </CascadingValue>
+    </CascadingAuthenticationState>
+}
+
+@code {
+    [Parameter]
+    public ProjectView Project { get; set; }
+
+    [Parameter]
+    public int PageSize { get; set; }
+
+    Type customPageType;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Project != null && !string.IsNullOrEmpty(Project.ComponentPage))
+        {
+            customPageType = this.GetType().Assembly.GetTypes().Where(t => t.Name == Project.ComponentPage).FirstOrDefault();
+        }
+    }
+
+    RenderFragment CreateDynamicComponent() => builder =>
+    {
+        builder.OpenComponent(0, customPageType);
+        builder.CloseComponent();
+    };
+
+    public class Parameters
+    {
+        public ProjectView Project { get; set; }
+        public int PageSize { get; set; }
+    }
+}

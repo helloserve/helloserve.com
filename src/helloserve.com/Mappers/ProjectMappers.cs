@@ -10,7 +10,9 @@ namespace helloserve.com.Mappers
         {
             public ProjectConfig()
             {
-                CreateMap<Domain.Models.Project, ProjectView>();
+                CreateMap<Domain.Models.Project, ProjectView>()
+                    .ForMember(x => x.Type, opt => opt.MapFrom((p, pv) => "article"))
+                    .ForMember(x=>x.MetaCollection, opt=>opt.Ignore());
                 CreateMap<Domain.Models.Project, ProjectItemView>();
             }
         }

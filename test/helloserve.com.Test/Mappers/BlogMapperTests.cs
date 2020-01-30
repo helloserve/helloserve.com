@@ -19,6 +19,7 @@ namespace helloserve.com.Test.Mappers
 
             //assert
             Assert.AreEqual("<p>content</p>\n", result.Content);
+            Assert.AreEqual("article", result.Type);
         }
 
         [TestMethod]
