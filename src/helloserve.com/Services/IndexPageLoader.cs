@@ -32,7 +32,7 @@ namespace helloserve.com.Services
                 {
                     Key = x.Key,
                     Title = x.Title,
-                    Url = $"/blog/{x.Key}",
+                    Url = $"/blogs/{x.Key}",
                     Content = CutContent(x.Content),
                     ImageUrl = x.ImageUrl
                 })

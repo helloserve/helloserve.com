@@ -36,8 +36,11 @@ else
 
     RenderFragment CreateDynamicComponent() => builder =>
     {
-        builder.OpenComponent(0, customPageType);
-        builder.CloseComponent();
+        if (customPageType != null)
+        {
+            builder.OpenComponent(0, customPageType);
+            builder.CloseComponent();
+        }
     };
 
     public class Parameters
