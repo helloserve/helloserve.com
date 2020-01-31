@@ -15,12 +15,10 @@
 
         <p>The series of blog posts chronicles my ownership of the car and covers the rather mundane to some pretty technical detail. It's not a how-to guide (or at least, is not intended to be).</p>
     </div>
-
-    <CascadingValue Name="OwnerKey" Value="@project.Key">
-        <BlogItems></BlogItems>
-    </CascadingValue>
-
 </div>
+<CascadingValue Name="OwnerKey" Value="@project.Key">
+    <BlogItems/>
+</CascadingValue>
 
 
 @code {
