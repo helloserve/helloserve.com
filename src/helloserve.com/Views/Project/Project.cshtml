@@ -26,7 +26,7 @@
     }
 }
 
-@if (Model.ComponentPage == null)
+@if (string.IsNullOrEmpty(Model.ComponentPage))
 {
 <div class="jumbotron">
     <div class="container text-center">

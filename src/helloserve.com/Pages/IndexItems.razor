@@ -52,11 +52,13 @@ else
 
     private List<IndexPageItem> indexItems { get; set; }
 
-    private IndexPageItem MainItem => indexItems.FirstOrDefault();
+    private IndexPageItem MainItem { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         indexItems = await LoadItems();
+        MainItem = indexItems.FirstOrDefault();
+        indexItems.RemoveAt(0);
     }
 
     private string ListingStyle(IndexPageItem item)

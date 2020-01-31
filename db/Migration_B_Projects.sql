@@ -1,9 +1,9 @@
 DECLARE @Projects TABLE ([Key] NVARCHAR(150), Name NVARCHAR(250), ComponentPage NVARCHAR(250), IsActive BIT, SortOrder INT, Description NVARCHAR(MAX), ImageUrl NVARCHAR(500))
 
 INSERT INTO @Projects ([Key], Name, ComponentPage, IsActive, SortOrder, Description, ImageUrl)
-VALUES ('stingrayincursion', 'Stingray Incursion', '', 1, 3, NULl, NULL),
-	   ('thebluecar', 'The Blue Car', 'TheBlueCar', 1, 1, 'Affectionally referred to by its colour, this 1989 Eunos Roadster is my first project car, and has a significant bond with our family.', 'media/20180609_162848.jpg'),
-	   ('thesarienexperiment', 'The Sarien Experiment', '', 1, 2, NULL, NULL)
+VALUES ('stingrayincursion', 'Stingray Incursion', NULL, 1, 3, NULl, NULL),
+	     ('thebluecar', 'The Blue Car', 'TheBlueCar', 1, 1, 'Affectionally referred to by its colour, this 1989 Eunos Roadster is my first project car, and has a significant bond with our family.', 'media/20180609_162848.jpg'),
+	     ('thesarienexperiment', 'The Sarien Experiment', NULL, 1, 2, NULL, NULL)
 
 MERGE Projects AS target
 USINg (SELECT [Key], Name, ComponentPage, IsActive, SortOrder, Description, ImageUrl FROM @Projects) AS source

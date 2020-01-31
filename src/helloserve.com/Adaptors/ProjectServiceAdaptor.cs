@@ -48,7 +48,7 @@ namespace helloserve.com.Adaptors
                     Key = key,
                     Name = "This is a project name",
                     Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin a massa vel sem ullamcorper luctus at ac dui. Donec eu tellus tincidunt, consectetur ipsum et, tincidunt nisl. Morbi ac urna in turpis pellentesque ultricies. Nunc euismod augue vel diam convallis, nec fringilla orci consequat. Nam mollis condimentum lorem, sit amet luctus erat ullamcorper sit amet. Cras vitae vulputate tellus. Aliquam auctor placerat dui, sed rhoncus libero laoreet vel. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque egestas neque in urna blandit condimentum. Donec quis volutpat nulla. Donec at orci sapien. Maecenas interdum laoreet malesuada.",
-                    ComponentPage = "SomeTest",
+                    ComponentPage = "",
                     ImageUrl = "media/20180609_162848.jpg"
                 });
             }

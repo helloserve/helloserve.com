@@ -8,7 +8,6 @@ namespace helloserve.com.Database.Entities
         public string Key { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
         public string ComponentPage { get; set; }
         public bool IsActive { get; set; }
 
