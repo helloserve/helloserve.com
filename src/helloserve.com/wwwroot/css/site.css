@@ -126,8 +126,16 @@ pre {
     color: firebrick;
 }
 
-.blog-content img {
-    text-align: center;
+.blog-content p {
+    text-align:justify;
+}
+
+.blog-img {
+    max-width: 90%;
+}
+
+.blog-img-container {
+    text-align: center !important;
 }
 
 @media (max-width: 767.98px) {

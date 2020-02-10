@@ -33,7 +33,9 @@ namespace helloserve.com.Mappers
 
         public static string AsHtml(this string markdown)
         {
-            return Markdown.ToHtml(markdown, _pipeline);
+            string html = Markdown.ToHtml(markdown, _pipeline);
+            html = html.Replace("<p><img", "<p class=\"blog-img-container\"><img");
+            return html;
         }
     }
 
