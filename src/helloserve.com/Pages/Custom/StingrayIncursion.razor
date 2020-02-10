@@ -1,0 +1,72 @@
+﻿@using helloserve.com.Models
+
+<div class="jumbotron">
+    <div class="container-fluid text-center">
+        <img src="/media/Stingray_FeatureHeader.png" style="max-width:100%" />
+    </div>
+    <div class="container-fluid">
+        <h3 class="display-3">Stingray Incursion</h3>
+
+        <h5>@project.Description</h5>
+    </div>
+</div>
+<div class="container">
+    <p>
+        During the hey-day of the XBox 360, when indie games were in the midst of it's first renaissance, I set about to make a game that was a 
+        mix between casual controller-based gameplay and involved systems and simulation. That game was called Stingray Incursion. You pilot a 
+        helicopter through a procedurally generated world serving as the backdrop for a fixed story pivoting around fixed set-pieces. (Bonus: it was
+        set in the same universe as my old web comic Freight, which no longer exists).
+    </p>
+
+    <p>
+        In 2012 I was still pretty young and enthusiastic, and I felt that I'd rather embark on the challenge of dealing with the low-level
+        stuff myself. XNA provided the necessary Direct-X interfaces in the language that I love, C#. It wouldn't be the first time that I built
+        low-level graphics pipelines and an asset engines. At university I worked on a pool-table simulation in Visual C++ and Direct-X 7. The
+        game quicly took shape, I put down the main control systems, the HUD, a full day and night cycle, I built rudimentary AI and a few classes of 
+        enemies and it was a blast. And then Microsoft pulled the plug on XNA and their C# support for their Direct-X suite.
+    </p>
+
+    <p>
+        I never fully recovered from the deprecation of the Game Studio SDK, and with it, the termination of my hard work of several years. I'm still
+        immensily proud of what I had built though, but unfortunately (because of the Game Studio dependency) all I have to show for it these days is a
+        pretty low-quality gameplay video, a few sceenshots, and a series of development blog posts.
+    </p>
+</div>
+
+<div class="container p-4 text-center">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/6So_0yg_Lxw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<div class="container-fluid text-center">
+    <div class="row">
+        <div class="col">
+            <img style="max-width:100%" src="/media/StingrayIncursion/Stingray_2012-04-29 09-09-30-45.png" />
+        </div>
+        <div class="col">
+            <img style="max-width:100%" src="/media/StingrayIncursion/Stingray_2012-04-29 09-10-00-45.png" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <img style="max-width:100%" src="/media/StingrayIncursion/Stingray_2012-04-29 09-11-10-45.png" />
+        </div>
+        <div class="col">
+            <img style="max-width:100%" src="/media/StingrayIncursion/Stingray_2012-04-29 09-16-39-98.png" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <img style="max-width:100%" src="/media/StingrayIncursion/Stingray_2012-04-29 09-17-09-99.png" />
+        </div>
+        <div class="col">
+            <img style="max-width:100%" src="/media/StingrayIncursion/Stingray_2012-04-29 09-17-19-99.png" />
+        </div>
+    </div>
+</div>
+<CascadingValue Name="OwnerKey" Value="@project.Key">
+    <BlogItems />
+</CascadingValue>
+
+
+@code {
+    [CascadingParameter(Name = "Owner")] ProjectView project { get; set; }
+}

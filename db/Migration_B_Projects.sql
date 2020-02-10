@@ -1,7 +1,7 @@
 DECLARE @Projects TABLE ([Key] NVARCHAR(150), Name NVARCHAR(250), ComponentPage NVARCHAR(250), IsActive BIT, SortOrder INT, Description NVARCHAR(MAX), ImageUrl NVARCHAR(500))
 
 INSERT INTO @Projects ([Key], Name, ComponentPage, IsActive, SortOrder, Description, ImageUrl)
-VALUES ('stingrayincursion', 'Stingray Incursion', NULL, 1, 3, NULl, NULL),
+VALUES ('stingrayincursion', 'Stingray Incursion', 'StingrayIncursion', 1, 3, 'This was a serious and real attempt at making a game. I wanted to build something I wanted to play.', 'media/Stingray_FeatureHeader.png'),
 	     ('thebluecar', 'The Blue Car', 'TheBlueCar', 1, 1, 'Affectionally referred to by its colour, this 1989 Eunos Roadster is my first project car, and has a significant bond with our family.', 'media/20180609_162848.jpg'),
 	     ('thesarienexperiment', 'The Sarien Experiment', NULL, 1, 2, NULL, NULL)
 
